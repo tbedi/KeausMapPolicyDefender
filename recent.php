@@ -16,9 +16,6 @@
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/ddsmoothmenu.js">
-
-
-
 </script>
 
 <script type="text/javascript">
@@ -35,10 +32,12 @@ ddsmoothmenu.init({
 
 
 
-
+<link rel="stylesheet" type="text/css" href="css/paginator.css" />
 <link href="css/TBLCSS.css" rel="stylesheet" type="text/css" />
 <link href="css/div.css" rel="stylesheet" type="text/css" />
 <?php 
+
+
 include "db.php";
 $sql="select max(date_executed) as maxd from crawl";
 $result=mysql_query($sql);
@@ -49,7 +48,72 @@ $result=mysql_query($sql);
 ?>
 
 </head>
+<?php
 
+
+	include('connect.php');	
+
+	$tableName="crawl_results";		
+	$targetpage = "recent.php"; 	
+	$limit = 10; 
+	
+	$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
+inner join
+prices.crawl_results
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join
+crawl 
+on crawl.id=crawl_results.crawl_id
+where crawl_results.violation_amount>0.05 
+and
+crawl.id = 
+(select max(crawl.id) from crawl)
+";
+	
+	$total_pages = mysql_fetch_array(mysql_query($query));
+	$total_pages = $total_pages['num'];
+	
+	$stages = 3;
+	$page = mysql_escape_string($_GET['page']);
+	if($page){
+		$start = ($page - 1) * $limit; 
+	}else{
+		$start = 0;	
+		}						
+
+//include('db.php');
+       
+$query1="select catalog_product_flat_1.sku,
+website.name as wname, 
+crawl_results.vendor_price,
+crawl_results.map_price,
+crawl_results.violation_amount,
+crawl_results.website_product_url
+from website
+inner join
+prices.crawl_results
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join
+crawl 
+on crawl.id=crawl_results.crawl_id
+where crawl_results.violation_amount>0.05 
+and
+crawl.id = 
+(select max(crawl.id) from crawl)
+order by sku asc  LIMIT $start, $limit";
+$result=mysql_query($query1);
+
+// Initial page num setup
+	if ($page == 0){$page = 1;}
+	$prev = $page - 1;	
+	$next = $page + 1;							
+	$lastpage = ceil($total_pages/$limit);		
+	$LastPagem1 = $lastpage - 1;	
+?>
 <body id="home" onload="tableSearch.init();">
 
 <div id="templatemo_main">
@@ -75,7 +139,7 @@ $result=mysql_query($sql);
    
     
     <div class="GrayBlack">
-  		<table align="center">
+  		<table align="center" class="GrayBlack">
         	<tbody id="data">
  		<tr> 
  			 <td>
@@ -100,35 +164,8 @@ $result=mysql_query($sql);
  		  </td>
 		</tr>
        
-
-
-					
-<?php
-include('db.php');
-       
-$sql="select catalog_product_flat_1.sku,
-website.name as wname, 
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
-crawl_results.website_product_url
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-order by sku asc";
-$result=mysql_query($sql);
       
-  
+  <?php
         while($row = mysql_fetch_array($result)) 
        
 	   { 
@@ -146,15 +183,48 @@ $result=mysql_query($sql);
 		 echo "</table>";
       
      //  mysql_close($con); 
+ include ('page2.php');
  ?>
+
+
+ 
+ 
+ 
+
+ 
  
 </div>
 
 </td>  
        
    
-</tr>       
+</tr>
  </tbody></table> 
+ <table align="center">
+<tr>
+<td >
+
+<!--<div style="hight=250px width=250px">-->
+<?php  
+//include_once 'chart/A1pie_gradient.php';?>
+<!--<div id="container" style="min-width: 250px; height: 250px; margin: 0 auto"></div>-->
+
+<iframe src="chart/A1pie_gradient.php" style="hight=300px; width=300px;  overflow:hidden;  frameborder=0; " >
+</iframe>
+
+</td>
+<td>
+<iframe src="chart/A2pie_gradient.php" style=" hight=300px; width=300px; overflow:hidden; frameborder=0; " >
+</iframe>
+<?php  
+//include_once 'chart/A2pie_gradient.php';
+?>
+</td>
+</tr>
+</table>
+
+       
+
  </div>   
 </div>
 

@@ -1,8 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Highcharts Example</title>
+
 
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <script src="js/highcharts1.js"></script>
@@ -30,7 +26,7 @@ $(function () {
                 plotShadow: false
             },
             title: {
-                text: 'Price Violation By Product '
+                text: 'Price Violation By Seller '
             },
             tooltip: {
         	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -54,27 +50,24 @@ $(function () {
                 type: 'pie',
                 name: 'Violation',
                 data: [
-                    ['Product1',   45.0],
-                    ['Product2',       26.8],
+                    ['Open Box Savings', 10.2  ],
+                    ['Home Depot',       26.8],
                     {
-                        name: 'Product3',
+                        name: 'Culinary Depot',
                         y: 12.8,
                         sliced: true,
                         selected: true
                     },
-                    ['Product4',    8.5],
-                    ['Product5',     6.2],
-                    ['Product6',   0.7]
+                    ['CookwarePro',    15.5],
+                    ['Sprinkler Warehouse',   34.0  ],
+                    ['TigerChef',   0.7]
                 ]
             }]
         });
     });
 
 		</script>
-	</head>
-	<body>
 
-<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 
-	</body>
-</html>
+<div id="container" style="min-width: 250px; height: 250px; margin: 0 auto"></div>
+

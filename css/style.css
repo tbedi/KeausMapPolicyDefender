@@ -8,6 +8,17 @@ body {
 	font: .8em "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
+#searchbox{
+background-image:url(images/sr.png) no-repeat 4px 4px;	
+	border:2px solid #456879;
+	border-radius:10px;float:left;
+	height: 22px;
+	width: 230px;	
+}
+
+
+
+
 h2{ 
 	margin-bottom:10px;
 }

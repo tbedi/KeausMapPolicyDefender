@@ -13,7 +13,7 @@
 <script type="text/JavaScript" src="js/jquery.mousewheel.js"></script> 
 
 <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
-
+<link rel="stylesheet" type="text/css" href="css/paginator.css" />
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/ddsmoothmenu.js">
 
@@ -38,6 +38,82 @@ ddsmoothmenu.init({
 
 <link href="css/TBLCSS.css" rel="stylesheet" type="text/css" />
 <link href="css/div.css" rel="stylesheet" type="text/css" />
+
+
+
+<?php
+	include('connect.php');	
+
+	$tableName="crawl_results";		
+	$targetpage = "product.php"; 	
+	$limit = 10; 
+	
+	$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM prices.catalog_product_flat_1
+inner join
+prices.crawl_results
+on catalog_product_flat_1.entity_id = crawl_results.product_id 
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+where crawl_results.violation_amount>0.05
+ and 
+crawl.id = 
+(select max(crawl.id) from crawl)
+group by prices.catalog_product_flat_1.sku,
+prices.catalog_product_flat_1.name
+order by count(crawl_results.product_id) desc";
+	$total_pages = mysql_fetch_array(mysql_query($query));
+	$total_pages = $total_pages['num'];
+	
+	$stages = 3;
+	$page = mysql_escape_string($_GET['page']);
+	if($page){
+		$start = ($page - 1) * $limit; 
+	}else{
+		$start = 0;	
+		}	
+	
+    // Get page data
+	$query1 = "SELECT distinct 
+catalog_product_flat_1.sku,
+catalog_product_flat_1.name,
+crawl_results.vendor_price,
+crawl_results.map_price,
+max(crawl_results.violation_amount) as maxvio,
+min(crawl_results.violation_amount) as minvio,
+count(crawl_results.product_id) as i_count
+FROM
+prices.catalog_product_flat_1
+inner join
+prices.crawl_results
+on catalog_product_flat_1.entity_id = crawl_results.product_id 
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+where crawl_results.violation_amount>0.05
+ and 
+crawl.id = 
+(select max(crawl.id) from crawl)
+group by prices.catalog_product_flat_1.sku,
+prices.catalog_product_flat_1.name
+order by count(crawl_results.product_id) desc LIMIT $start, $limit";
+	$result = mysql_query($query1);
+	
+	// Initial page num setup
+	if ($page == 0){$page = 1;}
+	$prev = $page - 1;	
+	$next = $page + 1;							
+	$lastpage = ceil($total_pages/$limit);		
+	$LastPagem1 = $lastpage - 1;					
+	
+
+	?>
+	
+
+
+
+
+
 </head>
 
 <body id="home" onload="tableSearch.init();">
@@ -92,32 +168,9 @@ ddsmoothmenu.init({
 
 					
 <?php
-include('db.php');
+//include('db.php');
        
-$sql="SELECT distinct 
-catalog_product_flat_1.sku,
-catalog_product_flat_1.name,
-crawl_results.vendor_price,
-crawl_results.map_price,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
-count(crawl_results.product_id) as i_count
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.05
- and 
-crawl.id = 
-(select max(crawl.id) from crawl)
-group by prices.catalog_product_flat_1.sku,
-prices.catalog_product_flat_1.name
-order by count(crawl_results.product_id) desc ";
-$result=mysql_query($sql);
+
       
   
         while($row = mysql_fetch_array($result)) 
@@ -132,8 +185,9 @@ $result=mysql_query($sql);
             
 	   }
 		 echo "</table>";
+		   include ('page2.php');
       
-     //  mysql_close($con); 
+     //  mysql_close($con); 	
  ?>
  
 </div>
