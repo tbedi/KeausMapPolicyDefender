@@ -19,12 +19,14 @@ crawl.id =
 group by prices.catalog_product_flat_1.sku,
 prices.catalog_product_flat_1.name
 order by count(crawl_results.product_id)";
-	$total_pages = mysql_fetch_array(mysql_query($query));
+$total_pages = mysql_fetch_array(mysql_query($query));
 	$total_pages = $total_pages['num'];
 	
 	$stages = 3;
-	$page = mysql_escape_string($_GET['page']);
-	if($page){
+	 $page=1;
+
+	if(isset($_GET['page'])){
+		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
@@ -57,7 +59,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
 	$result = mysql_query($query1);
 	
 	// Initial page num setup
-	if ($page == 0){$page = 1;}
+if (!$page){$page = 1;}
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
@@ -124,7 +126,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
             echo "<td>";
                
 			   
-			    echo "<a href="."?sku_id=".$row['sku']."&showclicked".">".$row['sku']."</td>"."<td>".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>".$row['maxvio']."</td>"."<td>".$row['minvio']."</td>"."</tr>";   
+			    echo "<a href="."?sku_id=".$row['sku']."&showclicked1".">".$row['sku']."</td>"."<td>".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>".$row['maxvio']."</td>"."<td>".$row['minvio']."</td>"."</tr>";   
 				
             
 	   }
@@ -144,10 +146,9 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
  
  
  <?php
-if(isset($_GET['showclicked']))
+if(isset($_GET['showclicked1']))
 {
 	
-	echo "heloooooo";
-    include_once 'pviolation1.php';
+	    include_once 'pviolation1.php';
 }
- 
+ ?>

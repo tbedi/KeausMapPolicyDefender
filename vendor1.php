@@ -1,5 +1,43 @@
 <link href="css/TBLCSS.css" rel="stylesheet" type="text/css">
  
+ <?php
+
+//pagination
+	include('connect.php');	
+
+	$tableName="crawl_results";		
+	$targetpage = "vendor1.php"; 	
+	$limit = 10; 
+	$query = "SELECT COUNT(crawl_results.website_id) as num FROM website
+inner join
+crawl_results
+on website.id = crawl_results.website_id
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+
+where crawl_results.violation_amount>0.05 
+and
+crawl.id =
+(select max(crawl.id) from crawl)
+group by website.name , crawl_results.website_id
+order by count(crawl_results.website_id) desc
+";
+	
+	$total_pages = mysql_fetch_array(mysql_query($query));
+	$total_pages = $total_pages['num'];
+	$stages = 3;
+	$page=1;
+
+	if(isset($_GET['page'])){
+		$page = mysql_escape_string($_GET['page']);
+		$start = ($page - 1) * $limit; 
+	}else{
+		$start = 0;	
+		}	
+		?>
+ 
+ 
 <h3 align="center"	>Seller Violations</h3>
 <table align="center"   >
 <tr>
@@ -44,7 +82,7 @@
  <?php
 include('db.php');
 
-$sql1="select website.name,
+$query1="select website.name,
 crawl_results.website_id,
 max(crawl_results.violation_amount) as maxvio,
 min(crawl_results.violation_amount) as minvio,
@@ -62,17 +100,23 @@ and
 crawl.id = 
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id
-order by count(crawl_results.website_id) desc
-";
-   
+order by count(crawl_results.website_id) desc LIMIT $start, $limit";
+   $result=mysql_query($query1);
+      
+	  // Initial page num setup
+	if (!$page){$page = 1;}
+	$prev = $page - 1;	
+	$next = $page + 1;							
+	$lastpage = ceil($total_pages/$limit);		
+	$LastPagem1 = $lastpage - 1;			
        
-	    $result1=mysql_query($sql1);
-        while($row = mysql_fetch_array($result1)) 
+	  
+        while($row = mysql_fetch_array($result)) 
        { 
        echo "<tr>";
        echo "<td>";
  
-       echo "<a href="."vviolation.php?website_id=".$row['website_id'].">".$row['name']."</td>"."<td>".$row['wi_count']."</td>"."<td>".$row['maxvio']."</td>"."<td>".$row['minvio']."</td>"	."</tr>";
+       echo "<a href="."?website_id=".$row['website_id']."&showclicked".">".$row['name']."</td>"."<td>".$row['wi_count']."</td>"."<td>".$row['maxvio']."</td>"."<td>".$row['minvio']."</td>"	."</tr>";
        echo "</td>";
        echo "</tr>";  
        } 
@@ -80,11 +124,19 @@ order by count(crawl_results.website_id) desc
        
     // mysql_close($con); 
  ?>	 
- 
+ <div  style="display:block;">
+  <?php include_once ('page2.php');?>
+</div>
 
 </td>  
        
    
 </tr>       
  </tbody></table> 
- 
+  <?php
+if(isset($_GET['showclicked']))
+{
+	
+	    include_once 'vviolation1.php';
+}
+ ?>

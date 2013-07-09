@@ -5,21 +5,21 @@ Credit: http://www.templatemo.com
 body {
 	margin: 0;
 	padding: 0;
-	color: #6e6e6e;
+	/*color: #6e6e6e;*/
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 13px;
 	line-height: 1.4em; 
-	background-color: #3b3939;
+	/*background-color: #3b3939;*/
 	background-repeat: repeat-x;
 	background-position: top;
 }
 
 #home { 
-	background-image: url(../images/templatemo_bg_homepage.jpg); 
+	/*background-image: url(../images/templatemo_bg_homepage.jpg); */
 }
 
 #subpage { 
-	background-image: url(../images/templatemo_bg_subpage.jpg); 
+/*	background-image: url(../images/templatemo_bg_subpage.jpg); */
 }
 
 a, a:link, a:visited { 
@@ -82,7 +82,7 @@ h6 { font-size: 12px; margin: 0 0 5px; padding: 0; }
 .h30 { height: 30px }
 .h40 { height: 40px }
 .h50 { height: 50px }
-.divider { margin-bottom: 40px; padding-bottom: 20px; background: url(../images/templatemo_divider.png) repeat-x bottom; }
+.divider { margin-bottom: 40px; padding-bottom: 20px; /*background: url(../images/templatemo_divider.png) repeat-x bottom;*/ }
 
 .image_fl { float: left; margin: 3px 20px 5px 0 }
 .image_fr { float: right; margin: 3px 0 5px 20px }
@@ -116,7 +116,7 @@ h6 { font-size: 12px; margin: 0 0 5px; padding: 0; }
 	width: 960px;
 	margin: 0 auto;
 	padding: 40px 10px 20px;
-	background: url(../images/templatemo_header_dividier.png) repeat-x bottom
+	/*background: url(../images/templatemo_header_dividier.png) repeat-x bottom*/
 }
 
 #templatemo_slider {
@@ -159,7 +159,11 @@ h6 { font-size: 12px; margin: 0 0 5px; padding: 0; }
 
 #templatemo_footer_wrapper {
 	width: 100%;
-	background: #181818;
+	background: #ccccc;
+}
+#templatemo_footer_wrapper1 {
+	width: 100%;
+	background: #36C;
 }
 
 #templatemo_footer {
@@ -170,7 +174,7 @@ h6 { font-size: 12px; margin: 0 0 5px; padding: 0; }
 }
 
 #templatemo_footer a {
-	color: #6e6e6e;
+	color: #000	;
 }
 
 #site_title { 
@@ -586,7 +590,7 @@ p.position {
 }
 
 .footer_list li a { 
-	color: #aca6a6; 
+	/*color: #aca6a6; */
 }
 
 .twitter_post { 

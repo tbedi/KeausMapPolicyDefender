@@ -1,3 +1,32 @@
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1332079-8']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  //highcharts colors
+  $(function () {	
+  	// Radialize the colors
+  	Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
+  	    return {
+  	        radialGradient: { cx: 0.2, cy: 0.5, r: 0.4 },
+  	        stops: [
+  	            [0, color],
+  	            [1, Highcharts.Color(color).brighten(-0.1).get('rgb')] // darken
+  	        ]
+  	    };
+  	});
+  });
+  //highcharts colors
+  
+</script>
+
  <link rel="stylesheet" type="text/css" href="css/paginator.css" />
 <?php   
 include "db.php";
@@ -6,8 +35,7 @@ $result=mysql_query($sql);
      while($row = mysql_fetch_array($result)) 
        	   {   $str=$row['maxd'];
 		   }
-	
-?>	
+	?>	
 
 <?php
 
@@ -37,8 +65,10 @@ crawl.id =
 	$total_pages = $total_pages['num'];
 	
 	$stages = 3;
-	$page = mysql_escape_string($_GET['page']);
-	if($page){
+	 $page=1;
+
+	if(isset($_GET['page'])){
+		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
@@ -69,7 +99,7 @@ order by sku asc LIMIT $start, $limit";
 $result=mysql_query($query1);
       
 	  // Initial page num setup
-	if ($page == 0){$page = 1;}
+	if (!$page){$page = 1;}
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
@@ -137,24 +167,38 @@ $result=mysql_query($query1);
 			 <td ><?php echo $row['map_price']; ?></td>
      	 	<td ><?php echo $row['violation_amount']; ?></td>
      	  <td ><?php echo "<a target=".'_blank'." href =".$row['website_product_url']. ">"."Link". "</a>" ?></td>
-        <?php echo "</tr>";
+       <?php echo "</tr>";
             
 	   }
 		 echo "</table>";
       
      //  mysql_close($con); 
-	 
-			
- include ('page2.php');
-	
-	
- ?>
+	?> 
+    
+<div  style="display:block;">
+  <?php include_once ('page2.php');?>
+</div>			
  
- 
-
+	
 </td>  
        
    
 </tr>       
  </tbody></table> 
+<!-- <iframe src="chart/a1.php" style="height:300px; width:300px">-->
  
+ <div  style="display:block;">
+   <?php //include_once 'charts/a1.php'; ?>
+   <?php //include_once 'charts/a2.php'; ?>
+
+</div>  
+<!--</iframe>-->
+
+ <object data="charts/a1.php" width="400" height="400">
+    <embed src="charts/a1.php" width="400" height="400"> </embed>
+        Error: Embedded data could not be displayed.
+</object>
+    <object data="charts/a2.php" width="400" height="400">
+    <embed src="charts/a2.php" width="400" height="400"> </embed>
+    Error: Embedded data could not be displayed.
+</object>  	

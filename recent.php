@@ -76,13 +76,18 @@ crawl.id =
 	$total_pages = $total_pages['num'];
 	
 	$stages = 3;
-	$page = mysql_escape_string($_GET['page']);
-	if($page){
+	 $page=1;
+
+	if(isset($_GET['page'])){
+		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
-		}						
-
+		}	
+							
+ 
+	 
+	
 //include('db.php');
        
 $query1="select catalog_product_flat_1.sku,
@@ -108,7 +113,7 @@ order by sku asc  LIMIT $start, $limit";
 $result=mysql_query($query1);
 
 // Initial page num setup
-	if ($page == 0){$page = 1;}
+	if (!$page){$page = 1;}//now error here
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
@@ -206,18 +211,18 @@ $result=mysql_query($query1);
 
 <!--<div style="hight=250px width=250px">-->
 <?php  
-//include_once 'chart/A1pie_gradient.php';?>
+include_once 'chart/A1pie_gradient.php';?>
 <!--<div id="container" style="min-width: 250px; height: 250px; margin: 0 auto"></div>-->
 
-<iframe src="chart/A1pie_gradient.php" style="hight=300px; width=300px;  overflow:hidden;  frameborder=0; " >
-</iframe>
+<!--<iframe src="chart/A1pie_gradient.php" style="hight=300px; width=300px;  overflow:hidden;  frameborder=0; " >
+</iframe>-->
 
 </td>
 <td>
-<iframe src="chart/A2pie_gradient.php" style=" hight=300px; width=300px; overflow:hidden; frameborder=0; " >
-</iframe>
+<!--<iframe src="chart/A2pie_gradient.php" style=" hight=300px; width=300px; overflow:hidden; frameborder=0; " >
+</iframe>-->
 <?php  
-//include_once 'chart/A2pie_gradient.php';
+include_once 'chart/A2pie_gradient.php';
 ?>
 </td>
 </tr>

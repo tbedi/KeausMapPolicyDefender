@@ -5,7 +5,7 @@
 
 body {
 	background:url(../../images/background.png) top left;
-	font: .8em "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font: .8em "Arial", "Helvetica", sans-serif;
 }
 
 #searchbox{
@@ -38,8 +38,8 @@ h2{
 #wrapper a{
 	display:block;
 	font-size:1.2em;
-	padding-top:20px;
-	color:#FFF;
+	/*padding-top:20px;*/
+	color:#600;
 	text-decoration:none;
 	text-align:center;
 }
@@ -47,8 +47,8 @@ h2{
 #tabContainer {
 	width:950px;
 	padding:15px;
-	background-color:#2e2e2e;
-	-moz-border-radius: 4px;
+	background-color: #cccccc;
+	-moz-border-radius: 2px;
 	border-radius: 4px; 
 }
 
