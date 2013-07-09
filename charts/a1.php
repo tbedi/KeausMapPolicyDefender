@@ -1,4 +1,4 @@
-<?php include_once 'db.php'; ?>
+
 <?php 
  
 //getting last crawl
@@ -32,7 +32,7 @@ foreach ($items as $product) {
  }
  
  $js_data_string=implode($chart_rows,",");
- print_r($js_data_string);
+ //print_r($js_data_string);
 ?>
 <script type="text/javascript">
 $(function () {	 

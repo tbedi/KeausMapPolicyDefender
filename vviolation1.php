@@ -22,7 +22,7 @@ where website_id=$web_id");
      <?php
 
 //pagination
-	include('connect.php');	
+	include('db.php');	
 
 	$tableName="crawl_results";		
 	$targetpage = "recent1.php"; 	
@@ -107,8 +107,6 @@ $result=mysql_query($query1);
        <td bgcolor="#CCCCCC"> <strong>Link</strong></td>
       </tr>
    <?php
-
-
 if(!$result)
 {
 	echo "error";

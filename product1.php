@@ -1,5 +1,5 @@
  <?php
-	include('connect.php');	
+	include('db.php');	
 
 	$tableName="crawl_results";		
 	$targetpage = "product1.php"; 	

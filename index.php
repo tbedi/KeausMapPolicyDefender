@@ -17,26 +17,20 @@
 <!-- hightcharts libraries -->
 <!--<script type="text/javascript" src="js/jquery-1-4-2.min.js"></script> -->
  
-<script type="text/javascript" src="js/jquery-ui.min.js"></script> 
-<script type="text/javascript" src="js/showhide.js"></script> 
+<!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
+<!--<script type="text/javascript" src="js/showhide.js"></script> -->
 <script type="text/JavaScript" src="js/jquery.mousewheel.js"></script> 
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+<!--<script type="text/javascript" src="js/ddsmoothmenu.js"></script>-->
 <script type="text/javascript" src="js/search.js"></script> <!-- Js from recent.php -->
 
-<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+<!--<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" /> -->
 <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
 <link href="css/TBLCSS.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
 <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/paginator.css" />
-
-
-
-
-
-
 
 
 <!-- 
@@ -90,7 +84,7 @@ ddsmoothmenu.init({
 <body id="home" >
 
 <div id="templatemo_header_wrapper" >
-	<div ><a  href="http://www.kraususa.com/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
+	<div ><a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
     <img src="images/head3.PNG" width="725" height="71" align="top" /></div>
      <div id="templatemo_menu" class="ddsmoothmenu">
              <br style="clear: left" />

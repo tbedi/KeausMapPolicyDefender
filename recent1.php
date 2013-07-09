@@ -1,35 +1,5 @@
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-1332079-8']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-  //highcharts colors
-  $(function () {	
-  	// Radialize the colors
-  	Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
-  	    return {
-  	        radialGradient: { cx: 0.2, cy: 0.5, r: 0.4 },
-  	        stops: [
-  	            [0, color],
-  	            [1, Highcharts.Color(color).brighten(-0.1).get('rgb')] // darken
-  	        ]
-  	    };
-  	});
-  });
-  //highcharts colors
-  
-</script>
-
- <link rel="stylesheet" type="text/css" href="css/paginator.css" />
 <?php   
-include "db.php";
+
 $sql="select max(date_executed) as maxd from crawl";
 $result=mysql_query($sql);
      while($row = mysql_fetch_array($result)) 
@@ -39,8 +9,8 @@ $result=mysql_query($sql);
 
 <?php
 
-//pagination
-	include('connect.php');	
+////pagination
+	//include('db.php');	
 
 	$tableName="crawl_results";		
 	$targetpage = "recent1.php"; 	
@@ -101,7 +71,7 @@ $result=mysql_query($query1);
 	  // Initial page num setup
 	if (!$page){$page = 1;}
 	$prev = $page - 1;	
-	$next = $page + 1;							
+	$next = $page + 1;							//its latest batch date  from crawl table
 	$lastpage = ceil($total_pages/$limit);		
 	$LastPagem1 = $lastpage - 1;					
 ?>
@@ -173,10 +143,16 @@ $result=mysql_query($query1);
 		 echo "</table>";
       
      //  mysql_close($con); 
+	
+	
+	
+	
 	?> 
     
+  
+    
 <div  style="display:block;">
-  <?php include_once ('page2.php');?>
+  <?php //include_once ('page2.php');?>
 </div>			
  
 	
@@ -185,20 +161,9 @@ $result=mysql_query($query1);
    
 </tr>       
  </tbody></table> 
-<!-- <iframe src="chart/a1.php" style="height:300px; width:300px">-->
  
  <div  style="display:block;">
-   <?php //include_once 'charts/a1.php'; ?>
-   <?php //include_once 'charts/a2.php'; ?>
+   <?php include_once 'charts/a1.php'; ?>
+   <?php include_once 'charts/a2.php'; ?>
 
 </div>  
-<!--</iframe>-->
-
- <object data="charts/a1.php" width="400" height="400">
-    <embed src="charts/a1.php" width="400" height="400"> </embed>
-        Error: Embedded data could not be displayed.
-</object>
-    <object data="charts/a2.php" width="400" height="400">
-    <embed src="charts/a2.php" width="400" height="400"> </embed>
-    Error: Embedded data could not be displayed.
-</object>  	

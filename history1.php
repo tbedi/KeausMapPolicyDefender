@@ -3,7 +3,7 @@
 <?php
 
 //pagination
-	include('connect.php');	
+	include('db.php');	
 	$tableName="crawl_results";		
 	$targetpage = "history1.php"; 	
 	$limit = 10; 

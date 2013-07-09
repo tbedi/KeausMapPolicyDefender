@@ -8,7 +8,7 @@ $sku_name = $_REQUEST['sku_id'];
 <?php
 
 //pagination
-	include('connect.php');	
+	include('db.php');	
 
 	$tableName="crawl_results";		
 	$targetpage = "recent1.php"; 	
