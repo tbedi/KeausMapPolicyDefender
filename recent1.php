@@ -13,7 +13,7 @@ $result=mysql_query($sql);
 	//include('db.php');	
 
 	$tableName="crawl_results";		
-	$targetpage = "recent1.php"; 	
+	$targetpage = "index.php"; 	
 	$limit = 10; 
 	
 	$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
@@ -37,11 +37,12 @@ crawl.id =
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page'])){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='recent' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
+		$page=1;
 		}	
 		
 		
@@ -69,7 +70,8 @@ order by sku asc LIMIT $start, $limit";
 $result=mysql_query($query1);
       
 	  // Initial page num setup
-	if (!$page){$page = 1;}
+	//if (!$page){$page = 1;}
+	$tab_name='recent';
 	$prev = $page - 1;	
 	$next = $page + 1;							//its latest batch date  from crawl table
 	$lastpage = ceil($total_pages/$limit);		
@@ -152,7 +154,7 @@ $result=mysql_query($query1);
   
     
 <div  style="display:block;">
-  <?php //include_once ('page2.php');?>
+  <?php include_once ('page2.php');?>
 </div>			
  
 	
