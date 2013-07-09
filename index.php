@@ -3,15 +3,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Top Products And Vendors</title>
+<title>Top Products And Vendors</title
 
-
-
-
-
-<!-- hightcharts libraries -->
+><!-- hightcharts libraries -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
- <script src="js/highcharts.js"></script>
+<script src="js/highcharts.js"></script>
  
 <script src="js/exporting.js"></script>  
 <!-- hightcharts libraries -->

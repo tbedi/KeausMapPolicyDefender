@@ -15,11 +15,13 @@ window.onload=function() {
     navitem.setAttribute("class","tabActiveHeader");
 
     //hide two tab contents we don't need
-   	 var pages = tabcon.getElementsByTagName("div");
+   	 /*var pages = tabcon.getElementsByTagName("div");
     	for (var i = 1; i < pages.length; i++) {
      	 pages.item(i).style.display="none";
 		};
-
+*/
+		/*Alex jQuery tabs*/ $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); $('#tabpage_1').css("display","block"); /*Alex jQuery tabs*/
+		
     //this adds click event to tabs
     var tabs = container.getElementsByTagName("li");
     for (var i = 0; i < tabs.length; i++) {
