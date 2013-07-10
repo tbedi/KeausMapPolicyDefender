@@ -149,4 +149,16 @@ $result=mysql_query($query1);
    
 </tr>       
  </tbody></table> 
- 
+   <div  style="display: table-row-group;">
+        <table>
+            <tr>
+                <td>
+                    <?php include_once 'charts/a5.php'; ?>
+                </td>
+               <td>
+                    <?php include_once 'charts/a6.php'; ?>
+                </td>
+            </tr>
+           
+        </table>
+</div>  
