@@ -154,7 +154,7 @@ $result=mysql_query($query1);
   
     
 <div  style="display:block;">
-  <?php include_once ('page2.php');?>
+  <?php include  ('page2.php');?>
 </div>			
  
 	

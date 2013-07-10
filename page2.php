@@ -1,5 +1,5 @@
 
-<?php
+<?php  
 $paginate = '';
 	if($lastpage > 1)
 	{	

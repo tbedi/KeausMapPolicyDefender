@@ -37,6 +37,7 @@ order by count(crawl_results.product_id)";
     // Get page data
 	$query1 = "SELECT distinct 
 catalog_product_flat_1.sku,
+catalog_product_flat_1.entity_id as product_id,
 catalog_product_flat_1.name,
 crawl_results.vendor_price,
 crawl_results.map_price,
@@ -124,7 +125,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
             echo "<td>";
                
 			   
-			    echo "<a href="."?sku_id=".$row['sku']."&showclicked1".">".$row['sku']."</td>"."<td>".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>".$row['maxvio']."</td>"."<td>".$row['minvio']."</td>"."</tr>";   
+			    echo "<a href="."?tab=violation-by-product&product_id=".$row['product_id'].">".$row['sku']."</td>"."<td>".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>".$row['maxvio']."</td>"."<td>".$row['minvio']."</td>"."</tr>";   
 				
             
 	   }
@@ -148,7 +149,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
  
  
  <?php
-if(isset($_GET['showclicked1']))
+if(isset($_GET['product_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-product" )
 {
 	
 	    include_once 'pviolation1.php';

@@ -1,11 +1,6 @@
 <?php
-$sku_name = $_REQUEST['sku_id'];
-?>
-
-<h3 align="center"> Sellers Violated  <?php echo $sku_name; ?> </h3> 
-
-<?php
-
+$product_id = $_REQUEST['product_id'];
+ 
 //pagination
 
 
@@ -13,24 +8,24 @@ $sku_name = $_REQUEST['sku_id'];
     $targetpage = "index.php"; 		
 	$limit = 10; 
 	
-	$query = "SELECT COUNT(website.name) as num FROM crawl_results
-inner join catalog_product_flat_1
-on
-crawl_results.product_id= catalog_product_flat_1.entity_id
-inner join website
-on
-crawl_results.website_id= website.id
-where crawl_results.violation_amount>0.05 and
-sku like '$sku_name'
-order by violation_amount desc";
+	$query = "SELECT  COUNT(*) as num
+				  FROM crawl_results  r
+    INNER JOIN website w
+    ON r.website_id=w.id
+    INNER JOIN catalog_product_flat_1 p
+    ON p.entity_id=r.product_id
+    AND p.entity_id='".$product_id."'
+    WHERE r.crawl_id=".$last_crawl['id']."
+		    AND r.violation_amount>0.05
+		    ORDER BY r.violation_amount DESC";
 	
-	$total_pages = mysql_fetch_array(mysql_query($query));
+	$total_pages = mysql_fetch_assoc(mysql_query($query));
 	$total_pages = $total_pages['num'];
-	
+	  
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='pviolation' ){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-product' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
@@ -38,30 +33,23 @@ order by violation_amount desc";
 		$page=1;
 		}	
 		
+	 
+$sql = "SELECT  w.`name` as vendor , r.violation_amount as violation_amount, r.vendor_price, r.map_price, r.website_product_url
+				  FROM crawl_results  r
+    INNER JOIN website w
+    ON r.website_id=w.id
+    INNER JOIN catalog_product_flat_1 p
+    ON p.entity_id=r.product_id
+    AND p.entity_id='".$product_id."'
+    WHERE r.crawl_id=".$last_crawl['id']."
+		    AND r.violation_amount>0.05
+		    ORDER BY r.violation_amount DESC LIMIT $start, $limit";	
 		
-		$query1="SELECT distinct 
-catalog_product_flat_1.sku, website.name as wname,
-website.domain,
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
-crawl_results.website_product_url
-FROM
-crawl_results
-inner join catalog_product_flat_1
-on
-crawl_results.product_id= catalog_product_flat_1.entity_id
-inner join website
-on
-crawl_results.website_id= website.id
-where crawl_results.violation_amount>0.05 and
-sku like '$sku_name'
-order by violation_amount desc LIMIT $start, $limit";
-$result=mysql_query($query1);
+$result=mysql_query($sql);
       
 	  // Initial page num setup
 		//if (!$page){$page = 1;}
-	$tab_name='pviolation';
+	$tab_name='violation-by-product';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
@@ -69,6 +57,7 @@ $result=mysql_query($query1);
 ?>
 
 
+<h3 align="center"> Sellers Violated  <?php echo $product_id; ?> </h3> 
 
 
 
@@ -108,7 +97,7 @@ $result=mysql_query($query1);
  <?php
 
 
-while($row=mysql_fetch_array($result))
+while($row=mysql_fetch_assoc($result))
 {
 ?>
     <?php
@@ -120,7 +109,7 @@ while($row=mysql_fetch_array($result))
   
 	
 	
-      <td ><?php echo $row['wname']; ?></td>
+      <td ><?php echo $row['vendor']; ?></td>
       <td ><?php echo $row['vendor_price']; ?></td>
       <td ><?php echo $row['map_price']; ?></td>
       <td id="vioR"><?php echo $row['violation_amount']; ?></td>
@@ -135,7 +124,7 @@ while($row=mysql_fetch_array($result))
     ?>
     
   
-      <td ><?php echo $row['wname']; ?></td>
+      <td ><?php echo $row['vendor']; ?></td>
       <td ><?php echo $row['vendor_price']; ?></td>
       <td ><?php echo $row['map_price']; ?></td>
       <td td id="vioO"><?php echo $row['violation_amount']; ?></td>
@@ -150,7 +139,7 @@ while($row=mysql_fetch_array($result))
     ?>
     
   
-      <td ><?php echo $row['wname']; ?></td>
+      <td ><?php echo $row['vendor']; ?></td>
       <td ><?php echo $row['vendor_price']; ?></td>
       <td ><?php echo $row['map_price']; ?></td>
       <td td id="vio"><?php echo $row['violation_amount']; ?></td>
@@ -164,25 +153,17 @@ while($row=mysql_fetch_array($result))
 // close while loop 
 }
 ?>
- <div  style="display:block;">
-  <?php include_once ('page2.php');?>
-</div>			
  
- 
-
 </td>  
        
-   
 </tr>       
  </tbody></table> 
- <div  style="display: table-row-group;">
-        <table>
-            <tr>
-                <td>
-                    <?php include_once 'charts/a3.php'; ?>
-                </td>
-               
-            </tr>
-           
-        </table>
+<div  style="display:block;">
+  <?php include  ('page2.php'); ?>
+</div>			
+ 
+ <div>
+        
+                    <?php  include_once 'charts/a3.php'; ?>
+    
 </div>  

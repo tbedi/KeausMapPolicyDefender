@@ -1,9 +1,6 @@
+ 
 <?php
-$sku = $_REQUEST['sku_id'];
-?>
-<?php
-//example sku
-//$sku='GV-101-CH';
+ 
 // getting last crawl
 $sql = "select id, date_executed from crawl ORDER BY id DESC LIMIT 1";
 $result = mysql_query ( $sql );
@@ -17,7 +14,7 @@ $sql = "SELECT  w.`name` as vendor ,
     ON r.website_id=w.id 
     INNER JOIN catalog_product_flat_1 p 
     ON p.entity_id=r.product_id  
-    AND p.sku='".$sku."'  
+    AND p.entity_id='".$product_id."'  
     WHERE r.crawl_id=".$last_crawl['id']." 
             AND r.violation_amount>0.05 
             ORDER BY r.violation_amount DESC LIMIT ".$limit;
