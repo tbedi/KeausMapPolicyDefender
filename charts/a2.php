@@ -8,7 +8,16 @@ $last_crawl = mysql_fetch_assoc($result);
 	
 $limit=10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
-$sql="SELECT  w.`name`, COUNT(w.`name`) as violations   FROM crawl_results  r INNER JOIN website w ON r.website_id=w.id WHERE r.crawl_id=".$last_crawl['id']." AND r.violation_amount>1   GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT ".$limit;
+$sql="SELECT  w.`name`,
+    COUNT(w.`name`) as violations 
+    FROM crawl_results  r 
+    INNER JOIN
+    website w 
+    ON
+    r.website_id=w.id 
+    WHERE r.crawl_id=".$last_crawl['id']."
+        AND r.violation_amount>0.05
+        GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT ".$limit;
 $result=mysql_query($sql);
 
 //getting sum
@@ -32,7 +41,7 @@ foreach ($items as $product) {
  }
  
  $js_data_string=implode($chart_rows,",");
- print_r($js_data_string);
+ //print_r($js_data_string);
 ?>
 <script type="text/javascript">
 $(function () {	
@@ -77,4 +86,4 @@ $(function () {
 });
 </script>
 
-<div id="chart-a2" style="min-width: 300px; height: 300px; margin: 0 auto"></div>
+<div id="chart-a2" style="min-width: 400px; height: 300px; margin: 0 auto"></div>

@@ -21,9 +21,7 @@ window.onload=function() {
 		};
 */
 		/*Alex jQuery tabs*/ $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); $('#tabpage_1').css("display","block"); /*Alex jQuery tabs*/
-		 $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); $('#tabpage_2').css("display","block"); 
-		 $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); $('#tabpage_3').css("display","block");
-		 $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); $('#tabpage_4').css("display","block"); 
+		
 		
     //this adds click event to tabs
     var tabs = container.getElementsByTagName("li");

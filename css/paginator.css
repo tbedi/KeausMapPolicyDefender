@@ -1,7 +1,7 @@
 .paginate {
 font-family:Arial, Helvetica, sans-serif;
 	padding: 3px;
-	margin: 3px;
+	 margin: 17px 3px 3px 0;
 }
 
 .paginate a {
@@ -37,7 +37,6 @@ font-family:Arial, Helvetica, sans-serif;
 		background-color:#FCC;
 		list-style:none;}
 		
-	ul{margin:6px;
-	padding:0px;}	
+	ul{	padding:0px;}	
 	
 

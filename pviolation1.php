@@ -95,11 +95,11 @@ $result=mysql_query($query1);
   		<table class="GrayBlack" align="center">
         	<tbody id="data">
  		<tr> 
- 			 <td bgcolor="#CCCCCC"><b>Website</b></td>
-        <td bgcolor="#CCCCCC"><b>Vendor Price</b></td>
-        <td bgcolor="#CCCCCC"><b>Map</b></td>
-        <td bgcolor="#CCCCCC"><b>Violation</b></td>
-        <td bgcolor="#CCCCCC"><b>Link</b></td>
+ 			 <td bgcolor="#CCCCCC">Website</td>
+        <td bgcolor="#CCCCCC">Vendor price</td>
+        <td bgcolor="#CCCCCC">Map</td>
+        <td bgcolor="#CCCCCC">Violation</td>
+        <td bgcolor="#CCCCCC">Link</td>
 		</tr>
        
 
@@ -175,4 +175,14 @@ while($row=mysql_fetch_array($result))
    
 </tr>       
  </tbody></table> 
- 
+ <div  style="display: table-row-group;">
+        <table>
+            <tr>
+                <td>
+                    <?php include_once 'charts/a3.php'; ?>
+                </td>
+               
+            </tr>
+           
+        </table>
+</div>  

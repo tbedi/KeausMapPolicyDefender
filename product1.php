@@ -26,7 +26,7 @@ order by count(crawl_results.product_id)";
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='pviolation' ){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='product' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
@@ -62,7 +62,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
 	
 	// Initial page num setup
 //if (!$page){$page = 1;}
-	$tab_name='pviolation';
+	$tab_name='product';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
@@ -94,21 +94,21 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
         	<tbody id="data">
  		<tr> 
  			 <td>
- 		 <strong>SKU ID</strong>
+ 		 SKU ID
  		  </td>	
    
  		 <td>
-  		<strong>MAP</strong>
+  		MAP
  		  </td>
    <td>
- 		 <strong>Total Vioations</strong>
+ 		 Total violations
  		  </td>	
    
  		 <td>
-  		<strong>Max Violation Amount</strong>
+  		Max Violation amount
  		  </td>
            <td>
-  		<strong>Min Violation Amount</strong>
+  		Min Violation amount
  		  </td>
 		</tr>
        

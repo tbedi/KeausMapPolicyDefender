@@ -93,27 +93,27 @@ $result=mysql_query($query1);
         	<tbody id="data">
  		<tr> 
  			 <td>
- 		 <strong>Product</strong>
- 		  </td>	
+ 		 Product
+                         </td>	
    
  		 <td>
-  		<strong>SKU</strong>
+  		SKU
  		  </td>
    <td>
- 		 <strong>Seller</strong>
+ 		Seller
  		  </td>	
    
  		 <td>
-  		<strong>Vendor Price</strong>
+  		Vendor price
  		  </td>
            <td>
-  		<strong>MAP Price</strong>
+  		MAP price
  		  </td>
             <td>
-  		<strong>Violation Amt</strong>
+  		Violation amt
  		  </td>
             <td>
-  		<strong>Screenshot</strong>
+  		Screenshot
  		  </td>
 		</tr>
       

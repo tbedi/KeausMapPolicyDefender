@@ -101,11 +101,11 @@ $result=mysql_query($query1);
 <tbody id="data"> 
 <tr  align="center" >
   
-        <td bgcolor="#CCCCCC"><strong>SKU</strong></td>
-       <td bgcolor="#CCCCCC"> <strong>Vendor Price</strong></td>
-       <td bgcolor="#CCCCCC"> <strong>Map Price</strong></td>
-       <td bgcolor="#CCCCCC"> <strong>Violation Amount</strong></td>
-       <td bgcolor="#CCCCCC"> <strong>Link</strong></td>
+        <td bgcolor="#CCCCCC">SKU</td>
+       <td bgcolor="#CCCCCC"> Vendor price</td>
+       <td bgcolor="#CCCCCC"> Map price</td>
+       <td bgcolor="#CCCCCC"> Violation amount</td>
+       <td bgcolor="#CCCCCC"> Link</td>
       </tr>
    <?php
 if(!$result)
@@ -150,3 +150,14 @@ else
 
 </tbody>
   </table>
+<div  style="display: table-row-group;">
+        <table>
+            <tr>
+                <td>
+                    <?php include_once 'charts/a4.php'; ?>
+                </td>
+               
+            </tr>
+           
+        </table>
+</div>  

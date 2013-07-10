@@ -102,24 +102,24 @@ $result=mysql_query($query1);
         	<tbody id="data">
  		<tr> 
  			 <td>
- 		 <strong>SKU</strong>
+ 		SKU
  		  </td>	
    
  		 <td>
-  		<strong>Seller</strong>
+  		Seller
  		  </td>
    <td>
- 		 <strong>Seller Price</strong>
+ 		 Seller price
  		  </td>	
    
  		 <td>
-  		<strong>MAP</strong>
+  		MAP
  		  </td>
            <td>
-  		<strong>Violation Amt</strong>
+  		Violation amt
  		  </td>
             <td>
-  		<strong>Screenshot</strong>
+  		Screenshot
  		  </td>
 		</tr>
        
@@ -164,8 +164,16 @@ $result=mysql_query($query1);
 </tr>       
  </tbody></table> 
  
- <div  style="display:block;">
-   <?php include_once 'charts/a1.php'; ?>
-   <?php include_once 'charts/a2.php'; ?>
-
+    <div  style="display: table-row-group;">
+        <table>
+            <tr>
+                <td>
+                    <?php include_once 'charts/a1.php'; ?>
+                </td>
+                <td>
+                    <?php include_once 'charts/a2.php'; ?>
+                </td>
+            </tr>
+           
+        </table>
 </div>  

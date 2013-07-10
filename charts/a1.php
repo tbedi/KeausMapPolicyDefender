@@ -8,7 +8,16 @@ $last_crawl = mysql_fetch_assoc($result);
 	
 $limit=10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
-$sql="SELECT  p.sku, COUNT(p.sku) as violations  FROM crawl_results  r INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  WHERE r.crawl_id=".$last_crawl['id']." AND r.violation_amount>1   GROUP BY p.sku ORDER BY COUNT(p.sku) DESC LIMIT ".$limit;
+$sql="SELECT  p.sku,
+    COUNT(p.sku) as violations
+    FROM crawl_results  r 
+    INNER JOIN
+    catalog_product_flat_1 p
+    ON
+    p.entity_id=r.product_id 
+    WHERE r.crawl_id=".$last_crawl['id']."
+        AND r.violation_amount>0.05  
+        GROUP BY p.sku ORDER BY COUNT(p.sku) DESC LIMIT ".$limit;
 $result=mysql_query($sql);
 
 //getting sum
@@ -76,4 +85,4 @@ $(function () {
 });
 </script>
 
-<div id="chart-a1" style="min-width: 300px; height: 300px; margin: 0 auto"></div>
+<div id="chart-a1" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
