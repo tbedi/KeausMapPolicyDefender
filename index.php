@@ -76,13 +76,9 @@
             </div>
             
         </div>
-
-        <div id="templatemo_menu" class="ddsmoothmenu">
-            <br style="clear: left" />
-        </div> 
+ 
         <!-- http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx-->
-
-        </div>	
+ 
         <div id="templatemo_footer_wrapper1">
             <div id="templatemo_footer">
                 <div align="center">
@@ -134,8 +130,7 @@
 
 
                 <div class="cleaner"></div>
-
-                <div class="cleaner"></div>
+ 
             </div> 
         </div> 
 

@@ -99,9 +99,9 @@ $result=mysql_query($sql);
 
 while($row=mysql_fetch_assoc($result))
 {
-?>
+?> <tr>
     <?php
-     echo "<tr>";
+     
 	   
 	   if($row['violation_amount']>10)
 		  {
@@ -113,7 +113,7 @@ while($row=mysql_fetch_assoc($result))
       <td ><?php echo $row['vendor_price']; ?></td>
       <td ><?php echo $row['map_price']; ?></td>
       <td id="vioR"><?php echo $row['violation_amount']; ?></td>
-      <td ><?php echo "<a target=".'_blank'." href =".$row['website_product_url']. ">" ." Product Link". "</a>" ?></td>
+      <td ><?php echo "<a target=".'_blank'." href=".$row['website_product_url']. ">" ." Product Link". "</a>" ?></td>
 	
 	<?php
 	
@@ -127,8 +127,8 @@ while($row=mysql_fetch_assoc($result))
       <td ><?php echo $row['vendor']; ?></td>
       <td ><?php echo $row['vendor_price']; ?></td>
       <td ><?php echo $row['map_price']; ?></td>
-      <td td id="vioO"><?php echo $row['violation_amount']; ?></td>
-      <td ><?php echo "<a target=".'_blank'." href =".$row['website_product_url']. ">"." Product Link". "</a>" ?></td>
+      <td   id="vioO"><?php echo $row['violation_amount']; ?></td>
+      <td ><?php echo "<a target=".'_blank'." href=".$row['website_product_url']. ">"." Product Link". "</a>" ?></td>
      <?php
 	  }
 	  
@@ -143,7 +143,7 @@ while($row=mysql_fetch_assoc($result))
       <td ><?php echo $row['vendor_price']; ?></td>
       <td ><?php echo $row['map_price']; ?></td>
       <td td id="vio"><?php echo $row['violation_amount']; ?></td>
-      <td ><?php echo "<a target=".'_blank'." href =".$row['website_product_url']. ">"." Product Link". "</a>" ?></td>
+      <td ><?php echo "<a target=".'_blank'." href=".$row['website_product_url']. ">"." Product Link". "</a>" ?></td>
      <?php
 	  }
 	  
@@ -158,12 +158,16 @@ while($row=mysql_fetch_assoc($result))
        
 </tr>       
  </tbody></table> 
-<div  style="display:block;">
-  <?php include  ('page2.php'); ?>
+ </td>  
+       
+</tr>       
+ </tbody></table> 
+<div  style="display:block;" >
+  <?php  include  ('page2.php'); ?>
 </div>			
  
- <div>
+<div>
         
-                    <?php  include_once 'charts/a3.php'; ?>
-    
-</div>  
+<?php  include_once 'charts/a3.php'; ?>
+</div>
+ 

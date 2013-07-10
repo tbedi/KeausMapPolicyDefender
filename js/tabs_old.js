@@ -2,12 +2,7 @@ window.onload=function() {
 
   	var container = document.getElementById("tabContainer");
 	var tabcon = document.getElementById("tabscontent");
-    // set current tab
-    var navitem = document.getElementById("tabHeader_1");
-		
-    //store which tab we are on
-    var ident = navitem.id.split("_")[1];
-    navitem.parentNode.setAttribute("data-current",ident);
+    
     
 	/*Alex jQuery tabs*/
         $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); 
@@ -18,6 +13,12 @@ window.onload=function() {
 			else
 				$(this).addClass("tabActiveHeader");
 		});
+		 // set current tab
+	    var navitem = $('.tabActiveHeader').attr("id");
+			 
+	    //store which tab we are on
+	    var ident = navitem.split("_")[1];
+	    $('.tabActiveHeader').parent().attr("data-current",ident);
 	/*Alex jQuery tabs*/
 		
 		

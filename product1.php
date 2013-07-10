@@ -74,7 +74,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
 <h3 align="center"	>Product Violations</h3>
 <table align="center"   >
 <tr>
-<td >
+<td>
   
  <!-- transfer all inline styles into style.css -->
   <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
