@@ -27,24 +27,9 @@
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
-
-
-        <!-- 
-        <script type="text/javascript">
-        
-        ddsmoothmenu.init({
-                mainmenuid: "templatemo_menu", 
-                orientation: 'h',
-                classname: 'ddsmoothmenu',
-                
-                contentsource: "markup" 
-        })
-        
-        </script> 
-        -->
-
+		<script type="text/javascript"> <?php echo (isset($_GET['tab']) ? "var selected_tab='".$_GET['tab']."'; " : "var selected_tab='recent'; " );    ?> </script>
         <script src="js/tabs_old.js"></script>
-
+ 
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
@@ -117,29 +102,29 @@
             <div id="tabContainer" align="center" onclick="tableSearch.init()" onmousemove="tableSearch.init()">
                 <div id="tabs" align="center">
                     <ul>
-                        <li id="tabHeader_1">Recent violations</li>
-                        <li id="tabHeader_2">Violation by product</li>
-                        <li id="tabHeader_3">Violation by seller</li>
-                        <li id="tabHeader_4">Violation history</li>
+                        <li id="tabHeader_1" class="recent">Recent violations</li>
+                        <li id="tabHeader_2" class="violation-by-product" >Violation by product</li>
+                        <li id="tabHeader_3" class="violation-by-seller" >Violation by seller</li>
+                        <li id="tabHeader_4" class="violations-history">Violation history</li>
                     </ul>
                 </div>
                 <div id="tabscontent" align="center">
 
-                    <div class="tabpage" id="tabpage_1">
+                    <div class="tabpage recent" id="tabpage_1">
                         <?php include_once 'recent1.php'; ?>
 
 
                     </div>
 
-                    <div class="tabpage" id="tabpage_2">
+                    <div class="tabpage violation-by-product" id="tabpage_2">
                         <?php include_once 'product1.php'; ?>
 
                     </div>
 
-                    <div class="tabpage" id="tabpage_3">
+                    <div class="tabpage violation-by-seller" id="tabpage_3">
                         <?php include_once 'vendor1.php'; ?>
                     </div>
-                    <div class="tabpage" id="tabpage_4">
+                    <div class="tabpage violations-history" id="tabpage_4">
                         <?php include_once 'history1.php'; ?>
 
                     </div>    
