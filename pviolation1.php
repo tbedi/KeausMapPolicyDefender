@@ -53,7 +53,8 @@ $result=mysql_query($sql);
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
-	$LastPagem1 = $lastpage - 1;				
+	$LastPagem1 = $lastpage - 1;	
+	$additional_params="&product_id=".$product_id; //addtiion params to pagination url;
 ?>
 
 
