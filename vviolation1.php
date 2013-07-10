@@ -1,7 +1,6 @@
 
 <?php
 
-include('db.php');
 $web_id = $_REQUEST['website_id'];
 $result= mysql_query("select website.name as wname 
 from website
@@ -22,10 +21,9 @@ where website_id=$web_id");
      <?php
 
 //pagination
-	include('db.php');	
 
 	$tableName="crawl_results";		
-	$targetpage = "recent1.php"; 	
+		$targetpage = "index.php"; 		
 	$limit = 10; 
 	
 	$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
@@ -38,17 +36,19 @@ where crawl_results.violation_amount>0.05
 and website_id = $web_id
 order by violation_amount desc";
 	
+	
 	$total_pages = mysql_fetch_array(mysql_query($query));
 	$total_pages = $total_pages['num'];
 	
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page'])){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='vviolation' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
+		$page=1;
 		}	
 		
 		
@@ -76,7 +76,8 @@ order by violation_amount desc LIMIT $start, $limit";
 $result=mysql_query($query1);
       
 	  // Initial page num setup
-	if (!$page){$page = 1;}
+		//if (!$page){$page = 1;}
+	$tab_name='vviolation';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		

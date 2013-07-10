@@ -10,7 +10,7 @@ $result=mysql_query($sql);
 <?php
 
 ////pagination
-	//include('db.php');	
+	
 
 	$tableName="crawl_results";		
 	$targetpage = "index.php"; 	
@@ -73,7 +73,7 @@ $result=mysql_query($query1);
 	//if (!$page){$page = 1;}
 	$tab_name='recent';
 	$prev = $page - 1;	
-	$next = $page + 1;							//its latest batch date  from crawl table
+	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
 	$LastPagem1 = $lastpage - 1;					
 ?>

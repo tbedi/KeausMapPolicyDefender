@@ -3,10 +3,10 @@
 <?php
 
 //pagination
-	include('db.php');	
+	
 	$tableName="crawl_results";		
-	$targetpage = "history1.php"; 	
-	$limit = 10; 
+	$targetpage = "index.php"; 	
+	$limit = 10;
 	
 	$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
 inner join
@@ -24,17 +24,18 @@ crawl.id =
 order by sku asc
 ";
 	
-	$total_pages = mysql_fetch_array(mysql_query($query));
+		$total_pages = mysql_fetch_array(mysql_query($query));
 	$total_pages = $total_pages['num'];
 	
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page'])){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='history' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
+		$page=1;
 		}	
 		
 		$query1="select catalog_product_flat_1.sku,
@@ -62,7 +63,8 @@ order by sku asc LIMIT $start, $limit";
 $result=mysql_query($query1);
       
 	  // Initial page num setup
-	if (!$page){$page = 1;}
+	//if (!$page){$page = 1;}
+	$tab_name='history';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
@@ -136,7 +138,8 @@ $result=mysql_query($query1);
      //  mysql_close($con); 
  ?>
  
- <div  style="display:block;">
+    
+<div  style="display:block;">
   <?php include_once ('page2.php');?>
 </div>			
  

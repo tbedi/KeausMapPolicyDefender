@@ -1,5 +1,4 @@
 <?php
-include('db.php');
 $sku_name = $_REQUEST['sku_id'];
 ?>
 
@@ -8,10 +7,10 @@ $sku_name = $_REQUEST['sku_id'];
 <?php
 
 //pagination
-	include('db.php');	
+
 
 	$tableName="crawl_results";		
-	$targetpage = "recent1.php"; 	
+    $targetpage = "index.php"; 		
 	$limit = 10; 
 	
 	$query = "SELECT COUNT(website.name) as num FROM crawl_results
@@ -31,13 +30,13 @@ order by violation_amount desc";
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page'])){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='pviolation' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
+		$page=1;
 		}	
-		
 		
 		
 		$query1="SELECT distinct 
@@ -61,11 +60,12 @@ order by violation_amount desc LIMIT $start, $limit";
 $result=mysql_query($query1);
       
 	  // Initial page num setup
-	if (!$page){$page = 1;}
+		//if (!$page){$page = 1;}
+	$tab_name='pviolation';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
-	$LastPagem1 = $lastpage - 1;					
+	$LastPagem1 = $lastpage - 1;				
 ?>
 
 

@@ -1,8 +1,8 @@
  <?php
-	include('db.php');	
+	
 
 	$tableName="crawl_results";		
-	$targetpage = "product1.php"; 	
+	$targetpage = "index.php"; 	
 	$limit = 10; 
 	
 	$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM prices.catalog_product_flat_1
@@ -19,17 +19,19 @@ crawl.id =
 group by prices.catalog_product_flat_1.sku,
 prices.catalog_product_flat_1.name
 order by count(crawl_results.product_id)";
-$total_pages = mysql_fetch_array(mysql_query($query));
+
+   $total_pages = mysql_fetch_array(mysql_query($query));
 	$total_pages = $total_pages['num'];
 	
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page'])){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='pviolation' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
+		$page=1;
 		}	
 	
     // Get page data
@@ -59,12 +61,12 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
 	$result = mysql_query($query1);
 	
 	// Initial page num setup
-if (!$page){$page = 1;}
+//if (!$page){$page = 1;}
+	$tab_name='pviolation';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
-	$LastPagem1 = $lastpage - 1;					
-	
+	$LastPagem1 = $lastpage - 1;				
 
 	?>
 	
@@ -114,11 +116,7 @@ if (!$page){$page = 1;}
 
 					
 <?php
-//include('db.php');
-       
 
-      
-  
         while($row = mysql_fetch_array($result)) 
        
 	   { 
@@ -131,10 +129,14 @@ if (!$page){$page = 1;}
             
 	   }
 		 echo "</table>";
-       include ('page2.php');
+    
      //  mysql_close($con); 
  ?>
  
+<div  style="display:block;">
+  <?php include_once ('page2.php');?>
+</div>			
+ 		
  
 
 </td>  
