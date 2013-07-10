@@ -24,7 +24,7 @@ $result = mysql_query ( $sql );
 $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
 while ( $row = mysql_fetch_assoc ( $result ) ) {
-  $chart_row = "'" . $row ['vendor'] . "'";
+  $chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $row['vendor']) . "'";
   array_push ( $chart_vendor_rows, $chart_row ); 
   array_push ( $chart_violation_amount_rows,  $row ['violation_amount']);
 }

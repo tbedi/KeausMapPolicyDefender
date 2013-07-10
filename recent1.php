@@ -75,7 +75,8 @@ $result=mysql_query($query1);
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
-	$LastPagem1 = $lastpage - 1;					
+	$LastPagem1 = $lastpage - 1;	
+	$additional_params=""; //addtiion params to pagination url;
 ?>
 
 <h3 align="center">Recent Violations( <?php echo $str; ?>)</h3>

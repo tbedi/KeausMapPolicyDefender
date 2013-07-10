@@ -5,7 +5,17 @@
 	$targetpage = "index.php"; 	
 	$limit = 10; 
 	
-	$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM prices.catalog_product_flat_1
+	 $query = "SELECT distinct 
+catalog_product_flat_1.sku,
+catalog_product_flat_1.entity_id as product_id,
+catalog_product_flat_1.name,
+crawl_results.vendor_price,
+crawl_results.map_price,
+max(crawl_results.violation_amount) as maxvio,
+min(crawl_results.violation_amount) as minvio,
+count(crawl_results.product_id) as i_count
+FROM
+prices.catalog_product_flat_1
 inner join
 prices.crawl_results
 on catalog_product_flat_1.entity_id = crawl_results.product_id 
@@ -18,22 +28,26 @@ crawl.id =
 (select max(crawl.id) from crawl)
 group by prices.catalog_product_flat_1.sku,
 prices.catalog_product_flat_1.name
-order by count(crawl_results.product_id)";
-
-   $total_pages = mysql_fetch_array(mysql_query($query));
-	$total_pages = $total_pages['num'];
-	
-	$stages = 3;
+order by maxvio desc "; 
+	 
+	 /*Pagination*/
+	 $result = mysql_query($query);
+	 $total_pages = mysql_num_rows($result);  
+ 
+	 
+	 $stages = 3;
 	 $page=1;
-
-	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='product' ){
-		$page = mysql_escape_string($_GET['page']);
-		$start = ($page - 1) * $limit; 
-	}else{
-		$start = 0;	
-		$page=1;
-		}	
-	
+	 
+	 if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-product' ){
+	 	$page = mysql_escape_string($_GET['page']);
+	 	$start = ($page - 1) * $limit;
+	 }else{
+	 	$start = 0;
+	 	$page=1;
+	 }
+	 
+	 /*Pagination*/
+   
     // Get page data
 	$query1 = "SELECT distinct 
 catalog_product_flat_1.sku,
@@ -58,9 +72,9 @@ crawl.id =
 (select max(crawl.id) from crawl)
 group by prices.catalog_product_flat_1.sku,
 prices.catalog_product_flat_1.name
-order by count(crawl_results.product_id) desc LIMIT $start, $limit";
+order by maxvio desc LIMIT $start, $limit";
 	$result = mysql_query($query1);
-	
+ 
 	// Initial page num setup
 //if (!$page){$page = 1;}
 	$tab_name='product';
@@ -68,7 +82,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
 	$LastPagem1 = $lastpage - 1;				
-
+	$additional_params=""; //addtiion params to pagination url;
 	?>
 	
 <h3 align="center"	>Product Violations</h3>
@@ -135,7 +149,7 @@ order by count(crawl_results.product_id) desc LIMIT $start, $limit";
  ?>
  
 <div  style="display:block;">
-  <?php include_once ('page2.php');?>
+  <?php include ('page2.php');?>
 </div>			
  		
  
