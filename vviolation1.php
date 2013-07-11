@@ -16,7 +16,6 @@ where website_id=$web_id");
  }
 ?>
   
-
 	 <h3 align="center"> Products Violated by <?php echo $str; ?> <h3> 
      <?php
 
@@ -43,7 +42,7 @@ order by violation_amount desc";
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='vviolation' ){
+	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-seller' ){
 		$page = mysql_escape_string($_GET['page']);
 		$start = ($page - 1) * $limit; 
 	}else{
@@ -77,7 +76,7 @@ $result=mysql_query($query1);
       
 	  // Initial page num setup
 		//if (!$page){$page = 1;}
-	$tab_name='vviolation';
+	$tab_name='violation-by-seller';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
@@ -144,7 +143,7 @@ else
 	
  ?>	
  <div  style="display:block;">
-  <?php include_once ('page2.php');?>
+  <?php include('page2.php');?>
 </div>			
  
 

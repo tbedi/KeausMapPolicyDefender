@@ -29,7 +29,7 @@ $total_pages = $total_pages['num'];
 $stages = 3;
 $page = 1;
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'vendor') {
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
     $page = mysql_escape_string($_GET['page']);
     $start = ($page - 1) * $limit;
 } else {
@@ -104,7 +104,7 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
 
                     // Initial page num setup
                     //if (!$page){$page = 1;}
-                    $tab_name = 'vendor';
+                    $tab_name = 'violation-by-seller';
                     $prev = $page - 1;
                     $next = $page + 1;
                     $lastpage = ceil($total_pages / $limit);
@@ -125,7 +125,7 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     ?>	 
 
                 <div  style="display:block;">
-                    <?php include_once ('page2.php'); ?>
+                    <?php include ('page2.php'); ?>
                 </div>	
 
         </td>  

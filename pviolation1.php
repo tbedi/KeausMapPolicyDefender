@@ -34,7 +34,7 @@ $product_id = $_REQUEST['product_id'];
 		}	
 		
 	 
-$sql = "SELECT  w.`name` as vendor , r.violation_amount as violation_amount, r.vendor_price, r.map_price, r.website_product_url
+$sql = "SELECT  distinct w.`name` as vendor , r.violation_amount as violation_amount, r.vendor_price, r.map_price, r.website_product_url
 				  FROM crawl_results  r
     INNER JOIN website w
     ON r.website_id=w.id
@@ -96,6 +96,7 @@ $result=mysql_query($sql);
 
 					
  <?php
+
 
 
 while($row=mysql_fetch_assoc($result))

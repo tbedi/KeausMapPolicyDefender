@@ -77,7 +77,7 @@ order by maxvio desc LIMIT $start, $limit";
  
 	// Initial page num setup
 //if (!$page){$page = 1;}
-	$tab_name='product';
+	$tab_name='violation-by-product';
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
