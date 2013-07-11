@@ -50,7 +50,6 @@ order by count(crawl_results.website_id) desc
     <tr>
         <td >
 
-            <!-- transfer all inline styles into style.css -->
             <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
                     border:2px solid #456879;
                     border-radius:10px;float:left;
@@ -130,15 +129,17 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     // mysql_close($con); 
                     ?>	 
 
-               	 <div  style="display:block;">
-                    <?php include ('page2.php'); ?>
-                </div>
+               	 
 
         </td>  
 
 
     </tr>       
 </tbody></table> 
+            
+            <div  style="display:block;">
+                    <?php include ('page2.php'); ?>
+                </div>
 <?php
 if(isset($_GET['website_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-seller" )
 {

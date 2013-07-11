@@ -11,13 +11,13 @@
 
         <script src="js/exporting.js"></script>  
         <!-- hightcharts libraries -->
-        <!--<script type="text/javascript" src="js/jquery-1-4-2.min.js"></script> -->
+        <!--script type="text/javascript" src="js/jquery-1-4-2.min.js"></script> -->
 
 <!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
 <!--<script type="text/javascript" src="js/showhide.js"></script> -->
         <script type="text/JavaScript" src="js/jquery.mousewheel.js"></script> 
 
-<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->    
 <!--<script type="text/javascript" src="js/ddsmoothmenu.js"></script>-->
         <script type="text/javascript" src="js/search.js"></script> <!-- Js from recent.php -->
 
@@ -104,6 +104,7 @@
                         <li id="tabHeader_4" class="violations-history">Violation history</li>
                     </ul>
                 </div>
+                
                 <div id="tabscontent" align="center">
 
                     <div class="tabpage recent" id="tabpage_1">

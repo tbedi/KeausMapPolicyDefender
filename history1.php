@@ -75,7 +75,7 @@ $result=mysql_query($query1);
 <tr>
 <td >
   
- <!-- transfer all inline styles into style.css -->
+
   <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onKeyUp="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
 	border:2px solid #456879;
 	border-radius:10px;float:left;
@@ -137,18 +137,16 @@ $result=mysql_query($query1);
       
      //  mysql_close($con); 
  ?>
- 
-    
-<div  style="display:block;">
-  <?php include ('page2.php');?>
-</div>			
- 
-
+   
 </td>  
-       
    
 </tr>       
  </tbody></table> 
+    
+    <div  style="display:block;">
+  <?php include ('page2.php');?>
+</div>			
+ 
    <div  style="display: table-row-group;">
         <table>
             <tr>

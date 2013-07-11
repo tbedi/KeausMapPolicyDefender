@@ -98,11 +98,10 @@ $result=mysql_query($query1);
 </tr>
 <tr>
 <td>
-       
-  		<table class="GrayBlack" align="center">
-        	<tbody id="data">
+       	<table class="GrayBlack" align="center">
+        	
  		<tr> 
- 			 <td>
+ 		 <td>
  		SKU
  		  </td>	
    
@@ -123,10 +122,7 @@ $result=mysql_query($query1);
   		Screenshot
  		  </td>
 		</tr>
-       
-
-
-					
+       		<tbody id="data">
 <?php
       
         while($row = mysql_fetch_array($result)) 
@@ -147,12 +143,7 @@ $result=mysql_query($query1);
       
      //  mysql_close($con); 
 	
-	
-	
-	
 	?> 
-    
-  
     
 <div  style="display:block;">
   <?php include  ('page2.php');?>
@@ -165,7 +156,7 @@ $result=mysql_query($query1);
 </tr>       
  </tbody></table> 
  
-    <div  style="display: table-row-group;">
+    <div  style="display:table-row-group;">
         <table>
             <tr>
                 <td>

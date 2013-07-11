@@ -66,8 +66,7 @@ $result=mysql_query($sql);
 <table align="center"   >
 <tr>
 <td >
-  
- <!-- transfer all inline styles into style.css -->
+
   <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
 	border:2px solid #456879;
 	border-radius:10px;float:left;
