@@ -23,19 +23,25 @@ group by website.name , crawl_results.website_id
 order by count(crawl_results.website_id) desc
 ";
 
-$total_pages = mysql_fetch_array(mysql_query($query));
-$total_pages = $total_pages['num'];
 
-$stages = 3;
-$page = 1;
+/*Pagination*/
+		 $result = mysql_query($query);
+	 $total_pages = mysql_num_rows($result);  
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
-    $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limit;
-} else {
-    $start = 0;
-    $page = 1;
-}
+	 
+	 $stages = 3;
+	 $page=1;
+	 
+	 if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-seller' )
+    {
+	 	$page = mysql_escape_string($_GET['page']);
+	 	$start = ($page - 1) * $limit;
+	 }else{
+	 	$start = 0;
+	 	$page=1;
+	 }	 
+	 /*Pagination*/
+
 ?>
 
 
@@ -115,7 +121,7 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                         echo "<tr>";
                         echo "<td>";
 
-                        echo "<a href=" . "?website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . $row['maxvio'] . "</td>" . "<td>" . $row['minvio'] . "</td>" . "</tr>";
+                        echo "<a href=" . "?tab=violation-by-seller&website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . $row['maxvio'] . "</td>" . "<td>" . $row['minvio'] . "</td>" . "</tr>";
                         echo "</td>";
                         echo "</tr>";
                     }
@@ -124,9 +130,9 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     // mysql_close($con); 
                     ?>	 
 
-                <div  style="display:block;">
+               	 <div  style="display:block;">
                     <?php include ('page2.php'); ?>
-                </div>	
+                </div>
 
         </td>  
 
@@ -134,8 +140,10 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
     </tr>       
 </tbody></table> 
 <?php
-if (isset($_GET['showclicked'])) {
-
+if(isset($_GET['website_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-seller" )
+{
     include_once 'vviolation1.php';
 }
 ?>
+
+            

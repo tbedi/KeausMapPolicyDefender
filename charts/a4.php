@@ -12,25 +12,25 @@ $last_crawl = mysql_fetch_assoc ( $result );
 $limit = 10; // x in the Top x Products
            // Getting Top x Price violations by Product from last Crawl process
 $sql = "select 
-catalog_product_flat_1.name as product,
+catalog_product_flat_1.sku as product,
 crawl_results.violation_amount
-from website
+from crawl_results
 inner join
-crawl_results
+website
 on website.id =crawl_results.website_id
+AND website_id = $web_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id 
-    WHERE crawl_id=".$last_crawl['id']." 
-            AND violation_amount>0.05 
-            AND website_id = $web_id
-            ORDER BY crawl_results.violation_amount DESC LIMIT ".$limit;
+      WHERE crawl_id=".$last_crawl['id']." 
+      AND violation_amount>0.05 
+      ORDER BY crawl_results.violation_amount DESC LIMIT ".$limit;
 $result = mysql_query ( $sql );
 
 // collecting rows information
 $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
 while ( $row = mysql_fetch_assoc ( $result ) ) {
-  $chart_row = "'" . $row ['product'] . "'";
+  $chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $row['product']) . "'";
   array_push ( $chart_vendor_rows, $chart_row ); 
   array_push ( $chart_violation_amount_rows,  $row ['violation_amount']);
 }
