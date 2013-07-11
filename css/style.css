@@ -5,7 +5,7 @@
 
 body {
 	
-	font: .8px "Arial";
+	font: .8em "Arial", "Helvetica", sans-serif;
 }
 
 #searchbox{
@@ -57,7 +57,7 @@ h2{
 }
 
 #tabs > ul{
-	font: 1px;
+	font: 1em;
 	list-style:none;
 }
 

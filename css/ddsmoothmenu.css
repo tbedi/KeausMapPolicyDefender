@@ -9,14 +9,14 @@
 	list-style-type: none;
 }
 
-/*Top level list itpxs*/
+/*Top level list items*/
 .ddsmoothmenu ul li{
 	position: relative;
 	display: inline;
 	float: left;
 }
 
-/*Top level menu link itpxs style*/
+/*Top level menu link items style*/
 .ddsmoothmenu ul li a {
 	display: block;
 	height: 23px;
@@ -24,7 +24,7 @@
 	margin-left: 5px;
 	line-height: 23px;
 	font-size: 13px;
-	font-family: Arial;
+	font-family: Georgia, "Times New Roman", Times, serif;
 	color: #a9a2a2;	
 	text-align: center;
 	text-decoration: none;
@@ -36,9 +36,9 @@
 display: inline-block;
 }
 
-.ddsmoothmenu ul li a.selected, .ddsmoothmenu ul li a:hover { /*CSS class that's dynamically added to the currently active menu itpxs' LI A elpxent*/
+.ddsmoothmenu ul li a.selected, .ddsmoothmenu ul li a:hover { /*CSS class that's dynamically added to the currently active menu items' LI A element*/
 	color: #f00;
-	background: url(../images/tpxplatpxo_menu_hover.png)
+	background: url(../images/templatemo_menu_hover.png)
 }
 
 /*1st sub level menu*/
@@ -49,15 +49,15 @@ display: inline-block;
 	left: 0;
 	display: none; /*collapse all sub menus to begin with*/
 	visibility: hidden;
-	background: url(../images/tpxplatpxo_smm.png) repeat-y
+	background: url(../images/templatemo_smm.png) repeat-y
 }
 
-.ddsmoothmenu ul li ul span.top { position: absolute; width: 160px; height: 5px; top: -5px; left: 0;  background: url(../images/tpxplatpxo_smt.png) no-repeat; }
-.ddsmoothmenu ul li ul span.bottom { position: absolute; width: 160px; height: 5px; bottom: -5px; left: 0;  background: url(../images/tpxplatpxo_smb.png) no-repeat; }
+.ddsmoothmenu ul li ul span.top { position: absolute; width: 160px; height: 5px; top: -5px; left: 0;  background: url(../images/templatemo_smt.png) no-repeat; }
+.ddsmoothmenu ul li ul span.bottom { position: absolute; width: 160px; height: 5px; bottom: -5px; left: 0;  background: url(../images/templatemo_smb.png) no-repeat; }
 
-/*Sub level menu list itpxs (undo style from Top level List Itpxs)*/
+/*Sub level menu list items (undo style from Top level List Items)*/
 .ddsmoothmenu ul li ul li{
-display: list-itpx;
+display: list-item;
 float: none;
 }
 
