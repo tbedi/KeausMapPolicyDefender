@@ -1,12 +1,12 @@
 <?php
 include_once 'db.php';
 
-/*if(loggedin())
+ if(loggedin())
 {
     header("Location:userarea.php");
     exit();
-}*/
-if($_POST['login'])
+} 
+if(isset($_POST['login']) && $_POST['login'])
 {
     //getdata
     $email = $_POST['email'];
@@ -29,6 +29,8 @@ if($_POST['login'])
              else {
      $loginok = FALSE;
  }
+ 
+ 
      if($loginok==TRUE){
          if($_POST['rememberme']=="on")
              setcookie("email", $email, time()+7200);

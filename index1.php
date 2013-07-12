@@ -1,3 +1,4 @@
+<?php include_once 'run.php';?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
@@ -6,27 +7,14 @@
 
         ><!-- hightcharts libraries -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script src="js/highcharts.js"></script>
-
-        <script src="js/exporting.js"></script>
-        <!-- hightcharts libraries -->
-        <!--<script type="text/javascript" src="js/jquery-1-4-2.min.js"></script> -->
-
-<!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
-<!--<script type="text/javascript" src="js/showhide.js"></script> -->
-        <script type="text/JavaScript" src="js/jquery.mousewheel.js"></script>
-
-<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
-<!--<script type="text/javascript" src="js/ddsmoothmenu.js"></script>-->
-        <script type="text/javascript" src="js/search.js"></script> <!-- Js from recent.php -->
-
-        <!--<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" /> -->
+     
+ 
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link href="css/TBLCSS.css" rel="stylesheet" type="text/css" /> <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" /> <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
-        <script src="js/tabs_old.js"></script>
+      
         <script type="text/javascript">
             $(document).ready(function()
             {
