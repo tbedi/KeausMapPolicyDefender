@@ -1,0 +1,77 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jsDatePick Javascript example</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="jsDatePick_ltr.min.css" />
+
+<script type="text/javascript" src="jsDatePick.min.1.3.js"></script>
+
+<script type="text/javascript">
+	window.onload = function(){
+
+       // new JsDatePick({
+    // useMode:2,
+    // target:"inputFieldto",
+    // dateFormat:"%j-%n-%Y"
+//});
+
+ //new JsDatePick({
+   // useMode:2,
+     // target:"inputFieldfrom",
+    //dateFormat:"%j-%n-%Y"
+//});
+
+ g_calendarObject1 = new JsDatePick({
+        useMode:2,
+       // isStripped:true,
+        target:"inputFieldto",
+        dateFormat:"%Y-%m-%d",
+	
+    });
+    
+    g_calendarObject1.setOnSelectedDelegate(function(){
+        var obj = g_calendarObject1.getSelectedDay();
+    
+       // alert("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
+     var obj1=+ obj.day +  obj.month  + obj.year;
+    });
+
+     g_calendarObject2 = new JsDatePick({
+        useMode:2,
+     //   isStripped:true,
+        target:"inputFieldfrom",
+        dateFormat:"%Y-%m-%d",
+	
+    });
+    
+    g_calendarObject2.setOnSelectedDelegate(function(){
+        var obj = g_calendarObject2.getSelectedDay();
+     var obj2=+ obj.day +  obj.month  + obj.year;
+        alert("a date was just selected and the date is : " + obj.day + "/" + obj.month + "/" + obj.year);
+    });
+    
+  
+};   
+       
+</script>
+</head>
+<body>
+	
+    
+       
+    To  <input type="text" size="12"  name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+  From  <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
+  
+  <script type=text/javascript"">
+        document.getElementById("inputFieldto").value = obj1;
+    document.getElementById("inputFieldfrom").value = obj2  ;
+      
+      
+  </script>
+      
+      
+</body>
+</html>

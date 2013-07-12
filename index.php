@@ -30,6 +30,31 @@
 		<script type="text/javascript"> 
                 <?php echo (isset($_GET['tab']) ? "var selected_tab='".$_GET['tab']."'; " : "var selected_tab='recent'; " );    ?> </script>
         <script src="js/tabs_old.js"></script>
+        
+        
+ <link rel="stylesheet" type="text/css" media="all" href="jsDatePick_ltr.min.css" />
+
+<script type="text/javascript" src="calender/jsDatePick.min.1.3.js"></script>
+<script type="text/javascript">
+	window.onpageshow = function(){
+ new JsDatePick({
+    useMode:2,
+    target:"inputFieldto",
+    dateFormat:"%Y-%m-%d"
+});
+
+ new JsDatePick({
+    useMode:2,
+    target:"inputFieldfrom",
+    dateFormat:"%Y-%m-%d"
+});
+};
+        
+       
+</script>
+        
+        
+        
  
         <script type="text/javascript">
 

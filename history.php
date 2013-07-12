@@ -2,7 +2,6 @@
 
 <?php
 //pagination
-
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
@@ -75,8 +74,6 @@ $additional_params = "";
 <table align="center">
     <tr>
         <td >
-
-
             <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onKeyUp="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
                     border:2px solid #456879;
                     border-radius:10px;float:left;
@@ -85,7 +82,16 @@ $additional_params = "";
             <a href="" onClick="tableSearch.runSearch();" style="padding-top:0px;">
                 <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>
             <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a>
-
+   To   <input type="text" size="12" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+    From   <input type="text" size="12" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
+    <button type="button" onclick="show()">Show</button>
+    <script type="text/javascript">
+        function show()
+        {
+    var date1=JsDatePick().selectedDayObject();
+    document.write(date1.day + date1.month+date1.year);
+        }
+    </script>        
         </td>
     </tr>
     <tr>
