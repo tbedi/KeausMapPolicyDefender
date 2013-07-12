@@ -106,18 +106,7 @@
  
         <!-- http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx-->
  
-        <div id="templatemo_footer_wrapper1">
-            <div id="templatemo_footer">
-                <div align="center">
-                    <a href="http://192.168.5.26:8080/KeausMapPolicyDefender/" target="_blank" class="top-menu-item-1" style="padding-right: 10px"> <strong>Price Defender	</strong> </a>
-                    <a href="http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx" target="_blank" class="top-menu-item-2" style="padding-left:  10px;padding-right: 10px"> <strong>Shipment Controller	 </strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Other App </strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px"> <img src="images/user3.png" width="28" height="24" style="padding-right:5px"/><strong>User Name	 </strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a>
-
-                </div>
-            </div> 
-        </div> 
+       
 
 
         <div id="wrapper" align="center" >

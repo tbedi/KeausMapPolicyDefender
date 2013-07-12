@@ -97,31 +97,31 @@ $additional_params = ""; //addtiion params to pagination url;
 
 
         </td>
-        <!--<td> Export To
-            <select name="a" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+        <td> Export To
+            <select  name="a" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
                     document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
                 <option value="xls" selected="xls">xls</option>
                 <option value="pdf">PDF</option>
             </select>
             <?php
-           // if(isset($displayvalue)=="csv" )
+            if(isset($displayvalue)=="xls" )
             {
-               // include_once 'export_recent.php';
+                include_once 'export_recent.php';
             }
-        //    else
+            else
             {
                
             }
                     ?>
             
             <input name="idValue" id="idValue" type="hidden">
-            <script type="text/javascript">
+           <!-- <script type="text/javascript">
                 $("#link").click(function() {
                     $.ajax({
                         url: "export_recent.php"
                     });
                 });
-            </script>
+            </script>-->
         </td>-->
     <tr>
         <td>

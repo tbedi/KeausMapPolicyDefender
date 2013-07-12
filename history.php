@@ -82,16 +82,31 @@ $additional_params = "";
             <a href="" onClick="tableSearch.runSearch();" style="padding-top:0px;">
                 <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>
             <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a>
-   To   <input type="text" size="12" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
-    From   <input type="text" size="12" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
-    <button type="button" onclick="show()">Show</button>
-    <script type="text/javascript">
-        function show()
+  <!-- To   <input type="text" size="12" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>-->
+    
+   <!-- <button type="button" onclick="show()">Show</button>-->
+   
+    <form action="history.php" method="get">  
+To   <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+From   <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
+<input type="submit" name="submit" value="show" />
+</form>
+    <?php 
+    if(isset($GET['to']))
+    {
+    $to=$GET['to'] ;
+            echo $to;
+    }
+            ?>
+    
+    
+   <!-- <script type="text/javascript">
+         function show()
         {
     var date1=JsDatePick().selectedDayObject();
-    document.write(date1.day + date1.month+date1.year);
+    alert(date1.day + date1.month+date1.year);
         }
-    </script>        
+    </script>-->        
         </td>
     </tr>
     <tr>
