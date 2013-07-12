@@ -9,7 +9,5 @@ if(!loggedin())
 ?>
 
 you are logged in!<p/>
-<a href="index1.php">log out</a>
+<a href="logout.php">log out</a>
         
-
-
