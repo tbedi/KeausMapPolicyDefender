@@ -86,16 +86,17 @@ $additional_params = "";
     
    <!-- <button type="button" onclick="show()">Show</button>-->
    
-    <form action="history.php" method="get">  
+    <form action="/index.php?tab=violations-history&option=show_dates" method="post">  
 To   <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
 From   <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
 <input type="submit" name="submit" value="show" />
 </form>
     <?php 
-    if(isset($GET['to']))
+    
+    if(isset($_GET['tab'])&& $_GET['tab']=='violations-history' && isset($_GET['option']) && $_GET['option']=='show_dates')
     {
-    $to=$GET['to'] ;
-            echo $to;
+     print_r($_POST);
+            die();
     }
             ?>
     
