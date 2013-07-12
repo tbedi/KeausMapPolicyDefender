@@ -88,8 +88,8 @@ order by count(crawl_results.website_id) desc
                     <?php
                     $query1 = "select website.name,
 crawl_results.website_id,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
+format(max(crawl_results.violation_amount),2) as maxvio,
+format(min(crawl_results.violation_amount),2) as minvio,
 count(crawl_results.website_id) as wi_count
 from website
 inner join
@@ -116,11 +116,11 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     $LastPagem1 = $lastpage - 1;
 
 
-                    while ($row = mysql_fetch_array($result)) {
+                    while ($row = mysql_fetch_assoc($result)) {
                         echo "<tr>";
                         echo "<td>";
 
-                        echo "<a href=" . "?tab=violation-by-seller&website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . $row['maxvio'] . "</td>" . "<td>" . $row['minvio'] . "</td>" . "</tr>";
+                        echo "<a href=" . "?tab=violation-by-seller&website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$".$row['maxvio'] . "</td>" . "<td>" . "$".$row['minvio'] . "</td>" . "</tr>";
                         echo "</td>";
                         echo "</tr>";
                     }
@@ -130,20 +130,20 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     ?>	 
 
                	 
-
+  <div align="right" style="display:block;">
+                    <?php include ('page2.php'); ?>
+                </div>
         </td>  
 
 
     </tr>       
 </tbody></table> 
             
-            <div  style="display:block;">
-                    <?php include ('page2.php'); ?>
-                </div>
+          
 <?php
 if(isset($_GET['website_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-seller" )
 {
-    include_once 'vviolation1.php';
+    include_once 'vviolation.php';
 }
 ?>
 

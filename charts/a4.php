@@ -13,7 +13,7 @@ $limit = 10; // x in the Top x Products
            // Getting Top x Price violations by Product from last Crawl process
 $sql = "select 
 catalog_product_flat_1.sku as product,
-crawl_results.violation_amount
+format(crawl_results.violation_amount,2) as violation_amount
 from crawl_results
 inner join
 website

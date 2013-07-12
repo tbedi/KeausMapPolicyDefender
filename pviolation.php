@@ -34,8 +34,12 @@ $product_id = $_REQUEST['product_id'];
 		}	
 		
 	 
-$sql = "SELECT  distinct w.`name` as vendor , r.violation_amount as violation_amount, r.vendor_price, r.map_price, r.website_product_url
-				  FROM crawl_results  r
+$sql = "SELECT  distinct w.`name` as vendor ,
+    format(r.violation_amount,2) as violation_amount,
+    format( r.vendor_price,2) as vendor_price,
+    format(r.map_price,2) as map_price,
+    r.website_product_url
+    FROM crawl_results  r
     INNER JOIN website w
     ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p
@@ -111,9 +115,9 @@ while($row=mysql_fetch_assoc($result))
 	
 	
       <td ><?php echo $row['vendor']; ?></td>
-      <td ><?php echo $row['vendor_price']; ?></td>
-      <td ><?php echo $row['map_price']; ?></td>
-      <td id="vioR"><?php echo $row['violation_amount']; ?></td>
+      <td ><?php echo "$".$row['vendor_price']; ?></td>
+      <td ><?php echo "$".$row['map_price']; ?></td>
+      <td id="vioR"><?php echo "$".$row['violation_amount']; ?></td>
       <td ><?php echo "<a target=".'_blank'." href=".$row['website_product_url']. ">" ." Product Link". "</a>" ?></td>
 	
 	<?php
@@ -155,17 +159,17 @@ while($row=mysql_fetch_assoc($result))
 }
 ?>
  
-</td>  
-       
-</tr>       
+ 
  </tbody></table> 
+    
+    <div align="right" style="display:block;" >
+  <?php  include  ('page2.php'); ?>
+</div>	
  </td>  
        
 </tr>       
- </tbody></table> 
-<div  style="display:block;" >
-  <?php  include  ('page2.php'); ?>
-</div>			
+ </table> 
+		
  
 <div>
         

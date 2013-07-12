@@ -1,6 +1,7 @@
 <?php
 $limit = 10; 
-$sql = "select
+$sql = "select 
+-- (format(sum(map_price),2)) as Violations_amount,
 sum(map_price) as Violations_amount,
 DATE_FORMAT(crawl.date_executed, '%Y-%m-%d') as DateExec
 from crawl_results res

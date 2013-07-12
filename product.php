@@ -1,7 +1,3 @@
-
-
-
-
  <?php
 	
 	$tableName="crawl_results";		
@@ -12,8 +8,8 @@
 catalog_product_flat_1.sku,
 catalog_product_flat_1.entity_id as product_id,
 catalog_product_flat_1.name,
-crawl_results.vendor_price,
-crawl_results.map_price,
+format(crawl_results.vendor_price,2) as vendor_price ,
+format(crawl_results.map_price,2)as map_price,
 max(crawl_results.violation_amount) as maxvio,
 min(crawl_results.violation_amount) as minvio,
 count(crawl_results.product_id) as i_count
@@ -56,10 +52,10 @@ order by maxvio desc ";
 catalog_product_flat_1.sku,
 catalog_product_flat_1.entity_id as product_id,
 catalog_product_flat_1.name,
-crawl_results.vendor_price,
-crawl_results.map_price,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(max(crawl_results.violation_amount),2) as maxvio,
+format(min(crawl_results.violation_amount),2) as minvio,
 count(crawl_results.product_id) as i_count
 FROM
 prices.catalog_product_flat_1
@@ -135,14 +131,14 @@ order by maxvio desc LIMIT $start, $limit";
 					
 <?php
 
-        while($row = mysql_fetch_array($result)) 
+        while($row = mysql_fetch_assoc($result)) 
        
 	   { 
 	        echo "<tr>";
             echo "<td>";
                
 			   
-			    echo "<a href="."?tab=violation-by-product&product_id=".$row['product_id'].">".$row['sku']."</td>"."<td>".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>".$row['maxvio']."</td>"."<td>".$row['minvio']."</td>"."</tr>";   
+			    echo "<a href="."?tab=violation-by-product&product_id=".$row['product_id'].">".$row['sku']."</td>"."<td>"."$".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>"."$".$row['maxvio']."</td>"."<td>"."$".$row['minvio']."</td>"."</tr>";   
 				
             
 	   }
@@ -153,16 +149,16 @@ order by maxvio desc LIMIT $start, $limit";
  
 
  		
- 
+  <div align="right" style="display:block; " >
+  <?php include ('page2.php');?>
+</div>		
 
 </td>  
        
    
 </tr>       
  </tbody></table> 
-    <div  style="display:block;">
-  <?php include ('page2.php');?>
-</div>			
+   	
  
  
  
@@ -170,6 +166,6 @@ order by maxvio desc LIMIT $start, $limit";
 if(isset($_GET['product_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-product" )
 {
 	
-	    include_once 'pviolation1.php';
+	    include_once 'pviolation.php';
 }
  ?>

@@ -9,7 +9,8 @@ $last_crawl = mysql_fetch_assoc ( $result );
 $limit = 10; // x in the Top x Products
            // Getting Top x Price violations by Product from last Crawl process
 $sql = "SELECT  w.`name` as vendor ,
-    r.violation_amount  FROM crawl_results  r 
+    format(r.violation_amount,2) as violation_amount
+    FROM crawl_results  r 
     INNER JOIN website w 
     ON r.website_id=w.id 
     INNER JOIN catalog_product_flat_1 p 
