@@ -85,7 +85,7 @@
                 });
             });
             //highcharts colors
-
+			 
         </script>
 
 
@@ -111,7 +111,7 @@
 
         <div id="wrapper" align="center" >
 
-            <div id="tabContainer" align="center" onclick="tableSearch.init()" onmousemove="tableSearch.init()">
+            <div id="tabContainer" align="center" <!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()" --> >
                 <div id="tabs" align="center">
                     <ul>
                         <li id="tabHeader_1" class="recent">Recent violations</li>

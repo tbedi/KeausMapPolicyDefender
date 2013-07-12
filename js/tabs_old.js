@@ -38,6 +38,8 @@ function displayPage() {
   
   var ident = this.id.split("_")[1];
   //add class of activetabheader to new active tab and show contents
+  var tab_class=$(this).attr('class');
+  selected_tab=tab_class;
   $(this).addClass("tabActiveHeader");
   document.getElementById("tabpage_" + ident).style.display="block";
   this.parentNode.setAttribute("data-current",ident);
