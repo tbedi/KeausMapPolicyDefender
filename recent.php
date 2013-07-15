@@ -105,9 +105,8 @@ $additional_params = ""; //addtiion params to pagination url;
 
         </td>
         <td> Export To
-            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                <option value="xls" name="xls" selected="xls" >xls</option>
+            <select  id="export" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" >
+                <option value="csv" name="csv" selected  >Excel</option>
                 <option value="pdf" >PDF</option>
                  </select>
                
@@ -120,10 +119,13 @@ $additional_params = ""; //addtiion params to pagination url;
 
     function exportto()
                 {
-                    
+					var mode=$("#export").val();
+					if (mode)
+						open ("export_recent_"+mode+".php");
+           
                     //document.write("xls export");
-                     open('export_recent.php');
-                    var i = document.selected_tab.getElementById(choice).value;
+                   //  open('export_recent.php');
+                  /*  var i = document.selected_tab.getElementById(choice).value;
                     if(i==="xls")
                         {
                            open('export_recent.php');
@@ -132,7 +134,7 @@ $additional_params = ""; //addtiion params to pagination url;
                     else 
                         {
                             document.write("pdf export");
-                        }
+                        }*/
                 }
 
 
