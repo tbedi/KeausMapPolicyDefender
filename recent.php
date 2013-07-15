@@ -115,13 +115,13 @@ $additional_params = ""; //addtiion params to pagination url;
                     ?>
             
             <input name="idValue" id="idValue" type="hidden">
-           <!-- <script type="text/javascript">
+            <script type="text/javascript">
                 $("#link").click(function() {
                     $.ajax({
                         url: "export_recent.php"
                     });
                 });
-            </script>-->
+            </script>
         </td>-->
     <tr>
         <td>
