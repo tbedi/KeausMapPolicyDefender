@@ -55,7 +55,7 @@ order by count(crawl_results.website_id) desc
                     border-radius:10px;float:left;
                     height: 22px;
                     width: 230px; "/> 
-            <a href="" onclick="tableSearch.runSearch();" style="padding-top:0px;">
+            <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;">
                 <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>
             <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a>
 

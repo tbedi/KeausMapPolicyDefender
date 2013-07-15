@@ -36,6 +36,51 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     $start = 0;
     $page = 1;
 }
+?>
+
+
+<table align="center">
+    <tr>
+        <td >
+            <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onKeyUp="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
+                    border:2px solid #456879;
+                    border-radius:10px;float:left;
+                    height: 22px;
+                    width: 230px; "/> 
+            <a href="javascript:void(0);" onClick="tableSearch.runSearch();" style="padding-top:0px;">
+                <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>
+            <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a>
+  <!-- To   <input type="text" size="12" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>-->
+    
+   <!-- <button type="button" onclick="show()">Show</button>-->
+   
+    <form action=" ?tab=violations-history&option=show_dates" method="post">  
+To   <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+From   <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
+<input type="submit" name="submit" value="show" />
+</form>
+    <?php 
+    
+    if(isset($_GET['tab'])&& $_GET['tab']=='violations-history' && isset($_GET['option']) && $_GET['option']=='show_dates')
+    {
+    // print_r($_POST);
+    // print_r($_POST["to"]);
+           // die();
+        $to =$_POST["to"];
+        $from=$_POST["from"];
+        echo "<br>                      Violations from ". $from." to ".$to;
+        
+        
+        
+    }
+    else
+    {
+    $to='2013-07-10';
+    $from='2013-06-12';
+    }
+            
+    
+   
 
 $query1 = "select catalog_product_flat_1.sku,
 catalog_product_flat_1.name as pname,
@@ -51,15 +96,23 @@ prices.crawl_results
 on prices.website.id = prices.crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
+inner join crawl
 on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
+where crawl.date_executed between '$to' and '$from'  
+and
+crawl_results.violation_amount>0.05 
 and
 crawl.id = 
 (select max(crawl.id) from crawl)
 order by sku asc LIMIT $start, $limit";
 $result = mysql_query($query1);
+if(!$result)
+{
+    echo mysql_error();
+}
+else
+{
+    
 
 // Initial page num setup
 //if (!$page){$page = 1;}
@@ -70,36 +123,14 @@ $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 $additional_params = "";
 ?>
-
-<table align="center">
-    <tr>
-        <td >
-            <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onKeyUp="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
-                    border:2px solid #456879;
-                    border-radius:10px;float:left;
-                    height: 22px;
-                    width: 230px; "/> 
-            <a href="" onClick="tableSearch.runSearch();" style="padding-top:0px;">
-                <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>
-            <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a>
-  <!-- To   <input type="text" size="12" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>-->
-    
-   <!-- <button type="button" onclick="show()">Show</button>-->
    
-    <form action="/index.php?tab=violations-history&option=show_dates" method="post">  
-To   <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
-From   <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
-<input type="submit" name="submit" value="show" />
-</form>
-    <?php 
-    
-    if(isset($_GET['tab'])&& $_GET['tab']=='violations-history' && isset($_GET['option']) && $_GET['option']=='show_dates')
-    {
-     print_r($_POST);
-            die();
-    }
-            ?>
-    
+   
+   
+   
+   
+   
+   
+   
     
    <!-- <script type="text/javascript">
          function show()
@@ -156,6 +187,7 @@ From   <input type="text" size="12" name="from" id="inputFieldfrom" style=" back
 }
 echo "</table>";
 
+}
 //  mysql_close($con); 
 ?>
                 <div align="right" style="display:block;">
@@ -181,3 +213,4 @@ echo "</table>";
 
     </table>
 </div>  
+            

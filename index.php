@@ -104,14 +104,31 @@
             
         </div>
  
-        <!-- http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx-->
- 
        
+ <div id="templatemo_footer_wrapper1">
+            <div id="templatemo_footer">
+                <div align="center">
+                                                      
+                    <a href="" target="_blank" class="top-menu-item-4" style="padding-left:  700px;padding-right: 20px"> <img src="images/agent.png" width="28" height="24" style="padding-left:  10px;"/><strong>Welcome  UserName</strong> </a>
+                    <a href="" target="_blank" class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a>
+
+                </div>
+            </div> 
+        </div> 
+       
+        
+        
+        
+        
+        
+        
+        
+        
 
 
         <div id="wrapper" align="center" >
 
-            <div id="tabContainer" align="center" <!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()" --> >
+            <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
                 <div id="tabs" align="center">
                     <ul>
                         <li id="tabHeader_1" class="recent">Recent violations</li>

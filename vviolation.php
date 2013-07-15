@@ -92,7 +92,7 @@ $additional_params = "website_id=" . $web_id;
                                                border:2px solid #456879;
                                                border-radius:10px;
                                                height: 22px;
-                                               width: 230px; "/> <a href="" onClick="tableSearch.runSearch();"><img src="images/sr.png" style="height:20; width:20;"></a>
+                                               width: 230px; "/> <a href="javascript:void(0);" onClick="tableSearch.runSearch();"><img src="images/sr.png" style="height:20; width:20;"></a>
 
                         <?php echo "<a class=" . "button_example" . " href=" . "export_vendor.php?website_id=" . $web_id . ">" ?> <img src="images/dn.png" width="20" height="20" /> </a> 
                     </div>

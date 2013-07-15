@@ -122,7 +122,7 @@ $additional_params = ""; //addtiion params to pagination url;
                     });
                 });
             </script>
-        </td>-->
+        </td>
     <tr>
         <td>
             <table class="GrayBlack" align="center">
