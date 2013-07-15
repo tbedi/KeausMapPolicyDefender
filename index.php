@@ -27,35 +27,35 @@
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
-		<script type="text/javascript"> 
-                <?php echo (isset($_GET['tab']) ? "var selected_tab='".$_GET['tab']."'; " : "var selected_tab='recent'; " );    ?> </script>
+        <script type="text/javascript">
+            <?php echo (isset($_GET['tab']) ? "var selected_tab='" . $_GET['tab'] . "'; " : "var selected_tab='recent'; " ); ?></script>
         <script src="js/tabs_old.js"></script>
-        
-        
- <link rel="stylesheet" type="text/css" media="all" href="jsDatePick_ltr.min.css" />
 
-<script type="text/javascript" src="calender/jsDatePick.min.1.3.js"></script>
-<script type="text/javascript">
-	window.onpageshow = function(){
- new JsDatePick({
-    useMode:2,
-    target:"inputFieldto",
-    dateFormat:"%Y-%m-%d"
-});
 
- new JsDatePick({
-    useMode:2,
-    target:"inputFieldfrom",
-    dateFormat:"%Y-%m-%d"
-});
-};
-        
-       
-</script>
-        
-        
-        
- 
+        <link rel="stylesheet" type="text/css" media="all" href="jsDatePick_ltr.min.css" />
+
+        <script type="text/javascript" src="calender/jsDatePick.min.1.3.js"></script>
+        <script type="text/javascript">
+            window.onpageshow = function() {
+                new JsDatePick({
+                    useMode: 2,
+                    target: "inputFieldto",
+                    dateFormat: "%Y-%m-%d"
+                });
+
+                new JsDatePick({
+                    useMode: 2,
+                    target: "inputFieldfrom",
+                    dateFormat: "%Y-%m-%d"
+                });
+            };
+
+
+        </script>
+
+
+
+
         <script type="text/javascript">
 
             var _gaq = _gaq || [];
@@ -85,7 +85,7 @@
                 });
             });
             //highcharts colors
-			 
+
         </script>
 
 
@@ -94,85 +94,92 @@
     <body id="home" >
 
         <div id="templatemo_header_wrapper" >
-            <div><a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
-                <img align="top" src="images/head4.PNG" />
-           <!-- <div style="float: left ">
+           
+            <div class="container"  style="margin:auto; width:980px;height:80px;  min-height:2px;overflow:auto;">
 
-                <h2 style="overflow: auto; min-height: 10px">Price Defender</h2>
-            </div>-->
-            </div>
-            
-        </div>
- 
-       
- <div id="templatemo_footer_wrapper1">
-            <div id="templatemo_footer">
-                <div align="center">
-                                                      
-                    <a href="" target="_blank" class="top-menu-item-4" style="padding-left:  700px;padding-right: 20px"> <img src="images/agent.png" width="28" height="24" style="padding-left:  10px;"/><strong>Welcome  UserName</strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a>
-
+                 <div style="float:left; padding-right: 30px"> <a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
                 </div>
-            </div> 
-        </div> 
-       
-        
-        
-        
-        
-        
-        
-        
-        
-
-
-        <div id="wrapper" align="center" >
-
-            <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
-                <div id="tabs" align="center">
-                    <ul>
-                        <li id="tabHeader_1" class="recent">Recent violations</li>
-                        <li id="tabHeader_2" class="violation-by-product" >Violation by product</li>
-                        <li id="tabHeader_3" class="violation-by-seller" >Violation by seller</li>
-                        <li id="tabHeader_4" class="violations-history">Violation history</li>
-                    </ul>
+                   <!-- <img align="top" src="images/head4.PNG" /> -->
+                    <div class="left-part" style="float:left;width:150px; ">
+                    <h2>Price Map</h2>
                 </div>
+                    <!-- <div style="float: left ">
+         
+                         <h2 style="overflow: auto; min-height: 10px">Price Defender</h2>
+                     </div>-->
                 
-                <div id="tabscontent" align="center">
+            </div>
+            </div>
 
-                    <div class="tabpage recent" id="tabpage_1">
-                        <?php include_once 'recent.php'; ?>
 
+            <div id="templatemo_footer_wrapper1">
+                <div id="templatemo_footer">
+                    <div align="center">
+
+                        <a href="" target="_blank" class="top-menu-item-4" style="padding-left:  700px;padding-right: 20px"> <img src="images/agent.png" width="28" height="24" style="padding-left:  10px;"/><strong>Welcome  UserName</strong> </a>
+                        <a href="" target="_blank" class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a>
 
                     </div>
-
-                    <div class="tabpage violation-by-product" id="tabpage_2">
-                        <?php include_once 'product.php'; ?>
-
-                    </div>
-
-                    <div class="tabpage violation-by-seller" id="tabpage_3">
-                        <?php include_once 'vendor.php'; ?>
-                    </div>
-                    <div class="tabpage violations-history" id="tabpage_4">
-                        <?php include_once 'history.php'; ?>
-
-                    </div>    
-
-
-                </div>
-
-
-                <div class="cleaner"></div>
- 
+                </div> 
             </div> 
-        </div> 
 
-        <div id="templatemo_footer_wrapper">
-            <div id="templatemo_footer">
-                Copyright © Kraus USA 2013
+
+
+
+
+
+
+
+
+
+
+            <div id="wrapper" align="center" >
+
+                <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
+                    <div id="tabs" align="center">
+                        <ul>
+                            <li id="tabHeader_1" class="recent">Recent violations</li>
+                            <li id="tabHeader_2" class="violation-by-product" >Violation by product</li>
+                            <li id="tabHeader_3" class="violation-by-seller" >Violation by seller</li>
+                            <li id="tabHeader_4" class="violations-history">Violation history</li>
+                        </ul>
+                    </div>
+
+                    <div id="tabscontent" align="center">
+
+                        <div class="tabpage recent" id="tabpage_1">
+                            <?php include_once 'recent.php'; ?>
+
+
+                        </div>
+
+                        <div class="tabpage violation-by-product" id="tabpage_2">
+                            <?php include_once 'product.php'; ?>
+
+                        </div>
+
+                        <div class="tabpage violation-by-seller" id="tabpage_3">
+                            <?php include_once 'vendor.php'; ?>
+                        </div>
+                        <div class="tabpage violations-history" id="tabpage_4">
+                            <?php include_once 'history.php'; ?>
+
+                        </div>    
+
+
+                    </div>
+
+
+                    <div class="cleaner"></div>
+
+                </div> 
             </div> 
-        </div> 
+
+            <div id="templatemo_footer_wrapper">
+                <div id="templatemo_footer">
+                    Copyright © Kraus USA 2013
+                </div> 
+            </div> 
 
     </body>
 </html>

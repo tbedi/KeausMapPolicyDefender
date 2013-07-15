@@ -2,26 +2,21 @@
 <body>
  <?php
 include('db.php');
-$sku_name = $_REQUEST['sku_id'];
+$product_id = $_REQUEST['product_id'];
 $dbTable="";
-	$sql = "SELECT
-catalog_product_flat_1.sku,website.name as wname,
-website.domain,
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
-crawl_results.website_product_url
-FROM
-crawl_results
-inner join catalog_product_flat_1
-on
-crawl_results.product_id= catalog_product_flat_1.entity_id
-inner join website
-on
-crawl_results.website_id= website.id
-where crawl_results.violation_amount>0.05 and
-sku like '$sku_name'
-order by violation_amount desc";
+	$sql = "SELECT  distinct w.`name` as vendor ,
+    format(r.violation_amount,2) as violation_amount,
+    format( r.vendor_price,2) as vendor_price,
+    format(r.map_price,2) as map_price,
+    r.website_product_url
+    FROM crawl_results  r
+    INNER JOIN website w
+    ON r.website_id=w.id
+    INNER JOIN catalog_product_flat_1 p
+    ON p.entity_id=r.product_id
+    where p.entity_id='".$product_id."'
+    		    AND r.violation_amount>0.05
+		    ORDER BY r.violation_amount DESC";
 
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
 

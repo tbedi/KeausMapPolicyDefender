@@ -42,11 +42,12 @@ if ( $data == "" )
 //header("Content-type: text/csv");
 //header('Content-Disposition: attachment; filename="export.csv"');
 //print "$header\n$data";
+header ( 'Content-Type: application/vnd.ms-excel') ;
+header ( 'Content-Disposition: attachment;filename=export.csv' );
 header ( 'HTTP/1.1 200 OK' );
 header ( 'Date: ' . date ( 'D M j G:i:s T Y' ) );
 header ( 'Last-Modified: ' . date ( 'D M j G:i:s T Y' ) );
-header ( 'Content-Type: application/vnd.ms-excel') ;
-header ( 'Content-Disposition: attachment;filename=export.csv' );
+
 print chr(255) . chr(254) . mb_convert_encoding($header+$data, 'UTF-16LE', 'UTF-8');
 exit;
 fputcsv($header, $data);

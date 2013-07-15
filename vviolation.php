@@ -86,18 +86,37 @@ $additional_params = "website_id=" . $web_id;
             <tr>
                 <td >
 
+        <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                     style="padding:5px;
+                     padding-right: 40px;
+                     background-image:url(images/sr.png); 
+                     background-position: 100% -5px; 
+                     background-repeat: no-repeat;
+                     border:2px solid #456879;
+                     border-radius:10px;float:left;
+                     height: 15px;
+                     outline:none; 
+                     width: 200px; "/> 
+            
+            <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+                
+        </td>
+        <td> Export To
+            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
+                <option value="xls" name="xls" selected="xls" >xls</option>
+                <option value="pdf" >PDF</option>
+                 </select>
+               
 
-                    <div align="right"><input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onKeyUp="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;
+           
+            <?php echo "<a href="."export_vendor.php?website_id=".$web_id."  "."class=myButton"." >Export</a>" ; 
+           ?>
 
-                                               border:2px solid #456879;
-                                               border-radius:10px;
-                                               height: 22px;
-                                               width: 230px; "/> <a href="javascript:void(0);" onClick="tableSearch.runSearch();"><img src="images/sr.png" style="height:20; width:20;"></a>
-
-                        <?php echo "<a class=" . "button_example" . " href=" . "export_vendor.php?website_id=" . $web_id . ">" ?> <img src="images/dn.png" width="20" height="20" /> </a> 
-                    </div>
-                </td>
-            </tr>
+        </td>
+    </tr>
+</table>
+<table align="center">
             <tr>
                 <td>
 

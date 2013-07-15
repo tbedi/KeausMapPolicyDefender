@@ -4,26 +4,30 @@
 include('db.php');
 
 $dbTable="";
-	$sql = "select catalog_product_flat_1.sku,
-website.name as wname, 
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
-crawl_results.website_product_url
-from website
+	$sql = "SELECT distinct 
+catalog_product_flat_1.sku,
+catalog_product_flat_1.entity_id as product_id,
+catalog_product_flat_1.name,
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(max(crawl_results.violation_amount),2) as maxvio,
+format(min(crawl_results.violation_amount),2) as minvio,
+count(crawl_results.product_id) as i_count
+FROM
+prices.catalog_product_flat_1
 inner join
 prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
-and
+on catalog_product_flat_1.entity_id = crawl_results.product_id 
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+where crawl_results.violation_amount>0.05
+ and 
 crawl.id = 
 (select max(crawl.id) from crawl)
-order by sku asc";
+group by prices.catalog_product_flat_1.sku,
+prices.catalog_product_flat_1.name
+order by maxvio desc";
 
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
 

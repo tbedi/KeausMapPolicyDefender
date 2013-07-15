@@ -50,17 +50,36 @@ order by count(crawl_results.website_id) desc
     <tr>
         <td >
 
-            <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
-                    border:2px solid #456879;
-                    border-radius:10px;float:left;
-                    height: 22px;
-                    width: 230px; "/> 
-            <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;">
-                <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>
-            <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a>
+            <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                     style="padding:5px;
+                     padding-right: 40px;
+                     background-image:url(images/sr.png); 
+                     background-position: 100% -5px; 
+                     background-repeat: no-repeat;
+                     border:2px solid #456879;
+                     border-radius:10px;float:left;
+                     height: 15px;
+                     outline:none; 
+                     width: 200px; "/> 
+            
+            <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+                
+        </td>
+        <td> Export To
+            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
+                <option value="xls" name="xls" selected="xls" >xls</option>
+                <option value="pdf" >PDF</option>
+                 </select>
+               
+
+           
+            <a href="export_vendor1.php" id="1" class="myButton" >Export</a>
 
         </td>
     </tr>
+</table>
+<table align="center">
     <tr>
         <td>
 
