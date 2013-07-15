@@ -32,7 +32,7 @@ if ( isset($_POST['login']))
      if($loginok==TRUE){
          if($_POST['rememberme']=="on")
              setcookie("email", $email, time()+7200);
-         elseif($_POST['rememberme']=="")
+          
              $_SESSION['email'] = $email;
          
          header("Location: index.php");

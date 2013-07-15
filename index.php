@@ -98,15 +98,12 @@
         <div id="templatemo_header_wrapper" >
             <div><a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
                 <img align="top" src="images/head4.PNG" />
-                <!-- <div style="float: left ">
-     
-                     <h2 style="overflow: auto; min-height: 10px">Price Defender</h2>
-                 </div>-->
+       
             </div>
 
         </div>
 
-        <!-- http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx-->
+        
 
 
         <div id="templatemo_footer_wrapper1">
@@ -122,7 +119,7 @@
                                     echo "Welcome Guest!<br><small><a href=\"login.php\">Login</a></small>";
                                 }
                                 ?></strong> </a>
-                        <!--<a class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a><a href="" ><img src="images/connect.png"  alt="Logout" /></a> -->
+                       
                     </div>
                 </div>
             </div> 
