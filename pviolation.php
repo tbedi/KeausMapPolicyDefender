@@ -25,8 +25,8 @@ $product_id = $_REQUEST['product_id'];
 	$stages = 3;
 	 $page=1;
 
-	if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-product' ){
-		$page = mysql_escape_string($_GET['page']);
+	if(isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-product' ){
+		$page = mysql_escape_string($_GET['second_grid_page']); //$page_param should have same value
 		$start = ($page - 1) * $limit; 
 	}else{
 		$start = 0;	
@@ -58,7 +58,11 @@ $result=mysql_query($sql);
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
 	$LastPagem1 = $lastpage - 1;	
+	$page_param="second_grid_page";//variable used for pagination
 	$additional_params="&product_id=".$product_id; //addtiion params to pagination url;
+	if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+		$additional_params.="&page=".$_GET['page'];
+	}
 ?>
 
 
