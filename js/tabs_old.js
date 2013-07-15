@@ -1,26 +1,25 @@
 window.onload=function() {
 
-  // get tab container
   	var container = document.getElementById("tabContainer");
-		var tabcon = document.getElementById("tabscontent");
-		//alert(tabcon.childNodes.item(1));
-    // set current tab
-    var navitem = document.getElementById("tabHeader_1");
-		
-    //store which tab we are on
-    var ident = navitem.id.split("_")[1];
-		//alert(ident);
-    navitem.parentNode.setAttribute("data-current",ident);
-    //set current tab with class of activetabheader
-    navitem.setAttribute("class","tabActiveHeader");
-
-    //hide two tab contents we don't need
-   	 /*var pages = tabcon.getElementsByTagName("div");
-    	for (var i = 1; i < pages.length; i++) {
-     	 pages.item(i).style.display="none";
-		};
-*/
-		/*Alex jQuery tabs*/ $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); $('#tabpage_1').css("display","block"); /*Alex jQuery tabs*/
+	var tabcon = document.getElementById("tabscontent");
+    
+    
+	/*Alex jQuery tabs*/
+        $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); 
+	 
+		$("."+selected_tab).each( function() { 
+			if ($(this).hasClass('tabpage')) 
+				$(this).css("display","block");
+			else
+				$(this).addClass("tabActiveHeader");
+		});
+		 // set current tab
+	    var navitem = $('.tabActiveHeader').attr("id");
+			 
+	    //store which tab we are on
+	    var ident = navitem.split("_")[1];
+	    $('.tabActiveHeader').parent().attr("data-current",ident);
+	/*Alex jQuery tabs*/
 		
 		
     //this adds click event to tabs
@@ -34,12 +33,14 @@ window.onload=function() {
 function displayPage() {
   var current = this.parentNode.getAttribute("data-current");
   //remove class of activetabheader and hide old contents
-  document.getElementById("tabHeader_" + current).removeAttribute("class");
+  $("#tabHeader_" + current).removeClass("tabActiveHeader");
   document.getElementById("tabpage_" + current).style.display="none";
-
+  
   var ident = this.id.split("_")[1];
   //add class of activetabheader to new active tab and show contents
-  this.setAttribute("class","tabActiveHeader");
+  var tab_class=$(this).attr('class');
+  selected_tab=tab_class;
+  $(this).addClass("tabActiveHeader");
   document.getElementById("tabpage_" + ident).style.display="block";
   this.parentNode.setAttribute("data-current",ident);
 }

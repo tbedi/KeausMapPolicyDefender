@@ -1,19 +1,8 @@
 <?php include_once 'db.php'; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<?php
-if(!loggedin())
-{
-    header("Location: login.php");
-    exit();
-}
 
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
-$log_user =$_SESSION["email"];
-if(isset($_SESSION["email"]))
-{
-?>
 <html>
-    
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Price MAP Violation </title
@@ -24,39 +13,50 @@ if(isset($_SESSION["email"]))
 
         <script src="js/exporting.js"></script>  
         <!-- hightcharts libraries -->
-        <!--<script type="text/javascript" src="js/jquery-1-4-2.min.js"></script> -->
+        <!--script type="text/javascript" src="js/jquery-1-4-2.min.js"></script> -->
 
 <!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
 <!--<script type="text/javascript" src="js/showhide.js"></script> -->
         <script type="text/JavaScript" src="js/jquery.mousewheel.js"></script> 
 
-<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->    
 <!--<script type="text/javascript" src="js/ddsmoothmenu.js"></script>-->
-        <script type="text/javascript" src="js/search.js"></script> <!-- Js from recent.php -->
+        <script type="text/javascript" src="js/search.js"></script> 
 
         <!--<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" /> -->
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-        <link href="css/TBLCSS.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
+        <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
-
-
-        <!-- 
         <script type="text/javascript">
-        
-        ddsmoothmenu.init({
-                mainmenuid: "templatemo_menu", 
-                orientation: 'h',
-                classname: 'ddsmoothmenu',
-                
-                contentsource: "markup" 
-        })
-        
-        </script> 
-        -->
-
+            <?php echo (isset($_GET['tab']) ? "var selected_tab='" . $_GET['tab'] . "'; " : "var selected_tab='recent'; " ); ?></script>
         <script src="js/tabs_old.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" media="all" href="jsDatePick_ltr.min.css" />
+
+        <script type="text/javascript" src="calender/jsDatePick.min.1.3.js"></script>
+        <script type="text/javascript">
+            window.onpageshow = function() {
+                new JsDatePick({
+                    useMode: 2,
+                    target: "inputFieldto",
+                    dateFormat: "%Y-%m-%d"
+                });
+
+                new JsDatePick({
+                    useMode: 2,
+                    target: "inputFieldfrom",
+                    dateFormat: "%Y-%m-%d"
+                });
+            };
+
+
+        </script>
+
+
+
 
         <script type="text/javascript">
 
@@ -97,63 +97,69 @@ if(isset($_SESSION["email"]))
 
         <div id="templatemo_header_wrapper" >
             <div><a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
-           <!-- <div style="float: left ">
-
-                <h2 style="overflow: auto; min-height: 10px">Price Defender</h2>
-            </div>-->
+                <img align="top" src="images/head4.PNG" />
+                <!-- <div style="float: left ">
+     
+                     <h2 style="overflow: auto; min-height: 10px">Price Defender</h2>
+                 </div>-->
             </div>
-            
+
         </div>
 
-        <div id="templatemo_menu" class="ddsmoothmenu">
-            <br style="clear: left" />
-        </div> 
         <!-- http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx-->
 
-        </div>	
+
         <div id="templatemo_footer_wrapper1">
             <div id="templatemo_footer">
                 <div align="center">
                     <a href="http://192.168.5.26:8080/KeausMapPolicyDefender/" target="_blank" class="top-menu-item-1" style="padding-right: 10px"> <strong>Price Defender	</strong> </a>
                     <a href="http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx" target="_blank" class="top-menu-item-2" style="padding-left:  10px;padding-right: 10px"> <strong>Shipment Controller	 </strong> </a>
                     <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Other App </strong> </a>
-                    <div align="right"><a href="" target="_blank" class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px" align="right"><strong>email:&nbsp;&nbsp;<b><?php echo $log_user; ?></b></strong> </a>
-                    <a class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a><a href="logout.php" ><img src="images/connect.png"  alt="Logout" /></a>
+                    <div align="right"><a href="" target="_blank" class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px" align="right"><strong>&nbsp;&nbsp;<?php
+                                if (isset($_SESSION['email'])) {
+                                    echo "" . $_SESSION['email'] . ", <br><small><a href=\"logout.php\">logout</a></small>";
+                                } else {
+                                    echo "Welcome Guest!<br><small><a href=\"login.php\">Login</a></small>";
+                                }
+                                ?></strong> </a>
+                        <!--<a class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a><a href="" ><img src="images/connect.png"  alt="Logout" /></a> -->
                     </div>
                 </div>
             </div> 
         </div> 
 
 
-        <div id="wrapper" align="center">
 
-            <div id="tabContainer" align="center" onclick="tableSearch.init()" onmousemove="tableSearch.init()">
-                <div id="tabs" align="center">
+        <div id="wrapper" align="center" >
+
+            <div id="tabContainer" align="center" <!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()" --> >
+                 <div id="tabs" align="center">
                     <ul>
-                        <li id="tabHeader_1">Recent violations</li>
-                        <li id="tabHeader_2">Violation by product</li>
-                        <li id="tabHeader_3">Violation by seller</li>
-                        <li id="tabHeader_4">Violation history</li>
+                        <li id="tabHeader_1" class="recent">Recent violations</li>
+                        <li id="tabHeader_2" class="violation-by-product" >Violation by product</li>
+                        <li id="tabHeader_3" class="violation-by-seller" >Violation by seller</li>
+                        <li id="tabHeader_4" class="violations-history">Violation history</li>
                     </ul>
                 </div>
+
                 <div id="tabscontent" align="center">
 
-                    <div class="tabpage" id="tabpage_1">
-                        <?php include_once 'recent1.php'; ?>
+                    <div class="tabpage recent" id="tabpage_1">
+                        <?php include_once 'recent.php'; ?>
 
 
                     </div>
 
-                    <div class="tabpage" id="tabpage_2">
-                        <?php include_once 'product1.php'; ?>
+                    <div class="tabpage violation-by-product" id="tabpage_2">
+                        <?php include_once 'product.php'; ?>
 
                     </div>
 
-                    <div class="tabpage" id="tabpage_3">
-                        <?php include_once 'vendor1.php'; ?>
+                    <div class="tabpage violation-by-seller" id="tabpage_3">
+                        <?php include_once 'vendor.php'; ?>
                     </div>
-                    <div class="tabpage" id="tabpage_4">
-                        <?php include_once 'history1.php'; ?>
+                    <div class="tabpage violations-history" id="tabpage_4">
+                        <?php include_once 'history.php'; ?>
 
                     </div>    
 
@@ -163,7 +169,6 @@ if(isset($_SESSION["email"]))
 
                 <div class="cleaner"></div>
 
-                <div class="cleaner"></div>
             </div> 
         </div> 
 
@@ -175,6 +180,3 @@ if(isset($_SESSION["email"]))
 
     </body>
 </html>
-<?php
-}
-?>

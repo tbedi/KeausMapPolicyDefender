@@ -1,25 +1,24 @@
-
- 
-        window.tableSearch = {};
-
-        
+        window.tableSearch = {};     
         tableSearch.init = function() {
            
-            this.Rows = document.getElementById('data').getElementsByTagName('TR');
+           // this.Rows = document.getElementById('data').getElementsByTagName('TR');
+            this.Rows =  $("."+selected_tab+" #data").find('TR');
             this.RowsLength = tableSearch.Rows.length;
             this.RowsText = [];
-           
+          
          
             for (var i = 0; i < tableSearch.RowsLength; i++) {
                 this.RowsText[i] = (tableSearch.Rows[i].innerText) ? tableSearch.Rows[i].innerText.toUpperCase() : tableSearch.Rows[i].textContent.toUpperCase();
             }
         }
-		
-		
+      	
+                
         tableSearch.runSearch = function() {
-         
-            this.Term = document.getElementById('textBoxSearch').value.toUpperCase();
+            this.init();
            
+            //this.Term = document.getElementById('textBoxSearch').value.toUpperCase();
+            this.Term =  $("."+selected_tab+" #textBoxSearch").val().toUpperCase();
+         
           
             for (var i = 0, row; row = this.Rows[i], rowText = this.RowsText[i]; i++) {
                 row.style.display = ((rowText.indexOf(this.Term) != -1) || this.Term === '') ? '' : 'none';
@@ -39,3 +38,4 @@
             }
             else { return false; }
         }
+ 

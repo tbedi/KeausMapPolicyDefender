@@ -23,19 +23,25 @@ group by website.name , crawl_results.website_id
 order by count(crawl_results.website_id) desc
 ";
 
-$total_pages = mysql_fetch_array(mysql_query($query));
-$total_pages = $total_pages['num'];
 
-$stages = 3;
-$page = 1;
+/*Pagination*/
+		 $result = mysql_query($query);
+	 $total_pages = mysql_num_rows($result);  
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'vendor') {
-    $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limit;
-} else {
-    $start = 0;
-    $page = 1;
-}
+	 
+	 $stages = 3;
+	 $page=1;
+	 
+	 if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-seller' )
+    {
+	 	$page = mysql_escape_string($_GET['page']);
+	 	$start = ($page - 1) * $limit;
+	 }else{
+	 	$start = 0;
+	 	$page=1;
+	 }	 
+	 /*Pagination*/
+
 ?>
 
 
@@ -44,7 +50,6 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'vendor') {
     <tr>
         <td >
 
-            <!-- transfer all inline styles into style.css -->
             <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
                     border:2px solid #456879;
                     border-radius:10px;float:left;
@@ -83,8 +88,8 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'vendor') {
                     <?php
                     $query1 = "select website.name,
 crawl_results.website_id,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
+format(max(crawl_results.violation_amount),2) as maxvio,
+format(min(crawl_results.violation_amount),2) as minvio,
 count(crawl_results.website_id) as wi_count
 from website
 inner join
@@ -104,18 +109,18 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
 
                     // Initial page num setup
                     //if (!$page){$page = 1;}
-                    $tab_name = 'vendor';
+                    $tab_name = 'violation-by-seller';
                     $prev = $page - 1;
                     $next = $page + 1;
                     $lastpage = ceil($total_pages / $limit);
                     $LastPagem1 = $lastpage - 1;
 
 
-                    while ($row = mysql_fetch_array($result)) {
+                    while ($row = mysql_fetch_assoc($result)) {
                         echo "<tr>";
                         echo "<td>";
 
-                        echo "<a href=" . "?website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . $row['maxvio'] . "</td>" . "<td>" . $row['minvio'] . "</td>" . "</tr>";
+                        echo "<a href=" . "?tab=violation-by-seller&website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$".$row['maxvio'] . "</td>" . "<td>" . "$".$row['minvio'] . "</td>" . "</tr>";
                         echo "</td>";
                         echo "</tr>";
                     }
@@ -124,18 +129,22 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     // mysql_close($con); 
                     ?>	 
 
-                <div  style="display:block;">
-                    <?php include_once ('page2.php'); ?>
-                </div>	
-
+               	 
+  <div align="right" style="display:block;">
+                    <?php include ('page2.php'); ?>
+                </div>
         </td>  
 
 
     </tr>       
 </tbody></table> 
+            
+          
 <?php
-if (isset($_GET['showclicked'])) {
-
-    include_once 'vviolation1.php';
+if(isset($_GET['website_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-seller" )
+{
+    include_once 'vviolation.php';
 }
 ?>
+
+            

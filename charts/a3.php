@@ -1,9 +1,6 @@
+ 
 <?php
-$sku = $_REQUEST['sku_id'];
-?>
-<?php
-//example sku
-//$sku='GV-101-CH';
+ $product_id = $_REQUEST['product_id'];
 // getting last crawl
 $sql = "select id, date_executed from crawl ORDER BY id DESC LIMIT 1";
 $result = mysql_query ( $sql );
@@ -12,12 +9,13 @@ $last_crawl = mysql_fetch_assoc ( $result );
 $limit = 10; // x in the Top x Products
            // Getting Top x Price violations by Product from last Crawl process
 $sql = "SELECT  w.`name` as vendor ,
-    r.violation_amount  FROM crawl_results  r 
+    format(r.violation_amount,2) as violation_amount
+    FROM crawl_results  r 
     INNER JOIN website w 
     ON r.website_id=w.id 
     INNER JOIN catalog_product_flat_1 p 
     ON p.entity_id=r.product_id  
-    AND p.sku='".$sku."'  
+    AND p.entity_id='".$product_id."'  
     WHERE r.crawl_id=".$last_crawl['id']." 
             AND r.violation_amount>0.05 
             ORDER BY r.violation_amount DESC LIMIT ".$limit;
@@ -27,7 +25,7 @@ $result = mysql_query ( $sql );
 $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
 while ( $row = mysql_fetch_assoc ( $result ) ) {
-  $chart_row = "'" . $row ['vendor'] . "'";
+  $chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $row['vendor']) . "'";
   array_push ( $chart_vendor_rows, $chart_row ); 
   array_push ( $chart_violation_amount_rows,  $row ['violation_amount']);
 }
@@ -103,4 +101,4 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
 
 </script>
 
-<div id="chart-a3"  style="min-width: 800px; height: 300px; margin: 0 auto"></div>
+<div id="chart-a3"  style="width: 800px; height: 300px; margin: 0 auto"></div>

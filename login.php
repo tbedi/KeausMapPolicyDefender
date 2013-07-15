@@ -39,7 +39,7 @@ if ( isset($_POST['login']))
          exit();
      }
      else 
-     die("Incorrect email/password combination"); 
+    header("Location: index.php");
     }
     }
 }

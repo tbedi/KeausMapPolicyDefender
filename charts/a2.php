@@ -86,4 +86,4 @@ $(function () {
 });
 </script>
 
-<div id="chart-a2" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+<div id="chart-a2" style="width: 550px; height: 550px; margin: 0 auto"></div>

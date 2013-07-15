@@ -85,4 +85,4 @@ $(function () {
 });
 </script>
 
-<div id="chart-a1" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+<div id="chart-a1" style="width: 400px; height: 550px; margin: 0 auto"></div>
