@@ -50,7 +50,8 @@ $(function () {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
-            plotShadow: false
+            plotShadow: false,
+                  margin: [ 0, 0, 10, 10]
         },
         title: {
             text: 'Price Violation by Products'
@@ -85,4 +86,4 @@ $(function () {
 });
 </script>
 
-<div id="chart-a1" style="width: 400px; height: 550px; margin: 0 auto"></div>
+<div id="chart-a1" style="width: 450px; height: 500px; margin: 0 auto"></div>
