@@ -1,6 +1,19 @@
 <?php include_once 'db.php'; ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php
+if(!loggedin())
+{
+    header("Location: login.php");
+    exit();
+}
+
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+$log_user =$_SESSION["email"];
+if(isset($_SESSION["email"]))
+{
+?>
 <html>
+    
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Price MAP Violation </title
@@ -104,9 +117,9 @@
                     <a href="http://192.168.5.26:8080/KeausMapPolicyDefender/" target="_blank" class="top-menu-item-1" style="padding-right: 10px"> <strong>Price Defender	</strong> </a>
                     <a href="http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx" target="_blank" class="top-menu-item-2" style="padding-left:  10px;padding-right: 10px"> <strong>Shipment Controller	 </strong> </a>
                     <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Other App </strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px"> <img src="images/user.jpg" width="28" height="24" /><strong>User Name	 </strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a>
-
+                    <div align="right"><a href="" target="_blank" class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px" align="right"><strong>email:&nbsp;&nbsp;<b><?php echo $log_user; ?></b></strong> </a>
+                    <a class="top-menu-item-5" style="padding-left:  10px;"> <strong>LogOut</strong> </a><a href="logout.php" ><img src="images/connect.png"  alt="Logout" /></a>
+                    </div>
                 </div>
             </div> 
         </div> 
@@ -162,3 +175,6 @@
 
     </body>
 </html>
+<?php
+}
+?>
