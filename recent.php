@@ -74,6 +74,7 @@ $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
+$page_param="page"; //add it to each pagination
 $additional_params = ""; //addtiion params to pagination url;
 ?>
 
