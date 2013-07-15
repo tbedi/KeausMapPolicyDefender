@@ -104,10 +104,12 @@ $additional_params = ""; //addtiion params to pagination url;
 
         </td>
         <td> Export To
-            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;"
+                     onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
                     document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
                 <option value="xls" name="xls" selected="xls" >xls</option>
-                <option value="pdf" >PDF</option>
+                <option value="csv" name="csv">csv</option>
+                <option value="pdf" name="pdf" >pdf</option>
                  </select>
                
 
@@ -115,7 +117,12 @@ $additional_params = ""; //addtiion params to pagination url;
             <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
     </td>
     </tr>
- <script type="text/javascript">
+   <?php 
+   // $("select").each(function() {
+  // alert(this.options[this.selectedIndex].value);
+    //}); 
+?>
+<!-- <script type="text/javascript">
 
     function exportto()
                 {
@@ -128,22 +135,24 @@ $additional_params = ""; //addtiion params to pagination url;
                            open('export_recent.php');
                            document.write("xls export");
                         }
-                    else 
+                    else if(i==="csv")
                         {
-                            document.write("pdf export");
+                            open('export_recent_csv.php');
+                            document.write("csv export");
                         }
+                        else
+                            {
+                                 
+                            document.write("pdf export");
+                            }
                 }
 
 
-               // function exporttopdf($val)
-               // {
-               //     document.write("pdf export");
-                    //   load('export_recent.php');
-              //  }
+             
 
 
 
-                </script>
+                </script>-->
 
 
 
