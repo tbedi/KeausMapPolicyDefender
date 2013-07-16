@@ -126,17 +126,22 @@ foreach ($products as $product) {
 
             <div id="templatemo_footer_wrapper1">
                 <div id="templatemo_footer">
-                    <div align="center">
-						 <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Setting</strong> </a>
-                        <a href="" target="_blank" class="top-menu-item-4" style="padding-left:  700px;padding-right: 20px"> <img src="images/agent.png" width="28" height="24" style="padding-left:  10px;"/>
-                        <strong>&nbsp;&nbsp;<?php
+                    <div align="center" style="min-height:5px;overflow:auto;">
+                    	<div  class="menu-item first" style="float:left; padding-top:3px;" >  
+							 <a href="" target="_blank" class="top-menu-item-3" > <strong>Setting</strong> </a>
+                       </div>
+                       <div style="float:right; padding-top:3px;width:176px;" >  
+                        <img src="images/agent.png" width="28" height="24" style="padding-left:  10px; float:right;"/>
+                        <a href="" target="_blank" class="top-menu-item-4" >  
+                        <?php
                                 if (isset($_SESSION['username'])) {
                                     echo "" . $_SESSION['username'] . ", <br><small><a href=\"logout.php\">logout</a></small>";
                                 } else {
-                                    echo "Welcome Guest!<br><small><a href=\"login.php\">Login</a></small>";
+                                    echo "Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
                                 }
-                                ?></strong>
-                                 </a>                        
+                                ?> 
+                         </a>
+                         </div>                        
 
                     </div>
                 </div> 
