@@ -9,7 +9,8 @@ inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
 inner join website sites on sites.id = res.website_id
 inner join crawl on crawl.id = res.crawl_id
 where
-violation_amount > 0.05
+violation_amount > 0.05 
+and sites.excluded = 0 
 group by crawl.date_executed
 order by 1 desc limit " . $limit;
 $result = mysql_query( $sql );
@@ -96,5 +97,11 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
     });
 });
 </script>
+<?php
+if(!$result)
+{
+    echo mysql_error();
+}
 
-<div id="chart-a6" style="min-width: 400px; height: 300px; margin: 0 auto"></div>
+    ?>
+    <div id="chart-a6" style="min-width: 400px; height: 300px; margin: 0 auto"></div>

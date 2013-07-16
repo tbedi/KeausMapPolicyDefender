@@ -20,6 +20,8 @@ crawl
 on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
+website.excluded = 0
+and
 crawl.id = 
 (select max(crawl.id) from crawl)
 order by sku asc";

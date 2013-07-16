@@ -61,8 +61,8 @@
 
 #vioR {
 	font-family: Arial, Helvetica, sans-serif;
-	color: #FFF;
-	background-color: #f68787;
+	color: #D8000C;
+	background-color: #FFBABA;
 }
 #vioO {
 	font-family: Arial, Helvetica, sans-serif;
@@ -82,8 +82,9 @@ border:2px solid #616261; -webkit-border-radius: 11px; -moz-border-radius: 11px;
  background-image: -ms-linear-gradient(top, #7d7e7d, #0e0e0e);
  background-image: -o-linear-gradient(top, #7d7e7d, #0e0e0e);
  background-image: linear-gradient(to bottom, #7d7e7d, #0e0e0e);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#7d7e7d, endColorstr=#0e0e0e);
-height:auto;
-animation:cubic-bezier();
+ height:auto;
+ animation:cubic-bezier;
+ 
 }
 
 .button_example:hover{

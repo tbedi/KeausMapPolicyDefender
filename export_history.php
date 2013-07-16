@@ -7,9 +7,9 @@ $dbTable="";
 	$sql = "select catalog_product_flat_1.sku,
 catalog_product_flat_1.name as pname,
 website.name as wname, 
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(crawl_results.violation_amount,2) as violation_amount,
 crawl_results.website_product_url,
 crawl.date_executed
 from website
@@ -18,10 +18,12 @@ prices.crawl_results
 on prices.website.id = prices.crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
+inner join crawl
 on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
+where 
+crawl_results.violation_amount>0.05 
+and
+website.excluded=0
 and
 crawl.id = 
 (select max(crawl.id) from crawl)

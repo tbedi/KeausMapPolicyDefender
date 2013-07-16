@@ -23,6 +23,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id 
       WHERE crawl_id=".$last_crawl['id']." 
       AND violation_amount>0.05 
+      and website.excluded = 0 
       ORDER BY crawl_results.violation_amount DESC LIMIT ".$limit;
 $result = mysql_query ( $sql );
 
