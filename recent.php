@@ -17,7 +17,7 @@ $limit = 10;
 
 $where = "";
 
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' &&isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
     $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
@@ -81,7 +81,7 @@ $result = mysql_query($query1);
 
 // Initial page num setup
 //if (!$page){$page = 1;}
-$tab_name = 'recent';
+$tab_name = 'recent'; 
 $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
@@ -100,7 +100,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 
  
 
-            <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch" onkeyup="recent_search();"  
+            <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch"   
                     style="padding:5px;
                     padding-right: 40px;
                     background-image:url(images/sr.png); 
@@ -144,9 +144,9 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                             function recent_search() {
                                 var field = "sku";
                                 var value = $(".recent_search").val();
-                                var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['tab']) && $_GET['tab']) echo '&tab=' . $_GET['tab']; ?>";
+                                var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page'];  ?>";
 
-                                var search_link = "/index.php?action=search&field=" + field + "&value=" + value + search_url_additional_params;
+                                var search_link = "/index.php?action=search&field=" + field + "&value=" + value +"&tab=recent"+ search_url_additional_params;
 
                                 window.open(search_link, "_self");
 
