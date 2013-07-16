@@ -16,9 +16,9 @@ on website.id = crawl_results.website_id
 inner join crawl
 on
 crawl_results.crawl_id = crawl.id
-
-where crawl_results.violation_amount>0.05 
+where crawl_results.violation_amount > 0.05  
 and
+website.excluded = 0
 crawl.id = 
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id

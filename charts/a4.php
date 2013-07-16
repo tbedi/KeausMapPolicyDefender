@@ -23,6 +23,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id 
       WHERE crawl_id=".$last_crawl['id']." 
       AND violation_amount>0.05 
+      and website.excluded = 0 
       ORDER BY crawl_results.violation_amount DESC LIMIT ".$limit;
 $result = mysql_query ( $sql );
 
@@ -45,7 +46,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
      $('#chart-a4').highcharts({
          chart: {
              type: 'column',
-             margin: [ 50, 50, 100, 80]
+             margin: [ 50, 50, 160, 150]
          },
          title: {
              text: 'Violation by Sellers'
@@ -106,4 +107,4 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
 
 </script>
 
-<div id="chart-a4"  style="width: 800px; height: 300px; margin: 0 auto"></div>
+<div id="chart-a4"  style="width: 800px; height: 400px; margin: 0 auto"></div>

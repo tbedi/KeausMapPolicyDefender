@@ -6,24 +6,22 @@ include('db.php');
 $web_id = $_REQUEST['website_id'];
 $dbTable="";
 	$sql = 
-"select prices.crawl_results.website_id,
-domain,
-website.name as wname,
-catalog_product_flat_1.entity_id,
-catalog_product_flat_1.name,
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
-website_id,
+"select distinct 
+catalog_product_flat_1.sku,
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(crawl_results.violation_amount,2) as violation_amount,
 crawl_results.website_product_url
-from website
+from crawl_results
 inner join
-prices.crawl_results
+website
 on prices.website.id = prices.crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
-and website_id = $web_id
+and
+website.excluded = 0
+and crawl_results.website_id = $web_id
 order by violation_amount desc";
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
 

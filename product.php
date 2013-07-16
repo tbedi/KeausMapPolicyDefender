@@ -4,6 +4,14 @@
 	$targetpage = "index.php"; 	
 	$limit = 10; 
 	
+	$where="";
+	
+	if (isset($_GET['action']) && $_GET['action'] == 'searchfirst' &&isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+		$field = strtolower($_GET['field']);
+		$value = strtolower($_GET['value']);
+		$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
+	}
+	
 	 $query = "SELECT distinct 
 catalog_product_flat_1.sku,
 catalog_product_flat_1.entity_id as product_id,
@@ -20,11 +28,12 @@ prices.crawl_results
 on catalog_product_flat_1.entity_id = crawl_results.product_id 
 inner join crawl
 on
-crawl_results.crawl_id = crawl.id
+crawl_results.crawl_id = crawl.id 
 where crawl_results.violation_amount>0.05
+
  and 
 crawl.id = 
-(select max(crawl.id) from crawl)
+(select max(crawl.id) from crawl) " . $where . " 
 group by prices.catalog_product_flat_1.sku,
 prices.catalog_product_flat_1.name
 order by maxvio desc "; 
@@ -66,9 +75,10 @@ inner join crawl
 on
 crawl_results.crawl_id = crawl.id
 where crawl_results.violation_amount>0.05
+
  and 
 crawl.id = 
-(select max(crawl.id) from crawl)
+(select max(crawl.id) from crawl) " . $where . " 
 group by prices.catalog_product_flat_1.sku,
 prices.catalog_product_flat_1.name
 order by maxvio desc LIMIT $start, $limit";
@@ -80,28 +90,82 @@ order by maxvio desc LIMIT $start, $limit";
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
-	$LastPagem1 = $lastpage - 1;				
+	$LastPagem1 = $lastpage - 1;	
+       
+	$page_param="page";//variable used for pagination
 	$additional_params=""; //addtiion params to pagination url;
+	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
+	}
+	if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
+		$additional_params.="&product_id=".$_GET['product_id'];
+	}
+	if (isset($_GET['action']) && $_GET['action']) { // search 
+		$additional_params.="&action=".$_GET['action']."&field=sku&value=".$_GET['value'];
+	}
+	
 	?>
 	
 <h3 align="center"	>Product Violations</h3>
-<table align="center"   >
+<table align="center"  width="1000px" >
 <tr>
 <td>
   
+<td >
+ <div style="padding-right: 20px;padding-left:0px; float: left">
 
-  <input  type="text" size="30" width="300" hight="40" maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  style="background-image:url(images/sr.png) no-repeat 4px 4px;	
-	border:2px solid #456879;
-	border-radius:10px;float:left;
-	height: 22px;
-	width: 230px; "/> 
-	<a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;">
-	<img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>
-     <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a>
- 
-	</td>
+            <input  	class="product-violation-search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="searchfirst" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" id="textBoxSearch"   
+                     style="padding:5px;
+                     padding-right: 40px;
+                     background-image:url(images/sr.png); 
+                     background-position: 100% -5px; 
+                     background-repeat: no-repeat;
+                     border:2px solid #456879;
+                     border-radius:10px;float:left;
+                     height: 15px;
+                     outline:none; 
+                     width: 200px; "/> 
+            </div>
+            <div style="padding-right: 20px;padding-left:20px;">
+            
+            <a href="javascript:void(0);" class="myButton"  onclick="product_violation_search();" >Search</a>
+            </div>
+             <script type="text/javascript">
+             	function product_violation_search() {
+            		 var field = "sku";
+                     var value = $(".product-violation-search").val();
+                     
+                     var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) echo '&second_grid_page=' . $_GET['second_grid_page'];  ?>";
+
+                     var search_link = "/index.php?action=searchfirst&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
+
+                     window.open(search_link, "_self");
+             	}
+             </script>   
+        </td>
+        <td>
+            <div style="padding-right: 20px;padding-left:0px; float: left">
+            Export To
+            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
+                <option value="xls" name="xls" selected="xls" >xls</option>
+                <option value="pdf" >PDF</option>
+                 </select>
+               </div>
+
+           <div style="padding-right: 20px;padding-left:0px; ">
+            <a href="export_product1.php" id="1" class="myButton" >Export</a>
+            </div>
+    </td>
 </tr>
-<tr>
+
+</table>
+
+<div class="cleaner" style="padding-top: 15px; ">
+    
+ </div>
+<table align="center">
+    <tr>
 <td>
        
   		<table class="GrayBlack" align="center">
@@ -136,9 +200,18 @@ order by maxvio desc LIMIT $start, $limit";
 	   { 
 	        echo "<tr>";
             echo "<td>";
-               
-			   
-			    echo "<a href="."?tab=violation-by-product&product_id=".$row['product_id'].">".$row['sku']."</td>"."<td>"."$".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>"."$".$row['maxvio']."</td>"."<td>"."$".$row['minvio']."</td>"."</tr>";   
+ 
+            $product_link="?tab=violation-by-product&product_id=".$row['product_id'];            
+ 
+	   		if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+				$product_link.="&page=".$_GET['page'];
+			}
+			
+			if (isset($_GET['action']) && $_GET['action']=="searchfirst") { //added that search  was included
+				$product_link.="&action=".$_GET['action']."&field=sku&value=".$_GET['value'];
+			}
+			
+			    echo "<a href='".$product_link."'>".$row['sku']."</td> <td> $".$row['map_price']."</td> <td>".$row['i_count']."</td> <td> $ ".$row['maxvio']."</td> <td> $".$row['minvio']."</td> </tr>";   
 				
             
 	   }
@@ -149,7 +222,7 @@ order by maxvio desc LIMIT $start, $limit";
  
 
  		
-  <div align="right" style="display:block; " >
+  <div align="left" style="display:block; " >
   <?php include ('page2.php');?>
 </div>		
 

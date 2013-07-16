@@ -9,6 +9,7 @@ include_once 'db.php';
 $e='';
 if ( isset($_POST['login']))
 {
+	 
     //getdata
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -98,7 +99,7 @@ if ( isset($_POST['login']))
 
                                 <label><b>Password</b></label><br />
                                 <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
-                                <input type="checkbox" name="rememberme" value="rememnerme" />&nbsp;&nbsp;Remember Me
+                                <input type="checkbox" name="rememberme"  />&nbsp;&nbsp;Remember Me
                             </li>
                             <li>
                                 <input class="button"  type="submit" name="login" value="Login"  />

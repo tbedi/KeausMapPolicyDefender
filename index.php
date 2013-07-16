@@ -1,11 +1,24 @@
 <?php include_once 'db.php'; ?>
+<?php include_once 'db_class.php'; 
+$db_resource = new DB ();
+/* Example of usage*/
+/*
+$sql="SELECT p.sku as sku FROM catalog_product_flat_1 p LIMIT 2";
+$products=$db_resource->GetResultObj($sql);
+foreach ($products as $product) {
+	echo $product->sku;
+}
+*/
+/* Example of usage*/
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Price MAP Violation </title
+        <title>Price Defender </title
 
         ><!-- hightcharts libraries -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -96,85 +109,87 @@
     <body id="home" >
 
         <div id="templatemo_header_wrapper" >
-            <div><a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
-                <img align="top" src="images/head4.PNG" />
-       
+ 
+           
+            <div class="container"  style="margin:auto; width:980px;height:80px;  min-height:2px;overflow:auto;">
+
+                 <div style="float:left; padding-right: 30px"> <a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
+                </div>
+                   <!-- <img align="top" src="images/head4.PNG" /> -->
+                    <div class="left-part" style="float:left;width:200px; ">
+                    <h2>Price Defender</h2>
+                </div>           
+                
             </div>
+            </div>
+ 
 
-        </div>
-
-        
-
-
-        <div id="templatemo_footer_wrapper1">
-            <div id="templatemo_footer">
-                <div align="center">
-                    <a href="http://192.168.5.26:8080/KeausMapPolicyDefender/" target="_blank" class="top-menu-item-1" style="padding-right: 10px"> <strong>Price Defender	</strong> </a>
-                    <a href="http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx" target="_blank" class="top-menu-item-2" style="padding-left:  10px;padding-right: 10px"> <strong>Shipment Controller	 </strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Other App </strong> </a>
-                    <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Setting</strong> </a>
-                    <div align="right"><a class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px" align="right"><strong>&nbsp;&nbsp;<?php
+            <div id="templatemo_footer_wrapper1">
+                <div id="templatemo_footer">
+                    <div align="center">
+						 <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Setting</strong> </a>
+                        <a href="" target="_blank" class="top-menu-item-4" style="padding-left:  700px;padding-right: 20px"> <img src="images/agent.png" width="28" height="24" style="padding-left:  10px;"/>
+                        <strong>&nbsp;&nbsp;<?php
                                 if (isset($_SESSION['username'])) {
                                     echo "" . $_SESSION['username'] . ", <br><small><a href=\"logout.php\">logout</a></small>";
                                 } else {
                                     echo "Welcome Guest!<br><small><a href=\"login.php\">Login</a></small>";
                                 }
-                                ?></strong> </a>
-                       
+                                ?></strong>
+                                 </a>                        
+
                     </div>
-                </div>
+                </div> 
             </div> 
-        </div> 
+
+            <div id="wrapper" align="center" >
+
+                <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
+                    <div id="tabs" align="center">
+                        <ul>
+                            <li id="tabHeader_1" class="recent">Recent violations</li>
+                            <li id="tabHeader_2" class="violation-by-product" >Violation by product</li>
+                            <li id="tabHeader_3" class="violation-by-seller" >Violation by seller</li>
+                            <li id="tabHeader_4" class="violations-history">Violation history</li>
+                        </ul>
+                    </div>
+
+                    <div id="tabscontent" align="center">
+
+                        <div class="tabpage recent" id="tabpage_1">
+                            <?php include_once 'recent.php'; ?>
 
 
+                        </div>
 
-        <div id="wrapper" align="center" >
+                        <div class="tabpage violation-by-product" id="tabpage_2">
+                            <?php include_once 'product.php'; ?>
 
-            <div id="tabContainer" align="center">
-                 <div id="tabs" align="center">
-                    <ul>
-                        <li id="tabHeader_1" class="recent">Recent violations</li>
-                        <li id="tabHeader_2" class="violation-by-product" >Violation by product</li>
-                        <li id="tabHeader_3" class="violation-by-seller" >Violation by seller</li>
-                        <li id="tabHeader_4" class="violations-history">Violation history</li>
-                    </ul>
-                </div>
+                        </div>
 
-                <div id="tabscontent" align="center">
+                        <div class="tabpage violation-by-seller" id="tabpage_3">
+                            <?php include_once 'vendor.php'; ?>
+                        </div>
+                        <div class="tabpage violations-history" id="tabpage_4">
+                            <?php include_once 'history.php'; ?>
 
-                    <div class="tabpage recent" id="tabpage_1">
-                        <?php include_once 'recent.php'; ?>
+                        </div>    
 
 
                     </div>
 
-                    <div class="tabpage violation-by-product" id="tabpage_2">
-                        <?php include_once 'product.php'; ?>
 
-                    </div>
-
-                    <div class="tabpage violation-by-seller" id="tabpage_3">
-                        <?php include_once 'vendor.php'; ?>
-                    </div>
-                    <div class="tabpage violations-history" id="tabpage_4">
-                        <?php include_once 'history.php'; ?>
-
-                    </div>    
-
-
-                </div>
-
-
-                <div class="cleaner"></div>
-
+                    <div class="cleaner"></div>
+ 
+                </div> 
+ 
             </div> 
-        </div> 
 
-        <div id="templatemo_footer_wrapper">
-            <div id="templatemo_footer">
-                Copyright © Kraus USA 2013
+            <div id="templatemo_footer_wrapper">
+                <div id="templatemo_footer">
+                    Copyright © Kraus USA 2013
+                </div> 
             </div> 
-        </div> 
 
     </body>
 </html>

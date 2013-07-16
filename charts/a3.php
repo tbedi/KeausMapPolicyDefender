@@ -18,6 +18,7 @@ $sql = "SELECT  w.`name` as vendor ,
     AND p.entity_id='".$product_id."'  
     WHERE r.crawl_id=".$last_crawl['id']." 
             AND r.violation_amount>0.05 
+            and w.excluded = 0 
             ORDER BY r.violation_amount DESC LIMIT ".$limit;
 $result = mysql_query ( $sql );
 
@@ -40,7 +41,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
      $('#chart-a3').highcharts({
          chart: {
              type: 'column',
-             margin: [ 50, 50, 100, 80]
+            margin: [ 50, 50, 160, 150]
          },
          title: {
              text: 'Violation by product'
