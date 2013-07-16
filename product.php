@@ -80,8 +80,15 @@ order by maxvio desc LIMIT $start, $limit";
 	$prev = $page - 1;	
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
-	$LastPagem1 = $lastpage - 1;				
+	$LastPagem1 = $lastpage - 1;	
+	$page_param="page";//variable used for pagination
 	$additional_params=""; //addtiion params to pagination url;
+	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
+	}
+	if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
+		$additional_params.="&product_id=".$_GET['product_id'];
+	}
 	?>
 	
 <h3 align="center"	>Product Violations</h3>
@@ -157,9 +164,11 @@ order by maxvio desc LIMIT $start, $limit";
 	   { 
 	        echo "<tr>";
             echo "<td>";
-               
-			   
-			    echo "<a href="."?tab=violation-by-product&product_id=".$row['product_id'].">".$row['sku']."</td>"."<td>"."$".$row['map_price']."</td>"."<td>".$row['i_count']."</td>"."<td>"."$".$row['maxvio']."</td>"."<td>"."$".$row['minvio']."</td>"."</tr>";   
+            $product_link="?tab=violation-by-product&product_id=".$row['product_id'];            
+	   		if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+				$product_link.="&page=".$_GET['page'];
+			}
+			    echo "<a href='".$product_link."'>".$row['sku']."</td> <td> $".$row['map_price']."</td> <td>".$row['i_count']."</td> <td> $ ".$row['maxvio']."</td> <td> $".$row['minvio']."</td> </tr>";   
 				
             
 	   }

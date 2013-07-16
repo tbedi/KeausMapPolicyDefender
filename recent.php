@@ -14,6 +14,16 @@ $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
 
+
+$where="";
+
+if (isset($_GET['action']) && $_GET['action']=='search'  && isset($_GET['tab']) && $_GET['tab'] == 'recent' ) {
+	$field=strtolower($_GET['field']);
+	$value=strtolower($_GET['value']);
+	$where="  AND  catalog_product_flat_1.".$field."  LIKE '%".$value."%'";
+}
+
+
 $query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
 inner join
 prices.crawl_results
@@ -26,7 +36,7 @@ on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
 crawl.id = 
-(select max(crawl.id) from crawl)
+(select max(crawl.id) from crawl) ".$where." 
 ";
 
 $total_pages = mysql_fetch_assoc(mysql_query($query));
@@ -42,9 +52,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
     $start = 0;
     $page = 1;
 }
-
-
-
+ 
 $query1 = "select catalog_product_flat_1.sku,
 website.name as wname, 
 format(crawl_results.vendor_price,2) as vendor_price,
@@ -63,7 +71,7 @@ on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
 crawl.id = 
-(select max(crawl.id) from crawl)
+(select max(crawl.id) from crawl) ".$where." 
 order by violation_amount desc LIMIT $start, $limit";
 $result = mysql_query($query1);
 
@@ -74,7 +82,11 @@ $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
+$page_param="page"; //add it to each pagination
 $additional_params = ""; //addtiion params to pagination url;
+if (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+	$additional_params.="&action=".$_GET['action']."&field=".$_GET['field']."&value=".$_GET['value'];
+}
 ?>
 
 <h3 align="center">Recent Violations( <?php echo $str; ?>)</h3>
@@ -83,7 +95,7 @@ $additional_params = ""; //addtiion params to pagination url;
         <td >
 
 
-            <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+            <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if   (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo  $_GET['value']; ?>" id="textBoxSearch" onkeyup="recent_search();"  
                      style="padding:5px;
                      padding-right: 40px;
                      background-image:url(images/sr.png); 
@@ -95,28 +107,27 @@ $additional_params = ""; //addtiion params to pagination url;
                      outline:none; 
                      width: 200px; "/> 
             <!-- <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;"> -->
-            <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
-                          <!--   <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>-->
-                        <!--  <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a> -->
+            <a href="javascript:void(0);" class="myButton"  onclick="recent_search();">Search</a>
+                      
 
 
 
 
         </td>
         <td> Export To
-            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;"
-                     onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                <option value="xls" name="xls" selected="xls" >xls</option>
-                <option value="csv" name="csv">csv</option>
-                <option value="pdf" name="pdf" >pdf</option>
+
+            <select  id="export" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" >
+                <option value="csv" name="csv" selected  >Excel</option>
+                <option value="pdf" >PDF</option>
+
                  </select>
                
 
            
             <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
-    </td>
+    </td> 
     </tr>
+
    <?php 
    // $("select").each(function() {
   // alert(this.options[this.selectedIndex].value);
@@ -124,12 +135,27 @@ $additional_params = ""; //addtiion params to pagination url;
 ?>
 <!-- <script type="text/javascript">
 
+ <script type="text/javascript">
+ 	function recent_search() {
+ 	 	var field="sku";
+ 	 	var value=$(".recent_search").val();
+ 	 	var search_url_additional_params="<?php if ( isset($_GET['page']) && $_GET['page']) echo '&page='.$_GET['page'];  if ( isset($_GET['tab']) && $_GET['tab']) echo '&tab='.$_GET['tab']; ?>";
+ 	 	 
+ 	 	var search_link="/index.php?action=search&field="+field+"&value="+value+search_url_additional_params;
+ 	 
+ 	 		window.open(search_link,"_self");
+ 	 
+ 	}
+ 	
     function exportto()
                 {
-                    
+					var mode=$("#export").val();
+					if (mode)
+						open ("export_recent_"+mode+".php");
+           
                     //document.write("xls export");
-                     open('export_recent.php');
-                    var i = document.selected_tab.getElementById(choice).value;
+                   //  open('export_recent.php');
+                  /*  var i = document.selected_tab.getElementById(choice).value;
                     if(i==="xls")
                         {
                            open('export_recent.php');
@@ -137,14 +163,10 @@ $additional_params = ""; //addtiion params to pagination url;
                         }
                     else if(i==="csv")
                         {
-                            open('export_recent_csv.php');
-                            document.write("csv export");
-                        }
-                        else
-                            {
-                                 
+
                             document.write("pdf export");
-                            }
+                        }*/
+
                 }
 
 
@@ -189,6 +211,9 @@ $additional_params = ""; //addtiion params to pagination url;
                     </tr>
 
                     <?php
+                    if (mysql_num_rows($result)==0) {
+						echo "<tr><td colspan='6'>No Records Found.</td></tr>";
+					}
                     while ($row = mysql_fetch_assoc($result)) {
                         echo "<tr>";
                         ?>
@@ -201,6 +226,7 @@ $additional_params = ""; //addtiion params to pagination url;
                     <?php
                     echo "</tr>";
                 }
+                
                 echo "</table>";
 
 //  mysql_close($con); 
