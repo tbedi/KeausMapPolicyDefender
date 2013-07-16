@@ -6,6 +6,7 @@ include_once 'db.php';
     header("Location:userarea.php");
     exit();
 }*/
+$e='';
 if ( isset($_POST['login']))
 {
     //getdata
@@ -15,33 +16,33 @@ if ( isset($_POST['login']))
     if($email && $password)
     {
         $login = mysql_query("select * from admin_users where email='$email'");
-        /*if(mysql_num_rows($login)==0)
-        {
-            die("Incorrect email/password combination");
-            //header("Location:index1.php");
-        }
- else {*/
+     
         while($row = mysql_fetch_assoc($login))
         {
+            
             $db_password = $row['password'];
+            
             if(md5($password) === $db_password)
            $loginok = TRUE;          
-             else {
-     $loginok = FALSE;
- }
-     if($loginok==TRUE){
+             else
+           $loginok = FALSE;
+     if($loginok == TRUE)
+             {
+         $_SESSION['username'] = $row['username'];
+         //*$_SESSION['password']= $password;*//
          if($_POST['rememberme']=="on")
              setcookie("email", $email, time()+7200);
-          
-             $_SESSION['email'] = $email;
-         
+         $_SESSION['email'] = $email;
          header("Location: index.php");
          exit();
-     }
+            }
      else 
     header("Location: index.php");
     }
+    
+   //*die("Incorrect email/password combination");*/
     }
+    $e=$email;
 }
 ?>
 <html>
@@ -53,7 +54,7 @@ if ( isset($_POST['login']))
     </head>
 
     <body id="home" >
-
+        
         <div id="templatemo_header_wrapper" >
             <div><a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
                 <!-- <div style="float: left ">
@@ -74,7 +75,15 @@ if ( isset($_POST['login']))
 
 
         <div id="wrapper" align="center">
-            <div style="margin:60px;   padding:20px"> 
+            
+    <?php
+    $login = mysql_query("select * from admin_users where email='$e'");
+    if (mysql_num_rows($login)===0 && isset($_POST['email']))
+    {
+        echo " <div id="."log"." align="."center".">"."<b>Incorrect email and password</b>"."</div>";
+    } ?>
+            
+            <div style="margin:60px;   padding:20px" align="center"> 
                 <div id="login" align="center" >
                     <form name="form" action="login.php" method="post"  >
                         <ul>
@@ -88,19 +97,17 @@ if ( isset($_POST['login']))
                             <li>
 
                                 <label><b>Password</b></label><br />
-                                <input type='password' name='password' id='password' class="input" maxlength="50" required/><br/><br/>
+                                <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
                                 <input type="checkbox" name="rememberme" value="rememnerme" />&nbsp;&nbsp;Remember Me
                             </li>
                             <li>
-                                <input class="button" type="submit" name="login" value="Login"/>
+                                <input class="button"  type="submit" name="login" value="Login"  />
                             </li>
                         </ul>
                     </form>
                 </div>
-
             </div>    
         </div>
-
 
 
         <div id="templatemo_footer_wrapper">

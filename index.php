@@ -112,9 +112,10 @@
                     <a href="http://192.168.5.26:8080/KeausMapPolicyDefender/" target="_blank" class="top-menu-item-1" style="padding-right: 10px"> <strong>Price Defender	</strong> </a>
                     <a href="http://192.168.5.66/Forms/Web%20Forms/frmLogin.aspx" target="_blank" class="top-menu-item-2" style="padding-left:  10px;padding-right: 10px"> <strong>Shipment Controller	 </strong> </a>
                     <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Other App </strong> </a>
-                    <div align="right"><a href="" target="_blank" class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px" align="right"><strong>&nbsp;&nbsp;<?php
-                                if (isset($_SESSION['email'])) {
-                                    echo "" . $_SESSION['email'] . ", <br><small><a href=\"logout.php\">logout</a></small>";
+                    <a href="" target="_blank" class="top-menu-item-3" style="padding-left:  10px;padding-right: 200px;"> <strong>Setting</strong> </a>
+                    <div align="right"><a class="top-menu-item-4" style="padding-left:  200px;padding-right: 20px" align="right"><strong>&nbsp;&nbsp;<?php
+                                if (isset($_SESSION['username'])) {
+                                    echo "" . $_SESSION['username'] . ", <br><small><a href=\"logout.php\">logout</a></small>";
                                 } else {
                                     echo "Welcome Guest!<br><small><a href=\"login.php\">Login</a></small>";
                                 }
@@ -129,7 +130,7 @@
 
         <div id="wrapper" align="center" >
 
-            <div id="tabContainer" align="center" <!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()" --> >
+            <div id="tabContainer" align="center">
                  <div id="tabs" align="center">
                     <ul>
                         <li id="tabHeader_1" class="recent">Recent violations</li>
