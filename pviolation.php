@@ -45,7 +45,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p
     ON p.entity_id=r.product_id
-    AND p.sku='" . $product_id . "'
+    AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id=" . $last_crawl['id'] . "
 		    AND r.violation_amount>0.05
                     and w.excluded=0
@@ -65,10 +65,13 @@ $additional_params = "&product_id=" . $product_id; //addtiion params to paginati
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page'];
 }
+$sql="SELECT sku FROM catalog_product_flat_1 WHERE entity_id=".$product_id;
+$sku_result = mysql_query($sql);
+$sku=mysql_fetch_assoc($sku_result);
 ?>
+ 
 
-
-<h3 align="center"> Sellers Violated  <?php echo $product_id; ?> </h3> 
+<h3 align="center"> Sellers Violated  <?php echo $sku['sku']; ?> </h3> 
 
 
 
