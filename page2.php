@@ -1,7 +1,8 @@
 
 <?php  
 $paginate = '';
-$page_param=( $page_param ? $page_param :  "page" );
+// $page_param=( $page_param ? $page_param :  "page" );
+$page_param=((!$page_param) ? "page" : $page_param );
 	if($lastpage > 1)
 	{	
 	  

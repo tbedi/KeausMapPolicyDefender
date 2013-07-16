@@ -17,6 +17,8 @@ crawl
 on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
+website.excluded=0
+and
 crawl.id = 
 (select max(crawl.id) from crawl)
 order by sku asc
@@ -39,77 +41,83 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 ?>
 
 
-<table align="center">
+<table align="center" width="1000px;"  >
     <tr>
         <td >
-         <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
-                     style="padding:5px;
-                     padding-right: 40px;
-                     background-image:url(images/sr.png); 
-                     background-position: 100% -5px; 
-                     background-repeat: no-repeat;
-                     border:2px solid #456879;
-                     border-radius:10px;float:left;
-                     height: 15px;
-                     outline:none; 
-                     width: 200px; "/> 
-            <!-- <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;"> -->
-            <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
-                          <!--   <img src="images/sr.png" style="height:20px; width:20px; float:left; "></a>-->
-                        <!--  <a  style="float:left;padding-top:0px;"  href="export_recent.php"> <img src="images/dn.png" width="20" height="20" /> </a> -->
-        </td>
-    <td>
-    <form action=" ?tab=violations-history&option=show_dates" method="post">  
-To   <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
-From   <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
-<input type="submit" name="submit" value="show" />
-</form>
-   
-        </td>
-        </tr></table>
-<table align="right">
-
-<tr >
-        
-        <td> Export To
-            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                <option value="xls" name="xls" selected="xls" >xls</option>
-                <option value="pdf" >PDF</option>
-                 </select>
-               
-
+            <div style="padding-right: 0px;padding-left:0px; float: left">
+                <input  placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                         style="padding:5px;
+                         padding-right: 40px;
+                         background-image:url(images/sr.png); 
+                         background-position: 100% -5px; 
+                         background-repeat: no-repeat;
+                         border:2px solid #456879;
+                         border-radius:10px;float:left;
+                         height: 15px;
+                         outline:none; 
+                         width: 200px; "/> </div>
+                          </td>
+        <td>
            
-            <a href=" export_recent.php" id="1" class="myButton" >Export</a>
+            <div style="padding-right: 7px;padding-left:0px;">
+                <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+                            
+            </div>
         </td>
-  
-   
+        <td>
+            <form action=" ?tab=violations-history&option=show_dates" method="post"> 
+                <div style="padding-right: 7px;padding-left:0px; float: left">
+                    To   <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+                    From   <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/>
+                    <input type="submit" class="myButton" name="submit" value="show" /> </div>
+            </form>
+
+        </td>
+
+
+
+
+
+        <td> 
+            <div style="padding-right: 0px;padding-left:0px; float: left">
+                <select  id="choice" name="choice" align="right" style="  widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+                 document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
+                    <option value="xls" name="xls" selected="xls" >xls</option>
+                    <option value="pdf" >PDF</option>
+                </select>
+            </div>
+        </td>
+        <td>
+            <div style="padding-right: 0px;padding-left:0px; ">
+                <a href=" export_history.php" id="1" class="myButton" >Export</a>
+            </div>
+        </td>
+
+
 
     </tr>
-        
-</table><br>
-    <?php 
+
+</table>
+
+
+<div class="cleaner" style="padding-top: 15px; ">
     
-    if(isset($_GET['tab'])&& $_GET['tab']=='violations-history' && isset($_GET['option']) && $_GET['option']=='show_dates')
-    {
+ </div>
+<?php
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
     // print_r($_POST);
     // print_r($_POST["to"]);
-           // die();
-        $to =$_POST["to"];
-        $from=$_POST["from"];
-        echo "<br>                      Violations from ". $from." to ".$to;
-        
-        
-        
-    }
-    else
-    {
-    $to='2013-07-10';
-    $from='2013-06-12';
-    }
-            
-    
-   
+    // die();
+    $to = $_POST["to"];
+    $from = $_POST["from"];
+    echo "<br>                      Violations from " . $from . " to " . $to;
+} else {
+    $to = '2013-07-10';
+    $from = '2013-06-12';
+}
+
+
+
 
 $query1 = "select catalog_product_flat_1.sku,
 catalog_product_flat_1.name as pname,
@@ -131,104 +139,123 @@ where crawl.date_executed between '$to' and '$from'
 and
 crawl_results.violation_amount>0.05 
 and
+website.excluded=0
+and
 crawl.id = 
 (select max(crawl.id) from crawl)
 order by sku asc LIMIT $start, $limit";
 $result = mysql_query($query1);
-if(!$result)
-{
+if (!$result) {
     echo mysql_error();
-}
-else
-{
-    
+} else {
+
 
 // Initial page num setup
 //if (!$page){$page = 1;}
-$tab_name = 'violations-history';
-$prev = $page - 1;
-$next = $page + 1;
-$lastpage = ceil($total_pages / $limit);
-$LastPagem1 = $lastpage - 1;
-$additional_params = "";
-?>
-   
-   
-   
-   
-   
-   
-   
-   
+    $tab_name = 'violations-history';
+    $prev = $page - 1;
+    $next = $page + 1;
+    $lastpage = ceil($total_pages / $limit);
+    $LastPagem1 = $lastpage - 1;
+    $additional_params = "";
+    $page_param = "page";
+}
+    ?>
+     
     
-   <!-- <script type="text/javascript">
-         function show()
-        {
-    var date1=JsDatePick().selectedDayObject();
-    alert(date1.day + date1.month+date1.year);
-        }
-    </script>-->        
-   <table align="center">
-    <tr>
-        <td>
-            <table class="GrayBlack" align="center">
-                <tbody id="data">
-                    <tr> 
-                        <td>
-                            Product
-                        </td>	
+                <table class="GrayBlack" align="center">
+                    <tbody id="data">
+                        <tr> 
+                            <td>
+                                Product
+                            </td>	
 
-                        <td>
-                            SKU
-                        </td>
-                        <td>
-                            Seller
-                        </td>	
+                            <td>
+                                SKU
+                            </td>
+                            <td>
+                                Seller
+                            </td>	
 
-                        <td>
-                            Vendor price
-                        </td>
-                        <td>
-                            MAP price
-                        </td>
-                        <td>
-                            Violation amt
-                        </td>
-                        <td>
-                            Screenshot
-                        </td>
-                    </tr>
+                            <td>
+                                Vendor price
+                            </td>
+                            <td>
+                                MAP price
+                            </td>
+                            <td>
+                                Violation amt
+                            </td>
+                            <td>
+                                Screenshot
+                            </td>
+                        </tr>
 
-                    <?php
-                    while ($row = mysql_fetch_assoc($result)) {
-                        echo "<tr>";
-                        ?>
-                    <td ><?php echo $row['pname']; ?></td>
-                    <td ><?php echo $row['sku']; ?></td>
-                    <td ><?php echo $row['wname']; ?></td>
-                    <td ><?php echo "$" . $row['vendor_price']; ?></td>
-                    <td ><?php echo "$" . $row['map_price']; ?></td>
-                    <td ><?php echo "$" . $row['violation_amount']; ?></td>
-                    <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ?></td>
     <?php
-    echo "</tr>";
-}
-echo "</table>";
+    while ($row = mysql_fetch_assoc($result)) {
+        echo "<tr>";
+        
+                        
+         if ($row['violation_amount'] > 10) {
+                            ?>                
+                        
+                        
+                        <td ><?php echo $row['pname']; ?></td>
+                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><?php echo $row['wname']; ?></td>
+                        <td ><?php echo "$" . $row['vendor_price']; ?></td>
+                        <td ><?php echo "$" . $row['map_price']; ?></td>
+                        <td id="vioR"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
+                         
 
-}
-//  mysql_close($con); 
+  <?php
+                    } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
 ?>
-                <div align="right" style="display:block;">
-                <?php include ('page2.php'); ?>
+                         <td ><?php echo $row['pname']; ?></td>
+                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><?php echo $row['wname']; ?></td>
+                        <td ><?php echo "$" . $row['vendor_price']; ?></td>
+                        <td ><?php echo "$" . $row['map_price']; ?></td>
+                        <td id="vioO"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
+                        
+                     
+                         <?php
+                    } else  if ($row['violation_amount'] < 5)
+                        {
+                        
+                         ?>
+                         <td ><?php echo $row['pname']; ?></td>
+                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><?php echo $row['wname']; ?></td>
+                        <td ><?php echo "$" . $row['vendor_price']; ?></td>
+                        <td ><?php echo "$" . $row['map_price']; ?></td>
+                        <td id="vio"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
+                        
+                         <?php
+                    }
+                        
+                        
+                        
+                        
+  
+                    }
+
+                    ?>
+                        
+                <div align="left" style="display:block;">
+<?php include ('page2.php'); ?>
                 </div>		
-        </td>  
+     
 
     </tr>       
 </tbody></table> 
 
 
 
-<div  style="display: table-row-group;">
+<div  style="display: table-row-group;" >
     <table>
         <tr>
             <td>
@@ -240,5 +267,4 @@ echo "</table>";
         </tr>
 
     </table>
-</div>  
-            
+</div>

@@ -22,6 +22,7 @@ inner join crawl
 on
 crawl_results.crawl_id = crawl.id
 where crawl_results.violation_amount>0.05
+
  and 
 crawl.id = 
 (select max(crawl.id) from crawl)
@@ -66,6 +67,7 @@ inner join crawl
 on
 crawl_results.crawl_id = crawl.id
 where crawl_results.violation_amount>0.05
+
  and 
 crawl.id = 
 (select max(crawl.id) from crawl)
@@ -81,6 +83,7 @@ order by maxvio desc LIMIT $start, $limit";
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
 	$LastPagem1 = $lastpage - 1;	
+       
 	$page_param="page";//variable used for pagination
 	$additional_params=""; //addtiion params to pagination url;
 	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
@@ -92,12 +95,12 @@ order by maxvio desc LIMIT $start, $limit";
 	?>
 	
 <h3 align="center"	>Product Violations</h3>
-<table align="center"   >
+<table align="center"  width="1000px" >
 <tr>
 <td>
   
 <td >
-
+ <div style="padding-right: 20px;padding-left:0px; float: left">
 
             <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
                      style="padding:5px;
@@ -110,24 +113,34 @@ order by maxvio desc LIMIT $start, $limit";
                      height: 15px;
                      outline:none; 
                      width: 200px; "/> 
+            </div>
+            <div style="padding-right: 20px;padding-left:20px;">
             
             <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+            </div>
                 
         </td>
-        <td> Export To
+        <td>
+            <div style="padding-right: 20px;padding-left:0px; float: left">
+            Export To
             <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
                     document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
                 <option value="xls" name="xls" selected="xls" >xls</option>
                 <option value="pdf" >PDF</option>
                  </select>
-               
+               </div>
 
-           
+           <div style="padding-right: 20px;padding-left:0px; ">
             <a href="export_product1.php" id="1" class="myButton" >Export</a>
+            </div>
     </td>
 </tr>
 
 </table>
+
+<div class="cleaner" style="padding-top: 15px; ">
+    
+ </div>
 <table align="center">
     <tr>
 <td>
@@ -164,7 +177,9 @@ order by maxvio desc LIMIT $start, $limit";
 	   { 
 	        echo "<tr>";
             echo "<td>";
+ 
             $product_link="?tab=violation-by-product&product_id=".$row['product_id'];            
+ 
 	   		if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
 				$product_link.="&page=".$_GET['page'];
 			}
@@ -179,7 +194,7 @@ order by maxvio desc LIMIT $start, $limit";
  
 
  		
-  <div align="right" style="display:block; " >
+  <div align="left" style="display:block; " >
   <?php include ('page2.php');?>
 </div>		
 

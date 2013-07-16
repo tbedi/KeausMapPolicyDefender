@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Price MAP Violation </title
+        <title>Price Defender </title
 
         ><!-- hightcharts libraries -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -100,8 +100,8 @@
                  <div style="float:left; padding-right: 30px"> <a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
                 </div>
                    <!-- <img align="top" src="images/head4.PNG" /> -->
-                    <div class="left-part" style="float:left;width:150px; ">
-                    <h2>Price Map</h2>
+                    <div class="left-part" style="float:left;width:200px; ">
+                    <h2>Price Defender</h2>
                 </div>
                     <!-- <div style="float: left ">
          

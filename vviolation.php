@@ -28,6 +28,8 @@ on prices.website.id = prices.crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
+and
+website.excluded=0
 and website_id = $web_id
 order by violation_amount desc";
 
@@ -38,8 +40,8 @@ $total_pages = $total_pages['num'];
 $stages = 3;
 $page = 1;
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
-    $page = mysql_escape_string($_GET['page']);
+if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-sellers') {
+    $page = mysql_escape_string($_GET['second_grid_page']); //$page_param should have same value
     $start = ($page - 1) * $limit;
 } else {
     $start = 0;
@@ -66,6 +68,8 @@ on prices.website.id = prices.crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
+and
+website.excluded=0
 and website_id = $web_id
 order by violation_amount desc LIMIT $start, $limit";
 $result = mysql_query($query1);
@@ -77,46 +81,58 @@ $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
-$additional_params = "website_id=" . $web_id;
+$page_param = "second_grid_page"; //variable used for pagination
+$additional_params = "website_id=" . $web_id; //addtiion params to pagination url;
+if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+    $additional_params.="&page=" . $_GET['page'];
+}
 ?>
 
 <h3 align="center"> Products Violated by <?php echo $str; ?> <h3> 
 
-        <table align="center"   >
+        <table align="center"  width="1000px" >
             <tr>
                 <td >
 
-        <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
-                     style="padding:5px;
-                     padding-right: 40px;
-                     background-image:url(images/sr.png); 
-                     background-position: 100% -5px; 
-                     background-repeat: no-repeat;
-                     border:2px solid #456879;
-                     border-radius:10px;float:left;
-                     height: 15px;
-                     outline:none; 
-                     width: 200px; "/> 
-            
-            <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
-                
-        </td>
-        <td> Export To
-            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                <option value="xls" name="xls" selected="xls" >xls</option>
-                <option value="pdf" >PDF</option>
-                 </select>
-               
+                    <div style="padding-right: 20px;padding-left:0px; float: left">
+                        <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                                 style="padding:5px;
+                                 padding-right: 40px;
+                                 background-image:url(images/sr.png); 
+                                 background-position: 100% -5px; 
+                                 background-repeat: no-repeat;
+                                 border:2px solid #456879;
+                                 border-radius:10px;float:left;
+                                 height: 15px;
+                                 outline:none; 
+                                 width: 200px; "/> </div>
 
-           
-            <?php echo "<a href="."export_vendor.php?website_id=".$web_id."  "."class=myButton"." >Export</a>" ; 
-           ?>
+                    <div style="padding-right: 20px;padding-left:0px; ">
+                        <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+                    </div>   
+                </td>
+                <td> 
+                    <div style="padding-right: 20px;padding-left:0px; float: left">
+                        Export To
+                        <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+                document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
+                            <option value="xls" name="xls" selected="xls" >xls</option>
+                            <option value="pdf" >PDF</option>
+                        </select></div>
 
-        </td>
-    </tr>
-</table>
-<table align="center">
+                    <div style="padding-right: 20px;padding-left:0px; ">
+
+                        <?php echo "<a href=" . "export_vendor.php?website_id=" . $web_id . "  " . "class=myButton" . " >Export</a>";
+                        ?>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="cleaner" style="padding-top: 15px; ">
+
+        </div>
+        <table align="center">
             <tr>
                 <td>
 
@@ -162,18 +178,18 @@ $additional_params = "website_id=" . $web_id;
                             </tbody>
                         </table>
 
-                       
-                        <div align="right"   style="display:block;">
-<?php include ('page2.php'); ?>
+
+                        <div align="left"   style="display:block;">
+                            <?php include ('page2.php'); ?>
                         </div>
 
 
 
             </tr>       
         </table>
-        
+
         <div>
 
-<?php include_once 'charts/a4.php'; ?>
+            <?php include_once 'charts/a4.php'; ?>
 
         </div>  

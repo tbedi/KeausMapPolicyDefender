@@ -15,9 +15,10 @@ $sql = "SELECT  w.`name` as vendor ,
     ON r.website_id=w.id 
     INNER JOIN catalog_product_flat_1 p 
     ON p.entity_id=r.product_id  
-    AND p.entity_id='".$product_id."'  
+    AND p.sku='".$product_id."'  
     WHERE r.crawl_id=".$last_crawl['id']." 
             AND r.violation_amount>0.05 
+            and w.excluded = 0 
             ORDER BY r.violation_amount DESC LIMIT ".$limit;
 $result = mysql_query ( $sql );
 

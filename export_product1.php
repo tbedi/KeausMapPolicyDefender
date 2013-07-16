@@ -21,7 +21,8 @@ on catalog_product_flat_1.entity_id = crawl_results.product_id
 inner join crawl
 on
 crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.05
+where crawl_results.violation_amount>0.05 
+
  and 
 crawl.id = 
 (select max(crawl.id) from crawl)

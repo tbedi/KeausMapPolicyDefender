@@ -17,6 +17,7 @@ $sql="SELECT  w.`name`,
     r.website_id=w.id 
     WHERE r.crawl_id=".$last_crawl['id']."
         AND r.violation_amount>0.05
+        and w.excluded = 0 
         GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT ".$limit;
 $result=mysql_query($sql);
 

@@ -17,6 +17,8 @@ crawl_results.crawl_id = crawl.id
 
 where crawl_results.violation_amount>0.05 
 and
+website.excluded=0
+and
 crawl.id =
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id
@@ -24,61 +26,66 @@ order by count(crawl_results.website_id) desc
 ";
 
 
-/*Pagination*/
-		 $result = mysql_query($query);
-	 $total_pages = mysql_num_rows($result);  
+/* Pagination */
+$result = mysql_query($query);
+$total_pages = mysql_num_rows($result);
 
-	 
-	 $stages = 3;
-	 $page=1;
-	 
-	 if(isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab']=='violation-by-seller' )
-    {
-	 	$page = mysql_escape_string($_GET['page']);
-	 	$start = ($page - 1) * $limit;
-	 }else{
-	 	$start = 0;
-	 	$page=1;
-	 }	 
-	 /*Pagination*/
 
+$stages = 3;
+$page = 1;
+
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+    $page = mysql_escape_string($_GET['page']);
+    $start = ($page - 1) * $limit;
+} else {
+    $start = 0;
+    $page = 1;
+}
+/* Pagination */
 ?>
 
 
 <h3 align="center"	>Seller Violations</h3>
-<table align="center"   >
+<table align="center"  width="1000px" >
     <tr>
         <td >
+            <div style="padding-right: 20px;padding-left:0px; float: left">
+                <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                         style="padding:5px;
+                         padding-right: 40px;
+                         background-image:url(images/sr.png); 
+                         background-position: 100% -5px; 
+                         background-repeat: no-repeat;
+                         border:2px solid #456879;
+                         border-radius:10px;float:left;
+                         height: 15px;
+                         outline:none; 
+                         width: 200px; "/> </div>
 
-            <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
-                     style="padding:5px;
-                     padding-right: 40px;
-                     background-image:url(images/sr.png); 
-                     background-position: 100% -5px; 
-                     background-repeat: no-repeat;
-                     border:2px solid #456879;
-                     border-radius:10px;float:left;
-                     height: 15px;
-                     outline:none; 
-                     width: 200px; "/> 
-            
-            <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
-                
+            <div style="padding-right: 20px;padding-left:0px; ">
+                <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+            </div>    
         </td>
-        <td> Export To
-            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                <option value="xls" name="xls" selected="xls" >xls</option>
-                <option value="pdf" >PDF</option>
-                 </select>
-               
+        <td> 
+            <div style="padding-right: 20px;padding-left:0px; float: left">
+                Export To
+                <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
+                        document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
+                    <option value="xls" name="xls" selected="xls" >xls</option>
+                    <option value="pdf" >PDF</option>
+                </select>
+            </div>
 
-           
-            <a href="export_vendor1.php" id="1" class="myButton" >Export</a>
-
+            <div style="padding-right: 20px;padding-left:0px; ">
+                <a href="export_vendor1.php" id="1" class="myButton" >Export</a>
+            </div>
         </td>
     </tr>
 </table>
+
+<div class="cleaner" style="padding-top: 15px; ">
+
+</div>
 <table align="center">
     <tr>
         <td>
@@ -120,36 +127,52 @@ crawl_results.crawl_id = crawl.id
 
 where crawl_results.violation_amount>0.05 
 and
+website.excluded=0
+and
 crawl.id = 
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id
 order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     $result = mysql_query($query1);
 
-                    // Initial page num setup
-                    //if (!$page){$page = 1;}
+// Initial page num setup
+//if (!$page){$page = 1;}
                     $tab_name = 'violation-by-seller';
                     $prev = $page - 1;
                     $next = $page + 1;
-                    $lastpage = ceil($total_pages / $limit);
-                    $LastPagem1 = $lastpage - 1;
+                   $lastpage = ceil($total_pages/$limit);		
+	$LastPagem1 = $lastpage - 1;	
+	$page_param="page";//variable used for pagination
+	$additional_params=""; //addtiion params to pagination url;
+	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
+	}
+	if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for product
+		$additional_params.="&website_id=".$_GET['website_id'];
+	}
 
 
+                    
+                    
+                    
                     while ($row = mysql_fetch_assoc($result)) {
+                         $website_link="?tab=violation-by-seller&website_id=".$row['website_id'];            
+	   		if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+				$product_link.="&page=".$_GET['page'];
+			}
                         echo "<tr>";
                         echo "<td>";
-
-                        echo "<a href=" . "?tab=violation-by-seller&website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$".$row['maxvio'] . "</td>" . "<td>" . "$".$row['minvio'] . "</td>" . "</tr>";
+                        echo "<a href='".$website_link."'>" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$" . $row['maxvio'] . "</td>" . "<td>" . "$" . $row['minvio'] . "</td>" . "</tr>";
                         echo "</td>";
                         echo "</tr>";
                     }
                     echo "</table>";
 
-                    // mysql_close($con); 
+// mysql_close($con); 
                     ?>	 
 
-               	 
-  <div align="right" style="display:block;">
+
+                <div align="left" style="display:block;">
                     <?php include ('page2.php'); ?>
                 </div>
         </td>  
@@ -157,13 +180,11 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
 
     </tr>       
 </tbody></table> 
-            
-          
+
+
 <?php
-if(isset($_GET['website_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-seller" )
-{
+if (isset($_GET['website_id']) && isset($_GET['tab']) && $_GET['tab'] == "violation-by-seller") {
     include_once 'vviolation.php';
 }
 ?>
 
-            

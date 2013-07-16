@@ -20,6 +20,8 @@ crawl
 on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
+website.excluded = 0
+and
 crawl.id = 
 (select max(crawl.id) from crawl)
 order by sku asc";
@@ -45,11 +47,12 @@ $arr_columns = array(
 );
 $arr_data = array();
 
-$arr_data_row = $result ;
-
+while ($row=  mysql_fetch_assoc($result)) {
+    //print_r($row);die();
+$arr_data_row = array($row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
-
+} //do it here
 exportCSV($arr_data, $arr_columns);
 
 
@@ -59,6 +62,7 @@ function exportCSV($data, $col_headers = array(), $return_string = false) {
     if (!empty($col_headers)) {
         fputcsv($stream, $col_headers);
     }
+    
     foreach ($data as $record) {
         fputcsv($stream, $record);
     }

@@ -35,6 +35,8 @@ crawl
 on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
+website.excluded=0
+and
 crawl.id = 
 (select max(crawl.id) from crawl) " . $where . " 
 ";
@@ -70,6 +72,8 @@ crawl
 on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
+website.excluded=0
+and
 crawl.id = 
 (select max(crawl.id) from crawl) " . $where . " 
 order by violation_amount desc LIMIT $start, $limit";
@@ -90,10 +94,11 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 ?>
 
 <h3 align="center">Recent Violations( <?php echo $str; ?>)</h3>
-<table align="center"  >
+<table align="center" width="1000px" >
     <tr>
         <td >
 
+ 
 
             <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch" onkeyup="recent_search();"  
                     style="padding:5px;
@@ -109,74 +114,63 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
             <!-- <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;"> -->
             <a href="javascript:void(0);" class="myButton"  onclick="recent_search();">Search</a>
 
-
+ 
 
 
 
         </td>
-        <td> Export To
-            <select  id="export" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" >
-                <option value="csv" name="csv" selected  >Excel csv</option>
-                <option value="xls" >Excel xls</option>
-                <option value="pdf" >PDF</option>
-            </select>
+ 
+        <td>
+            <div style="padding-right: 20px;padding-left:0px; float: left">
+                Export To
 
+                <select  id="export" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
+                    <option value="pdf" >PDF</option>
 
-
-            <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+                </select>
+            </div>
+            <div style="padding-right: 20px;padding-left:0px; ">
+                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+            </div>
         </td> 
     </tr>
+
+
     <script type="text/javascript">
-                function recent_search() {
-                    var field = "sku";
-                    var value = $(".recent_search").val();
-                    var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['tab']) && $_GET['tab']) echo '&tab=' . $_GET['tab']; ?>";
-
-                    var search_link = "/index.php?action=search&field=" + field + "&value=" + value + search_url_additional_params;
-
-                    window.open(search_link, "_self");
-
-                }
-
-                function exportto()
-                {
-                    var mode = $("#export").val();
-                    if (mode)
-                        open("export_recent_" + mode + ".php");
-                }
 
 
+                            function recent_search() {
+                                var field = "sku";
+                                var value = $(".recent_search").val();
+                                var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['tab']) && $_GET['tab']) echo '&tab=' . $_GET['tab']; ?>";
 
+                                var search_link = "/index.php?action=search&field=" + field + "&value=" + value + search_url_additional_params;
 
-                //document.write("xls export");
-                //  open('export_recent.php');
-                /*  var i = document.selected_tab.getElementById(choice).value;
-                 if(i==="xls")
-                 {
-                 open('export_recent.php');
-                 document.write("xls export");
-                 }
-                 else 
-                 {
-                 document.write("pdf export");
-                 }*/
+                                window.open(search_link, "_self");
+
+                            }
+
+                            function exportto()
+                            {
+                                var mode = $("#export").val();
+                                if (mode)
+                                    open("export_recent_" + mode + ".php");
 
 
 
-                // function exporttopdf($val)
-                // {
-                //     document.write("pdf export");
-                //   load('export_recent.php');
-                //  }
-
-
+                            }
 
     </script>
-
-
-
-
+ 
 </table>
+
+<div class="cleaner" style="padding-top: 15px; ">
+
+</div>
+
+
 
 <table>
 
@@ -213,14 +207,44 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                     }
                     while ($row = mysql_fetch_assoc($result)) {
                         echo "<tr>";
+
+
+                        if ($row['violation_amount'] > 10) {
+                            ?>
+                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><?php echo $row['wname']; ?></td>
+                        <td ><?php echo "$" . $row['vendor_price']; ?></td>
+                        <td ><?php echo "$" . $row['map_price']; ?></td>
+                        <td id="vioR"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ?></td>
+                        <?php
+                    } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
                         ?>
-                    <td ><?php echo $row['sku']; ?></td>
-                    <td ><?php echo $row['wname']; ?></td>
-                    <td ><?php echo "$" . $row['vendor_price']; ?></td>
-                    <td ><?php echo "$" . $row['map_price']; ?></td>
-                    <td ><?php echo "$" . $row['violation_amount']; ?></td>
-                    <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ?></td>
-                    <?php
+                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><?php echo $row['wname']; ?></td>
+                        <td ><?php echo "$" . $row['vendor_price']; ?></td>
+                        <td ><?php echo "$" . $row['map_price']; ?></td>
+                        <td id="vioO"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ?></td>
+                        <?php
+                    } else  if ($row['violation_amount'] < 5)
+                        {
+                        
+                         ?>
+                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><?php echo $row['wname']; ?></td>
+                        <td ><?php echo "$" . $row['vendor_price']; ?></td>
+                        <td ><?php echo "$" . $row['map_price']; ?></td>
+                        <td id="vio"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ?></td>
+                        <?php
+                        
+                       
+                        
+                    }
+
+
+
                     echo "</tr>";
                 }
 
@@ -229,16 +253,27 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 //  mysql_close($con); 
                 ?> 
 
-                <div align="right" style="display:block;">
+                <div align="left" style="display:block;">
                     <?php include ('page2.php'); ?>
                 </div>			
 
 
         </td>  
 
-
+     
     </tr>       
 </tbody></table> 
+            
+            <script language="javascript" type="text/javascript">
+
+function popitup(url) {
+	newwindow=window.open(url,'name','height=200,width=150');
+	if (window.focus) {newwindow.focus()}
+	return false;
+}
+
+
+</script>
 
 <div  style="display:table-row-group;">
     <table>

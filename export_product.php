@@ -16,6 +16,8 @@ $dbTable="";
     ON p.entity_id=r.product_id
     where p.entity_id='".$product_id."'
     		    AND r.violation_amount>0.05
+                    and
+w.excluded = 0
 		    ORDER BY r.violation_amount DESC";
 
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());

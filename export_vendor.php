@@ -19,6 +19,8 @@ on prices.website.id = prices.crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
+and
+website.excluded = 0
 and crawl_results.website_id = $web_id
 order by violation_amount desc";
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
