@@ -15,12 +15,12 @@ $targetpage = "index.php";
 $limit = 10;
 
 
-$where="";
+$where = "";
 
-if (isset($_GET['action']) && $_GET['action']=='search'  && isset($_GET['tab']) && $_GET['tab'] == 'recent' ) {
-	$field=strtolower($_GET['field']);
-	$value=strtolower($_GET['value']);
-	$where="  AND  catalog_product_flat_1.".$field."  LIKE '%".$value."%'";
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+    $field = strtolower($_GET['field']);
+    $value = strtolower($_GET['value']);
+    $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
 }
 
 
@@ -36,7 +36,7 @@ on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
 crawl.id = 
-(select max(crawl.id) from crawl) ".$where." 
+(select max(crawl.id) from crawl) " . $where . " 
 ";
 
 $total_pages = mysql_fetch_assoc(mysql_query($query));
@@ -52,7 +52,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
     $start = 0;
     $page = 1;
 }
- 
+
 $query1 = "select catalog_product_flat_1.sku,
 website.name as wname, 
 format(crawl_results.vendor_price,2) as vendor_price,
@@ -71,7 +71,7 @@ on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
 crawl.id = 
-(select max(crawl.id) from crawl) ".$where." 
+(select max(crawl.id) from crawl) " . $where . " 
 order by violation_amount desc LIMIT $start, $limit";
 $result = mysql_query($query1);
 
@@ -82,10 +82,10 @@ $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
-$page_param="page"; //add it to each pagination
+$page_param = "page"; //add it to each pagination
 $additional_params = ""; //addtiion params to pagination url;
-if (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
-	$additional_params.="&action=".$_GET['action']."&field=".$_GET['field']."&value=".$_GET['value'];
+if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+    $additional_params.="&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'];
 }
 ?>
 
@@ -95,20 +95,20 @@ if (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET[
         <td >
 
 
-            <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if   (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo  $_GET['value']; ?>" id="textBoxSearch" onkeyup="recent_search();"  
-                     style="padding:5px;
-                     padding-right: 40px;
-                     background-image:url(images/sr.png); 
-                     background-position: 100% -5px; 
-                     background-repeat: no-repeat;
-                     border:2px solid #456879;
-                     border-radius:10px;float:left;
-                     height: 15px;
-                     outline:none; 
-                     width: 200px; "/> 
+            <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch" onkeyup="recent_search();"  
+                    style="padding:5px;
+                    padding-right: 40px;
+                    background-image:url(images/sr.png); 
+                    background-position: 100% -5px; 
+                    background-repeat: no-repeat;
+                    border:2px solid #456879;
+                    border-radius:10px;float:left;
+                    height: 15px;
+                    outline:none; 
+                    width: 200px; "/> 
             <!-- <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;"> -->
             <a href="javascript:void(0);" class="myButton"  onclick="recent_search();">Search</a>
-                      
+
 
 
 
@@ -116,61 +116,66 @@ if (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET[
         </td>
         <td> Export To
             <select  id="export" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" >
-                <option value="csv" name="csv" selected  >Excel</option>
+                <option value="csv" name="csv" selected  >Excel csv</option>
+                <option value="xls" >Excel xls</option>
                 <option value="pdf" >PDF</option>
-                 </select>
-               
+            </select>
 
-           
+
+
             <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
-    </td> 
+        </td> 
     </tr>
- <script type="text/javascript">
- 	function recent_search() {
- 	 	var field="sku";
- 	 	var value=$(".recent_search").val();
- 	 	var search_url_additional_params="<?php if ( isset($_GET['page']) && $_GET['page']) echo '&page='.$_GET['page'];  if ( isset($_GET['tab']) && $_GET['tab']) echo '&tab='.$_GET['tab']; ?>";
- 	 	 
- 	 	var search_link="/index.php?action=search&field="+field+"&value="+value+search_url_additional_params;
- 	 
- 	 		window.open(search_link,"_self");
- 	 
- 	}
- 	
-    function exportto()
+    <script type="text/javascript">
+                function recent_search() {
+                    var field = "sku";
+                    var value = $(".recent_search").val();
+                    var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['tab']) && $_GET['tab']) echo '&tab=' . $_GET['tab']; ?>";
+
+                    var search_link = "/index.php?action=search&field=" + field + "&value=" + value + search_url_additional_params;
+
+                    window.open(search_link, "_self");
+
+                }
+
+                function exportto()
                 {
-					var mode=$("#export").val();
-					if (mode)
-						open ("export_recent_"+mode+".php");
-           
-                    //document.write("xls export");
-                   //  open('export_recent.php');
-                  /*  var i = document.selected_tab.getElementById(choice).value;
-                    if(i==="xls")
-                        {
-                           open('export_recent.php');
-                           document.write("xls export");
-                        }
-                    else 
-                        {
-                            document.write("pdf export");
-                        }*/
+                    var mode = $("#export").val();
+                    if (mode)
+                        open("export_recent_" + mode + ".php");
                 }
 
 
-               // function exporttopdf($val)
-               // {
-               //     document.write("pdf export");
-                    //   load('export_recent.php');
-              //  }
+
+
+                //document.write("xls export");
+                //  open('export_recent.php');
+                /*  var i = document.selected_tab.getElementById(choice).value;
+                 if(i==="xls")
+                 {
+                 open('export_recent.php');
+                 document.write("xls export");
+                 }
+                 else 
+                 {
+                 document.write("pdf export");
+                 }*/
 
 
 
-                </script>
+                // function exporttopdf($val)
+                // {
+                //     document.write("pdf export");
+                //   load('export_recent.php');
+                //  }
 
 
 
-    
+    </script>
+
+
+
+
 </table>
 
 <table>
@@ -203,9 +208,9 @@ if (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET[
                     </tr>
 
                     <?php
-                    if (mysql_num_rows($result)==0) {
-						echo "<tr><td colspan='6'>No Records Found.</td></tr>";
-					}
+                    if (mysql_num_rows($result) == 0) {
+                        echo "<tr><td colspan='6'>No Records Found.</td></tr>";
+                    }
                     while ($row = mysql_fetch_assoc($result)) {
                         echo "<tr>";
                         ?>
@@ -218,7 +223,7 @@ if (isset($_GET['action']) && $_GET['action']   && isset($_GET['tab']) && $_GET[
                     <?php
                     echo "</tr>";
                 }
-                
+
                 echo "</table>";
 
 //  mysql_close($con); 
