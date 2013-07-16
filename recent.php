@@ -151,12 +151,17 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                                 window.open(search_link, "_self");
 
                             }
-
+                            
                             function exportto()
                             {
                                 var mode = $("#export").val();
-                                if (mode)
-                                    open("export_recent_" + mode + ".php");
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_recent_" + mode + ".php"+url_options);
 
 
 
