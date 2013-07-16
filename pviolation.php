@@ -7,7 +7,7 @@ $product_id = $_REQUEST['product_id'];
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
-
+ 
 $query = "SELECT  COUNT(*) as num
 				  FROM crawl_results  r
     INNER JOIN website w
