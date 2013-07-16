@@ -158,6 +158,7 @@ if (!$result) {
     $lastpage = ceil($total_pages / $limit);
     $LastPagem1 = $lastpage - 1;
     $additional_params = "";
+    $page_param = "page";
 }
     ?>
      

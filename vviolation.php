@@ -40,8 +40,8 @@ $total_pages = $total_pages['num'];
 $stages = 3;
 $page = 1;
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
-    $page = mysql_escape_string($_GET['page']);
+if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-sellers') {
+    $page = mysql_escape_string($_GET['second_grid_page']); //$page_param should have same value
     $start = ($page - 1) * $limit;
 } else {
     $start = 0;
@@ -81,7 +81,11 @@ $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
-$additional_params = "website_id=" . $web_id;
+$page_param = "second_grid_page"; //variable used for pagination
+$additional_params = "website_id=" . $web_id; //addtiion params to pagination url;
+if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+    $additional_params.="&page=" . $_GET['page'];
+}
 ?>
 
 <h3 align="center"> Products Violated by <?php echo $str; ?> <h3> 

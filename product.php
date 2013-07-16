@@ -83,6 +83,7 @@ order by maxvio desc LIMIT $start, $limit";
 	$next = $page + 1;							
 	$lastpage = ceil($total_pages/$limit);		
 	$LastPagem1 = $lastpage - 1;	
+       
 	$page_param="page";//variable used for pagination
 	$additional_params=""; //addtiion params to pagination url;
 	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table

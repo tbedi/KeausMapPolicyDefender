@@ -140,15 +140,29 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
                     $tab_name = 'violation-by-seller';
                     $prev = $page - 1;
                     $next = $page + 1;
-                    $lastpage = ceil($total_pages / $limit);
-                    $LastPagem1 = $lastpage - 1;
+                   $lastpage = ceil($total_pages/$limit);		
+	$LastPagem1 = $lastpage - 1;	
+	$page_param="page";//variable used for pagination
+	$additional_params=""; //addtiion params to pagination url;
+	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
+	}
+	if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for product
+		$additional_params.="&website_id=".$_GET['website_id'];
+	}
 
 
+                    
+                    
+                    
                     while ($row = mysql_fetch_assoc($result)) {
+                         $website_link="?tab=violation-by-seller&website_id=".$row['website_id'];            
+	   		if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+				$product_link.="&page=".$_GET['page'];
+			}
                         echo "<tr>";
                         echo "<td>";
-
-                        echo "<a href=" . "?tab=violation-by-seller&website_id=" . $row['website_id'] . "&showclicked" . ">" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$" . $row['maxvio'] . "</td>" . "<td>" . "$" . $row['minvio'] . "</td>" . "</tr>";
+                        echo "<a href='".$website_link."'>" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$" . $row['maxvio'] . "</td>" . "<td>" . "$" . $row['minvio'] . "</td>" . "</tr>";
                         echo "</td>";
                         echo "</tr>";
                     }
