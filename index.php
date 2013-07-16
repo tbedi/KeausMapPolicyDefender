@@ -1,4 +1,17 @@
 <?php include_once 'db.php'; ?>
+<?php include_once 'db_class.php'; 
+$db_resource = new DB ();
+/* Example of usage*/
+/*
+$sql="SELECT p.sku as sku FROM catalog_product_flat_1 p LIMIT 2";
+$products=$db_resource->GetResultObj($sql);
+foreach ($products as $product) {
+	echo $product->sku;
+}
+*/
+/* Example of usage*/
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
