@@ -1,5 +1,6 @@
 <?php
-$sql = "select max(date_executed) as maxd from crawl";
+$sql = "select max(DATE_FORMAT(crawl.date_executed, '%d %b %Y')) as maxd
+from crawl;";
 $result = mysql_query($sql);
 while ($row = mysql_fetch_assoc($result)) {
     $str = $row['maxd'];
@@ -93,7 +94,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 }
 ?>
 
-<h3 align="center">Recent Violations( <?php echo $str; ?>)</h3>
+<h3 align="center">Violations as of the day ( <?php echo $str; ?>)</h3>
 <table align="center" width="1000px" >
     <tr>
         <td >

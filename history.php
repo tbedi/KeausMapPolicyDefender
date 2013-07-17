@@ -5,7 +5,8 @@
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
-
+ $to = '2013-07-10';
+ $from = '2013-06-12';
 $query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
 inner join
 prices.crawl_results
@@ -61,8 +62,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
            
             <div style="padding-right: 7px;padding-left:0px;">
                 <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
-                            
-            </div>
+             </div>
         </td>
         <td>
             <form action=" ?tab=violations-history&option=show_dates" method="post"> 
@@ -73,10 +73,6 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
             </form>
 
         </td>
-
-
-
-
 
         <td> 
            <div style="padding-right: 20px;padding-left:0px; float: left">
@@ -89,7 +85,9 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 
                 </select>
             </div>
-            <div style="padding-right: 20px;padding-left:0px; ">
+        </td>
+<td>
+    <div style="padding-right: 20px;padding-left:0px; ">
                 <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
             </div>
     </td>
@@ -110,8 +108,6 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
                                 if (mode)                                    
                                     open("export_history_" + mode + ".php"+url_options);
 
-
-
                             }
 
     </script>
@@ -129,7 +125,8 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['
     // die();
     $to = $_POST["to"];
     $from = $_POST["from"];
-    echo "<br>                      Violations from " . $from . " to " . $to;
+    echo "<br>                   
+   Violations from " . $from . " to " . $to;
 } else {
     $to = '2013-07-10';
     $from = '2013-06-12';
