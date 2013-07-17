@@ -148,7 +148,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                                 var value = $(".recent_search").val();
                                 var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page'];  ?>";
 
-                                var search_link = "/index.php?action=search&field=" + field + "&value=" + value +"&tab=recent"+ search_url_additional_params;
+                                var search_link = "index.php?action=search&field=" + field + "&value=" + value +"&tab=recent"+ search_url_additional_params;
 
                                 window.open(search_link, "_self");
 
