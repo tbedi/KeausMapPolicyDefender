@@ -5,6 +5,17 @@
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
+
+$where="";
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
+	 
+	$to = $_POST["to"];
+	$from = $_POST["from"];
+	$where.=" and crawl.date_executed between '". $from."' and '".$to."' ";
+
+}
+
+
  $query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
 inner join
 prices.crawl_results
@@ -14,12 +25,11 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join
 crawl 
 on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
+where crawl_results.violation_amount>0.05   ".$where."
 and
 website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
+ 
+-- and crawl.id =  (select max(crawl.id) from crawl)
 order by sku asc
 ";
 
@@ -117,18 +127,10 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     
  </div>
 <?php
-if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
-    // print_r($_POST);
-    // print_r($_POST["to"]);
-    // die();
-    $to = $_POST["to"];
-    $from = $_POST["from"];
-    echo "<br>                   
-   Violations from " . $from . " to " . $to;
-} else {
-    $to = '2013-07-10';
-    $from = '2013-06-12';
-}
+ 
+if (isset($to) && isset($from)) {     
+    echo "<br/> Violations from " . $from . " to " . $to;
+}  
 
 
 
@@ -149,15 +151,12 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-where crawl.date_executed between '$to' and '$from'  
-and
-crawl_results.violation_amount>0.05 
+where  
+crawl_results.violation_amount>0.05 ".$where."
 and
 website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-order by sku asc LIMIT $start, $limit";
+-- and crawl.id =  (select max(crawl.id) from crawl)
+order by violation_amount DESC LIMIT $start, $limit";
 $result = mysql_query($query1);
 if (!$result) {
     echo mysql_error();
@@ -200,6 +199,7 @@ if (!$result) {
                             <td>
                                 Violation amt
                             </td>
+                            <td>Date</td>
                             <td>
                                 Screenshot
                             </td>
@@ -220,6 +220,7 @@ if (!$result) {
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioR"><?php echo "$" . $row['violation_amount']; ?></td>
+                           <td><?php echo  $row['date_executed']; ?></td>
                         <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
                          
 
@@ -232,6 +233,7 @@ if (!$result) {
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioO"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td><?php echo  $row['date_executed']; ?></td>
                         <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
                         
                      
@@ -246,6 +248,7 @@ if (!$result) {
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vio"><?php echo "$" . $row['violation_amount']; ?></td>
+                         <td><?php echo  $row['date_executed']; ?></td>
                         <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
                         
                          <?php
@@ -259,15 +262,15 @@ if (!$result) {
 
                     ?>
                         
-                <div align="left" style="display:block;">
-<?php include ('page2.php'); ?>
-                </div>		
+ 
      
 
     </tr>       
 </tbody></table> 
 
-
+                <div align="left" style="display:block;">
+<?php include ('page2.php'); ?>
+                </div>		
 
 <div  style="display: table-row-group;" >
     <table>
