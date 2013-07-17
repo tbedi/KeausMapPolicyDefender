@@ -61,45 +61,40 @@ $limit=10;
 
 $where = "";
 
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
 	$field = strtolower($_GET['field']);
 	$value = strtolower($_GET['value']);
 	$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
 }
 
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
 	$page = mysql_escape_string($_GET['page']);
 	$start = ($page - 1) * $limit;
 } else {
 	$start = 0;
 	$page = 1;
 }
-$query1 = "SELECT distinct 
-catalog_product_flat_1.sku,
-catalog_product_flat_1.entity_id as product_id,
-catalog_product_flat_1.name,
-format(crawl_results.vendor_price,2) as vendor_price ,
-format(crawl_results.map_price,2)as map_price,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
-count(crawl_results.product_id) as i_count
-FROM
-prices.catalog_product_flat_1
+$query1 = "select website.name as wname,
+crawl_results.website_id,
+format(max(crawl_results.violation_amount),2) as maxvio,
+format(min(crawl_results.violation_amount),2) as minvio,
+count(crawl_results.website_id) as wi_count
+from website
 inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
+crawl_results
+on website.id = crawl_results.website_id
 inner join crawl
 on
-crawl_results.crawl_id = crawl.id 
-where crawl_results.violation_amount>0.05
-
- and 
+crawl_results.crawl_id = crawl.id
+where crawl_results.violation_amount>0.05 
+and
+website.excluded=0
+and
 crawl.id = 
-(select max(crawl.id) from crawl) 
-group by prices.catalog_product_flat_1.sku,
-prices.catalog_product_flat_1.name
-order by maxvio desc LIMIT $start, $limit";
+(select max(crawl.id) from crawl)
+group by website.name , crawl_results.website_id
+order by count(crawl_results.website_id) desc";
 
 $result = mysql_query($query1);
  $html=<<<EOD
@@ -109,9 +104,8 @@ while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
 	 
 	<tr>
-            <td>{$row['sku']}</td>
-            <td>{$row['map_price']}</td>
-            <td>{$row['i_count']}</td>
+            <td>{$row['wname']}</td>
+            <td>{$row['wi_count']}</td>
             <td>{$row['maxvio']}</td>
             <td>{$row['minvio']}</td>
             
@@ -135,5 +129,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Product_Violations', 'I');
+$pdf->Output('Seller_Violations', 'I');
 // 
