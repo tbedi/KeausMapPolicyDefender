@@ -3,53 +3,47 @@
 include('db.php');
 
 $dbTable = "";
-$sql = "select catalog_product_flat_1.sku,
-website.name as wname, 
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
-crawl_results.website_product_url
+$sql = "select website.name as wname,
+crawl_results.website_id,
+format(max(crawl_results.violation_amount),2) as maxvio,
+format(min(crawl_results.violation_amount),2) as minvio,
+count(crawl_results.website_id) as wi_count
 from website
 inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
-on crawl.id=crawl_results.crawl_id
+crawl_results
+on website.id = crawl_results.website_id
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+
 where crawl_results.violation_amount>0.05 
 and
-website.excluded = 0
+website.excluded=0
 and
 crawl.id = 
 (select max(crawl.id) from crawl)
-order by sku asc";
+group by website.name , crawl_results.website_id
+order by count(crawl_results.website_id) desc";
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
-
-
-
-
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Recent_Violation.csv"');
+header('Content-Disposition: attachment; filename="Product_Violation.csv"');
 
 /* columns */
 $arr_columns = array(
-    'SKU',
-    'Seller Name',
-    'Seller Price',
-    'Map Price',
-    'Violation Amount',
-    'URL'
+    'Seller',
+    'Violation Count',
+    'Max Violation Amount',
+    'Min Violation Amount'
+    
 );
 $arr_data = array();
 
 while ($row=  mysql_fetch_assoc($result)) {
     //print_r($row);die();
-$arr_data_row = array($row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
+$arr_data_row = array($row['wname'],$row['wi_count'],$row['maxvio'],$row['minvio']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

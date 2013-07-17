@@ -1,5 +1,5 @@
 <?php
-$product_id = $_REQUEST['product_id'];
+ 
 
 //pagination
 
@@ -34,7 +34,6 @@ if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == '
     $page = 1;
 }
 
-
 $sql = "SELECT  distinct w.`name` as vendor ,
     format(r.violation_amount,2) as violation_amount,
     format( r.vendor_price,2) as vendor_price,
@@ -63,7 +62,7 @@ $LastPagem1 = $lastpage - 1;
 $page_param = "second_grid_page"; //variable used for pagination
 $additional_params = "&product_id=" . $product_id; //addtiion params to pagination url;
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-    $additional_params.="&page=" . $_GET['page'];
+    $additional_params.="&page=" . $_GET['page']; //here it should 
 }
 $sql="SELECT sku FROM catalog_product_flat_1 WHERE entity_id=".$product_id;
 $sku_result = mysql_query($sql);
@@ -72,8 +71,6 @@ $sku=mysql_fetch_assoc($sku_result);
  
 
 <h3 align="center"> Sellers Violated  <?php echo $sku['sku']; ?> </h3> 
-
-
 
 
 <table align="center"  width="1000px" >
@@ -99,18 +96,40 @@ $sku=mysql_fetch_assoc($sku_result);
         <td> 
             <div style="padding-right: 20px;padding-left:0px; float: left">
                 Export To
-                <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                        document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                    <option value="xls" name="xls" selected="xls" >xls</option>
+
+                <select  id="exportp2" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
+
                 </select>
             </div>
-
             <div style="padding-right: 20px;padding-left:0px; ">
-                <?php echo"<a href=" . "export_product.php?product_id=" . $product_id . "  " . "class=myButton" . ">Export</a> "; ?>
+                <a href="" id="1" class="myButton" onclick="exporttop2();">Export</a>
             </div>
-        </td>
-    </tr>
+    </td>
+</tr>
+
+
+<script type="text/javascript">
+               
+                            
+                            function exporttop2()
+                            {
+                                var mode = $("#exportp2").val();
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_product2_" + mode + ".php"+url_options);
+
+
+
+                            }
+
+    </script>
 </table>
 
 <div class="cleaner" style="padding-top: 15px; ">

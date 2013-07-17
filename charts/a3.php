@@ -1,6 +1,6 @@
  
 <?php
- $product_id = $_REQUEST['product_id'];
+ //$product_id = $_REQUEST['product_id'];
 // getting last crawl
 $sql = "select id, date_executed from crawl ORDER BY id DESC LIMIT 1";
 $result = mysql_query ( $sql );

@@ -6,7 +6,17 @@ $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
 
-$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
+$where="";
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
+	 
+	$to = $_POST["to"];
+	$from = $_POST["from"];
+	$where.=" and crawl.date_executed between '". $from."' and '".$to."' ";
+
+}
+
+
+ $query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
 inner join
 prices.crawl_results
 on prices.website.id = prices.crawl_results.website_id
@@ -15,12 +25,11 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join
 crawl 
 on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
+where crawl_results.violation_amount>0.05   ".$where."
 and
 website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
+ 
+-- and crawl.id =  (select max(crawl.id) from crawl)
 order by sku asc
 ";
 
@@ -61,8 +70,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
            
             <div style="padding-right: 7px;padding-left:0px;">
                 <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
-                            
-            </div>
+             </div>
         </td>
         <td>
             <form action=" ?tab=violations-history&option=show_dates" method="post"> 
@@ -74,28 +82,43 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 
         </td>
 
-
-
-
-
         <td> 
-            <div style="padding-right: 0px;padding-left:0px; float: left">
-                <select  id="choice" name="choice" align="right" style="  widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                 document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                    <option value="xls" name="xls" selected="xls" >xls</option>
+           <div style="padding-right: 20px;padding-left:0px; float: left">
+                Export To
+
+                <select  id="exporth" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
+
                 </select>
             </div>
         </td>
-        <td>
-            <div style="padding-right: 0px;padding-left:0px; ">
-                <a href=" export_history.php" id="1" class="myButton" >Export</a>
+<td>
+    <div style="padding-right: 20px;padding-left:0px; ">
+                <a href="" id="1" class="myButton" onclick="exporttoh();">Export</a>
             </div>
-        </td>
+    </td>
+</tr>
 
 
+<script type="text/javascript">
+               
+                            
+                            function exporttoh()
+                            {
+                                var mode = $("#exporth").val();
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_history_" + mode + ".php"+url_options);
 
-    </tr>
+                            }
+
+    </script>
 
 </table>
 
@@ -104,17 +127,10 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     
  </div>
 <?php
-if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
-    // print_r($_POST);
-    // print_r($_POST["to"]);
-    // die();
-    $to = $_POST["to"];
-    $from = $_POST["from"];
-    echo "<br>                      Violations from " . $from . " to " . $to;
-} else {
-    $to = '2013-07-10';
-    $from = '2013-06-12';
-}
+ 
+if (isset($to) && isset($from)) {     
+    echo "<br/> Violations from " . $from . " to " . $to;
+}  
 
 
 
@@ -135,15 +151,12 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-where crawl.date_executed between '$to' and '$from'  
-and
-crawl_results.violation_amount>0.05 
+where  
+crawl_results.violation_amount>0.05 ".$where."
 and
 website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-order by sku asc LIMIT $start, $limit";
+-- and crawl.id =  (select max(crawl.id) from crawl)
+order by violation_amount DESC LIMIT $start, $limit";
 $result = mysql_query($query1);
 if (!$result) {
     echo mysql_error();
@@ -186,6 +199,7 @@ if (!$result) {
                             <td>
                                 Violation amt
                             </td>
+                            <td>Date</td>
                             <td>
                                 Screenshot
                             </td>
@@ -206,6 +220,7 @@ if (!$result) {
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioR"><?php echo "$" . $row['violation_amount']; ?></td>
+                           <td><?php echo  $row['date_executed']; ?></td>
                         <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
                          
 
@@ -218,6 +233,7 @@ if (!$result) {
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioO"><?php echo "$" . $row['violation_amount']; ?></td>
+                        <td><?php echo  $row['date_executed']; ?></td>
                         <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
                         
                      
@@ -232,6 +248,7 @@ if (!$result) {
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vio"><?php echo "$" . $row['violation_amount']; ?></td>
+                         <td><?php echo  $row['date_executed']; ?></td>
                         <td ><?php echo "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . "Link" . "</a>" ;?></td>
                         
                          <?php
@@ -245,15 +262,15 @@ if (!$result) {
 
                     ?>
                         
-                <div align="left" style="display:block;">
-<?php include ('page2.php'); ?>
-                </div>		
+ 
      
 
     </tr>       
 </tbody></table> 
 
-
+                <div align="left" style="display:block;">
+<?php include ('page2.php'); ?>
+                </div>		
 
 <div  style="display: table-row-group;" >
     <table>

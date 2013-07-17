@@ -1,5 +1,6 @@
 <?php
-$sql = "select max(date_executed) as maxd from crawl";
+$sql = "select max(DATE_FORMAT(crawl.date_executed, '%d %b %Y')) as maxd
+from crawl;";
 $result = mysql_query($sql);
 while ($row = mysql_fetch_assoc($result)) {
     $str = $row['maxd'];
@@ -47,7 +48,7 @@ $total_pages = $total_pages['num'];
 $stages = 3;
 $page = 1;
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent' ) {
     $page = mysql_escape_string($_GET['page']);
     $start = ($page - 1) * $limit;
 } else {
@@ -55,6 +56,19 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
     $page = 1;
 }
 
+/*sorting*/
+ 
+if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
+	$direction=$_GET['sort'];
+	$order_field=$_GET['sort_column'];
+} else {
+	$direction="desc";
+	$order_field="crawl_results.violation_amount";
+}
+
+$order_by=" order by ".$order_field." ".$direction." ";
+
+/*sorting*/
 $query1 = "select catalog_product_flat_1.sku,
 website.name as wname, 
 format(crawl_results.vendor_price,2) as vendor_price,
@@ -76,7 +90,7 @@ website.excluded=0
 and
 crawl.id = 
 (select max(crawl.id) from crawl) " . $where . " 
-order by violation_amount desc LIMIT $start, $limit";
+".$order_by." LIMIT $start, $limit";
 $result = mysql_query($query1);
 
 // Initial page num setup
@@ -91,16 +105,21 @@ $additional_params = ""; //addtiion params to pagination url;
 if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
     $additional_params.="&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'];
 }
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
+	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
+}
+
 ?>
 
-<h3 align="center">Recent Violations( <?php echo $str; ?>)</h3>
+<h3 align="center">Violations as of the day ( <?php echo $str; ?>)</h3>
 <table align="center" width="1000px" >
     <tr>
         <td >
-
+ <div style="padding-right: 20px;padding-left:0px; float: left">
  
 
-            <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch"   
+            <input  class="recent_search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch"   
                     style="padding:5px;
                     padding-right: 40px;
                     background-image:url(images/sr.png); 
@@ -110,11 +129,12 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                     border-radius:10px;float:left;
                     height: 15px;
                     outline:none; 
-                    width: 200px; "/> 
+                    width: 200px; "/> </div>
+                        <div style="padding-right: 20px;padding-left:0px; ">
             <!-- <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;"> -->
             <a href="javascript:void(0);" class="myButton"  onclick="recent_search();">Search</a>
 
- 
+   </div> 
 
 
 
@@ -132,7 +152,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                 </select>
             </div>
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+                <a href="" id="1" class="myButton" onclick="exporttor();">Export</a>
             </div>
         </td> 
     </tr>
@@ -144,15 +164,19 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                             function recent_search() {
                                 var field = "sku";
                                 var value = $(".recent_search").val();
-                                var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page'];  ?>";
-
-                                var search_link = "/index.php?action=search&field=" + field + "&value=" + value +"&tab=recent"+ search_url_additional_params;
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=search&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=recent" + url_options;
 
                                 window.open(search_link, "_self");
 
                             }
                             
-                            function exportto()
+                            function exporttor()
                             {
                                 var mode = $("#export").val();
                                 var url_options= window.location.search.substring(1);
@@ -185,21 +209,36 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                 <tbody id="data">
                     <tr> 
                         <td>
-                            SKU
+                            SKU                                 
+                           <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>	
 
                         <td>
                             Seller
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=wname&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wname" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                         <td>
                             Seller price
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=crawl_results.vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="crawl_results.vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>	
 
                         <td>
                             MAP
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=crawl_results.map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="crawl_results.map_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                         <td>
                             Violation amt
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=crawl_results.violation_amount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="crawl_results.violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                         <td>
                             Screenshot
@@ -216,7 +255,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 
                         if ($row['violation_amount'] > 10) {
                             ?>
-                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
                         <td ><?php echo $row['wname']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
@@ -225,7 +264,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                         <?php
                     } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
                         ?>
-                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
                         <td ><?php echo $row['wname']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
@@ -236,7 +275,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                         {
                         
                          ?>
-                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
                         <td ><?php echo $row['wname']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>

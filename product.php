@@ -145,19 +145,45 @@ order by maxvio desc LIMIT $start, $limit";
         </td>
         <td>
             <div style="padding-right: 20px;padding-left:0px; float: left">
-            Export To
-            <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                    document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                <option value="xls" name="xls" selected="xls" >xls</option>
-                <option value="pdf" >PDF</option>
-                 </select>
-               </div>
+                Export To
 
-           <div style="padding-right: 20px;padding-left:0px; ">
-            <a href="export_product1.php" id="1" class="myButton" >Export</a>
+                <select  id="exportp" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
+                    <option value="pdf" >PDF</option>
+
+                </select>
+            </div>
+            <div style="padding-right: 20px;padding-left:0px; ">
+                <a href="" id="1" class="myButton" onclick="exporttop();">Export</a>
             </div>
     </td>
 </tr>
+
+
+<script type="text/javascript">
+               
+                            
+                            function exporttop()
+                            {
+                                var mode = $("#exportp").val();
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_product_" + mode + ".php"+url_options);
+
+
+
+                            }
+
+    </script>
+ 
+
+
+
 
 </table>
 
@@ -213,7 +239,7 @@ order by maxvio desc LIMIT $start, $limit";
 			
 			    echo "<a href='".$product_link."'>".$row['sku']."</td> <td> $".$row['map_price']."</td> <td>".$row['i_count']."</td> <td> $ ".$row['maxvio']."</td> <td> $".$row['minvio']."</td> </tr>";   
 				
-            
+            $pid=$row['product_id'];
 	   }
 		 echo "</table>";
     
@@ -236,9 +262,14 @@ order by maxvio desc LIMIT $start, $limit";
  
  
  <?php
-if(isset($_GET['product_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-product" )
-{
-	
+if (isset($_REQUEST['product_id'])) {
+	$product_id = $_REQUEST['product_id'];
+}elseif (isset($pid)&& $total_pages==1) {
+	$product_id=$pid;
+}
+ 
+if($product_id && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-product" )
+{	
 	    include_once 'pviolation.php';
 }
  ?>
