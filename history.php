@@ -5,8 +5,7 @@
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
- 
-$query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
+ $query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
 inner join
 prices.crawl_results
 on prices.website.id = prices.crawl_results.website_id
@@ -74,7 +73,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
         </td>
 
         <td> 
-         <div style="padding-right: 20px;padding-left:0px; float: left">
+           <div style="padding-right: 20px;padding-left:0px; float: left">
                 Export To
 
                 <select  id="exporth" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >

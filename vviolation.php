@@ -15,7 +15,7 @@ while ($row = mysql_fetch_assoc($result)) {
 ?>
 
 <?php
-//pagination
+//pagination starts here
 
 $tableName = "crawl_results";
 $targetpage = "index.php";
@@ -82,7 +82,7 @@ $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 $page_param = "second_grid_page"; //variable used for pagination
-$additional_params = "website_id=" . $web_id; //addtiion params to pagination url;
+$additional_params = "&website_id=" . $web_id; //addtiion params to pagination url;
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page'];
 }

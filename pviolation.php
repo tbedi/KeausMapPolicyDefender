@@ -34,7 +34,6 @@ if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == '
     $page = 1;
 }
 
-
 $sql = "SELECT  distinct w.`name` as vendor ,
     format(r.violation_amount,2) as violation_amount,
     format( r.vendor_price,2) as vendor_price,
@@ -63,7 +62,7 @@ $LastPagem1 = $lastpage - 1;
 $page_param = "second_grid_page"; //variable used for pagination
 $additional_params = "&product_id=" . $product_id; //addtiion params to pagination url;
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-    $additional_params.="&page=" . $_GET['page'];
+    $additional_params.="&page=" . $_GET['page']; //here it should 
 }
 $sql="SELECT sku FROM catalog_product_flat_1 WHERE entity_id=".$product_id;
 $sku_result = mysql_query($sql);
@@ -72,8 +71,6 @@ $sku=mysql_fetch_assoc($sku_result);
  
 
 <h3 align="center"> Sellers Violated  <?php echo $sku['sku']; ?> </h3> 
-
-
 
 
 <table align="center"  width="1000px" >

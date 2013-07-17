@@ -98,7 +98,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 <table align="center" width="1000px" >
     <tr>
         <td >
-
+ <div style="padding-right: 20px;padding-left:0px; float: left">
  
 
             <input  class="recent_search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch"   
@@ -111,11 +111,12 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                     border-radius:10px;float:left;
                     height: 15px;
                     outline:none; 
-                    width: 200px; "/> 
+                    width: 200px; "/> </div>
+                        <div style="padding-right: 20px;padding-left:0px; ">
             <!-- <a href="javascript:void(0);" onclick="tableSearch.runSearch();" style="padding-top:0px;"> -->
             <a href="javascript:void(0);" class="myButton"  onclick="recent_search();">Search</a>
 
- 
+   </div> 
 
 
 
