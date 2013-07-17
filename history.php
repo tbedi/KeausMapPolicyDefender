@@ -79,23 +79,42 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 
 
         <td> 
-            <div style="padding-right: 0px;padding-left:0px; float: left">
-                <select  id="choice" name="choice" align="right" style="  widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                 document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                    <option value="xls" name="xls" selected="xls" >xls</option>
+           <div style="padding-right: 20px;padding-left:0px; float: left">
+                Export To
+
+                <select  id="exporth" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
+
                 </select>
             </div>
-        </td>
-        <td>
-            <div style="padding-right: 0px;padding-left:0px; ">
-                <a href=" export_history.php" id="1" class="myButton" >Export</a>
+            <div style="padding-right: 20px;padding-left:0px; ">
+                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
             </div>
-        </td>
+    </td>
+</tr>
+
+
+<script type="text/javascript">
+               
+                            
+                            function exportto()
+                            {
+                                var mode = $("#exporth").val();
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_history_" + mode + ".php"+url_options);
 
 
 
-    </tr>
+                            }
+
+    </script>
 
 </table>
 
