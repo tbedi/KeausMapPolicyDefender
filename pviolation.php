@@ -1,5 +1,5 @@
 <?php
-$product_id = $_REQUEST['product_id'];
+ 
 
 //pagination
 

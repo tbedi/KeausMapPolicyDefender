@@ -218,7 +218,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 
                         if ($row['violation_amount'] > 10) {
                             ?>
-                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
                         <td ><?php echo $row['wname']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
@@ -227,7 +227,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                         <?php
                     } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
                         ?>
-                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
                         <td ><?php echo $row['wname']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
@@ -238,7 +238,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                         {
                         
                          ?>
-                        <td ><?php echo $row['sku']; ?></td>
+                        <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
                         <td ><?php echo $row['wname']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>

@@ -239,7 +239,7 @@ order by maxvio desc LIMIT $start, $limit";
 			
 			    echo "<a href='".$product_link."'>".$row['sku']."</td> <td> $".$row['map_price']."</td> <td>".$row['i_count']."</td> <td> $ ".$row['maxvio']."</td> <td> $".$row['minvio']."</td> </tr>";   
 				
-            
+            $pid=$row['product_id'];
 	   }
 		 echo "</table>";
     
@@ -262,9 +262,14 @@ order by maxvio desc LIMIT $start, $limit";
  
  
  <?php
-if(isset($_GET['product_id']) && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-product" )
-{
-	
+if (isset($_REQUEST['product_id'])) {
+	$product_id = $_REQUEST['product_id'];
+}elseif (isset($pid)&& $total_pages==1) {
+	$product_id=$pid;
+}
+ 
+if($product_id && isset($_GET['tab']) &&  $_GET['tab']=="violation-by-product" )
+{	
 	    include_once 'pviolation.php';
 }
  ?>
