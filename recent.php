@@ -133,7 +133,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                 </select>
             </div>
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+                <a href="" id="1" class="myButton" onclick="exporttor();">Export</a>
             </div>
         </td> 
     </tr>
@@ -153,7 +153,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 
                             }
                             
-                            function exportto()
+                            function exporttor()
                             {
                                 var mode = $("#export").val();
                                 var url_options= window.location.search.substring(1);

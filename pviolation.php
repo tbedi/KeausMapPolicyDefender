@@ -108,7 +108,7 @@ $sku=mysql_fetch_assoc($sku_result);
                 </select>
             </div>
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+                <a href="" id="1" class="myButton" onclick="exporttop2();">Export</a>
             </div>
     </td>
 </tr>
@@ -117,7 +117,7 @@ $sku=mysql_fetch_assoc($sku_result);
 <script type="text/javascript">
                
                             
-                            function exportto()
+                            function exporttop2()
                             {
                                 var mode = $("#exportp2").val();
                                 var url_options= window.location.search.substring(1);

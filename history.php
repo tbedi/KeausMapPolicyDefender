@@ -5,8 +5,7 @@
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
- $to = '2013-07-10';
- $from = '2013-06-12';
+ 
 $query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
 inner join
 prices.crawl_results
@@ -75,7 +74,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
         </td>
 
         <td> 
-           <div style="padding-right: 20px;padding-left:0px; float: left">
+         <div style="padding-right: 20px;padding-left:0px; float: left">
                 Export To
 
                 <select  id="exporth" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
@@ -88,7 +87,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
         </td>
 <td>
     <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+                <a href="" id="1" class="myButton" onclick="exporttoh();">Export</a>
             </div>
     </td>
 </tr>
@@ -97,7 +96,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 <script type="text/javascript">
                
                             
-                            function exportto()
+                            function exporttoh()
                             {
                                 var mode = $("#exporth").val();
                                 var url_options= window.location.search.substring(1);

@@ -77,7 +77,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
                 </select>
             </div>
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+                <a href="" id="1" class="myButton" onclick="exporttov();">Export</a>
             </div>
     </td>
 </tr>
@@ -86,7 +86,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 <script type="text/javascript">
                
                             
-                            function exportto()
+                            function exporttov()
                             {
                                 document.write("Hello");
                                 var mode = $("#exportv").val();

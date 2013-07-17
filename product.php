@@ -155,7 +155,7 @@ order by maxvio desc LIMIT $start, $limit";
                 </select>
             </div>
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
+                <a href="" id="1" class="myButton" onclick="exporttop();">Export</a>
             </div>
     </td>
 </tr>
@@ -164,7 +164,7 @@ order by maxvio desc LIMIT $start, $limit";
 <script type="text/javascript">
                
                             
-                            function exportto()
+                            function exporttop()
                             {
                                 var mode = $("#exportp").val();
                                 var url_options= window.location.search.substring(1);
