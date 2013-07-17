@@ -1,49 +1,51 @@
 <?php
-include_once 'db.php';
+//foreach ($_SESSION as $key => $value) {
+//echo "Key: $key; Value: $value<br />\n";
+//}
+include_once 'db_login.php';
+include_once 'db_class.php'; //we included database class
+$db_resource = new DB ();// we created database resourse object which contains methods and connection
 
-/*if(loggedin())
-{
-    header("Location:userarea.php");
-    exit();
-}*/
-$e='';
-if ( isset($_POST['login']))
-{
-	 
+$e = '';
+$_SESSION['role'] = '';
+
+if (isset($_POST['login'])) {
+
     //getdata
     $email = $_POST['email'];
     $password = $_POST['password'];
-    
-    if($email && $password)
-    {
+
+    if ($email && $password) {
         $login = mysql_query("select * from admin_users where email='$email'");
-     
-        while($row = mysql_fetch_assoc($login))
-        {
-            
+        $sql="select * from admin_users where email='$email'";
+        $products=$db_resource->GetResultObj($sql);
+        print_r($products);
+        die();
+        while ($row = mysql_fetch_assoc($login)) {
+
             $db_password = $row['password'];
-            
-            if(md5($password) === $db_password)
-           $loginok = TRUE;          
-             else
-           $loginok = FALSE;
-     if($loginok == TRUE)
-             {
-         $_SESSION['username'] = $row['username'];
-         //*$_SESSION['password']= $password;*//
-         if($_POST['rememberme']=="on")
-             setcookie("email", $email, time()+7200);
-         $_SESSION['email'] = $email;
-         header("Location: index.php");
-         exit();
+
+            if (md5($password) === $db_password)
+                $loginok = TRUE;
+            else
+                $loginok = FALSE;
+            if ($loginok == TRUE) {
+                $_SESSION['username'] = $row['username'];
+                $_SESSION['role'] = $row['role'];
+                //*$_SESSION['password']= $password;*//
+                if ($_POST['rememberme'] == "on")
+                    setcookie("email", $email, time() + 7200);
+                $_SESSION['email'] = $email;
+                header("Location: index.php");
+                exit();
             }
-     else 
-    header("Location: index.php");
+            else
+                header("Location: index.php");
+        }
+
+        //*die("Incorrect email/password combination");*/
     }
-    
-   //*die("Incorrect email/password combination");*/
-    }
-    $e=$email;
+    $e = $email;
 }
 ?>
 <html>
@@ -51,21 +53,15 @@ if ( isset($_POST['login']))
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Login Form</title>
         <link href="css/login.css" rel="stylesheet" type="text/css" />
-        <script src="js/tabs_old.js"></script>
     </head>
 
-    <body id="home" >
-        
+    <body id="home">
+
         <div id="templatemo_header_wrapper" >
             <div><a  href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
-                <!-- <div style="float: left ">
-     
-                     <h2 style="overflow: auto; min-height: 10px">Price Defender</h2>
-                 </div>-->
             </div>
-
         </div>
-       	
+
         <div id="templatemo_footer_wrapper1">
             <div id="templatemo_footer">
                 <div align="right">
@@ -76,14 +72,14 @@ if ( isset($_POST['login']))
 
 
         <div id="wrapper" align="center">
-            
-    <?php
-    $login = mysql_query("select * from admin_users where email='$e'");
-    if (mysql_num_rows($login)===0 && isset($_POST['email']))
-    {
-        echo " <div id="."log"." align="."center".">"."<b>Incorrect email and password</b>"."</div>";
-    } ?>
-            
+
+            <?php
+            $login = mysql_query("select * from admin_users where email='$e'");
+            if (mysql_num_rows($login) === 0 && isset($_POST['email'])) {
+                echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
+            }
+            ?>
+
             <div style="margin:60px;   padding:20px" align="center"> 
                 <div id="login" align="center" >
                     <form name="form" action="login.php" method="post"  >
@@ -96,7 +92,6 @@ if ( isset($_POST['login']))
                                 <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /><br />
                             </li>
                             <li>
-
                                 <label><b>Password</b></label><br />
                                 <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
                                 <input type="checkbox" name="rememberme"  />&nbsp;&nbsp;Remember Me
@@ -109,8 +104,7 @@ if ( isset($_POST['login']))
                 </div>
             </div>    
         </div>
-
-
+       
         <div id="templatemo_footer_wrapper">
             <div id="templatemo_footer">
                 Copyright © Kraus USA 2013
