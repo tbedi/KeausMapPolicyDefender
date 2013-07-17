@@ -99,18 +99,40 @@ $sku=mysql_fetch_assoc($sku_result);
         <td> 
             <div style="padding-right: 20px;padding-left:0px; float: left">
                 Export To
-                <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                        document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                    <option value="xls" name="xls" selected="xls" >xls</option>
+
+                <select  id="exportp2" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
+
                 </select>
             </div>
-
             <div style="padding-right: 20px;padding-left:0px; ">
-                <?php echo"<a href=" . "export_product.php?product_id=" . $product_id . "  " . "class=myButton" . ">Export</a> "; ?>
+                <a href="" id="1" class="myButton" onclick="exportto();">Export</a>
             </div>
-        </td>
-    </tr>
+    </td>
+</tr>
+
+
+<script type="text/javascript">
+               
+                            
+                            function exportto()
+                            {
+                                var mode = $("#exportp2").val();
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_product2_" + mode + ".php"+url_options);
+
+
+
+                            }
+
+    </script>
 </table>
 
 <div class="cleaner" style="padding-top: 15px; ">

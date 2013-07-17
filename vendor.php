@@ -14,7 +14,6 @@ on website.id = crawl_results.website_id
 inner join crawl
 on
 crawl_results.crawl_id = crawl.id
-
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0
@@ -89,7 +88,6 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 <table align="center">
     <tr>
         <td>
-
             <table class="GrayBlack" align="center">
                 <tbody id="data">
                     <tr> 

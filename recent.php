@@ -100,7 +100,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
 
  
 
-            <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch"   
+            <input  class="recent_search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch"   
                     style="padding:5px;
                     padding-right: 40px;
                     background-image:url(images/sr.png); 

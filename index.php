@@ -1,6 +1,8 @@
 <?php include_once 'db.php'; ?>
-<?php include_once 'db_class.php'; 
-$db_resource = new DB ();
+<?php 
+
+//include_once 'db_class.php'; 
+//$db_resource = new DB ();
 /* Example of usage*/
 /*
 $sql="SELECT p.sku as sku FROM catalog_product_flat_1 p LIMIT 2";
