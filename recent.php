@@ -48,7 +48,7 @@ $total_pages = $total_pages['num'];
 $stages = 3;
 $page = 1;
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent' ) {
     $page = mysql_escape_string($_GET['page']);
     $start = ($page - 1) * $limit;
 } else {
@@ -56,6 +56,19 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
     $page = 1;
 }
 
+/*sorting*/
+ 
+if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
+	$direction=$_GET['sort'];
+	$order_field=$_GET['sort_column'];
+} else {
+	$direction="desc";
+	$order_field="crawl_results.violation_amount";
+}
+
+$order_by=" order by ".$order_field." ".$direction." ";
+
+/*sorting*/
 $query1 = "select catalog_product_flat_1.sku,
 website.name as wname, 
 format(crawl_results.vendor_price,2) as vendor_price,
@@ -77,7 +90,7 @@ website.excluded=0
 and
 crawl.id = 
 (select max(crawl.id) from crawl) " . $where . " 
-order by violation_amount desc LIMIT $start, $limit";
+".$order_by." LIMIT $start, $limit";
 $result = mysql_query($query1);
 
 // Initial page num setup
@@ -92,6 +105,11 @@ $additional_params = ""; //addtiion params to pagination url;
 if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
     $additional_params.="&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'];
 }
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
+	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
+}
+
 ?>
 
 <h3 align="center">Violations as of the day ( <?php echo $str; ?>)</h3>
@@ -146,9 +164,13 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                             function recent_search() {
                                 var field = "sku";
                                 var value = $(".recent_search").val();
-                                var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page'];  ?>";
-
-                                var search_link = "index.php?action=search&field=" + field + "&value=" + value +"&tab=recent"+ search_url_additional_params;
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=search&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=recent" + url_options;
 
                                 window.open(search_link, "_self");
 
@@ -187,21 +209,36 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
                 <tbody id="data">
                     <tr> 
                         <td>
-                            SKU
+                            SKU                                 
+                           <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>	
 
                         <td>
                             Seller
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=wname&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wname" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                         <td>
                             Seller price
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=crawl_results.vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="crawl_results.vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>	
 
                         <td>
                             MAP
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=crawl_results.map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="crawl_results.map_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                         <td>
                             Violation amt
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=crawl_results.violation_amount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="crawl_results.violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                         <td>
                             Screenshot
