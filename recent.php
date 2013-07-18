@@ -70,7 +70,8 @@ $order_by=" order by ".$order_field." ".$direction." ";
 
 /*sorting*/
 $query1 = "select catalog_product_flat_1.sku,
-website.name as wname, 
+website.name as name, 
+website.id as id,
 format(crawl_results.vendor_price,2) as vendor_price,
 format(crawl_results.map_price,2) as map_price,
 format(crawl_results.violation_amount,2) as violation_amount,
@@ -106,10 +107,11 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['t
     $additional_params.="&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'];
 }
 
+//sort
 if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
 	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
 }
-
+//sort
 ?>
 
 <h3 align="center">Violations as of the day ( <?php echo $str; ?>)</h3>
@@ -220,7 +222,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                         <td>
                             Seller
                              <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=wname&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wname" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td>
@@ -258,7 +260,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                         if ($row['violation_amount'] > 10) {
                             ?>
                         <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
-                        <td ><?php echo $row['wname']; ?></td>
+                        <td ><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=id&value=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioR"><?php echo "$" . $row['violation_amount']; ?></td>
@@ -267,7 +269,8 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                     } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
                         ?>
                         <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
-                        <td ><?php echo $row['wname']; ?></td>
+                       <td ><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=id&value=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></td>
+                       <!-- <td ><?php //echo $row['wname']; ?></td> -->
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioO"><?php echo "$" . $row['violation_amount']; ?></td>
@@ -278,7 +281,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                         
                          ?>
                         <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
-                        <td ><?php echo $row['wname']; ?></td>
+                       <td ><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=id&value=<?php echo $row['id']; ?>"><?php echo $row['name']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vio"><?php echo "$" . $row['violation_amount']; ?></td>

@@ -43,7 +43,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET
     
 } else {
     $direction = "desc";
-    $order_field = "max(crawl_results.violation_amount)";
+    $order_field = "violation_amount";
 }
 
 $order_by = "order by " . $order_field . " " . $direction . " ";
@@ -83,8 +83,8 @@ $additional_params = "&product_id=" . $product_id; //addtiion params to paginati
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page']; //here it should 
 }
-$sql="SELECT sku FROM catalog_product_flat_1 WHERE entity_id=".$product_id;
-$sku_result = mysql_query($sql);
+$sql1="SELECT sku FROM catalog_product_flat_1 WHERE entity_id=".$product_id;
+$sku_result = mysql_query($sql1);
 $sku=mysql_fetch_assoc($sku_result);
 
 
@@ -248,6 +248,10 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET
 
 
                     <?php
+                   
+                      
+                    
+                    
                     while ($row = mysql_fetch_assoc($result)) {
                         ?> <tr>
                             <?php
