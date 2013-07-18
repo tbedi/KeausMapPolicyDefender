@@ -94,7 +94,7 @@ and
 crawl.id = 
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id
-order by count(crawl_results.website_id) desc";
+order by crawl_results.website_id desc";
 
 $result = mysql_query($query1);
  $html=<<<EOD

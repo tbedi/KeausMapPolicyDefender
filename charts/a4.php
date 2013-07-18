@@ -1,5 +1,5 @@
 <?php
-$web_id = $_REQUEST['website_id'];
+$web_id = $_REQUEST['id'];
 ?>
 <?php
 //example sku
