@@ -144,13 +144,17 @@ order by maxvio desc LIMIT $start, $limit";
                      tableSearch.runSearch();
              	} */
                  
+                 	
+                 
+                 
+                 
                    function product_violation_search() {
                                 var field = "sku";
-                                var value = $(".recent_search").val();
+                                var value = $(".product-violation-search").val();
                                 var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
                                 
                         		if (value.length) {                        			
-                        			url_options+="&action=search&field=" + field + "&value=" + value;
+                        			url_options+="&action=searchfirst&field=" + field + "&value=" + value;
                         		}
                             			
                                 var search_link = "index.php?tab=violation-by-product" + url_options;

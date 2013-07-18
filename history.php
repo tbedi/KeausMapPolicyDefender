@@ -47,6 +47,70 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     $start = 0;
     $page = 1;
 }
+
+
+
+
+
+
+
+
+
+
+
+$query1 = "select catalog_product_flat_1.sku,
+catalog_product_flat_1.name as pname,
+website.name as wname, 
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(crawl_results.violation_amount,2) as violation_amount,
+crawl_results.website_product_url,
+crawl.date_executed
+from website
+inner join
+prices.crawl_results
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join crawl
+on crawl.id=crawl_results.crawl_id
+where  
+crawl_results.violation_amount>0.05 ".$where."
+and
+website.excluded=0
+-- and crawl.id =  (select max(crawl.id) from crawl)
+order by violation_amount DESC LIMIT $start, $limit";
+$result = mysql_query($query1);
+if (!$result) {
+    echo mysql_error();
+} else {
+
+
+// Initial page num setup
+//if (!$page){$page = 1;}
+    $tab_name = 'violations-history';
+    $prev = $page - 1;
+    $next = $page + 1;
+    $lastpage = ceil($total_pages / $limit);
+    $LastPagem1 = $lastpage - 1;
+    $additional_params = "";
+    $page_param = "page";
+    
+    $additional_params = ""; //addtiion params to pagination url;
+if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+    $additional_params.="&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'];
+}
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort']) ) {
+	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
+}
+
+    
+    
+    
+    
+}
+
 ?>
 
 
@@ -54,7 +118,8 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     <tr>
         <td >
             <div style="padding-right: 0px;padding-left:0px; float: left">
-                <input  placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                <input class="history_search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" 
+                        id="textBoxSearch" onkeyup="tableSearch.search(event);"  
                          style="padding:5px;
                          padding-right: 40px;
                          background-image:url(images/sr.png); 
@@ -103,7 +168,23 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 
 
 <script type="text/javascript">
-               
+                                                                       
+                                function history_search() {
+                                var field = "sku";
+                                var value = $(".recent_search").val();
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=search&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=violations-history" + url_options;
+
+                                window.open(search_link, "_self");
+                                tableSearch.runSearch();
+
+                            }
+                            
                             
                             function exporttoh()
                             {
@@ -133,46 +214,6 @@ if (isset($to) && isset($from)) {
 }  
 
 
-
-
-$query1 = "select catalog_product_flat_1.sku,
-catalog_product_flat_1.name as pname,
-website.name as wname, 
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url,
-crawl.date_executed
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join crawl
-on crawl.id=crawl_results.crawl_id
-where  
-crawl_results.violation_amount>0.05 ".$where."
-and
-website.excluded=0
--- and crawl.id =  (select max(crawl.id) from crawl)
-order by violation_amount DESC LIMIT $start, $limit";
-$result = mysql_query($query1);
-if (!$result) {
-    echo mysql_error();
-} else {
-
-
-// Initial page num setup
-//if (!$page){$page = 1;}
-    $tab_name = 'violations-history';
-    $prev = $page - 1;
-    $next = $page + 1;
-    $lastpage = ceil($total_pages / $limit);
-    $LastPagem1 = $lastpage - 1;
-    $additional_params = "";
-    $page_param = "page";
-}
     ?>
      
     

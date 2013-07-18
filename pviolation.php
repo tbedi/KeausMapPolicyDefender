@@ -67,6 +67,25 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
 $sql="SELECT sku FROM catalog_product_flat_1 WHERE entity_id=".$product_id;
 $sku_result = mysql_query($sql);
 $sku=mysql_fetch_assoc($sku_result);
+
+
+
+if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
+	}
+	if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
+		$additional_params.="&product_id=".$_GET['product_id'];
+	}
+
+
+
+
+
+if (isset($_GET['action']) && $_GET['action']) { // search 
+		$additional_params.="&action=".$_GET['action']."&field=vendor&value=".$_GET['value'];
+	}
+
+
 ?>
  
 
@@ -78,7 +97,8 @@ $sku=mysql_fetch_assoc($sku_result);
         <td >
             <div style="padding-right: 20px;padding-left:0px; float: left">
 
-                <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                <input  class="product-violation-search2" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" 
+                         id="textBoxSearch" onkeyup="tableSearch.search(event);"  
                          style="padding:5px;
                          padding-right: 40px;
                          background-image:url(images/sr.png); 
@@ -90,7 +110,7 @@ $sku=mysql_fetch_assoc($sku_result);
                          outline:none; 
                          width: 200px; "/> </div>
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+                <a href="javascript:void(0);" class="myButton"  onclick="product_violation_search2();">Search</a>
             </div>
         </td>
         <td> 
@@ -113,8 +133,38 @@ $sku=mysql_fetch_assoc($sku_result);
 
 <script type="text/javascript">
                
-                            
-                            function exporttop2()
+               
+               function product_violation_search2() {
+            		 var field = "vendor";
+                     var value = $(".product-violation-search2").val();
+                     
+                     var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) echo '&second_grid_page=' . $_GET['second_grid_page'];  ?>";
+
+                     var search_link = "/index.php?action=search2&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
+
+                     window.open(search_link, "_self");
+                     tableSearch.runSearch();
+                 }
+               
+               /*
+                             function product_violation_search2() {
+                                var field = "vendor";
+                                var value = $(".product-violation-search2").val();
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=search2&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=violation-by-product" + url_options;
+
+                                window.open(search_link, "_self");
+                                tableSearch.runSearch();
+
+
+                            }
+    */                       
+    function exporttop2()
                             {
                                 var mode = $("#exportp2").val();
                                 var url_options= window.location.search.substring(1);
