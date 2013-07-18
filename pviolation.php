@@ -34,6 +34,25 @@ if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == '
     $page = 1;
 }
 
+
+/* sorting */
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort'])) {
+    $direction = $_GET['sort'];
+    $order_field = $_GET['sort_column'];
+    
+} else {
+    $direction = "desc";
+    $order_field = "max(crawl_results.violation_amount)";
+}
+
+$order_by = "order by " . $order_field . " " . $direction . " ";
+
+/* sorting */
+
+
+
+
 $sql = "SELECT  distinct w.`name` as vendor ,
     format(r.violation_amount,2) as violation_amount,
     format( r.vendor_price,2) as vendor_price,
@@ -48,7 +67,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     WHERE r.crawl_id=" . $last_crawl['id'] . "
 		    AND r.violation_amount>0.05
                     and w.excluded=0
-		    ORDER BY r.violation_amount DESC LIMIT $start, $limit";
+		    ".$order_by." LIMIT $start, $limit";
 
 $result = mysql_query($sql);
 
@@ -86,6 +105,14 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 	}
 
 
+        
+        //sort
+if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort']) ) {
+	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
+}
+
+//sort
+        
 ?>
  
 
@@ -192,11 +219,29 @@ if (isset($_GET['action']) && $_GET['action']) { // search
             <table class="GrayBlack" align="center">
                 <tbody id="data">
                     <tr> 
-                        <td bgcolor="#CCCCCC">Website</td>
-                        <td bgcolor="#CCCCCC">Vendor price</td>
-                        <td bgcolor="#CCCCCC">Map</td>
-                        <td bgcolor="#CCCCCC">Violation</td>
-                        <td bgcolor="#CCCCCC">Link</td>
+                        <td >Website
+                        <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=vendor&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="vendor" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>
+                        <td >Vendor price
+                        <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>
+                        <td >Map
+                        <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>
+                        <td >Violation
+                        <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=violation_amount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>
+                        <td >Link
+                        
+                        </td>
                     </tr>
 
 
