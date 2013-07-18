@@ -132,17 +132,39 @@ order by maxvio desc LIMIT $start, $limit";
             <a href="javascript:void(0);" class="myButton"  onclick="product_violation_search();" >Search</a>
             </div>
              <script type="text/javascript">
-             	function product_violation_search() {
+             /*	function product_violation_search() {
             		 var field = "sku";
                      var value = $(".product-violation-search").val();
                      
-                     var search_url_additional_params = "<?php if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) echo '&second_grid_page=' . $_GET['second_grid_page'];  ?>";
+                     var search_url_additional_params = "<?php //if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) echo '&second_grid_page=' . $_GET['second_grid_page'];  ?>";
 
                      var search_link = "/index.php?action=searchfirst&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
 
                      window.open(search_link, "_self");
                      tableSearch.runSearch();
-             	}
+             	} */
+                 
+                   function product_violation_search() {
+                                var field = "sku";
+                                var value = $(".recent_search").val();
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=search&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=violation-by-product" + url_options;
+
+                                window.open(search_link, "_self");
+                                tableSearch.runSearch();
+
+                            }
+                            
+                 
+                 
+                 
+                 
+                 
              </script>   
         </td>
         <td>
