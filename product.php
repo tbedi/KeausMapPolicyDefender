@@ -1,51 +1,45 @@
 <?php
-$tableName = "crawl_results";
-$targetpage = "index.php";
 $limit = 10;
+$product_id=0;
 
+if (isset($_REQUEST['product_id'])) {
+	$product_id = $_REQUEST['product_id'];
+}
+
+ /*where*/
 $where = "";
-
 if (isset($_GET['action']) && $_GET['action'] == 'searchfirst' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
-    $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
+    $where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
 }
 
-$query = "SELECT distinct 
-catalog_product_flat_1.sku,
-catalog_product_flat_1.entity_id as product_id,
-catalog_product_flat_1.name,
-format(crawl_results.vendor_price,2) as vendor_price ,
-format(crawl_results.map_price,2)as map_price,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
-count(crawl_results.product_id) as i_count
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id 
-where crawl_results.violation_amount>0.05
+if ($product_id) {
+ $where = "  AND  entity_id  = '" . $product_id . "'"; ;
+}
+/*where*/
 
- and 
-crawl.id = 
-(select max(crawl.id) from crawl) " . $where . " 
-group by prices.catalog_product_flat_1.sku,
-prices.catalog_product_flat_1.name
-order by maxvio desc ";
+/* sorting */
+if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vproduct"  ) {  
+	$direction =$_GET['dir'];
+	$order_field =$_GET['sort'];
+	$_SESSION['sort_vproduct_dir']=$_GET['dir'];
+	$_SESSION['sort_vproduct_field']=$_GET['sort'];
+} else if (isset($_SESSION['sort_vproduct_field']) && isset($_SESSION['sort_vproduct_dir']) ) {
+	$direction = $_SESSION['sort_vproduct_dir'];
+	$order_field =$_SESSION['sort_vproduct_field'];
+} else {
+	$direction = "desc";
+	$order_field = "maxvio";
+	$_SESSION['sort_vproduct_dir'] = "desc";
+	$_SESSION['sort_vproduct_field'] = "maxvio";
+}
+
+$order_by = "order by " . $order_field . " " . $direction . " ";
+
+/* sorting */
 
 /* Pagination */
-
-$result1 = mysql_query($query);
-$total_pages = mysql_num_rows($result1);
-
-
-$stages = 3;
-$page = 1;
-
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
     $page = mysql_escape_string($_GET['page']);
     $start = ($page - 1) * $limit;
@@ -53,53 +47,29 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
     $start = 0;
     $page = 1;
 }
-
 /* Pagination */
 
-/* sorting */
-
-if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort'])) {
-    $direction = $_GET['sort'];
-    $order_field = $_GET['sort_column'];
-    
-} else {
-    $direction = "desc";
-    $order_field = "max(crawl_results.violation_amount)";
-}
-
-$order_by = "order by " . $order_field . " " . $direction . " ";
-
-/* sorting */
 
 // Get page data
-$query1 = "SELECT distinct 
-catalog_product_flat_1.sku,
-catalog_product_flat_1.entity_id as product_id,
-catalog_product_flat_1.name,
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(max(crawl_results.violation_amount),2) as maxvio,
-format(min(crawl_results.violation_amount),2) as minvio,
-count(crawl_results.product_id) as i_count
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.05
- and 
-crawl.id = 
-(select max(crawl.id) from crawl) " . $where . " 
-group by prices.catalog_product_flat_1.sku,
-prices.catalog_product_flat_1.name 
-".$order_by." LIMIT $start, $limit";
+$sql = "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,   catalog_product_flat_1.entity_id as product_id,  catalog_product_flat_1.name,  crawl_results.vendor_price as vendor_price,
+				  crawl_results.map_price as map_price,  max(crawl_results.violation_amount) as maxvio,  min(crawl_results.violation_amount) as minvio,
+  				  count(crawl_results.product_id) as i_count
+		   FROM prices.catalog_product_flat_1 
+		   INNER JOIN prices.crawl_results ON catalog_product_flat_1.entity_id = crawl_results.product_id 
+		   INNER JOIN crawl ON crawl_results.crawl_id = crawl.id
+		   WHERE crawl_results.violation_amount>0.05 AND  crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) " . $where . "
+ 		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
+		   ".$order_by." LIMIT $start, $limit";
+
+$page_violated_products=$db_resource->GetResultObj($sql);
+
 $result = mysql_query($query1);
 
 // Initial page num setup
-//if (!$page){$page = 1;}
+$sql=" SELECT FOUND_ROWS() as total;";
+$total_pages=$db_resource->GetResultObj($sql);
+$total_pages=$total_pages[0]->total;
+
 $tab_name = 'violation-by-product';
 $prev = $page - 1;
 $next = $page + 1;
@@ -117,222 +87,18 @@ if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for pr
 if (isset($_GET['action']) && $_GET['action']) { // search 
     $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 }
+ 
 
-//sort
-if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort']) ) {
-	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
-}
-
-//sort
+include_once 'template/product_violation_tab.phtml';
 ?>
-
-<h3 align="center"	>Product Violations</h3>
-<table align="center"  width="1000px" >
-    <tr>
-        <td>
-
-        <td >
-            <div style="padding-right: 20px;padding-left:0px; float: left">
-
-                <input  	class="product-violation-search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchfirst" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" 
-                         id="textBoxSearch" onkeyup="tableSearch.search(event);"  
-                         style="padding:5px;
-                         padding-right: 40px;
-                         background-image:url(images/sr.png); 
-                         background-position: 100% -5px; 
-                         background-repeat: no-repeat;
-                         border:2px solid #456879;
-                         border-radius:10px;float:left;
-                         height: 15px;
-                         outline:none; 
-                         width: 200px; "/> 
-            </div>
-            <div style="padding-right: 20px;padding-left:20px;">
-
-                <a href="javascript:void(0);" class="myButton"  onclick="product_violation_search();" >Search</a>
-            </div>
-            <script type="text/javascript">
-                        /*	function product_violation_search() {
-                         var field = "sku";
-                         var value = $(".product-violation-search").val();
-                          
-                         var search_url_additional_params = "<?php //if (isset($_GET['page']) && $_GET['page']) echo '&page=' . $_GET['page']; if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) echo '&second_grid_page=' . $_GET['second_grid_page'];   ?>";
-                          
-                         var search_link = "/index.php?action=searchfirst&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
-                          
-                         window.open(search_link, "_self");
-                         tableSearch.runSearch();
-                         } */
-
-
-
-
-
-                        function product_violation_search() {
-                            var field = "sku";
-                            var value = $(".product-violation-search").val();
-                            var url_options = "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort']) ? "&sort=" . $_GET['sort'] . "&sort_column=" . $_GET['sort_column'] : "" ); ?>"
-
-                            if (value.length) {
-                                url_options += "&action=searchfirst&field=" + field + "&value=" + value;
-                            }
-
-                            var search_link = "index.php?tab=violation-by-product" + url_options;
-
-                            window.open(search_link, "_self");
-                            tableSearch.runSearch();
-
-                        }
-
-
-
-
-
-
-            </script>   
-        </td>
-        <td>
-            <div style="padding-right: 20px;padding-left:0px; float: left">
-                Export To
-
-                <select  id="exportp" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
-                    <option value="csv" name="csv" selected  >Excel csv</option>
-                    <option value="xls" >Excel xls</option>
-                    <option value="pdf" >PDF</option>
-
-                </select>
-            </div>
-            <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exporttop();">Export</a>
-            </div>
-        </td>
-    </tr>
-
-
-    <script type="text/javascript">
-
-
-                             function exporttop()
-                             {
-                                 var mode = $("#exportp").val();
-                                 var url_options = window.location.search.substring(1);
-
-                                 if (url_options.length)
-                                     url_options = '?' + url_options;
-
-                                 if (mode)
-                                     open("export_product_" + mode + ".php" + url_options);
-
-
-
-                             }
-
-    </script>
-
-
-
-
-
-</table>
-
-<div class="cleaner" style="padding-top: 15px; ">
-
-</div>
-<table align="center">
-    <tr>
-        <td>
-
-            <table class="GrayBlack" align="center">
-                <tbody id="data">
-                    <tr> 
-                        <td>
-                            SKU ID
-                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
-                        </td>	
-
-                        <td>
-                            MAP
-                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
-                        </td>
-                        <td>
-                            Total violations
-                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=i_count&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="i_count" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
-                        </td>	
-
-                        <td>
-                            Max Violation amount
-                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=maxvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="maxvio" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
-                        </td>
-                        <td>
-                            Min Violation amount
-                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=minvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="minvio" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
-                        </td>
-                    </tr>
-
-
-
+ 
+<div align="left" style="display:block; " >
+  <?php include ('page2.php'); ?>
+</div>	
 
 <?php
-if(!$result)
-{
-    echo mysql_error();
-}
-while ($row = mysql_fetch_assoc($result)) {
-    echo "<tr>";
-    echo "<td>";
-
-    $product_link = "?tab=violation-by-product&product_id=" . $row['product_id'];
-
-    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-        $product_link.="&page=" . $_GET['page'];
-    }
-
-    if (isset($_GET['action']) && $_GET['action'] == "searchfirst") { //added that search  was included
-        $product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
-    }
-
-    echo "<a href='" . $product_link . "'>" . $row['sku'] . "</td> <td> $" . $row['map_price'] . "</td> <td>" . $row['i_count'] . "</td> <td> $ " . $row['maxvio'] . "</td> <td> $" . $row['minvio'] . "</td> </tr>";
-
-    $pid = $row['product_id'];
-}
-echo "</table>";
-
-//  mysql_close($con); 
-?>
-
-
-
-                <div align="left" style="display:block; " >
-                    <?php include ('page2.php'); ?>
-                </div>		
-
-        </td>  
-
-
-    </tr>       
-</tbody></table> 
-
-
-
-
-<?php
-if (!isset($_REQUEST['product_id'])) {
-    $product_id = 0;
-}
-if (isset($_REQUEST['product_id'])) {
-    $product_id = $_REQUEST['product_id'];
-} elseif (isset($pid) && $total_pages == 1) {
-    $product_id = $pid;
+if ($total_pages == 1) {
+	$product_id = $page_violated_products[0]->product_id;
 }
 
 if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violation-by-product") {

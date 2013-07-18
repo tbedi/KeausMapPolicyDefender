@@ -1,8 +1,11 @@
 <?php include_once 'db.php'; ?>
 <?php 
-
-//include_once 'db_class.php'; 
-//$db_resource = new DB ();
+/*configuration*/
+session_start();
+setlocale(LC_MONETARY, 'en_US');
+/*configuration*/
+include_once 'db_class.php'; 
+$db_resource = new DB ();
 /* Example of usage*/
 /*
 $sql="SELECT p.sku as sku FROM catalog_product_flat_1 p LIMIT 2";
@@ -38,6 +41,7 @@ foreach ($products as $product) {
 
         <!--<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" /> -->
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
+         <link href="css/kraus.css" rel="stylesheet" type="text/css" />
         <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
