@@ -1,6 +1,7 @@
-<?php include_once 'db_login.php'; ?>
-<?php 
-////include_once 'db_class.php'; 
+<?php
+include_once 'db_login.php'; ?>
+<?php
+///include_once 'db_class.php'; 
 //$db_resource = new DB ();
 /* Example of usage*/
 /*
@@ -128,11 +129,13 @@ foreach ($products as $product) {
             <div id="templatemo_footer_wrapper1">
                 <div id="templatemo_footer">
                     <div align="center" style="min-height:5px;overflow:auto;">
-                    	<div  class="menu-item first" style="float:left; padding-top:3px;" >  
-                            <a href="" target="_blank" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
+                    	<div  class="menu-item first" style="float:left; padding-top:3px;" > 
+                           
+                            <a href="mysettings.php" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
                        </div>
                         <div  class="menu-item first" style="float:left; padding-top:3px;" >  
                         <?php 
+                        
                         if($_SESSION['role'] === 'Admin')
                         {
                         echo "<a href="."websites.php"." class="."top-menu-item-3"." > <strong>WEBSITES</strong> </a>" ;
@@ -141,10 +144,10 @@ foreach ($products as $product) {
                        <div style="float:right; padding-top:3px;width:176px;" >  
                         <img src="images/agent.png" width="28" height="24" style="padding-left:  10px; float:right;"/>
                         <a href="" target="_blank" class="top-menu-item-4" >  
-                        <?php
+                        <?php 
                                 if (isset($_SESSION['username'])) {
                                     echo "" . $_SESSION['username'] . ", <br><small><a href=\"login.php\">logout</a></small>";
-                                 session_destroy();          } else {
+                                           } else {
                                     echo "Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
                                 }
                                 ?> 
