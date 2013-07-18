@@ -86,6 +86,11 @@ $additional_params = "&website_id=" . $web_id; //addtiion params to pagination u
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page'];
 }
+
+
+if (isset($_GET['action']) && $_GET['action']) { // search 
+		$additional_params.="&action=".$_GET['action']."&field=sku&value=".$_GET['value'];
+	}
 ?>
 
 <h3 align="center"> Products Violated by <?php echo $str; ?> <h3> 
@@ -95,7 +100,8 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
                 <td >
 
                     <div style="padding-right: 20px;padding-left:0px; float: left">
-                        <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                        <input  class="seller-violation-search"	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="searchfirstv2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>" 
+                                id="textBoxSearch" onkeyup="tableSearch.search(event);"  
                                  style="padding:5px;
                                  padding-right: 40px;
                                  background-image:url(images/sr.png); 
@@ -108,7 +114,7 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
                                  width: 200px; "/> </div>
 
                     <div style="padding-right: 20px;padding-left:0px; ">
-                        <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+                        <a href="javascript:void(0);" class="myButton"  onclick="seller_violation_search();">Search</a>
                     </div>   
                 </td>
                 <td> 
@@ -130,6 +136,26 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
 
 
 <script type="text/javascript">
+               
+               
+                 function seller_violation_search() {
+                                var field = "sku";
+                                var value = $(".seller-violation-search").val();
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=searchfirstv2&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=violation-by-seller" + url_options;
+
+                                window.open(search_link, "_self");
+                                tableSearch.runSearch();
+
+                            }
+                            
+               
+               
                
                             
                             function exporttov2()

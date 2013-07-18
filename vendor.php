@@ -62,7 +62,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
                          width: 200px; "/> </div>
 
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="javascript:void(0);" class="myButton"  onclick="history_search();">Search</a>
+                <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
             </div>    
         </td>
         <td> 
