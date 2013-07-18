@@ -264,9 +264,14 @@ order by maxvio desc LIMIT $start, $limit";
  
  
  <?php
-if (isset($_REQUEST['product_id'])) {
+if(!isset($_REQUEST['product_id']))
+{
+   $product_id=0;    
+}
+ if (isset($_REQUEST['product_id'])) {
 	$product_id = $_REQUEST['product_id'];
-}elseif (isset($pid)&& $total_pages==1) {
+}
+elseif (isset($pid)&& $total_pages==1) {
 	$product_id=$pid;
 }
  
