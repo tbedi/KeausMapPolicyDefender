@@ -119,7 +119,8 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
  <div style="padding-right: 20px;padding-left:0px; float: left">
  
 
-            <input  class="recent_search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" id="textBoxSearch"   
+            <input  class="recent_search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"
+                    id="textBoxSearch"  onkeyup="tableSearch.search(event);" 
                     style="padding:5px;
                     padding-right: 40px;
                     background-image:url(images/sr.png); 
@@ -173,6 +174,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                                 var search_link = "index.php?tab=recent" + url_options;
 
                                 window.open(search_link, "_self");
+                                tableSearch.runSearch();
 
                             }
                             
