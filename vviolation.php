@@ -15,7 +15,7 @@ while ($row = mysql_fetch_assoc($result)) {
 ?>
 
 <?php
-//pagination
+//pagination starts here
 
 $tableName = "crawl_results";
 $targetpage = "index.php";
@@ -82,7 +82,7 @@ $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 $page_param = "second_grid_page"; //variable used for pagination
-$additional_params = "website_id=" . $web_id; //addtiion params to pagination url;
+$additional_params = "&website_id=" . $web_id; //addtiion params to pagination url;
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page'];
 }
@@ -112,21 +112,42 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
                     </div>   
                 </td>
                 <td> 
-                    <div style="padding-right: 20px;padding-left:0px; float: left">
-                        Export To
-                        <select  id="choice" name="choice" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:2;" onchange="document.getElementById('displayValue').value = this.options[this.selectedIndex].text;
-                document.getElementById('idValue').value = this.options[this.selectedIndex].value;">
-                            <option value="xls" name="xls" selected="xls" >xls</option>
-                            <option value="pdf" >PDF</option>
-                        </select></div>
+                        <div style="padding-right: 20px;padding-left:0px; float: left">
+                Export To
 
-                    <div style="padding-right: 20px;padding-left:0px; ">
+                <select  id="exportv2" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
+                    <option value="pdf" >PDF</option>
 
-                        <?php echo "<a href=" . "export_vendor.php?website_id=" . $web_id . "  " . "class=myButton" . " >Export</a>";
-                        ?>
-                    </div>
-                </td>
-            </tr>
+                </select>
+            </div>
+            <div style="padding-right: 20px;padding-left:0px; ">
+                <a href="" id="1" class="myButton" onclick="exporttov2();">Export</a>
+            </div>
+    </td>
+</tr>
+
+
+<script type="text/javascript">
+               
+                            
+                            function exporttov2()
+                            {
+                                var mode = $("#exportv2").val();
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_vendor2_" + mode + ".php"+url_options);
+
+
+
+                            }
+
+    </script>
         </table>
 
         <div class="cleaner" style="padding-top: 15px; ">

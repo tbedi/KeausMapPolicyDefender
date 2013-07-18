@@ -7,7 +7,7 @@ if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
     $user_n = $_REQUEST['username'];
     $sql = "update admin_users set password ='$new_pass', username ='$user' where user='$user_n'";
     mysql_query($sql);
-    echo mysql_query($sql);
+    //echo mysql_query($sql);
    //header("Location:mysettings.php?username=updated");
 }
 

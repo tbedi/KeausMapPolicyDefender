@@ -2,8 +2,8 @@
 //foreach ($_SESSION as $key => $value) {
 //echo "Key: $key; Value: $value<br />\n";
 //}
-//include_once 'db_login.php';
 
+//include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 
 $db_resource = new DB ();// we created database resourse object which contains methods and connection

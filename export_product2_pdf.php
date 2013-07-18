@@ -1,5 +1,8 @@
 <?php 
 require_once('export/tcpdf/tcpdf.php');
+$product_id = $_REQUEST['product_id'];
+
+
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
@@ -75,28 +78,24 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
 	$start = 0;
 	$page = 1;
 }
-$query1 = "select catalog_product_flat_1.sku,
-website.name as wname,
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05
-and
-website.excluded=0
-and
-crawl.id =
-(select max(crawl.id) from crawl) " . $where . "
-order by violation_amount desc LIMIT $start, $limit";
+$query1 = "SELECT  distinct w.`name` as vendor , crawl.id,
+    format(r.violation_amount,2) as violation_amount,
+    format( r.vendor_price,2) as vendor_price,
+    format(r.map_price,2) as map_price,
+    r.website_product_url
+    FROM crawl_results  r
+    INNER JOIN website w
+    ON r.website_id=w.id
+    INNER JOIN catalog_product_flat_1 p
+    ON p.entity_id=r.product_id
+    AND p.entity_id='" . $product_id . "'
+        inner join crawl
+on crawl.id=r.crawl_id
+    WHERE crawl.id = 
+(select max(crawl.id) from crawl) 
+		    AND r.violation_amount>0.05
+                    and w.excluded=0
+		    ORDER BY r.violation_amount DESC ";
 
 $result = mysql_query($query1);
  $html=<<<EOD
@@ -106,12 +105,12 @@ while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
 	 
 	<tr>
-            <td>{$row['sku']}</td>
-            <td>{$row['wname']}</td>
+            <td>{$row['vendor']}</td>
             <td>{$row['vendor_price']}</td>
             <td>{$row['map_price']}</td>
             <td>{$row['violation_amount']}</td>
             <td>{$row['website_product_url']}</td>
+            
            
                 
    </tr>
@@ -132,5 +131,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Rcent_Violations', 'I');
+$pdf->Output('Product_Violations', 'I');
 // 

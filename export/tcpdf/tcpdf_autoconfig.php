@@ -133,19 +133,19 @@ if (!defined('PDF_PAGE_ORIENTATION')) {
 }
 
 if (!defined('PDF_CREATOR')) {
-	define ('PDF_CREATOR', 'TCPDF');
+	define ('PDF_CREATOR', 'Kraus USA');
 }
 
 if (!defined('PDF_AUTHOR')) {
-	define ('PDF_AUTHOR', 'TCPDF');
+	define ('PDF_AUTHOR', 'Kraus USA');
 }
 
 if (!defined('PDF_HEADER_TITLE')) {
-	define ('PDF_HEADER_TITLE', 'TCPDF Example');
+	define ('PDF_HEADER_TITLE', 'Price Defender');
 }
 
 if (!defined('PDF_HEADER_STRING')) {
-	define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+	define ('PDF_HEADER_STRING', "Kraus USA");
 }
 
 if (!defined('PDF_UNIT')) {

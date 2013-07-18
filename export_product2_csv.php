@@ -1,30 +1,26 @@
 <?php
 
 include('db.php');
-
+$product_id = $_REQUEST['product_id'];
 $dbTable = "";
-$sql = "select catalog_product_flat_1.sku,
-website.name as wname, 
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount,
-crawl_results.website_product_url
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded = 0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-order by sku asc";
+$sql = "SELECT  distinct w.`name` as vendor , crawl.id,
+    format(r.violation_amount,2) as violation_amount,
+    format( r.vendor_price,2) as vendor_price,
+    format(r.map_price,2) as map_price,
+    r.website_product_url
+    FROM crawl_results  r
+    INNER JOIN website w
+    ON r.website_id=w.id
+    INNER JOIN catalog_product_flat_1 p
+    ON p.entity_id=r.product_id
+    AND p.entity_id='" . $product_id . "'
+        inner join crawl
+on crawl.id=r.crawl_id
+    WHERE crawl.id = 
+(select max(crawl.id) from crawl) 
+		    AND r.violation_amount>0.05
+                    and w.excluded=0
+		    ORDER BY r.violation_amount DESC";
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
@@ -34,22 +30,22 @@ $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error()
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Recent_Violation.csv"');
+header('Content-Disposition: attachment; filename="Product_Violation.csv"');
 
 /* columns */
 $arr_columns = array(
-    'SKU',
-    'Seller Name',
+    'Website',
     'Seller Price',
-    'Map Price',
-    'Violation Amount',
-    'URL'
+    'MAP',
+    'Violation',
+    'Link'
+    
 );
 $arr_data = array();
 
 while ($row=  mysql_fetch_assoc($result)) {
     //print_r($row);die();
-$arr_data_row = array($row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
+$arr_data_row = array($row['vendor'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

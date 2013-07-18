@@ -1,7 +1,12 @@
-<?php
-include_once 'db_login.php'; ?>
-<?php
-///include_once 'db_class.php'; 
+
+ 
+<?php include_once 'db.php'; ?>
+<?php include_once 'db_login.php'; ?>
+<?php 
+
+//include_once 'db_class.php'; 
+ 
+
 //$db_resource = new DB ();
 /* Example of usage*/
 /*
