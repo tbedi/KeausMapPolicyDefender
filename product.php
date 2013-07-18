@@ -267,7 +267,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET
 
                         <td>
                             Max Violation amount
-                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=maxvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=maxvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
                            		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="maxvio" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>

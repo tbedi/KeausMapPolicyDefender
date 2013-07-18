@@ -48,6 +48,20 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     $page = 1;
 }
 
+/* sorting */
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort'])) {
+    $direction = $_GET['sort'];
+    $order_field = $_GET['sort_column'];
+    
+} else {
+    $direction = "desc";
+   $order_field="crawl_results.violation_amount";
+}
+
+$order_by = "order by " . $order_field . " " . $direction . " ";
+
+/* sorting */
 
 
 
@@ -79,7 +93,8 @@ crawl_results.violation_amount>0.05 ".$where."
 and
 website.excluded=0
 -- and crawl.id =  (select max(crawl.id) from crawl)
-order by violation_amount DESC LIMIT $start, $limit";
+".$order_by." LIMIT $start, $limit";
+
 $result = mysql_query($query1);
 if (!$result) {
     echo mysql_error();
@@ -222,25 +237,54 @@ if (isset($to) && isset($from)) {
                         <tr> 
                             <td>
                                 Product
+                                 <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=pname&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="pname" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                                
                             </td>	
 
                             <td>
                                 SKU
+                                 <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                                
                             </td>
                             <td>
                                 Seller
+                                 <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=wname&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wname" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                                
                             </td>	
 
                             <td>
                                 Vendor price
+                                 <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                                
                             </td>
                             <td>
                                 MAP price
+                                 <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                                
                             </td>
                             <td>
                                 Violation amt
+                                
+                               <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=crawl_results.violation_amount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="crawl_results.violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                             </td>
-                            <td>Date</td>
+                            <td>Date
+                                 <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=date_executed&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="date_executed" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                                
+                            </td>
                             <td>
                                 Screenshot
                             </td>

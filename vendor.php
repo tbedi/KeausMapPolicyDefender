@@ -196,8 +196,8 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET[
 
                         <td >
                             Violation count
-                             <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=wi_count&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wi_count" ? $direction : "asc" ); ?>_1.png" />
+                              <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=wicount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wicount" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                             
                         </td>
