@@ -114,7 +114,8 @@ order by maxvio desc LIMIT $start, $limit";
 <td >
  <div style="padding-right: 20px;padding-left:0px; float: left">
 
-            <input  	class="product-violation-search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="searchfirst" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" id="textBoxSearch"   
+            <input  	class="product-violation-search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="searchfirst" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" 
+                     id="textBoxSearch" onkeyup="tableSearch.search(event);"  
                      style="padding:5px;
                      padding-right: 40px;
                      background-image:url(images/sr.png); 
@@ -140,6 +141,7 @@ order by maxvio desc LIMIT $start, $limit";
                      var search_link = "/index.php?action=searchfirst&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
 
                      window.open(search_link, "_self");
+                     tableSearch.runSearch();
              	}
              </script>   
         </td>
