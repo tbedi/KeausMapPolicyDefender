@@ -29,12 +29,12 @@ order by sku asc";
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
 
-
+$filename="Recent_Violations-".date('d-m-y').".csv";
 
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Recent_Violation.csv"');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
 //header('Content-Disposition: attachment; filename=."Recent_Violation_"'.date(Y-m-d).".csv");
 //header('Content-Disposition: attachment; filename='."Recent_Violations".'-'.date('Y-m-d'));
 
