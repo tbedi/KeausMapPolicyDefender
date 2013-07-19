@@ -1,3 +1,4 @@
+<?php include_once 'db.php'; ?>
 <?php include_once 'db_login.php'; ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -115,11 +116,25 @@
         <div id="templatemo_footer_wrapper1">
             <div id="templatemo_footer">
                 <div align="center" style="min-height:5px;overflow:auto;">
-                    <div  class="menu-item first" style="float:left; padding-top:3px;" >  
-                        <a href="" target="_blank" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div  class="menu-item first" style="float:left; padding-top:3px;" >  
-                        <a href=websites.php class=top-menu-item-3 > <strong>WEBSITES</strong> </a> 
+                    <div  class="menu-item first" style="float:left; padding-top:3px;" > 
+                           
+                            <a href="mysettings.php" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
+                       </div>
+                     <div  class="menu-item second" style="float:left; padding-top:3px;" >  
+                        <?php 
+                        
+                        if($_SESSION['role'] === 'Admin')
+                        {
+                        echo "<a href="."websites.php"." class="."top-menu-item-3"." > <strong>WEBSITES</strong> </a>" ;
+                        }    ?>&nbsp;&nbsp;&nbsp;
+                        </div> 
+                        <div  class="menu-item third" style="float:left; padding-top:3px;" >  
+                         <?php 
+                        
+                        if($_SESSION['role'] === 'Admin')
+                        {
+                        echo "<a href="."users.php"." class="."top-menu-item-3"." > <strong>USERS</strong> </a>" ;
+                        }    ?>
                     </div>
                     <div style="float:right; padding-top:3px;width:176px;" >  
                         <img src="images/agent.png" width="28" height="24" style="padding-left:  10px; float:right;"/>

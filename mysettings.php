@@ -1,18 +1,28 @@
 <?php
+include 'db.php';
 include_once 'db_login.php';
 
-if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
+//print_r($_SESSION);
+//print_r($_POST);
+if ( isset($_REQUEST["Submit"]) ) {
+    $email = $_SESSION['email'];
     $user = $_REQUEST['username'];
-    $new_pass = $_REQUEST['password'];
-    $user_n = $_REQUEST['username'];
-    $sql = "update admin_users set password ='$new_pass', username ='$user' where user='$user_n'";
-    mysql_query($sql);
-    //echo mysql_query($sql);
+    if (isset($_REQUEST['cpassword']))
+        $new_pass = md5 ($_REQUEST['cpassword']);
+    if($_SESSION['role'] == 'Admin'){
+        
+       $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'"); 
+    }
+    elseif($_SESSION['role'] == ''){
+        $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'"); 
+    }
+}?>
+    <!--//echo mysql_query($sql);
    //header("Location:mysettings.php?username=updated");
 }
 
 //print_r($_REQUEST);
-?>
+?> -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -78,21 +88,10 @@ if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
                 }
             }
         </script>
-        <script src="js/exporting.js"></script>  
-        <!-- hightcharts libraries -->
-        <!--script type="text/javascript" src="js/jquery-1-4-2.min.js"></script> -->
-
-<!-- <script type="text/javascript" src="js/jquery-ui.min.js"></script> -->
-<!--<script type="text/javascript" src="js/showhide.js"></script> -->
+        <script src="js/exporting.js"></script>
         <script type="text/JavaScript" src="js/jquery.mousewheel.js"></script> 
-
-<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->    
-<!--<script type="text/javascript" src="js/ddsmoothmenu.js"></script>-->
         <script type="text/javascript" src="js/search.js"></script> 
-
-        <!--<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" /> -->
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-        <link href="css/login.css" rel="stylesheet" type="text/css" />
         <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -161,18 +160,18 @@ if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
 
             .style1 {font-weight: bold}
             .style7 {
-                color: yellow;
+                color: #000;
                 font-size: 24px;
             }
             .style9 {
-                color: #FF6666;
+                color: #000;
                 font-weight: bold;
             }
             .style12 {
-                color: #666666;
+                color: #000;
                 font-weight: bold;
             }
-            .style14 {color: #CC0033; font-weight: bold; }
+            .style14 {color: #000; font-weight: bold; }
 
         </style>
 
@@ -197,20 +196,30 @@ if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
         </div>
 
 
-        <div id="templatemo_footer_wrapper1">
-            <div id="templatemo_footer">
-                <div align="center" style="min-height:5px;overflow:auto;">
-                    <div  class="menu-item first" style="float:left; padding-top:3px;" >  
-                        <a href="" target="_blank" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
-                    </div>
+       <div id="templatemo_footer_wrapper1">
+                <div id="templatemo_footer">
+                    <div align="center" style="min-height:5px;overflow:auto;">
+                    	<div  class="menu-item first" style="float:left; padding-top:3px;" > 
+                           
+                            <a href="mysettings.php" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
+                       </div>
                     <div  class="menu-item first" style="float:left; padding-top:3px;" >  
                          <?php 
                         
                         if($_SESSION['role'] === 'Admin')
                         {
                         echo "<a href="."websites.php"." class="."top-menu-item-3"." > <strong>WEBSITES</strong> </a>" ;
+                        }    ?>&nbsp;&nbsp;&nbsp;
+                    </div>
+                        <div  class="menu-item third" style="float:left; padding-top:3px;" >  
+                         <?php 
+                        
+                        if($_SESSION['role'] === 'Admin')
+                        {
+                        echo "<a href="."users.php"." class="."top-menu-item-3"." > <strong>USERS</strong> </a>" ;
                         }    ?>
                     </div>
+                         
                     <div style="float:right; padding-top:3px;width:176px;" >  
                         <img src="images/agent.png" width="28" height="24" style="padding-left:  10px; float:right;"/>
                         <a href="" target="_blank" class="top-menu-item-4" >  
@@ -238,32 +247,37 @@ if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
                     <div class="tabpage recent" id="tabpage_1">
 
                         <form action="mysettings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
-                            <table width="47%" border="1" cellspacing="0" cellpadding="0">
+                            <table width="70%" border="" cellspacing="0" cellpadding="0">
                                 <tr>
                                     <td colspan="2" align="center"></td>
                                 </tr>
-                                <tr bgcolor="#666666">
+                                <tr bgcolor="#DDDDDD">
                                     <td colspan="2"><span class="style7">Change Password</span></td>
                                 </tr>
-                                <?php if ($_REQUEST['username'] == "updated") { ?>
-                                    <tr>
-                                        <td colspan="2"><span class="style7">Password has been changed successfully.</span></td>
-                                    </tr>
-                                <?php } ?>
+                                <?php //if ($_REQUEST['username'] == "updated"){  ?>
+                                    <!--<tr>
+                                       <td colspan="2"><span class="style7">Password has been changed successfully.</span></td>
+                                    </tr>-->
+                                <?php  //?>
                                 <tr>
                                     <td bgcolor="#DDDDDD"><span class="style14">username:</span></td>
-                                    <td bgcolor="#CCCCCC"><input type="username" name="username" id="username" size="20" autocomplete="off"/>&nbsp; <label id="username_label" ></td>
+                                    <td bgcolor="#CCCCCC"><input type="username" name="username" id="username" size="20" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
                                 </tr>
-                                <tr>
-                                    <td bgcolor="#DDDDDD"><span class="style14">New Password:</span></td>
-                                    <td bgcolor="#CCCCCC"><input type="password" name="newpassword" id="newpassword" size="20" autocomplete="off"/>&nbsp; <label id="newpassword_label" ></td>
-                                </tr>
-                                <tr>
-                                    <td bgcolor="#DDDDDD"><span class="style14">Confirm Password:</span></td>
-                                    <td bgcolor="#CCCCCC"><input type="password" name="cpassword" id="cpassword" size="20" autocomplete="off">&nbsp; <label id="cpassword_label" ></td>
-                                                </tr>
-
-                                                <tr bgcolor="#666666">
+                                <?php 
+                        
+                        if($_SESSION['role'] === 'Admin')
+                        {
+                            echo "<tr>
+                                    <td bgcolor="."#DDDDDD"." ><span class="."style14".">New Password:</span></td>
+                                    <td bgcolor="."#CCCCCC"."><input type="."password"." name="."newpassword"." id="."newpassword"." size="."20"." autocomplete="."off"." />&nbsp; <label id="."newpassword_label"." ></label></td>
+                                </tr>";
+                        echo "<tr>
+                                    <td bgcolor="."#DDDDDD"." ><span class="."style14".">Confirm Password:</span></td>
+                                    <td bgcolor="."#CCCCCC"."><input type="."password"." name="."cpassword"." id="."cpassword"." size="."20"." autocomplete="."off"." />&nbsp; <label id="."cpassword_label"." ></label></td>
+                                </tr>" ;
+                        }    ?>
+                              
+                                                <tr bgcolor="#DDDDDD">
                                                     <td colspan="2" align="center"><input type="submit" name="Submit" value="Update" onSubmit="return validate();"/></td>
                                                 </tr>
 
@@ -271,16 +285,7 @@ if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
                                                 </form>
                                                 </div>
 
-                                                <div class="tabpage violation-by-product" id="tabpage_2">
-                                                    <?php include_once 'product.php'; ?>
-
-                                                </div>
-
-                                                <div class="tabpage violation-by-seller" id="tabpage_3">
-                                                    <?php include_once 'vendor.php'; ?>
-                                                </div>
-                                                <div class="tabpage violations-history" id="tabpage_4">
-                                                    <?php include_once 'history.php'; ?>
+                                                
 
                                                 </div>    
 
@@ -292,7 +297,7 @@ if (isset($_REQUEST["Submit"]) && $_REQUEST["Submit"] == "Update") {
 
                                                 </div> 
 
-                                                </div> 
+                                               <!-- </div> -->
 
                                                 <div id="templatemo_footer_wrapper">
                                                     <div id="templatemo_footer">

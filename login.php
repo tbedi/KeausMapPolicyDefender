@@ -12,8 +12,6 @@ $e = '';
 $_SESSION['role'] = '';
 
 if (isset($_POST['login'])) {
-    
-
     //getdata
     $email = $_POST['email'];
     $password = $_POST['password'];

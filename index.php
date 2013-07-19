@@ -1,26 +1,5 @@
-
- 
 <?php include_once 'db.php'; ?>
 <?php include_once 'db_login.php'; ?>
-<?php 
-
-//include_once 'db_class.php'; 
- 
-
-//$db_resource = new DB ();
-/* Example of usage*/
-/*
-$sql="SELECT p.sku as sku FROM catalog_product_flat_1 p LIMIT 2";
-$products=$db_resource->GetResultObj($sql);
-foreach ($products as $product) {
-	echo $product->sku;
-}
-*/
-/* Example of usage*/
-?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html>
 
     <head>
@@ -138,14 +117,23 @@ foreach ($products as $product) {
                            
                             <a href="mysettings.php" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
                        </div>
-                        <div  class="menu-item first" style="float:left; padding-top:3px;" >  
+                        
+                        <div  class="menu-item second" style="float:left; padding-top:3px;" >  
                         <?php 
                         
                         if($_SESSION['role'] === 'Admin')
                         {
                         echo "<a href="."websites.php"." class="."top-menu-item-3"." > <strong>WEBSITES</strong> </a>" ;
+                        }    ?>&nbsp;&nbsp;&nbsp;
+                        </div> 
+                        <div  class="menu-item third" style="float:left; padding-top:3px;" >  
+                         <?php 
+                        
+                        if($_SESSION['role'] === 'Admin')
+                        {
+                        echo "<a href="."users.php"." class="."top-menu-item-3"." > <strong>USERS</strong> </a>" ;
                         }    ?>
-                       </div>
+                    </div>
                        <div style="float:right; padding-top:3px;width:176px;" >  
                         <img src="images/agent.png" width="28" height="24" style="padding-left:  10px; float:right;"/>
                         <a href="" target="_blank" class="top-menu-item-4" >  
@@ -188,7 +176,7 @@ foreach ($products as $product) {
 
                         </div>
 
-                        <div class="tabpage violation-by-seller" id="tabpage_3">
+                    <div class="tabpage violation-by-seller" id="tabpage_3">
                             <?php include_once 'vendor.php'; ?>
                         </div>
                         <div class="tabpage violations-history" id="tabpage_4">
