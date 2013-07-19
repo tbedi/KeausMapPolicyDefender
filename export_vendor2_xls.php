@@ -26,8 +26,8 @@ order by violation_amount desc";
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
 
 	header('Content-Type: application/vnd.ms-excel');	
-	header('Content-Disposition: attachment; filename='.$dbTable.'-'.date('Ymd'));
 	
+	header('Content-Disposition: attachment; filename='."Products_Violated_by_".$web_id.'-'.date('d-m-y'));
 	header('Pragma: no-cache');
 	header('Expires: 0');
 

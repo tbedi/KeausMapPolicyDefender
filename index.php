@@ -1,5 +1,25 @@
-<?php include_once 'db.php'; ?>
-<?php include_once 'db_login.php'; ?>
+ <?php 
+/*configuration*/
+session_start();
+setlocale(LC_MONETARY, 'en_US');
+include_once 'db.php';
+include_once 'db_login.php';
+/*configuration*/
+include_once 'db_class.php'; 
+$db_resource = new DB ();
+/* Example of usage*/
+/*
+$sql="SELECT p.sku as sku FROM catalog_product_flat_1 p LIMIT 2";
+$products=$db_resource->GetResultObj($sql);
+foreach ($products as $product) {
+	echo $product->sku;
+}
+*/
+/* Example of usage*/
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
 <html>
 
     <head>
@@ -24,6 +44,7 @@
 
         <!--<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" /> -->
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
+         <link href="css/kraus.css" rel="stylesheet" type="text/css" />
         <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -121,7 +142,7 @@
                         <div  class="menu-item second" style="float:left; padding-top:3px;" >  
                         <?php 
                         
-                        if($_SESSION['role'] === 'Admin')
+                        if(isset($_SESSION['role']) && $_SESSION['role'] === 'Admin')
                         {
                         echo "<a href="."websites.php"." class="."top-menu-item-3"." > <strong>WEBSITES</strong> </a>" ;
                         }    ?>&nbsp;&nbsp;&nbsp;
@@ -129,7 +150,7 @@
                         <div  class="menu-item third" style="float:left; padding-top:3px;" >  
                          <?php 
                         
-                        if($_SESSION['role'] === 'Admin')
+                        if(isset($_SESSION['role']) && $_SESSION['role'] === 'Admin')
                         {
                         echo "<a href="."users.php"." class="."top-menu-item-3"." > <strong>USERS</strong> </a>" ;
                         }    ?>

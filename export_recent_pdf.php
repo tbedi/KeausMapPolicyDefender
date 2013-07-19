@@ -4,8 +4,8 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 //$pdf->SetCreator(PDF_CREATOR);
-//$pdf->SetAuthor('Kraus USA');
-//$pdf->SetTitle('Recent Violations');
+$pdf->SetAuthor('Kraus USA');
+$pdf->SetTitle('Recent Violations');
 //$pdf->SetSubject('TCPDF Tutorial');
 //$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
@@ -46,7 +46,7 @@ $pdf->setFontSubsetting(true);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('times', '', 14, '', true);
+$pdf->SetFont('times', '', 12, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
@@ -100,8 +100,22 @@ order by violation_amount desc LIMIT $start, $limit";
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+
+   <table border="1"> 
+    <tr>
+   <td>SKU </td>  
+         <td>Seller </td>    
+         <td>Vendor Price</td>    
+         <td>Map Price</td>    
+         <td>Violation Amount</td>    
+         <td>Link</td>    
+   
+   
+   
+   
+   </tr>     
 EOD;
+ 
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
 	 
@@ -119,7 +133,11 @@ while ($row = mysql_fetch_assoc($result)) {
 EOD;
 }
 $html.=<<<EOD
-</table>
+
+               
+        
+        
+        
 EOD;
 
 /*Example addding for products*/  
@@ -132,5 +150,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Rcent_Violations', 'I');
+$pdf->Output("Recent_Violations".'-'.date('Y-m-d'), 'I');
 // 

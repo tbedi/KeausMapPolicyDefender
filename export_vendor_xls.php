@@ -19,15 +19,16 @@ crawl_results.crawl_id = crawl.id
 where crawl_results.violation_amount > 0.05  
 and
 website.excluded = 0
+and
 crawl.id = 
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id
-order by count(crawl_results.website_id) desc";
+order by crawl_results.website_id desc";
 
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
 
 	header('Content-Type: application/vnd.ms-excel');	//define header info for browser
-	header('Content-Disposition: attachment; filename='.$dbTable.'-'.date('Ymd'));
+	header('Content-Disposition: attachment; filename='."Seller_Violations".'-'.date('d-m-y'));
 	header('Pragma: no-cache');
 	header('Expires: 0');
 

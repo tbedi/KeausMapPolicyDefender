@@ -37,6 +37,10 @@ $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error()
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
 header('Content-Disposition: attachment; filename="Product_Violation.csv"');
+//header('Content-Disposition: attachment; filename="Recent_Violations"'.'_'.date('Y-m-d'));
+//header('Content-Disposition: attachment; filename='."Product_Violations_".'_'.date('Y-m-d'));
+//header('Content-Disposition: attachment; filename='."Product_Violations".'_'.date('Y-m-d'));
+
 
 /* columns */
 $arr_columns = array(

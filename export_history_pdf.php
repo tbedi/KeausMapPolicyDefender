@@ -102,7 +102,22 @@ order by sku asc";
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+
+         
+         <table border="1"> 
+    <tr>
+         <td>Product</td>  
+         <td>SKU </td>    
+         <td>Seller</td>    
+         <td>Vendor Price</td>    
+         <td>MAP Price</td>    
+         <td>Violation_amount</td>    
+         <td>Link</td>    
+   
+   
+   
+   
+   </tr>     
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
@@ -136,5 +151,6 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Violation_History', 'I');
+
+$pdf->Output("Violation_History".'-'.date('Y-m-d'), 'I');
 // 

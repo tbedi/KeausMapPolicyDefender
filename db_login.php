@@ -1,5 +1,4 @@
 <?php
-session_start();
  
     //login check function    
 function loggedin(){
