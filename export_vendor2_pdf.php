@@ -96,7 +96,19 @@ order by violation_amount desc";
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+ 	
+          <table border="1"> 
+    <tr>
+         <td>SKU </td>  
+         <td>Vendor Price</td>    
+         <td>Map Price</td>    
+         <td>Violation Amount</td>    
+         <td>Link</td>    
+   
+   
+   
+   
+   </tr>     
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD

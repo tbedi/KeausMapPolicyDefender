@@ -99,7 +99,21 @@ on crawl.id=r.crawl_id
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+	
+         
+      <table border="1"> 
+    <tr>
+   
+         <td>Seller </td>    
+         <td>Vendor Price</td>    
+         <td>Map Price</td>    
+         <td>Violation Amount</td>    
+         <td>Link</td>    
+   
+   
+   
+   
+   </tr>         
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD

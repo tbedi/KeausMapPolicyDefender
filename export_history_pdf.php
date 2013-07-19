@@ -102,7 +102,22 @@ order by sku asc";
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+
+         
+         <table border="1"> 
+    <tr>
+         <td>Product</td>  
+         <td>SKU </td>    
+         <td>Seller</td>    
+         <td>Vendor Price</td>    
+         <td>MAP Price</td>    
+         <td>Violation_amount</td>    
+         <td>Link</td>    
+   
+   
+   
+   
+   </tr>     
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD

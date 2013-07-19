@@ -103,7 +103,19 @@ order by maxvio desc LIMIT $start, $limit";
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+
+         <table border="1"> 
+    <tr>
+         <td>SKU </td>  
+         <td>Map Price</td>    
+         <td>Violation Count</td>    
+         <td>Max Violation</td>    
+         <td>Min Violation</td>    
+         
+   
+   
+   
+   </tr>     
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD

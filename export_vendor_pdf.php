@@ -98,7 +98,21 @@ order by crawl_results.website_id desc";
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+ 
+         
+         <table border="1"> 
+    <tr>
+    
+         <td>Seller </td>    
+         <td>Violation Count</td>    
+         <td>Max Violation</td>    
+         <td>Min Violation</td>    
+         
+   
+   
+   
+   
+   </tr>     
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
