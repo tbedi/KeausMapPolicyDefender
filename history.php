@@ -291,6 +291,11 @@ if (isset($to) && isset($from)) {
                         </tr>
 
     <?php
+    
+     if (mysql_num_fields($result) == 0) {
+                        echo "<tr><td colspan='6'>No Records Found</td></tr>";
+                    }
+                    
     while ($row = mysql_fetch_assoc($result)) {
         echo "<tr>";
         

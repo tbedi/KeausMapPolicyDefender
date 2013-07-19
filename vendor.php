@@ -13,7 +13,7 @@ $where = "";
 if (isset($_GET['action']) && $_GET['action'] == 'searchfirst1' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
-    $where = "  AND  website." . $field . "  LIKE '%" . $value . "%'";
+    $where = "  AND  crawl_results." . $field . "  LIKE '%" . $value . "%'";
 }
 
 
@@ -235,7 +235,9 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET[
                     <?php
 
                     
-                    
+                     if (mysql_num_rows($result)==0 ) {
+                        echo "<tr><td colspan='6'>No Records Found</td></tr>";
+                    }
                     
                     while ($row = mysql_fetch_assoc($result)) {
                         
@@ -248,7 +250,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET[
 			}
                         
                          if (isset($_GET['action']) && $_GET['action'] == "searchfirst1") { //added that search  was included
-        $product_link.="&action=" . $_GET['action'] . "&field=id&value=" . $_GET['value'];
+        $product_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
     }
                         
                   

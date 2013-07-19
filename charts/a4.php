@@ -1,5 +1,10 @@
 <?php
-$web_id = $_REQUEST['id'];
+
+    
+        
+
+$webite_id = $_REQUEST['website_id'];
+
 ?>
 <?php
 //example sku
@@ -18,7 +23,7 @@ from crawl_results
 inner join
 website
 on website.id =crawl_results.website_id
-AND website_id = $web_id
+AND website_id = $webite_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id 
       WHERE crawl_id=".$last_crawl['id']." 

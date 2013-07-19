@@ -35,6 +35,8 @@ $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error()
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
 header('Content-Disposition: attachment; filename="Recent_Violation.csv"');
+//header('Content-Disposition: attachment; filename=."Recent_Violation_"'.date(Y-m-d).".csv");
+//header('Content-Disposition: attachment; filename='."Recent_Violations".'-'.date('Y-m-d'));
 
 /* columns */
 $arr_columns = array(
@@ -52,7 +54,7 @@ while ($row=  mysql_fetch_assoc($result)) {
 $arr_data_row = array($row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
-} //do it here
+} 
 exportCSV($arr_data, $arr_columns);
 
 

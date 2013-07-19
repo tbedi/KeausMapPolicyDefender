@@ -86,12 +86,13 @@ foreach ($page_violated_products as $product) {
 		$product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 	}  
 ?>
+                    
 <tr>
 	<td><a href="<?php echo $product_link; ?>"><?php echo $product->sku ;?></a></td>
-	<td><?php echo  money_format('$%i',$product->map_price) ;?></td>
+	<td><?php echo $product->map_price ;?></td>
 	<td><?php echo $product->i_count ;?></td>
-	<td><?php echo  money_format('$%i',$product->maxvio) ;?></td>
-	<td><?php echo  money_format('$%i',$product->minvio) ;?></td>
+	<td><?php echo  $product->maxvio ;?></td>
+	<td><?php echo  $product->minvio ;?></td>
 </tr>
 <?php } ?>
  

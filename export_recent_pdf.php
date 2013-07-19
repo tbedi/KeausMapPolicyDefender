@@ -4,8 +4,8 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 //$pdf->SetCreator(PDF_CREATOR);
-//$pdf->SetAuthor('Kraus USA');
-//$pdf->SetTitle('Recent Violations');
+$pdf->SetAuthor('Kraus USA');
+$pdf->SetTitle('Recent Violations');
 //$pdf->SetSubject('TCPDF Tutorial');
 //$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
@@ -132,5 +132,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Rcent_Violations', 'I');
+$pdf->Output("Recent_Violations".'-'.date('Y-m-d'), 'I');
 // 

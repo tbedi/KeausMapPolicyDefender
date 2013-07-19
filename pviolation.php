@@ -19,7 +19,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)  AND r.violation_amount>0.05 AND w.excluded=0 " . $where ;
 //pagination
-$limit = 10;
+$limit = 3;
 
 $violators_all_array=$db_resource->GetResultObj($sql);
 $total_pages =  count($violators_all_array);

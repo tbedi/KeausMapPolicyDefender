@@ -119,7 +119,7 @@ if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pa
 
 
 if (isset($_GET['action']) && $_GET['action']) { // search 
-		$additional_params.="&action=".$_GET['action']."&field=name&value=".$_GET['value'];
+		$additional_params.="&action=".$_GET['action']."&field=website_id&value=".$_GET['value'];
 	}
 ?>
 
@@ -259,8 +259,6 @@ if (isset($_GET['action']) && $_GET['action']) { // search
                         <div align="left"   style="display:block;">
                             <?php include ('page2.php'); ?>
                         </div>
-
-
 
             </tr>       
         </table>
