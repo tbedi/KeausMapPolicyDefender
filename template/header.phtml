@@ -1,0 +1,44 @@
+<?php 
+if (isset ( $_SESSION ['username'] )) {
+	$user_info=$_SESSION ['username'] . ", <br><small><a href=\"login.php\">logout</a></small>";
+} else {
+	$user_info="Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
+}
+?>
+<div id="templatemo_header_wrapper">
+	<div class="container" style="margin: auto; width: 980px; height: 80px; min-height: 2px; overflow: auto;">
+		<div style="float: left; padding-right: 30px">
+			<a href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png"
+				width="186" height="71" /> </a>
+		</div>
+		<div class="left-part" style="float: left; width: 200px;">
+			<h2>Price Defender</h2>
+		</div>
+	</div>
+</div>
+
+<div id="templatemo_footer_wrapper1">
+	<div id="templatemo_footer">
+		<div align="center" style="min-height: 5px; overflow: auto;">
+			<div class="menu-item first" style="float: left; padding-top: 3px; padding-right:10px;">
+				<a href="mysettings.php" class="top-menu-item-3"> <strong>SETTINGS</strong></a>
+			</div>
+			
+			<div class="menu-item second" style="float: left; padding-top: 3px; padding-right:10px;">  
+                <?php if (isset ( $_SESSION ['role'] ) && $_SESSION ['role'] === 'Admin') { ?>
+					<a href="websites.php" class="top-menu-item-3" > <strong>WEBSITES</strong> </a>
+				<?php 	} ?>
+            </div>
+			
+			<div class="menu-item third" style="float: left; padding-top: 3px;padding-right:10px;">  
+            	<?php if (isset ( $_SESSION ['role'] ) && $_SESSION ['role'] === 'Admin') { ?>
+					<a href="users.php"  class"top-menu-item-3"> <strong>USERS</strong> </a>
+				<?php } ?>
+           </div>
+			<div style="float: right; padding-top: 3px; width: 176px;">
+				<img src="images/agent.png" width="28" height="24" style="padding-left: 10px; float: right;" /> 
+				<a href="#" target="_blank" class="top-menu-item-4"> <?php echo $user_info;?></a>
+			</div>
+		</div>
+	</div>
+</div>
