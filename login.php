@@ -3,7 +3,7 @@
 //echo "Key: $key; Value: $value<br />\n";
 //}
 
-//include_once 'db_login.php';
+include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 
 $db_resource = new DB ();// we created database resourse object which contains methods and connection
@@ -100,7 +100,7 @@ if (count($products) > 0)
             <?php
             $sql1="select * from admin_users where email='$e'";
         $products1=$db_resource->GetResultObj($sql1);
-            $login = mysql_query("select * from admin_users where email='$e'");
+          //  $login = mysql_query("select * from admin_users where email='$e'");
             if (count($products1) === 0 && isset($_POST['email'])) {
                 echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
             }
