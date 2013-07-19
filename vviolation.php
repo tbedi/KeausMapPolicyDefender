@@ -123,7 +123,7 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 	}
 ?>
 
-<h3 align="center"> Products Violated by <?php echo $wname['name']; ?> <h3> 
+<h3 align="center"> Products Violated by <?php echo $wname['name']; ?> </h3> 
 
         <table align="center"  width="1000px" >
             <tr>
@@ -215,7 +215,7 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 
                     <div class="GrayBlack">
 
-                        <table  align="center" border="2" cellpadding="0" cellspacing="0">
+                        <table  align="center" >
                             <tbody id="data"> 
                                 <tr  align="center" >
 
@@ -268,13 +268,14 @@ if (isset($_GET['action']) && $_GET['action']) { // search
                         </table>
 
 
-                        <div align="left"   style="display:block;">
-                            <?php include ('page2.php'); ?>
-                        </div>
+                       
 
             </tr>       
         </table>
-
+        
+ <div align="left"   style="display:block;">
+                            <?php include ('page2.php'); ?>
+                        </div>
         <div>
 
             <?php include_once 'charts/a4.php'; ?>
