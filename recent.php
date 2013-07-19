@@ -260,7 +260,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                         if ($row['violation_amount'] > 10) {
                             ?>
                         <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
-                        <td ><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $row['website_id']; ?>"><?php echo $row['name']; ?></td>
+                        <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $row['website_id']; ?>&website_id=<?php echo $row['website_id']; ?>"><?php echo $row['name']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioR"><?php echo "$" . $row['violation_amount']; ?></td>
@@ -269,8 +269,9 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                     } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
                         ?>
                         <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
-                       <td ><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $row['website_id']; ?>"><?php echo $row['name']; ?></td>
-                       <!-- <td ><?php //echo $row['wname']; ?></td> -->
+                      <!-- <td ><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php //echo $row['website_id']; ?>"><?php //echo $row['name']; ?></td>-->
+                         <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $row['website_id']; ?>&website_id=<?php echo $row['website_id']; ?>"><?php echo $row['name']; ?></td>                      
+ <!-- <td ><?php //echo $row['wname']; ?></td> -->
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vioO"><?php echo "$" . $row['violation_amount']; ?></td>
@@ -281,7 +282,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'recent' && isset($_GET['sort']) ) {
                         
                          ?>
                         <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $row['sku']; ?>"><?php echo $row['sku']; ?></a></td>
-                       <td ><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $row['website_id']; ?>"><?php echo $row['name']; ?></td>
+                       <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $row['website_id']; ?>&website_id=<?php echo $row['website_id']; ?>"><?php echo $row['name']; ?></td>
                         <td ><?php echo "$" . $row['vendor_price']; ?></td>
                         <td ><?php echo "$" . $row['map_price']; ?></td>
                         <td id="vio"><?php echo "$" . $row['violation_amount']; ?></td>

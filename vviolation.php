@@ -231,21 +231,33 @@ if (isset($_GET['action']) && $_GET['action']) { // search
                                 } else {
                                     while ($row = mysql_fetch_assoc($result)) {
                                         echo "<tr>";
-                                        if ($row['violation_amount'] > 10) {
+                                        if ($row['violation_amount'] > 10) 
+                                            {
 
-                                            echo "<td>" . $row['sku'] . "</td>" . "<td>" . "$" . $row['vendor_price'] . "</td>" . "<td>" . "$" . $row['map_price'] . "</td>" . "<td  id=" . 'vioR' . "  " . ">" . "$" . $row
+                                            echo "<td>" . $row['sku'] . "</td>" 
+                                                    . "<td>" . "$" . $row['vendor_price'] . "</td>" 
+                                                    . "<td>" . "$" . $row['map_price'] . "</td>" 
+                                                    . "<td  id=" . 'vioR' . "  " . ">" . "$" . $row['violation_amount'] . "</td>"
+                                                    . "<td >" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
+                                        } 
+                                        
+                                        else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10)
+                                            {
 
-                                            ['violation_amount'] . "</td>" . "<td >" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
-                                        } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
+                                            echo "<td>" . $row['sku'] . "</td>"
+                                                    . "<td>" . "$" . $row['vendor_price'] . "</td>"
+                                                    . "<td>" . "$" . $row['map_price'] . "</td>" 
+                                                    . "<td id=" . 'vioO' . "  " . ">" . "$" . $row['violation_amount'] . "</td>"
+                                                    . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
+                                        } 
+                                        else if ($row['violation_amount'] < 5)
+                                            {
 
-                                            echo "<td>" . $row['sku'] . "</td>" . "<td>" . "$" . $row['vendor_price'] . "</td>" . "<td>" . "$" . $row['map_price'] . "</td>" . "<td id=" . 'vioO' . "  " . ">" . "$" . $row
-
-                                            ['violation_amount'] . "</td>" . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
-                                        } else if ($row['violation_amount'] < 5) {
-
-                                            echo "<td>" . $row['sku'] . "</td>" . "<td>" . "$" . $row['vendor_price'] . "</td>" . "<td>" . "$" . $row['map_price'] . "</td>" . "<td id=" . 'vio' . "  " . ">" . "$" . $row
-
-                                            ['violation_amount'] . "</td>" . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
+                                            echo "<td>" . $row['sku'] . "</td>"
+                                                    . "<td>" . "$" . $row['vendor_price'] . "</td>"
+                                                    . "<td>" . "$" . $row['map_price'] . "</td>"
+                                                    . "<td id=" . 'vio' . "  " . ">" . "$" . $row['violation_amount'] . "</td>" 
+                                                    . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
                                         }
                                         echo "</tr>";
                                     }

@@ -254,7 +254,11 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET[
     }
                         
                   
-                        echo "<a href='".$website_link."'>" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$" . $row['maxvio'] . "</td>" . "<td>" . "$" . $row['minvio'] . "</td>" . "</tr>";
+                        echo "<a href='".$website_link."'>" . $row['name'] . "</td>" 
+                                . "<td>" . $row['wi_count'] . "</td>" 
+                                . "<td>" . "$" . $row['maxvio'] . "</td>" 
+                                . "<td>" . "$" . $row['minvio'] . "</td>"
+                                . "</tr>";
                         echo "</td>";
                         echo "</tr>";
                         
