@@ -28,14 +28,15 @@ order by violation_amount desc";
 
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
-
+$filename="Violation_History-".date('d-m-y').".csv";
 
 
 
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Violation_History.csv"');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
+//header('Content-Disposition: attachment; filename="Violation_History.csv"');
 //header('Content-Disposition: attachment; filename='."Violation_History".'_'.date('Y-m-d'));
 
 

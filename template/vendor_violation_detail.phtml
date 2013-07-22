@@ -3,33 +3,33 @@
 <table align="center"  width="1000px" >
     <tr>
         <td >
-            <div style="padding-right: 20px;padding-left:0px; float: left">
+            <div class="divt1">
 
 <input  class="vendor-violation-search2 search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"  id="textBoxSearch" onkeyup="tableSearch.search(event);"   /> 
 </div>
-            <div style="padding-right: 20px;padding-left:0px; ">
+            <div class="divt2">
                 <a href="javascript:void(0);" class="myButton"  onclick="vendor_violation_search2();">Search</a>
             </div>
         </td>
         <td> 
-            <div style="padding-right: 20px;padding-left:0px; float: left">
+            <div class="divt1">
                 Export To
 
-                <select  id="exportv2" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                <select  id="exportv2" name="export_to"  class="dropdown" >
                     <option value="csv" name="csv" selected  >Excel csv</option>
                     <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
 
                 </select>
             </div>
-            <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exporttov();">Export</a>
+            <div class="divt2">
+                <a href="" id="1" class="myButton" onclick="exporttov2();">Export</a>
             </div>
     </td>
 </tr>
 </table>
 <!-- table part -->
-<div class="cleaner" style="padding-top: 15px; ">
+<div class="cleaner1" >
 
 </div>
 <table align="center">
@@ -99,7 +99,7 @@ function vendor_violation_search2() {
 		tableSearch.runSearch();
 }
                                            
-function exporttov(){
+function exporttov2(){
 	var mode = $("#exportv2").val();
 	var url_options= window.location.search.substring(1);
                                 

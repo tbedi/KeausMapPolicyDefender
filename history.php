@@ -133,18 +133,9 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['
     <tr>
         <td >
             <div style="padding-right: 0px;padding-left:0px; float: left">
-                <input class="history_search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" 
+                <input class="history_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" 
                         id="textBoxSearch" onkeyup="tableSearch.search(event);"  
-                         style="padding:5px;
-                         padding-right: 40px;
-                         background-image:url(images/sr.png); 
-                         background-position: 100% -5px; 
-                         background-repeat: no-repeat;
-                         border:2px solid #456879;
-                         border-radius:10px;float:left;
-                         height: 15px;
-                         outline:none; 
-                         width: 200px; "/> </div>
+                         /> </div>
                           </td>
         <td>
            
@@ -166,7 +157,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['
            <div style="padding-right: 20px;padding-left:0px; float: left">
                 Export To
 
-                <select  id="exporth" name="export_to" style=" widht:100px; height:25px; line-height:20px;margin:0;padding:4;" >
+                <select  id="exporth" name="export_to" class="dropdown" >
                     <option value="csv" name="csv" selected  >Excel csv</option>
                     <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>

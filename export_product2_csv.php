@@ -25,12 +25,13 @@ on crawl.id=r.crawl_id
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
 
-
+$filename="Vendors_Violated-".$product_id."-".date('d-m-y').".csv";
 
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Product_Violation.csv"');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
+//header('Content-Disposition: attachment; filename="Product_Violation.csv"');
 //header('Content-Disposition: attachment; filename='."Sellers_Violated_".$product_id.'_'.date('Y-m-d'));
 
 /* columns */
