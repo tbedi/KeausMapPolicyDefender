@@ -21,7 +21,9 @@ if (isset ( $_SESSION ['username'] )) {
 	<div id="templatemo_footer">
 		<div align="center" style="min-height: 5px; overflow: auto;">
 			<div class="menu-item first" style="float: left; padding-top: 3px; padding-right:10px;">
+                           <?php if (isset ( $_SESSION ['username'] )){ ?>
 				<a href="mysettings.php" class="top-menu-item-3"> <strong>SETTINGS</strong></a>
+                           <?php } ?>
 			</div>
 			
 			<div class="menu-item second" style="float: left; padding-top: 3px; padding-right:10px;">  
@@ -33,6 +35,11 @@ if (isset ( $_SESSION ['username'] )) {
 			<div class="menu-item third" style="float: left; padding-top: 3px;padding-right:10px;">  
             	<?php if (isset ( $_SESSION ['role'] ) && $_SESSION ['role'] === 'Admin') { ?>
 					<a href="users.php"  class"top-menu-item-3"> <strong>USERS</strong> </a>
+				<?php } ?>
+           </div>
+                    <div class="menu-item fourth" style="float: left; padding-top: 3px;padding-right:10px;">  
+            	<?php if (isset ( $_SESSION ['username'] )){ ?>
+					<a href="index.php"  class"top-menu-item-3"> <strong>Price Defender</strong> </a>
 				<?php } ?>
            </div>
 			<div style="float: right; padding-top: 3px; width: 176px;">

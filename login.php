@@ -62,7 +62,7 @@ if (count($products) > 0)
             else
             {
             
-                header("Location: index.php");
+                header("Location: login_error.php");
             }
         //}
 

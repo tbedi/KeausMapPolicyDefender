@@ -2,7 +2,7 @@
 <?php include_once 'db_login.php'; ?>
  <?php include_once 'template/head.phtml'; ?>
     <body id="home" >
- 			<?php include_once 'template/header.phtml'; ?>    
+ <?php include_once 'template/header.phtml'; ?>    
         <div id="wrapper" align="center" >
 
             <div id="tabContainer" align="center" > 

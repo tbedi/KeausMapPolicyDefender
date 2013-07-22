@@ -139,7 +139,24 @@ label.error
     height: 3%;
     border-radius: 60px;
     padding-top: 2px;
-    alignment-adjust: central;    
+    alignment-adjust: central;
+    
+    }
+    
+    #log1 {
+    background-color: #f68787;
+    border: 1px solid  #000;
+    align: center;
+    width : 40%;
+    height: 5%;
+    font-size:250%;
+    padding-top: 2px;
+    alignment-adjust: central;
+    margin-top:100px;
+    margin-bottom:100px;
+    margin-right:100px;
+    margin-left:100px;
+    
     }
     
     
