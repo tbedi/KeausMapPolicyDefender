@@ -2,6 +2,6 @@
 
 session_start();
 
-echo
+
 
 ?>
