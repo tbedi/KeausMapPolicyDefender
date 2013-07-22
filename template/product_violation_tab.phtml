@@ -76,6 +76,9 @@
                     </tr>
 
 <?php
+
+
+
 foreach ($page_violated_products as $product) { 
 
 	$product_link = "?tab=violation-by-product&product_id=" .$product->product_id;
@@ -85,7 +88,17 @@ foreach ($page_violated_products as $product) {
 	if (isset($_GET['action']) && $_GET['action'] == "searchfirst") { //added that search  was included
 		$product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 	}  
-?>
+
+     if(count($product)==0)
+{
+    ?>
+                    <tr><td>No Records Found  </td> </tr>
+                    
+                    <?php
+}
+
+                    else{ 
+                        ?>
                     
 <tr>
 	<td><a href="<?php echo $product_link; ?>"><?php echo $product->sku ;?></a></td>
@@ -94,8 +107,9 @@ foreach ($page_violated_products as $product) {
 	<td><?php echo  $product->maxvio ;?></td>
 	<td><?php echo  $product->minvio ;?></td>
 </tr>
-<?php } ?>
- 
+<?php }} ?>
+
+
 </table>	
 </td> </tr>       
 </tbody></table> 

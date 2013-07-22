@@ -23,7 +23,7 @@
                 </select>
             </div>
             <div style="padding-right: 20px;padding-left:0px; ">
-                <a href="" id="1" class="myButton" onclick="exporttop2();">Export</a>
+                <a href="" id="1" class="myButton" onclick="exporttov();">Export</a>
             </div>
     </td>
 </tr>
@@ -72,7 +72,7 @@
 			$cell_id="vioR";
 ?>
 <tr>
-	<td><a href="index.php?tab=violation-by-seller&action=searchfirstv1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+	<td><a href="index.php?tab=violation-by-product&action=searchfirstv1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 	<td><?php echo $violator->vendor_price; ?></td>
 	<td><?php echo $violator->map_price; ?></td>
        <!-- <td><?php //echo money_format('$%i',$violator->map_price); ?></td> -->
@@ -99,7 +99,7 @@ function vendor_violation_search2() {
 		tableSearch.runSearch();
 }
                                            
-function exporttop2(){
+function exporttov(){
 	var mode = $("#exportv2").val();
 	var url_options= window.location.search.substring(1);
                                 
