@@ -133,7 +133,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['
     <tr>
         <td >
             <div style="padding-right: 0px;padding-left:0px; float: left">
-                <input class="history_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>" 
+                <input class="history_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" 
                         id="textBoxSearch" onkeyup="tableSearch.search(event);"  
                          /> </div>
                           </td>
@@ -177,7 +177,7 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['
                                                                        
                                 function history_search() {
                                 var field = "sku";
-                                var value = $(".recent_search").val();
+                                var value = $(".history_search").val();
                                 var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
                                 
                         		if (value.length) {                        			
