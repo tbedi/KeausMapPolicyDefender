@@ -40,3 +40,10 @@ border:2px solid #456879;border-radius:10px;float:left;height: 15px;outline:none
     clear: both;
     padding-top: 15px;
 }
+.container1{
+    margin: auto; width: 980px; height: 80px; min-height: 2px; overflow: auto;
+}
+.divt5
+{
+    float: left; padding-right: 30px;
+}
