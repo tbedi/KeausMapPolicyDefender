@@ -92,7 +92,7 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 include_once 'template/product_violation_tab.phtml';
 ?>
  
-<div align="left" style="display:block; " >
+<div class="page2" >
   <?php include ('page2.php'); ?>
 </div>	
 
