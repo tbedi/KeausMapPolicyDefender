@@ -1,5 +1,7 @@
-<?php include_once 'db.php'; ?>
-<?php include_once 'db_login.php'; ?>
+<?php include_once 'db.php';
+session_start();
+print_r($_SESSION);?>
+
 <html>
 
     <head>

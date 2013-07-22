@@ -9,10 +9,9 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Price Defender </title
-
-        ><!-- hightcharts libraries -->
+        <title>users </title><!-- hightcharts libraries -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
@@ -120,7 +119,6 @@
                                         <td ><?php echo $row['role']; ?></td>
                                         <td ><a href="user_edit.php?user_id=<?php echo($row['user_id']); ?> " title="Edit" > <img src="images/icon_edit.png" /> </a>
                                             <a href="user_delete.php?user_id=<?php echo($row['user_id']) ?>" title="Delete"  > <img src="images/icon_delete.png" /> </a> </td>
-
                                     </tr>
                                     <?php
                                 }

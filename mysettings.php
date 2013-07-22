@@ -4,21 +4,21 @@ include_once 'db_login.php';
 
 //print_r($_SESSION);
 //print_r($_POST);
-if ( isset($_REQUEST["Submit"]) ) {
+if (isset($_REQUEST["Submit"])) {
     $email = $_SESSION['email'];
     $user = $_REQUEST['username'];
     if (isset($_REQUEST['cpassword']))
-        $new_pass = md5 ($_REQUEST['cpassword']);
-    if($_SESSION['role'] == 'Admin'){
-        
-       $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'"); 
+        $new_pass = md5($_REQUEST['cpassword']);
+    if ($_SESSION['role'] == 'Admin') {
+
+        $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");
+    } elseif ($_SESSION['role'] == '') {
+        $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
     }
-    elseif($_SESSION['role'] == ''){
-        $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'"); 
-    }
-}?>
-    <!--//echo mysql_query($sql);
-   //header("Location:mysettings.php?username=updated");
+}
+?>
+<!--//echo mysql_query($sql);
+//header("Location:mysettings.php?username=updated");
 }
 
 //print_r($_REQUEST);
@@ -40,8 +40,8 @@ if ( isset($_REQUEST["Submit"]) ) {
             {
 
                 var formName = document.frm;
-                
-                 if (formName.username.value == "")
+
+                if (formName.username.value == "")
                 {
                     document.getElementById("username_label").innerHTML = 'Please Enter username';
                     formName.username.focus();
@@ -156,24 +156,7 @@ if ( isset($_REQUEST["Submit"]) ) {
             //highcharts colors
 
         </script>
-        <style type="text/css">
 
-            .style1 {font-weight: bold}
-            .style7 {
-                color: #000;
-                font-size: 24px;
-            }
-            .style9 {
-                color: #000;
-                font-weight: bold;
-            }
-            .style12 {
-                color: #000;
-                font-weight: bold;
-            }
-            .style14 {color: #000; font-weight: bold; }
-
-        </style>
 
 
     </head>
@@ -196,40 +179,38 @@ if ( isset($_REQUEST["Submit"]) ) {
         </div>
 
 
-       <div id="templatemo_footer_wrapper1">
-                <div id="templatemo_footer">
-                    <div align="center" style="min-height:5px;overflow:auto;">
-                    	<div  class="menu-item first" style="float:left; padding-top:3px;" > 
-                           
-                            <a href="mysettings.php" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
-                       </div>
+        <div id="templatemo_footer_wrapper1">
+            <div id="templatemo_footer">
+                <div align="center" style="min-height:5px;overflow:auto;">
+                    <div  class="menu-item first" style="float:left; padding-top:3px;" > 
+
+                        <a href="mysettings.php" class="top-menu-item-3" > <strong>SETTINGS</strong> </a>&nbsp;&nbsp;&nbsp;
+                    </div>
                     <div  class="menu-item first" style="float:left; padding-top:3px;" >  
-                         <?php 
-                        
-                        if($_SESSION['role'] === 'Admin')
-                        {
-                        echo "<a href="."websites.php"." class="."top-menu-item-3"." > <strong>WEBSITES</strong> </a>" ;
-                        }    ?>&nbsp;&nbsp;&nbsp;
+                        <?php
+                        if ($_SESSION['role'] === 'Admin') {
+                            echo "<a href=" . "websites.php" . " class=" . "top-menu-item-3" . " > <strong>WEBSITES</strong> </a>";
+                        }
+                        ?>&nbsp;&nbsp;&nbsp;
                     </div>
-                        <div  class="menu-item third" style="float:left; padding-top:3px;" >  
-                         <?php 
-                        
-                        if($_SESSION['role'] === 'Admin')
-                        {
-                        echo "<a href="."users.php"." class="."top-menu-item-3"." > <strong>USERS</strong> </a>" ;
-                        }    ?>
+                    <div  class="menu-item third" style="float:left; padding-top:3px;" >  
+                        <?php
+                        if ($_SESSION['role'] === 'Admin') {
+                            echo "<a href=" . "users.php" . " class=" . "top-menu-item-3" . " > <strong>USERS</strong> </a>";
+                        }
+                        ?>
                     </div>
-                         
+
                     <div style="float:right; padding-top:3px;width:176px;" >  
                         <img src="images/agent.png" width="28" height="24" style="padding-left:  10px; float:right;"/>
                         <a href="" target="_blank" class="top-menu-item-4" >  
-                            <?php
-                            if (isset($_SESSION['username'])) {
-                                echo "" . $_SESSION['username'] . ", <br><small><a href=\"login.php\">logout</a></small>";
-                            } else {
-                                echo "Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
-                            }
-                            ?> 
+<?php
+if (isset($_SESSION['username'])) {
+    echo "" . $_SESSION['username'] . ", <br><small><a href=\"login.php\">logout</a></small>";
+} else {
+    echo "Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
+}
+?> 
                         </a>
                     </div>                        
 
@@ -240,70 +221,69 @@ if ( isset($_REQUEST["Submit"]) ) {
         <div id="wrapper" align="center" >
 
             <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
-               
+
 
                 <div id="tabscontent" align="center">
 
                     <div class="tabpage recent" id="tabpage_1">
 
                         <form action="mysettings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
-                            <table width="70%" border="" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td colspan="2" align="center"></td>
-                                </tr>
-                                <tr bgcolor="#DDDDDD">
-                                    <td colspan="2"><span class="style7">Change Password</span></td>
-                                </tr>
-                                <?php //if ($_REQUEST['username'] == "updated"){  ?>
-                                    <!--<tr>
-                                       <td colspan="2"><span class="style7">Password has been changed successfully.</span></td>
-                                    </tr>-->
-                                <?php  //?>
-                                <tr>
-                                    <td bgcolor="#DDDDDD"><span class="style14">username:</span></td>
-                                    <td bgcolor="#CCCCCC"><input type="username" name="username" id="username" size="20" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
-                                </tr>
-                                <?php 
-                        
-                        if($_SESSION['role'] === 'Admin')
-                        {
-                            echo "<tr>
-                                    <td bgcolor="."#DDDDDD"." ><span class="."style14".">New Password:</span></td>
-                                    <td bgcolor="."#CCCCCC"."><input type="."password"." name="."newpassword"." id="."newpassword"." size="."20"." autocomplete="."off"." />&nbsp; <label id="."newpassword_label"." ></label></td>
+                            <div align="center" style="font-size: 150%;">
+                                <table>
+                                    <tr>
+                                        <td colspan="2" align="center"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="background-color:white;font-size:22px" align="center"><b>USER SETTINGS</b></td>
+                                    </tr><tr></tr><tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Username:</td>
+                                        <td ><input type="username" name="username" id="username" size="25" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
+                                    </tr>
+<?php
+if ($_SESSION['role'] === 'Admin') {
+    echo "<tr>
+                                    <td  style=" . "background-color:white;font-size:18px" . ">New Password:</td>
+                                       
+                                    <td ><input type=" . "password" . " name=" . "newpassword" . " id=" . "newpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "newpassword_label" . " ></label></td>
                                 </tr>";
-                        echo "<tr>
-                                    <td bgcolor="."#DDDDDD"." ><span class="."style14".">Confirm Password:</span></td>
-                                    <td bgcolor="."#CCCCCC"."><input type="."password"." name="."cpassword"." id="."cpassword"." size="."20"." autocomplete="."off"." />&nbsp; <label id="."cpassword_label"." ></label></td>
-                                </tr>" ;
-                        }    ?>
-                              
-                                                <tr bgcolor="#DDDDDD">
-                                                    <td colspan="2" align="center"><input type="submit" name="Submit" value="Update" onSubmit="return validate();"/></td>
-                                                </tr>
+    echo "<tr>
+                                    <td style=" . "background-color:white;font-size:18px" . ">Confirm Password:</td>
+                                       
+                                    <td ><input type=" . "password" . " name=" . "cpassword" . " id=" . "cpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "cpassword_label" . " ></label></td>
+                                </tr>";
+}
+?>
 
-                                                </table>
-                                                </form>
-                                                </div>
+                                    <tr>
+                                        <td colspan="2" align="center"><input type="submit" name="Submit" value="Update" onSubmit="return validate();"/></td>
+                                    </tr>
 
-                                                
+                                </table>
+                            </div>
+                        </form>
 
-                                                </div>    
-
-
-                                                </div>
+                    </div>
 
 
-                                                <div class="cleaner"></div>
 
-                                                </div> 
+                </div>    
 
-                                               <!-- </div> -->
 
-                                                <div id="templatemo_footer_wrapper">
-                                                    <div id="templatemo_footer">
-                                                        Copyright © Kraus USA 2013
-                                                    </div> 
-                                                </div> 
+            </div>
 
-                                                </body>
-                                                </html>
+
+            <div class="cleaner"></div>
+
+        </div> 
+
+        <!-- </div> -->
+
+        <div id="templatemo_footer_wrapper">
+            <div id="templatemo_footer">
+                Copyright © Kraus USA 2013
+            </div> 
+        </div> 
+
+    </body>
+</html>

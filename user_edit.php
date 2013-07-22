@@ -165,51 +165,46 @@
                             $qry = mysql_query($sql2);
                             $row = mysql_fetch_array($qry);
                             ?>
-                            <div class="section" >
-                                <label>Username</label>   
-                                <div> 
-                                    <p>
-                                        <textarea class="full" name="username" ><?php echo $row['username']; ?></textarea>
-                                    </p>
-
-                                </div>
-                            </div>
-                            <div class="section" >
-                                <label>Email</label>   
-                                <div> 
-                                    <p>
-                                        <input type="text" name="email" value="<?php echo $row['email']; ?>" />
-                                    </p>
-
-                                </div>
-                                <div class="section" >
-                                    <label>Name </label>   
-                                    <div> 
-                                        <p>
-                                            <input type="text" name="name" value="<?php echo $row['name']; ?>" />
-                                        </p>
-
-                                    </div>
-                                </div>
-                                <div class="section" >
-                                    <label>Role</label>   
-                                    <div> 
-                                        <p>
-                                            <input type="text" name="role" value="<?php echo $row['role']; ?>" />
-                                        </p>
-
-                                    </div>
+                            
+                               <div align="center" style="font-size: 150%;">
+                                <table>
+                                    <tr>
+                                        <td colspan="2" align="center"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="background-color:white;font-size:22px" align="center"><b>Edit User</b></td>
+                                    </tr><tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Username:</td>
+                                        <td ><input type="text" name="username" Value="<?php echo $row['username']; ?>" /></td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Email:</td>
+                                        <td ><input type="text" name="email" value="<?php echo $row['email']; ?>" /></td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Name:</td>
+                                        <td ><input type="text" name="name" value="<?php echo $row['name']; ?>" /></td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Role:</td>
+                                        <td ><input type="text" name="role" value="<?php echo $row['role']; ?>" /></td>
+                                    </tr>
                                     <input type="hidden" name="user_id" value=" <?php echo $row['user_id']; ?> " />
-                                    <div class="section">
-                                        <label></label>
-                                    </div>
-                                    <div class="section last">
-                                        <div><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="button" title="Saving" rel="1" > submit</a><a  href="users.php" class="button" type="reset" >Cancel</a> </div>
-                                    </div>
-                                    </form>
+                                    <tr></tr>
+                                    <tr>
+                                        <td align="center">
+                                          <div><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="button" title="Saving" rel="1" > submit</a><a  href="users.php" class="button" type="reset" >Cancel</a></div>
+                                     </td>
+                                    </tr>
 
-
-                                </div>
+                                </table>
+                            </div>
+                        </form>
+                            </div>
 
                                 <div class="tabpage violation-by-product" id="tabpage_2">
 <?php include_once 'product.php'; ?>

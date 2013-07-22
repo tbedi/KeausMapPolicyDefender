@@ -13,7 +13,6 @@
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
-        <link href="css/login.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
             <?php echo (isset($_GET['tab']) ? "var selected_tab='" . $_GET['tab'] . "'; " : "var selected_tab='recent'; " ); ?></script>
         <script src="js/tabs_old.js"></script>
@@ -84,7 +83,8 @@
                     <div class="tabpage recent" id="tabpage_1">
                         
                                                   <form id="test" action="update_website.php" method="POST"> 
-                            <?php
+                                                      
+                                                       <?php
 					
 					$id = $_GET['id'];
 					include  "db.php";							
@@ -94,47 +94,45 @@
 						 $row = mysql_fetch_array($qry);
 						 
 						?>
-							<div class="section" >
-                                <label>website name</label>   
-                                <div> 
-                                  <p>
-                                  <textarea class="full" name="name" ><?php echo $row['name']; ?></textarea>
-                                  </p>
-                                 
-                                </div>
-                            </div>
-							<div class="section" >
-                                <label>Website link </label>   
-                                <div> 
-                                  <p>
-                                   <input type="text" name="domain" value=" <?php echo $row['domain']; ?> " />
-                                  </p>
-                                 
-                                </div>
-                                <div class="section" >
-                                <label>Date Created </label>   
-                                <div> 
-                                  <p>
-                                   <input type="text" name="date_created" value=" <?php echo $row['date_created']; ?> " />
-                                  </p>
-                                 
-                                </div>
-                            </div>
-                                <div class="section" >
-                                <label>Excluded</label>   
-                                <div> 
-                                  <p>
-                                   <input type="text" name="excluded" value=" <?php echo $row['excluded']; ?> " />
-                                  </p>
-                                 
-                                </div>
-                             <input type="hidden" name="id" value=" <?php echo $row['id']; ?> " />
-                            <div class="section">
-                              <label></label>
-                            </div>
-                                <div class="section last">
-                                  <div><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="button" title="Saving" rel="1" > submit</a> </div>
-                            </div>
+                                                      
+                                <div align="center" style="font-size: 150%;">
+                                <table>
+                                    <tr>
+                                        <td colspan="2" align="center"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="background-color:white;font-size:22px" align="center"><b>Edit Websites</b></td>
+                                    </tr><tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Website Name:</td>
+                                        <td ><input type="text" name="name" Value="<?php echo $row['name']; ?>" /></td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Website Link:</td>
+                                        <td ><input type="text" name="domain" value="<?php echo $row['domain']; ?>" /></td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Date Created:</td>
+                                        <td ><input type="text" name="date_created" value="<?php echo $row['date_created']; ?>" /></td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td style="background-color:white;font-size:18px">Excluded:</td>
+                                        <td ><input type="text" name="excluded" value="<?php echo $row['excluded']; ?>" /></td>
+                                    </tr>
+                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+                                    <tr></tr>
+                                    <tr>
+                                        <td align="center">
+                                          <div><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="button" title="Saving" rel="1" > submit</a><a  href="websites.php" class="button" type="reset" >Cancel</a> </div>
+                                     </td>
+                                    </tr>
+
+                                </table>
+                            </div> 
+ 
                           </form>
                         
                         

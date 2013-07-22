@@ -10,7 +10,7 @@
   ?>
 		<script>
 		 window.alert('Error...')
-    window.location.href='users.php';</script>
+                 window.location.href='users.php';</script>
 	<?php
    }
    else
@@ -18,7 +18,7 @@
    	{?>
 		<script>
 		 window.alert('user Deleted successfully...')
-    window.location.href='users.php';</script>
+                 window.location.href='users.php';</script>
 	<?php
         }
 ?>

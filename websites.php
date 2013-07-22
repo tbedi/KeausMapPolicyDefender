@@ -267,7 +267,27 @@
 
 
 
-                                                            $paginate .= "<div class='paginate'>";
+                                                          
+                                                            while ($row = mysql_fetch_array($result)) {
+                                                                ?>
+
+                                                                <tr>
+                                                                    <td ><?php echo $row['id']; ?></td>
+                                                                    <td ><?php echo $row['name']; ?></td> 
+                                                                    <td ><?php echo $row['domain']; ?></td>
+                                                                    <td ><?php echo $row['date_created']; ?></td>
+                                                                    <td ><?php echo $row['excluded']; ?></td>
+                                                                    <td ><a href="website_edit.php?id=<?php echo($row['id']); ?> " title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+
+                                                                </tr>
+                                                            <?php }
+                                                        }
+                                                        ?>
+                                                    </tbody>
+                                                </table>
+                                    <?php
+
+                                      $paginate .= "<div class='paginate' align='left' >";
 // Previous
                                                             if ($page > 1) {
                                                                 $paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
@@ -339,27 +359,12 @@
 
 
 
-                                                            echo $total_pages . ' Results';
-// pagination
+                                                            //echo $total_pages . ' Results';
+                                                            // pagination
                                                             echo $paginate;
-                                                            while ($row = mysql_fetch_array($result)) {
-                                                                ?>
-
-                                                                <tr>
-                                                                    <td ><?php echo $row['id']; ?></td>
-                                                                    <td ><?php echo $row['name']; ?></td> 
-                                                                    <td ><?php echo $row['domain']; ?></td>
-                                                                    <td ><?php echo $row['date_created']; ?></td>
-                                                                    <td ><?php echo $row['excluded']; ?></td>
-                                                                    <td ><a href="website_edit.php?id=<?php echo($row['id']); ?> " title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
-
-                                                                </tr>
-                                                            <?php }
-                                                        }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
-
+                                                            ?>
+                                    
+                                    
                                                 </body>
 
                                                 </html>

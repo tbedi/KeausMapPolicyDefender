@@ -1,12 +1,12 @@
 <?php
+session_start();
+print_r($_SESSION);
 //foreach ($_SESSION as $key => $value) {
 //echo "Key: $key; Value: $value<br />\n";
 //}
-
 //include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
-
-$db_resource = new DB ();// we created database resourse object which contains methods and connection
+$db_resource = new DB (); // we created database resourse object which contains methods and connection
 
 $e = '';
 $_SESSION['role'] = '';
@@ -18,37 +18,33 @@ if (isset($_POST['login'])) {
 
     if ($email && $password) {
         $login = mysql_query("select * from admin_users where email='$email'");
-        $sql="select * from admin_users where email='$email'";
-        $products=$db_resource->GetResultObj($sql);
+        $sql = "select * from admin_users where email='$email'";
+        $products = $db_resource->GetResultObj($sql);
         //print_r($products);
-        if (count($products) > 0)
-{
-        
-        $us = $products[0]->username;
-        $pass = $products[0]->password;
-$role = $products[0]->role;}
-        //echo $e." ".$uid." ".$us." ".$pass." ".$role ;
-        
+        if (count($products) > 0) {
 
+            $us = $products[0]->username;
+            $pass = $products[0]->password;
+            $role = $products[0]->role;
+        }
+        //echo $e." ".$uid." ".$us." ".$pass." ".$role ;
         //die();
         //while ($row = mysql_fetch_assoc($login)) {
 
-          
-if (count($products) > 0)
-{
-      $db_password = $pass;
+
+        if (count($products) > 0) {
+            $db_password = $pass;
             if (md5($password) === $db_password)
                 $loginok = TRUE;
-            else
-            {
+            else {
                 session_destroy();
-           session_start();
-           $_SESSION['role'] = '';
+                session_start();
+                $_SESSION['role'] = '';
                 $loginok = FALSE;
             }
             if ($loginok == TRUE) {
-           session_destroy();
-           session_start();
+                session_destroy();
+                session_start();
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
                 //print_r($_SESSION);
@@ -59,17 +55,15 @@ if (count($products) > 0)
                 header("Location: index.php");
                 exit();
             }
-            else
-            {
-            
+            else {
+
                 header("Location: index.php");
             }
-        //}
-
-        //*die("Incorrect email/password combination");*/
+            //}
+            //*die("Incorrect email/password combination");*/
+        }
+        $e = $email;
     }
-    $e = $email;
-}
 }
 ?>
 <html>
@@ -98,8 +92,8 @@ if (count($products) > 0)
         <div id="wrapper" align="center">
 
             <?php
-            $sql1="select * from admin_users where email='$e'";
-        $products1=$db_resource->GetResultObj($sql1);
+            $sql1 = "select * from admin_users where email='$e'";
+            $products1 = $db_resource->GetResultObj($sql1);
             $login = mysql_query("select * from admin_users where email='$e'");
             if (count($products1) === 0 && isset($_POST['email'])) {
                 echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
@@ -130,7 +124,7 @@ if (count($products) > 0)
                 </div>
             </div>    
         </div>
-       
+
         <div id="templatemo_footer_wrapper">
             <div id="templatemo_footer">
                 Copyright © Kraus USA 2013
