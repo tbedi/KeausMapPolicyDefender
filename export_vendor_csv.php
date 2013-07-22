@@ -15,7 +15,6 @@ on website.id = crawl_results.website_id
 inner join crawl
 on
 crawl_results.crawl_id = crawl.id
-
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0
@@ -23,13 +22,13 @@ and
 crawl.id = 
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id
-order by count(crawl_results.website_id) desc";
+order by crawl_results.website_id desc";
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Product_Violation.csv"');
+header('Content-Disposition: attachment; filename="Seller_Violation.csv"');
 
 /* columns */
 $arr_columns = array(

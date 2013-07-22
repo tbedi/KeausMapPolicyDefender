@@ -7,6 +7,17 @@
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
+
+$where = "";
+
+if (isset($_GET['action']) && $_GET['action'] == 'searchfirst1' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+    $field = strtolower($_GET['field']);
+    $value = strtolower($_GET['value']);
+    $where = "  AND  crawl_results." . $field . "  LIKE '%" . $value . "%'";
+}
+
+
+
 $query = "SELECT COUNT(crawl_results.website_id) as num FROM website
 inner join
 crawl_results
@@ -19,10 +30,11 @@ and
 website.excluded=0
 and
 crawl.id =
-(select max(crawl.id) from crawl)
+(select max(crawl.id) from crawl) " . $where . "
 group by website.name , crawl_results.website_id
 order by count(crawl_results.website_id) desc
 ";
+
 
 
 /* Pagination */
@@ -40,6 +52,80 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
     $start = 0;
     $page = 1;
 }
+
+
+
+/* sorting */
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET['sort'])) {
+    $direction = $_GET['sort'];
+    $order_field = $_GET['sort_column'];
+    
+} else {
+    $direction = "desc";
+    $order_field = "count(crawl_results.website_id)";
+}
+
+$order_by = "order by " . $order_field . " " . $direction . " ";
+
+/* sorting */
+
+
+                    $query1 = "select website.name as name,
+crawl_results.website_id as website_id,
+format(max(crawl_results.violation_amount),2) as maxvio,
+format(min(crawl_results.violation_amount),2) as minvio,
+count(crawl_results.website_id) as wi_count
+from website
+inner join
+crawl_results
+on website.id = crawl_results.website_id
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+
+where crawl_results.violation_amount>0.05 
+and
+website.excluded=0
+and
+crawl.id = 
+(select max(crawl.id) from crawl) " . $where . "
+group by website.name , crawl_results.website_id
+".$order_by." LIMIT $start, $limit";
+                
+                    $result = mysql_query($query1);
+
+// Initial page num setup
+//if (!$page){$page = 1;}
+                    $tab_name = 'violation-by-seller';
+                    $prev = $page - 1;
+                    $next = $page + 1;
+                   $lastpage = ceil($total_pages/$limit);		
+	$LastPagem1 = $lastpage - 1;	
+	$page_param="page";//variable used for pagination
+	$additional_params=""; //addtiion params to pagination url;
+	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
+	}
+	if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for product
+		$additional_params.="&website_id=".$_GET['website_id'];
+	}
+
+        //sort
+if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET['sort']) ) {
+	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
+}
+
+//sort
+
+
+
+
+
+
+
+
+
 /* Pagination */
 ?>
 
@@ -114,16 +200,32 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
                     <tr> 
                         <td>
                             Seller
+                            
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=name&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>	
 
                         <td >
                             Violation count
+                              <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=wicount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wicount" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                            
                         </td>
                         <td >
                             Max violation
+                            
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=maxvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="maxvio" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                         <td >
                             Min violation
+                            
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&sort=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort_column=minvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="minvio" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
                         </td>
                     </tr>	
 
@@ -131,59 +233,36 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
                     <?php
-                    $query1 = "select website.name,
-crawl_results.website_id,
-format(max(crawl_results.violation_amount),2) as maxvio,
-format(min(crawl_results.violation_amount),2) as minvio,
-count(crawl_results.website_id) as wi_count
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-
-where crawl_results.violation_amount>0.05 
-and
-website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-group by website.name , crawl_results.website_id
-order by count(crawl_results.website_id) desc LIMIT $start, $limit";
-                    $result = mysql_query($query1);
-
-// Initial page num setup
-//if (!$page){$page = 1;}
-                    $tab_name = 'violation-by-seller';
-                    $prev = $page - 1;
-                    $next = $page + 1;
-                   $lastpage = ceil($total_pages/$limit);		
-	$LastPagem1 = $lastpage - 1;	
-	$page_param="page";//variable used for pagination
-	$additional_params=""; //addtiion params to pagination url;
-	if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
-		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
-	}
-	if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for product
-		$additional_params.="&website_id=".$_GET['website_id'];
-	}
-
 
                     
-                    
+                     if (mysql_num_rows($result)==0 ) {
+                        echo "<tr><td colspan='6'>No Records Found</td></tr>";
+                    }
                     
                     while ($row = mysql_fetch_assoc($result)) {
+                        
+                              echo "<tr>";
+                        echo "<td>";
                          $website_link="?tab=violation-by-seller&website_id=".$row['website_id'];            
-	   		if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+	   		
+                         if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
 				$product_link.="&page=".$_GET['page'];
 			}
-                        echo "<tr>";
-                        echo "<td>";
-                        echo "<a href='".$website_link."'>" . $row['name'] . "</td>" . "<td>" . $row['wi_count'] . "</td>" . "<td>" . "$" . $row['maxvio'] . "</td>" . "<td>" . "$" . $row['minvio'] . "</td>" . "</tr>";
+                        
+                         if (isset($_GET['action']) && $_GET['action'] == "searchfirst1") { //added that search  was included
+        $product_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+    }
+                        
+                  
+                        echo "<a href='".$website_link."'>" . $row['name'] . "</td>" 
+                                . "<td>" . $row['wi_count'] . "</td>" 
+                                . "<td>" . "$" . $row['maxvio'] . "</td>" 
+                                . "<td>" . "$" . $row['minvio'] . "</td>"
+                                . "</tr>";
                         echo "</td>";
                         echo "</tr>";
+                        
+                         $vid = $row['website_id'];
                     }
                     echo "</table>";
 
@@ -202,7 +281,20 @@ order by count(crawl_results.website_id) desc LIMIT $start, $limit";
 
 
 <?php
-if (isset($_GET['website_id']) && isset($_GET['tab']) && $_GET['tab'] == "violation-by-seller") {
+
+
+
+
+if (!isset($_REQUEST['website_id'])) {
+    $website_id = 0;
+}
+if (isset($_REQUEST['website_id'])) {
+    $website_id = $_REQUEST['website_id'];
+} elseif (isset($vid) && $total_pages == 1) {
+    $website_id = $vid;
+}
+
+if ($website_id && isset($_GET['tab']) && $_GET['tab'] == "violation-by-seller") {
     include_once 'vviolation.php';
 }
 ?>

@@ -21,8 +21,12 @@
          
           
             for (var i = 0, row; row = this.Rows[i], rowText = this.RowsText[i]; i++) {
+                
+                
                 row.style.display = ((rowText.indexOf(this.Term) != -1) || this.Term === '') ? '' : 'none';
+             
             }
+        
         }
 		
 		
@@ -32,10 +36,14 @@
             var keycode;
             if (window.event) { keycode = window.event.keyCode; }
             else if (e) { keycode = e.which; }
-            else { return false; }
+            else { 
+                
+                return false; }
             if (keycode == 13) {
                 tableSearch.runSearch();
             }
-            else { return false; }
+            else { 
+                //document.write("No Records Found...");
+                return false; }
         }
  

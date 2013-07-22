@@ -103,7 +103,19 @@ order by maxvio desc LIMIT $start, $limit";
 
 $result = mysql_query($query1);
  $html=<<<EOD
-<table > 		
+
+         <table border="1"> 
+    <tr>
+         <td>SKU </td>  
+         <td>Map Price</td>    
+         <td>Violation Count</td>    
+         <td>Max Violation</td>    
+         <td>Min Violation</td>    
+         
+   
+   
+   
+   </tr>     
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
@@ -135,5 +147,6 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Product_Violations', 'I');
+
+$pdf->Output("Product_Violations".'-'.date('Y-m-d'), 'I');
 // 

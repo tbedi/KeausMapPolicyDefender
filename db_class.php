@@ -1,4 +1,5 @@
 <?php
+
 /**
      * NOTICE OF LICENSE
      *
@@ -106,4 +107,4 @@ class DB {
 }
 
 ?>
-
+ 

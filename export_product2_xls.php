@@ -23,8 +23,10 @@ w.excluded = 0
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
 
 	header('Content-Type: application/vnd.ms-excel');	//define header info for browser
-	header('Content-Disposition: attachment; filename='.$dbTable.'-'.date('Ymd'));
-	header('Pragma: no-cache');
+	//header('Content-Disposition: attachment; filename='.$dbTable.'-'.date('Ymd'));
+       
+	header('Content-Disposition: attachment; filename='."Sellers_Violated_".$product_id."_".date('d-m-y'));
+        header('Pragma: no-cache');
 	header('Expires: 0');
 
 	echo '<table><tr>';

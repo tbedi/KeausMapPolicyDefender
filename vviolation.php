@@ -1,7 +1,7 @@
 
 <?php
-$web_id = $_REQUEST['website_id'];
-$result = mysql_query("select website.name as wname 
+//$web_id = $_REQUEST['website_id'];
+/*$result = mysql_query("select website.name as wname 
 from website
 inner join
 crawl_results
@@ -11,7 +11,7 @@ where website_id=$web_id");
 
 while ($row = mysql_fetch_assoc($result)) {
     $str = $row['wname'];
-}
+}*/
 ?>
 
 <?php
@@ -30,7 +30,7 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0
-and website_id = $web_id
+and website_id = $website_id
 order by violation_amount desc";
 
 
@@ -48,13 +48,28 @@ if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == '
     $page = 1;
 }
 
+/* sorting */
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' && isset($_GET['sort'])) {
+    $direction = $_GET['sort'];
+    $order_field = $_GET['sort_column'];
+    
+} else {
+    $direction = "desc";
+    $order_field = "violation_amount";
+}
+
+$order_by = "order by " . $order_field . " " . $direction . " ";
+
+/* sorting */
+
 
 
 $query1 = "select distinct crawl_results.website_id,
 domain,
 website.name as wname,
 catalog_product_flat_1.entity_id,
-catalog_product_flat_1.name,
+catalog_product_flat_1.name as name,
 catalog_product_flat_1.sku,
 format(crawl_results.vendor_price,2) as vendor_price,
 format(crawl_results.map_price,2) as map_price,
@@ -70,7 +85,7 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0
-and website_id = $web_id
+and website_id = $website_id
 order by violation_amount desc LIMIT $start, $limit";
 $result = mysql_query($query1);
 
@@ -82,20 +97,41 @@ $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 $page_param = "second_grid_page"; //variable used for pagination
-$additional_params = "&website_id=" . $web_id; //addtiion params to pagination url;
+$additional_params = "&website_id=" . $website_id; //addtiion params to pagination url;
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page'];
 }
+
+$sql1="SELECT website.name as name FROM website WHERE id=".$website_id;
+$wname_result = mysql_query($sql1);
+$wname=mysql_fetch_assoc($wname_result);
+
+
+
+if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+		$additional_params.="&second_grid_page=".$_GET['second_grid_page'];
+	}
+	if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for product
+		$additional_params.="&website_id=".$_GET['website_id'];
+	}
+
+
+
+
+if (isset($_GET['action']) && $_GET['action']) { // search 
+		$additional_params.="&action=".$_GET['action']."&field=website_id&value=".$_GET['value'];
+	}
 ?>
 
-<h3 align="center"> Products Violated by <?php echo $str; ?> <h3> 
+<h3 align="center"> Products Violated by <?php echo $wname['name']; ?> </h3> 
 
         <table align="center"  width="1000px" >
             <tr>
                 <td >
 
                     <div style="padding-right: 20px;padding-left:0px; float: left">
-                        <input  	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);"  
+                        <input  class="seller-violation-search"	placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="searchfirst1" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>" 
+                                id="textBoxSearch" onkeyup="tableSearch.search(event);"  
                                  style="padding:5px;
                                  padding-right: 40px;
                                  background-image:url(images/sr.png); 
@@ -108,7 +144,7 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
                                  width: 200px; "/> </div>
 
                     <div style="padding-right: 20px;padding-left:0px; ">
-                        <a href="javascript:void(0);" class="myButton"  onclick="tableSearch.runSearch();">Search</a>
+                        <a href="javascript:void(0);" class="myButton"  onclick="seller_violation_search();">Search</a>
                     </div>   
                 </td>
                 <td> 
@@ -130,6 +166,26 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
 
 
 <script type="text/javascript">
+               
+               
+                 function seller_violation_search() {
+                                var field = "wname";
+                                var value = $(".seller-violation-search").val();
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=searchfirst1&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=violation-by-seller" + url_options;
+
+                                window.open(search_link, "_self");
+                                tableSearch.runSearch();
+
+                            }
+                            
+               
+               
                
                             
                             function exporttov2()
@@ -159,7 +215,7 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
 
                     <div class="GrayBlack">
 
-                        <table  align="center" border="2" cellpadding="0" cellspacing="0">
+                        <table  align="center" >
                             <tbody id="data"> 
                                 <tr  align="center" >
 
@@ -175,21 +231,33 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
                                 } else {
                                     while ($row = mysql_fetch_assoc($result)) {
                                         echo "<tr>";
-                                        if ($row['violation_amount'] > 10) {
+                                        if ($row['violation_amount'] > 10) 
+                                            {
 
-                                            echo "<td>" . $row['sku'] . "</td>" . "<td>" . "$" . $row['vendor_price'] . "</td>" . "<td>" . "$" . $row['map_price'] . "</td>" . "<td  id=" . 'vioR' . "  " . ">" . "$" . $row
+                                            echo "<td>" . $row['sku'] . "</td>" 
+                                                    . "<td>" . "$" . $row['vendor_price'] . "</td>" 
+                                                    . "<td>" . "$" . $row['map_price'] . "</td>" 
+                                                    . "<td  id=" . 'vioR' . "  " . ">" . "$" . $row['violation_amount'] . "</td>"
+                                                    . "<td >" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
+                                        } 
+                                        
+                                        else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10)
+                                            {
 
-                                            ['violation_amount'] . "</td>" . "<td >" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
-                                        } else if ($row['violation_amount'] >= 5 && $row['violation_amount'] < 10) {
+                                            echo "<td>" . $row['sku'] . "</td>"
+                                                    . "<td>" . "$" . $row['vendor_price'] . "</td>"
+                                                    . "<td>" . "$" . $row['map_price'] . "</td>" 
+                                                    . "<td id=" . 'vioO' . "  " . ">" . "$" . $row['violation_amount'] . "</td>"
+                                                    . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
+                                        } 
+                                        else if ($row['violation_amount'] < 5)
+                                            {
 
-                                            echo "<td>" . $row['sku'] . "</td>" . "<td>" . "$" . $row['vendor_price'] . "</td>" . "<td>" . "$" . $row['map_price'] . "</td>" . "<td id=" . 'vioO' . "  " . ">" . "$" . $row
-
-                                            ['violation_amount'] . "</td>" . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
-                                        } else if ($row['violation_amount'] < 5) {
-
-                                            echo "<td>" . $row['sku'] . "</td>" . "<td>" . "$" . $row['vendor_price'] . "</td>" . "<td>" . "$" . $row['map_price'] . "</td>" . "<td id=" . 'vio' . "  " . ">" . "$" . $row
-
-                                            ['violation_amount'] . "</td>" . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
+                                            echo "<td>" . $row['sku'] . "</td>"
+                                                    . "<td>" . "$" . $row['vendor_price'] . "</td>"
+                                                    . "<td>" . "$" . $row['map_price'] . "</td>"
+                                                    . "<td id=" . 'vio' . "  " . ">" . "$" . $row['violation_amount'] . "</td>" 
+                                                    . "<td>" . "<a target=" . '_blank' . " href =" . $row['website_product_url'] . ">" . " Product Link" . "</a></td>";
                                         }
                                         echo "</tr>";
                                     }
@@ -200,15 +268,14 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
                         </table>
 
 
-                        <div align="left"   style="display:block;">
-                            <?php include ('page2.php'); ?>
-                        </div>
-
-
+                       
 
             </tr>       
         </table>
-
+        
+ <div align="left"   style="display:block;">
+                            <?php include ('page2.php'); ?>
+                        </div>
         <div>
 
             <?php include_once 'charts/a4.php'; ?>
