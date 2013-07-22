@@ -4,14 +4,9 @@ from crawl;";
 $result = mysql_query($sql);
 while ($row = mysql_fetch_assoc($result)) {
     $str = $row['maxd'];
-}
+} 
 $limit = 10;
-?>	
-
-
-
-<?php
-
+ $targetpage="index.php";
 /*where*/
 $where = "";
 if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
@@ -102,7 +97,9 @@ $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
 $additional_params = ""; //addtiion params to pagination url;
-
+if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+    $additional_params.="&page=" . $_GET['page']; //here it should 
+}
 
 /*
 if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
