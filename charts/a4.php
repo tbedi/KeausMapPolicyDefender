@@ -3,11 +3,16 @@
 $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
  
+
+
+
 foreach ($violators_all_array as $violator){
-	$chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $violator->sku) . "'";
+
+  $chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $violator->sku) . "'";
 	array_push ( $chart_vendor_rows, $chart_row );
 	array_push ( $chart_violation_amount_rows,  $violator->violation_amount);
-}
+
+  }
 
 $js_data_string_vendors = implode ( $chart_vendor_rows, "," );
 $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );

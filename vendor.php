@@ -78,7 +78,7 @@ group by website.name , crawl_results.website_id
 
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
-$result = mysql_query($query1);
+//$result = mysql_query($query1);
 
 // Initial page num setup
 $sql=" SELECT FOUND_ROWS() as total;";
