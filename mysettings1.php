@@ -1,4 +1,4 @@
-<?php
+<?php     
 ////print_r($_REQUEST);
 //print_r($_POST);
 if (isset($_REQUEST["Submit"])) {
@@ -9,7 +9,24 @@ if (isset($_REQUEST["Submit"])) {
     if ($_SESSION['role'] == 'Admin') {
         if(isset($user) && trim($_REQUEST['cpassword'])==='' && trim($_REQUEST['newpassword'])===''){
             $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
+           if (!$sql) {
+    ?>
+    <script>
+        window.alert('Error!!!')
+        window.location.href = 'mysettings.php';</script>
+    <?php
+
+} else {
+    ?>
+    <script>
+        window.alert('Username is successfully entered...')
+        window.location.href = 'mysettings.php';</script>
+    <?php
+
+}
+
         }
+      
         elseif (isset($user) && trim($_REQUEST['cpassword'])!='' && trim($_REQUEST['newpassword'])!=''){
          $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");   
         }
@@ -78,6 +95,7 @@ if (isset($_REQUEST["Submit"])) {
                                     </tr>
 
                                 </table>
+                                
                             </div>
                         </form>
 

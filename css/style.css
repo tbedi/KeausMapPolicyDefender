@@ -184,6 +184,16 @@ background-image:url(images/sr.png) no-repeat 4px 4px;
     background-color: #999;
     text-transform: uppercase;
 }
+   
+#log {
+    background-color:  #f68787;
+    border: 1px solid  #000;
+    width : 50%;
+    height: 3%;
+    border-radius: 60px;
+    padding-top: 2px;
+    alignment-adjust: central;
     
+    }
    
     
