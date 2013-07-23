@@ -10,7 +10,6 @@ website.name as wname,
 format(crawl_results.vendor_price,2) as vendor_price,
 format(crawl_results.map_price,2) as map_price,
 format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url,
 crawl.date_executed
 from website
 inner join

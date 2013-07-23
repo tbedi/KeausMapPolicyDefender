@@ -47,6 +47,21 @@ border:2px solid #456879;border-radius:10px;float:left;height: 15px;outline:none
 {
     float: left; padding-right: 30px;
 }
+.divt6
+{
+    padding-right: 20px;
+    padding-left:0px; 
+    float: right
+}
+.divt7
+{
+    padding-right: 20px;
+    padding-left:10px;
+}
 .left-part1{
     
+}
+.chartt
+{
+    display:table-row-group;
 }

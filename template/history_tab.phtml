@@ -1,45 +1,44 @@
 <h3 align="center">Violations History</h3>
 
-<table align="center" width="1000px;"  >
+<table align="center" width="1000px"   >
     <tr>
         <td >
-             <div style="padding-right: 10px;  padding-left:0px;  float: left">
+            
                 <input class="history_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchh" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>"  
                        id="textBoxSearch"    /> 
 
-            </div>
+            
         </td>
         <td>
 
-          <div style=" padding-right: 10px;
-    padding-left:10px;">
+        
                 <a href="javascript:void(0);" class="myButton"  onclick="history_violation_search();">Search</a>
-            </div>
+            
         </td>
         <td>
-            <div style=" padding-right: 20px;
-    padding-left:0px;">
+      
 
                 <a href="javascript:void(0);" class="myButton"  onclick="history_violation_show_all();" >Show all</a>
-            </div>
+          
         </td>
         <td>
             <form action=" ?tab=violations-history&option=show_dates" method="post"> 
-                <div style="padding-right: 7px;padding-left:0px; float: left">
-                    From  <input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/> 
-                    To   <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
-                    
+                
+                    From </td> <td><input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/> 
+                </td><td>  To </td><td>  <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+                    </td> <td>
                      <input type="submit" class="myButton" name="submit" value="show" /> </div>
             </form>
 
         </td>
     </tr>
 </table>
-
+<br>
+<br>
 <table align="right">
     <tr >
         <td> 
-            <div style="padding-right: 20px;padding-left:0px; float: right">
+            <div class="divt6">
                 Export To
 
                 <select  id="exporth" name="export_to" class="dropdown" >
@@ -51,7 +50,7 @@
             </div>
         </td>
         <td>
-            <div style="padding-right: 20px;padding-left:10px; ">
+            <div class="divt7">
                 <a href="" id="1" class="myButton" onclick="exporttoh();">Export</a>
             </div>
         </td>
@@ -67,10 +66,18 @@
 <div class="cleaner" style="padding-top: 15px; ">
 
 </div>
-<?php
-echo "<br/> Violations from " . $from . " to " . $to . "<br/> ";
+<br/>
+<table class="GrayBlack" align="center">
+    <tr>
+        <td>
+             <?php
+echo " Violations from " . $from . " to " . $to . "<br/> ";
 
 ?>
+        </td>
+    </tr>
+</table>
+   
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr> 
@@ -154,11 +161,11 @@ echo "<br/> Violations from " . $from . " to " . $to . "<br/> ";
 
     </tbody></table> 
 
-<div align="left" style="display:block;">
+<div class="page2">
     <?php include ('page2.php'); ?>
 </div>		
 
-<div  style="display: table-row-group;" >
+<div  class="chartt">
     <table>
         <tr>
             <td>

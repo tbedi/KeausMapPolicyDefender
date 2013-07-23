@@ -109,10 +109,7 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 include_once 'template/recent_tab.phtml';
 ?>
  
-<div class="page2" >
-  <?php include ('page2.php'); ?>
-</div>	
- 
+
 
 <script language="javascript" type="text/javascript">
 
@@ -127,16 +124,4 @@ include_once 'template/recent_tab.phtml';
 
 </script>
 
-<div  style="display:table-row-group;">
-    <table>
-        <tr>
-            <td>
-                <?php include_once 'charts/a1.php'; ?>
-            </td>
-            <td>
-                <?php include_once 'charts/a2.php'; ?>
-            </td>
-        </tr>
 
-    </table>
-</div>  
