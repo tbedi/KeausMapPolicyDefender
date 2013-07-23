@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 

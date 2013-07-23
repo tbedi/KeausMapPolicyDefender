@@ -170,5 +170,18 @@ label.error
 	font-weight: normal;
 }
     
-    
+#my-settings form input[type=text], #my-settings form input[type=password] {
+	border: 1px solid #BEBEBE;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+	background-clip: padding-box;
+    margin-bottom: 20px;
+	background-color: #FFFFFF;
+	font-size: 14px;
+    height: 25px;
+    line-height: 20px;
+	vertical-align: middle;
+	 outline: 0 none;
+	font-weight: 400;
+}
     

@@ -86,7 +86,7 @@ if (isset($_REQUEST["Submit"])) {
                                     </tr><tr></tr><tr></tr>
                                     <tr>
                                         <td style="background-color:white;font-size:14px">Username:</td>
-                                        <td ><input type="username" name="username" id="username" value="<?php echo $us; ?>" size="25" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
+                                        <td ><input type="text" name="username" id="username" value="<?php echo $us; ?>" size="25" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
                                     </tr>
                                     <?php
                                     if ($_SESSION['role'] === 'Admin') {
