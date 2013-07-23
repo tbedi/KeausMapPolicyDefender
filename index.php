@@ -14,7 +14,7 @@ $title="Price Defender";
     <body id="home" >
        <?php include_once 'template/header.phtml'; ?>       
             <div id="wrapper" align="center" >
-                <div id="tabContainer" align="center" >
+                <div id="tabContainer" class="main-content" align="center" >
                     <div id="tabs" align="center">
                         <ul>
                             <li id="tabHeader_1" class="recent">Recent violations</li>
