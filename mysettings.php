@@ -12,12 +12,8 @@ include_once 'db_login.php';
                 <div class="tabpage recent" id="tabpage_1">
                     <?php include_once 'mysettings1.php'; ?>
                 </div>
-            </div>    
-
-
+            </div> 
         </div>
-
-
         <div class="cleaner"></div>
     </div> 
     <div id="templatemo_footer_wrapper">

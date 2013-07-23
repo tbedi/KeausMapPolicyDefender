@@ -5,6 +5,7 @@ include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 
 $e = '';
+$a = 0;
 $_SESSION['role'] = '';
 
 if (isset($_POST['login'])) {
@@ -38,15 +39,17 @@ if (isset($_POST['login'])) {
                 session_start();
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
+                //print_r($_SESSION);
+                //*$_SESSION['password']= $password;*//
                 if ($_POST['rememberme'] == "on")
-                setcookie("email", $email, time() + 7200);
+                    setcookie("email", $email, time() + 7200);
                 $_SESSION['email'] = $email;
                 header("Location: index.php");
                 exit();
             }
             else {
-                
-              
+
+               $a = 1; 
             }
         }
         $e = $email;
@@ -64,20 +67,20 @@ if (isset($_POST['login'])) {
 
     <body id="home">
 
-    <?php include_once 'template/login_header.phtml'; ?> 
+<?php include_once 'template/login_header.phtml'; ?> 
 
         <div id="wrapper" align="center">
 
-        <?php
-        $sql1 = "select * from admin_users where email='$e'";
-        $products1 = $db_resource->GetResultObj($sql1);
-        if (count($products1) === 0 && isset($_POST['email'])) {
-            echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
-        }
-//        else{
-//          echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>gjhgkj</b>" . "</div>";  
-//        }
-        ?>
+<?php
+$sql1 = "select * from admin_users where email='$e'";
+$products1 = $db_resource->GetResultObj($sql1);
+if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
+    echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
+}
+elseif($a === 1){
+    echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>wrong password!!,please login again with correct password</b>" . "</div>";
+}
+?>
 
             <div style="margin:60px;   padding:20px" align="center"> 
                 <div id="login" align="center" >

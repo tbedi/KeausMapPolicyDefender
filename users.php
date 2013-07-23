@@ -1,10 +1,5 @@
 <?php include_once 'db.php'; ?>
 <?php include_once 'db_login.php';?>
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html>
 
     <head>
@@ -63,8 +58,8 @@
                                         <td ><?php echo $row['email']; ?></td>
                                         <td ><?php echo $row['name']; ?></td>
                                         <td ><?php echo $row['role']; ?></td>
-                                        <td ><a href="user_edit.php?user_id=<?php echo($row['user_id']); ?> " title="Edit" > <img src="images/icon_edit.png" /> </a>
-                                            <a href="user_delete.php?user_id=<?php echo($row['user_id']) ?>" title="Delete"  > <img src="images/icon_delete.png" /> </a> </td>
+                                        <td ><a href="user_edit.php?user_id=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
+                                            <a href="user_delete.php?user_id=<?php echo($row['user_id']) ?>" title="Delete" onclick ="return confirm('are you sure you want to delete');" > <img src="images/icon_delete.png" /> </a> </td>
                                     </tr>
                                     <?php
                                 }

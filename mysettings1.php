@@ -39,41 +39,6 @@ if (isset($_REQUEST["Submit"])) {
                 {
                     document.getElementById("username_label").innerHTML = '';
                 }
-
-//                if (formName.newpassword.value == "")
-//                {
-//                    document.getElementById("newpassword_label").innerHTML = 'Please Enter New Password';
-//                    formName.newpassword.focus();
-//                    return false;
-//                }
-//                else
-//                {
-//                    document.getElementById("newpassword_label").innerHTML = '';
-//                }
-//
-//
-//                if (formName.cpassword.value == "")
-//                {
-//                    document.getElementById("cpassword_label").innerHTML = 'Enter ConfirmPassword';
-//                    formName.cpassword.focus();
-//                    return false;
-//                }
-//                else
-//                {
-//                    document.getElementById("cpassword_label").innerHTML = '';
-//                }
-//
-//
-//                if (formName.newpassword.value != formName.cpassword.value)
-//                {
-//                    document.getElementById("cpassword_label").innerHTML = 'Passwords Missmatch';
-//                    formName.cpassword.focus()
-//                    return false;
-//                }
-//                else
-//                {
-//                    document.getElementById("cpassword_label").innerHTML = '';
-//                }
             }
         </script>
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
@@ -92,16 +57,16 @@ if (isset($_REQUEST["Submit"])) {
                                         <td colspan="2" style="background-color:white;font-size:22px" align="center"><b>USER SETTINGS</b></td>
                                     </tr><tr></tr><tr></tr>
                                     <tr>
-                                        <td style="background-color:white;font-size:18px">Username:</td>
+                                        <td style="background-color:white;font-size:14px">Username:</td>
                                         <td ><input type="username" name="username" id="username" size="25" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
                                     </tr>
                                     <?php
                                     if ($_SESSION['role'] === 'Admin') {
                                         echo "<tr>
-                                    <td  style=" . "background-color:white;font-size:18px" . ">New Password:</td><td ><input type=" . "password" . " name=" . "newpassword" . " id=" . "newpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "newpassword_label" . " ></label></td>
+                                    <td  style=" . "background-color:white;font-size:14px" . ">New Password:</td><td ><input type=" . "password" . " name=" . "newpassword" . " id=" . "newpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "newpassword_label" . " ></label></td>
                                     </tr>";
                                     echo "<tr>
-                                    <td style=" . "background-color:white;font-size:18px" . ">Confirm Password:</td>
+                                    <td style=" . "background-color:white;font-size:14px" . ">Confirm Password:</td>
                                     <td ><input type=" . "password" . " name=" . "cpassword" . " id=" . "cpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "cpassword_label" . " ></label></td>
                                     </tr>";
                                     }
@@ -109,6 +74,7 @@ if (isset($_REQUEST["Submit"])) {
 
                                     <tr>
                                         <td colspan="2" align="center"><input type="submit" name="Submit" value="Update" onSubmit="return validate();"/></td>
+                                        
                                     </tr>
 
                                 </table>
