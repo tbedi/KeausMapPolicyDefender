@@ -2,7 +2,8 @@
 <body>
  <?php
 include('db.php');
-
+//$from = $_REQUEST['from'];
+//$to = $_REQUEST['to'];
 $dbTable="";
 	$sql = "select catalog_product_flat_1.sku,
 catalog_product_flat_1.name as pname,
