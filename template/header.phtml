@@ -1,25 +1,27 @@
 <?php 
-include_once 'db_class.php';
-$db_resource = new DB ();
-$em = $_SESSION['email'];
+
+$em = (isset($_SESSION['email']) ?  $_SESSION['email']: "");
 $fetch = "select username from admin_users where email='$em'";
 $products = $db_resource->GetResultObj($fetch);
-$us = $products[0]->username;
+ 
 if (count($products) > 0) {
             $us = $products[0]->username;
        }
      
 if (isset ( $_SESSION ['username'] )) {
 	$user_info=$us . ", <br><small><a href=\"login.php\">logout</a></small>";
+} else {
+	$user_info="Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
 }
 ?>
 <div id="templatemo_header_wrapper">
-	<div class="container" style="margin: auto; width: 980px; height: 80px; min-height: 2px; overflow: auto;">
-		<div style="float: left; padding-right: 30px">
+	<div class="container1" >
+		<div class="divt5">
 			<a href="/" target="_blank"><img src="images/Kraus-Logo-HQ.png"
 				width="186" height="71" /> </a>
 		</div>
-		<div class="left-part" style="float: left; width: 200px;">
+		<div class="left-part" style="float: left; width: 250px;">
+
 			<h2>Price Defender</h2>
 		</div>
 	</div>
@@ -32,6 +34,7 @@ if (isset ( $_SESSION ['username'] )) {
                            <?php if (isset ( $_SESSION ['username'] )){ ?>
 				<a href="mysettings.php" class="top-menu-item-3"> <strong>SETTINGS</strong></a>
                            <?php } ?>
+
 			</div>
 			
 			<div class="menu-item second" style="float: left; padding-top: 3px; padding-right:10px;">  
@@ -50,6 +53,7 @@ if (isset ( $_SESSION ['username'] )) {
 					<a href="index.php"  class"top-menu-item-3"> <strong>PRICE DEFENDER</strong> </a>
 				<?php } ?>
            </div>
+
 			<div style="float: right; padding-top: 3px; width: 176px;">
 				<img src="images/agent.png" width="28" height="24" style="padding-left: 10px; float: right;" /> 
 				<a href="#" target="_blank" class="top-menu-item-4"> <?php echo $user_info;?></a>

@@ -58,14 +58,14 @@ $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'colo
 include_once 'db.php';
 $limit=10;
   
-
+/*
 $where = "";
 
 if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$field = strtolower($_GET['field']);
 	$value = strtolower($_GET['value']);
 	$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
-}
+}*/
 
 
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
@@ -112,7 +112,7 @@ $result = mysql_query($query1);
          <td>Vendor Price</td>    
          <td>MAP Price</td>    
          <td>Violation_amount</td>    
-         <td>Link</td>    
+       
    
    
    
@@ -129,7 +129,7 @@ while ($row = mysql_fetch_assoc($result)) {
             <td>{$row['vendor_price']}</td>
             <td>{$row['map_price']}</td>
             <td>{$row['violation_amount']}</td>
-            <td>{$row['website_product_url']}</td>
+        
             
            
                 
@@ -151,6 +151,6 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-
+ob_clean();
 $pdf->Output("Violation_History".'-'.date('Y-m-d'), 'I');
 // 

@@ -1,2 +1,67 @@
 .search {padding:5px; padding-right: 40px; background: url(../images/sr.png) 100% -5px no-repeat;  
 border:2px solid #456879;border-radius:10px;float:left;height: 15px;outline:none; width: 200px; }
+
+.dropdown {
+    widht:100px; height:25px; line-height:20px;margin:0;padding:4;
+}
+
+.page2{
+    align:left;
+    display:block; 
+}
+.table1{
+    align:center;
+    width:1000px;
+}
+
+.divt1{
+    padding-right: 20px;
+    padding-left:0px;
+    float: left
+}
+
+.divt2{
+    padding-right: 20px;
+    padding-left:0px;
+}
+
+.divt22{
+    padding-right: 20px;
+    padding-left:20px;
+    float:left;
+}
+
+.divt23{
+    padding-right: 20px;
+    padding-left:20px;
+}
+.cleaner1
+{
+    clear: both;
+    padding-top: 15px;
+}
+.container1{
+    margin: auto; width: 980px; height: 80px; min-height: 2px; overflow: auto;
+}
+.divt5
+{
+    float: left; padding-right: 30px;
+}
+.divt6
+{
+    padding-right: 20px;
+    padding-left:0px; 
+    float: right
+}
+.divt7
+{
+    padding-right: 20px;
+    padding-left:10px;
+}
+.left-part1{
+    
+}
+.chartt
+{
+    display:table-row-group;
+}

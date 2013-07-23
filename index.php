@@ -1,18 +1,19 @@
  <?php 
 /*configuration*/
+ session_start();
 setlocale(LC_MONETARY, 'en_US');
 include_once 'db.php';
 include_once 'db_login.php';
 /*configuration*/
 include_once 'db_class.php'; 
 $db_resource = new DB ();
-/* Example of usage*/
+
 ?>
  <?php include_once 'template/head.phtml'; ?>
     <body id="home" >
        <?php include_once 'template/header.phtml'; ?>       
             <div id="wrapper" align="center" >
-                <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
+                <div id="tabContainer" align="center" >
                     <div id="tabs" align="center">
                         <ul>
                             <li id="tabHeader_1" class="recent">Recent violations</li>

@@ -1,0 +1,130 @@
+<h3 align="center"	>Vendor Violations</h3>
+<table align="center"  width="1000px" >
+    <tr>
+        <td>
+        <td>
+            <div class="divt1">
+  <input  	class="vendor-violation-search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchfirstv" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"
+           id="textBoxSearch"  onkeyup="tableSearch.search(event);" /> 
+            </div>
+            <div class="divt22">
+
+                <a href="javascript:void(0);" class="myButton"  onclick="vendor_violation_search();" >Search</a>
+            </div>
+        	<div class="divt23">
+
+                <a href="javascript:void(0);" class="myButton"  onclick="vendor_violation_show_all();" >Show all</a>
+            </div>
+        </td>
+        <td>
+            <div class="divt1">
+                Export To
+
+                <select  id="exportv" name="export_to" class="dropdown" >
+                    <option value="csv" name="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
+                    <option value="pdf" >PDF</option>
+
+                </select>
+            </div>
+            <div class="divt2">
+                <a href="" id="1" class="myButton" onclick="exporttov();">Export</a>
+            </div>
+        </td>
+    </tr>
+
+</table>
+<div class="cleaner1" >
+</div>
+<table align="center">
+    <tr>
+        <td>
+            <table class="GrayBlack" align="center">
+                <tbody id="data">
+                    <tr> 
+                        <td>
+                            Website ID
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=website_id&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="website_id" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>	
+
+                        <td>
+                            Seller
+                           <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=name&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>
+                        <td>
+                            Violation Count
+                           <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=wi_count&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wi_count" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>	
+
+                        <td>
+                            Max Violation amount
+                             <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=maxvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="maxvio" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>
+                        <td>
+                            Min Violation amount
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=minvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="minvio" ? $direction : "asc" ); ?>_1.png" />
+                           </a>
+                        </td>
+                    </tr>
+
+<?php
+foreach ($page_violated_seller as $vendor) { 
+
+	$vendor_link = "?tab=violation-by-seller&website_id=" .$vendor->website_id;
+	if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+		$vendor_link.="&page=" . $_GET['page'];
+	}
+	if (isset($_GET['action']) && $_GET['action'] == "searchfirstv") { //added that search  was included
+		$vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+	}  
+?>
+                    
+<tr>
+	<td><a href="<?php echo $vendor_link; ?>"><?php echo $vendor->website_id ;?></a></td>
+	<td><a href="<?php echo $vendor_link; ?>"> <?php echo $vendor->name ;?> </a></td>
+	<td><?php echo $vendor->wi_count ;?></td>
+	<td><?php echo  $vendor->maxvio ;?></td>
+	<td><?php echo  $vendor->minvio ;?></td>
+</tr>
+<?php } ?>
+ 
+</table>	
+</td> </tr>       
+</tbody></table> 
+<script type="text/javascript">
+ function exporttov(){
+	var mode = $("#exportv").val();
+	var url_options = window.location.search.substring(1);
+
+	if (url_options.length)
+		url_options = '?' + url_options;
+
+	if (mode)
+		open("export_vendor_" + mode + ".php" + url_options);
+}
+  
+ function vendor_violation_search() {
+     var field = "name";
+     var value = $(".vendor-violation-search").val();
+     var url_options="";
+     if (value.length) {
+         url_options += "&action=searchfirstv&field=" + field + "&value=" + value;
+     }
+
+     var search_link = "index.php?tab=violation-by-seller"+url_options;
+     window.open(search_link, "_self");
+ }
+ function vendor_violation_show_all() {
+	  var search_link = "index.php?tab=violation-by-seller";
+	  window.open(search_link, "_self");
+ }
+</script>   

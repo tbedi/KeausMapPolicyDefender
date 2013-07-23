@@ -28,14 +28,15 @@ order by violation_amount desc";
 
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
-
+$filename="Violation_History-".date('d-m-y').".csv";
 
 
 
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Violation_History.csv"');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
+//header('Content-Disposition: attachment; filename="Violation_History.csv"');
 //header('Content-Disposition: attachment; filename='."Violation_History".'_'.date('Y-m-d'));
 
 
@@ -47,15 +48,15 @@ $arr_columns = array(
     'Vendor Price',
     'MAP Price',
     'Violation Amount',
-    'Date',
-    'Screenshot'
+    'Date'
+    
     
 );
 $arr_data = array();
 
 while ($row=  mysql_fetch_assoc($result)) {
     //print_r($row);die();
-$arr_data_row = array($row['pname'],$row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['date_executed'],$row['website_product_url']) ;
+$arr_data_row = array($row['pname'],$row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['date_executed']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } 

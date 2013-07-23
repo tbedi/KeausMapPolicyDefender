@@ -63,7 +63,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,   catalog_produc
 
 $page_violated_products=$db_resource->GetResultObj($sql);
 
-$result = mysql_query($query1);
+//$result = mysql_query($query1);
 
 // Initial page num setup
 $sql=" SELECT FOUND_ROWS() as total;";
@@ -92,7 +92,7 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 include_once 'template/product_violation_tab.phtml';
 ?>
  
-<div align="left" style="display:block; " >
+<div class="page2" >
   <?php include ('page2.php'); ?>
 </div>	
 

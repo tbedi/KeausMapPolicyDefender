@@ -61,7 +61,7 @@ $limit=10;
 
 $where = "";
 
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
 	$field = strtolower($_GET['field']);
 	$value = strtolower($_GET['value']);
 	$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
@@ -147,6 +147,6 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-
+ob_clean();
 $pdf->Output("Product_Violations".'-'.date('Y-m-d'), 'I');
 // 

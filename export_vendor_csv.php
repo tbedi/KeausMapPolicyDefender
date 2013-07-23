@@ -25,10 +25,12 @@ group by website.name , crawl_results.website_id
 order by crawl_results.website_id desc";
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
+$filename="PVendor_Violations-".date('d-m-y').".csv";
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Seller_Violation.csv"');
+//header('Content-Disposition: attachment; filename="Seller_Violation.csv"');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
 
 /* columns */
 $arr_columns = array(
