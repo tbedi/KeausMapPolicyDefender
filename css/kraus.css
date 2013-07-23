@@ -185,7 +185,10 @@
 .user-container .text-part  { font-family: freightsans_prolight, Helvetica, Arial, sans-serif;text-transform: capitalize; line-height: 1.3; text-decoration: none; color: #000000; font-size:15px; }
 /*Header*/
 /* Content*/
-.main-content {background: none repeat scroll 0 0 #FFFFFF;
+.main-content {
+    width:1040px;
+	padding:15px;
+	background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 10px 10px 10px 10px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);}
 /*Content*/

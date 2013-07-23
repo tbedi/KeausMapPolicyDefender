@@ -79,7 +79,7 @@ elseif($a === 1){
 }
 ?>
 
-            <div style="margin:60px;   padding:20px" align="center"> 
+            <div class="main-content" align="center" > 
                 <div id="login" align="center" >
                     <form name="form" action="login.php" method="post"  >
                         <ul>
