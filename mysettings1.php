@@ -1,5 +1,15 @@
-<?php     
-////print_r($_REQUEST);
+<?php 
+include_once 'db_class.php';
+$db_resource = new DB ();
+$em = $_SESSION['email'];
+$fetch = "select username from admin_users where email='$em'";
+$products = $db_resource->GetResultObj($fetch);
+$us = $products[0]->username;
+if (count($products) > 0) {
+            $us = $products[0]->username;
+       }
+//  $user = $_SESSION['username'];
+//print_r($_REQUEST);
 //print_r($_POST);
 if (isset($_REQUEST["Submit"])) {
     $email = $_SESSION['email'];
@@ -75,7 +85,7 @@ if (isset($_REQUEST["Submit"])) {
                                     </tr><tr></tr><tr></tr>
                                     <tr>
                                         <td style="background-color:white;font-size:14px">Username:</td>
-                                        <td ><input type="username" name="username" id="username" size="25" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
+                                        <td ><input type="username" name="username" id="username" value="<?php echo $us; ?>" size="25" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
                                     </tr>
                                     <?php
                                     if ($_SESSION['role'] === 'Admin') {

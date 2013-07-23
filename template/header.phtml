@@ -1,24 +1,17 @@
 <?php 
-
-include_once 'db_class.php'; //we included database class
+include_once 'db_class.php';
 $db_resource = new DB ();
 $em = $_SESSION['email'];
 $fetch = "select username from admin_users where email='$em'";
-//
 $products = $db_resource->GetResultObj($fetch);
-//
 $us = $products[0]->username;
 if (count($products) > 0) {
             $us = $products[0]->username;
        }
-       
-
-       
+     
 if (isset ( $_SESSION ['username'] )) {
 	$user_info=$us . ", <br><small><a href=\"login.php\">logout</a></small>";
-}//else {
-//	$user_info="Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
-//}
+}
 ?>
 <div id="templatemo_header_wrapper">
 	<div class="container" style="margin: auto; width: 980px; height: 80px; min-height: 2px; overflow: auto;">
