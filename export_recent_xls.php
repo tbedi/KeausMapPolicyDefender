@@ -9,7 +9,6 @@ website.name as wname,
 crawl_results.vendor_price,
 crawl_results.map_price,
 crawl_results.violation_amount,
-crawl_results.website_product_url
 from website
 inner join
 prices.crawl_results
