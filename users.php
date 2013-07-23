@@ -1,12 +1,12 @@
 <?php include_once 'db.php'; ?>
-<?php include_once 'db_login.php';?>
+<?php include_once 'db_login.php'; ?>
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>users </title><!-- hightcharts libraries -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
@@ -14,22 +14,22 @@
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
         <script type="text/javascript">
             <?php echo (isset($_GET['tab']) ? "var selected_tab='" . $_GET['tab'] . "'; " : "var selected_tab='recent'; " ); ?></script>
-        
+
     </head>
-<?php include_once 'template/head.phtml'; ?>
+    <?php include_once 'template/head.phtml'; ?>
     <body id="home" >
-<?php include_once 'template/header.phtml'; ?> 
+        <?php include_once 'template/header.phtml'; ?> 
 
         <div id="wrapper" align="center" >
 
             <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
 
-<div id="tabs" align="center">
-                        <ul>
-                            <li id="tabHeader_1" class="recent">Edit/Delete user</li>
-                            <li id="tabHeader_2" class="violation-by-product" >Create New User</li>
-                        </ul>
-                    </div>
+                <div id="tabs" align="center">
+                    <ul>
+                        <li id="tabHeader_1" class="recent">Edit/Delete user</li>
+                        <li id="tabHeader_2" class="violation-by-product" >Create New User</li>
+                    </ul>
+                </div>
 
                 <div id="tabscontent" align="center">
 
@@ -70,11 +70,11 @@
 
                     </div>
                     <div class="tabpage violation-by-product" id="tabpage_2">
-                            <?php include_once 'create_user.php'; ?>
+                        <?php include_once 'create_user.php'; ?>
 
-                        </div>
+                    </div>
                 </div>
-                 
+
 
 
                 <div class="cleaner"></div>

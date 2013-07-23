@@ -38,7 +38,8 @@ if (isset($_REQUEST["Submit"])) {
         }
       
         elseif (isset($user) && trim($_REQUEST['cpassword'])!='' && trim($_REQUEST['newpassword'])!=''){
-         $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");   
+         $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'"); 
+         
         }
     } elseif ($_SESSION['role'] == '') {
         $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
