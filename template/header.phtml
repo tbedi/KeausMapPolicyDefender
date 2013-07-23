@@ -1,9 +1,9 @@
 <?php 
 if (isset ( $_SESSION ['username'] )) {
 	$user_info=$_SESSION ['username'] . ", <br><small><a href=\"login.php\">logout</a></small>";
-} else {
-	$user_info="Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
-}
+}//else {
+//	$user_info="Welcome Guest! <small><a href=\"login.php\">Login</a></small>";
+//}
 ?>
 <div id="templatemo_header_wrapper">
 	<div class="container" style="margin: auto; width: 980px; height: 80px; min-height: 2px; overflow: auto;">
@@ -39,7 +39,7 @@ if (isset ( $_SESSION ['username'] )) {
            </div>
                     <div class="menu-item fourth" style="float: left; padding-top: 3px;padding-right:10px;">  
             	<?php if (isset ( $_SESSION ['username'] )){ ?>
-					<a href="index.php"  class"top-menu-item-3"> <strong>Price Defender</strong> </a>
+					<a href="index.php"  class"top-menu-item-3"> <strong>PRICE DEFENDER</strong> </a>
 				<?php } ?>
            </div>
 			<div style="float: right; padding-top: 3px; width: 176px;">

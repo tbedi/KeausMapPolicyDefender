@@ -1,8 +1,7 @@
 <?php
 include 'db.php';
 include_once 'db_login.php';
-
-//print_r($_SESSION);
+print_r($_REQUEST);
 //print_r($_POST);
 if (isset($_REQUEST["Submit"])) {
     $email = $_SESSION['email'];
@@ -10,10 +9,10 @@ if (isset($_REQUEST["Submit"])) {
     if (isset($_REQUEST['cpassword']))
         $new_pass = md5($_REQUEST['cpassword']);
     if ($_SESSION['role'] == 'Admin') {
-        if(isset($user) && !isset($_REQUEST['cpassword']) && !isset($_REQUEST['newpassword'])){
-            $Sqll = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
+        if(isset($user) && trim($_REQUEST['cpassword'])==='' && trim($_REQUEST['newpassword'])===''){
+            $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
         }
-        elseif (isset($user) && isset($_REQUEST['cpassword']) && isset($_REQUEST['newpassword'])){
+        elseif (isset($user) && trim($_REQUEST['cpassword'])!='' && trim($_REQUEST['newpassword'])!=''){
          $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");   
         }
     } elseif ($_SESSION['role'] == '') {
@@ -21,15 +20,11 @@ if (isset($_REQUEST["Submit"])) {
     }
 }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Settings</title><!-- hightcharts libraries -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script src="js/highcharts.js"></script>
+        <title>Settings</title>
         <script language="javascript" type="text/javascript">
             function validate()
             {
@@ -83,9 +78,6 @@ if (isset($_REQUEST["Submit"])) {
 //                }
             }
         </script>
-        <script src="js/exporting.js"></script>
-        <script type="text/JavaScript" src="js/jquery.mousewheel.js"></script> 
-        <script type="text/javascript" src="js/search.js"></script> 
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
@@ -117,20 +109,17 @@ if (isset($_REQUEST["Submit"])) {
                                         <td style="background-color:white;font-size:18px">Username:</td>
                                         <td ><input type="username" name="username" id="username" size="25" autocomplete="off"/>&nbsp; <label id="username_label" ></label></td>
                                     </tr>
-<?php
-if ($_SESSION['role'] === 'Admin') {
-    echo "<tr>
-                                    <td  style=" . "background-color:white;font-size:18px" . ">New Password:</td>
-                                       
-                                    <td ><input type=" . "password" . " name=" . "newpassword" . " id=" . "newpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "newpassword_label" . " ></label></td>
-                                </tr>";
-    echo "<tr>
+                                    <?php
+                                    if ($_SESSION['role'] === 'Admin') {
+                                        echo "<tr>
+                                    <td  style=" . "background-color:white;font-size:18px" . ">New Password:</td><td ><input type=" . "password" . " name=" . "newpassword" . " id=" . "newpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "newpassword_label" . " ></label></td>
+                                    </tr>";
+                                    echo "<tr>
                                     <td style=" . "background-color:white;font-size:18px" . ">Confirm Password:</td>
-                                       
                                     <td ><input type=" . "password" . " name=" . "cpassword" . " id=" . "cpassword" . " size=" . "25" . " autocomplete=" . "off" . " />&nbsp; <label id=" . "cpassword_label" . " ></label></td>
-                                </tr>";
-}
-?>
+                                    </tr>";
+                                    }
+                                    ?>
 
                                     <tr>
                                         <td colspan="2" align="center"><input type="submit" name="Submit" value="Update" onSubmit="return validate();"/></td>
