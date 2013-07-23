@@ -1,4 +1,4 @@
-<h3 align="center"	>Violations History</h3>
+<h3 align="center">Violations History</h3>
 
 <?php
 //pagination
@@ -6,128 +6,7 @@ $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
 
-$where="";
-if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
-	 
-	$to = $_POST["to"];
-	$from = $_POST["from"];
-	$where.=" and crawl.date_executed between '". $from."' and '".$to."' ";
-
-}
-
-
- $query = "SELECT COUNT(catalog_product_flat_1.sku) as num FROM website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05   ".$where."
-and
-website.excluded=0
- 
--- and crawl.id =  (select max(crawl.id) from crawl)
-order by sku asc
-";
-
-
-$total_pages = mysql_fetch_assoc(mysql_query($query));
-$total_pages = $total_pages['num'];
-
-$stages = 3;
-$page = 1;
-
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-    $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limit;
-} else {
-    $start = 0;
-    $page = 1;
-}
-
-/* sorting */
-
-if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort'])) {
-    $direction = $_GET['sort'];
-    $order_field = $_GET['sort_column'];
-    
-} else {
-    $direction = "desc";
-   $order_field="crawl_results.violation_amount";
-}
-
-$order_by = "order by " . $order_field . " " . $direction . " ";
-
-/* sorting */
-
-
-
-
-
-
-
-
-
-
-$query1 = "select catalog_product_flat_1.sku,
-catalog_product_flat_1.name as pname,
-website.name as wname, 
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url,
-crawl.date_executed
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join crawl
-on crawl.id=crawl_results.crawl_id
-where  
-crawl_results.violation_amount>0.05 ".$where."
-and
-website.excluded=0
--- and crawl.id =  (select max(crawl.id) from crawl)
-".$order_by." LIMIT $start, $limit";
-
-$result = mysql_query($query1);
-if (!$result) {
-    echo mysql_error();
-} else {
-
-
-// Initial page num setup
-//if (!$page){$page = 1;}
-    $tab_name = 'violations-history';
-    $prev = $page - 1;
-    $next = $page + 1;
-    $lastpage = ceil($total_pages / $limit);
-    $LastPagem1 = $lastpage - 1;
-    $additional_params = "";
-    $page_param = "page";
-    
-    $additional_params = ""; //addtiion params to pagination url;
-if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-    $additional_params.="&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'];
-}
-
-if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort']) ) {
-	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
-}
-
-    
-    
-    
-    
-}
-
 ?>
-
 
 <table align="center" width="1000px;"  >
     <tr>
@@ -173,54 +52,140 @@ if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['
 </tr>
 
 
-<script type="text/javascript">
-                                                                       
-                                function history_search() {
-                                var field = "sku";
-                                var value = $(".history_search").val();
-                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
-                                
-                        		if (value.length) {                        			
-                        			url_options+="&action=search&field=" + field + "&value=" + value;
-                        		}
-                            			
-                                var search_link = "index.php?tab=violations-history" + url_options;
 
-                                window.open(search_link, "_self");
-                                tableSearch.runSearch();
-
-                            }
-                            
-                            
-                            function exporttoh()
-                            {
-                                var mode = $("#exporth").val();
-                                var url_options= window.location.search.substring(1);
-                                
-                                if (url_options.length)
-                                		url_options='?'+url_options;
-                        		
-                                if (mode)                                    
-                                    open("export_history_" + mode + ".php"+url_options);
-
-                            }
-
-    </script>
 
 </table>
+
+<?php
+$where="";
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
+	 
+	$to = $_POST["to"];
+	$from = $_POST["from"];
+	$where.=" and crawl.date_executed between '". $from."' and '".$to."' ";
+
+}
+else
+{
+    $to= date("Y-m-d");
+    $from= date('Y-m-d',strtotime("-1 days"));;
+}
+
+ $query = "SELECT COUNT(catalog_product_flat_1.sku) as num from website
+inner join
+prices.crawl_results
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join crawl
+on crawl.id=crawl_results.crawl_id
+where crawl.date_executed between '$to' and '$from'  
+and
+crawl_results.violation_amount>0.05 
+order by sku asc ";
+
+
+$total_pages = mysql_fetch_assoc(mysql_query($query));
+$total_pages = $total_pages['num'];
+
+$stages = 3;
+$page = 1;
+
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+    $page = mysql_escape_string($_GET['page']);
+    $start = ($page - 1) * $limit;
+} else {
+    $start = 0;
+    $page = 1;
+}
+
+/* sorting */
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort'])) {
+    $direction = $_GET['sort'];
+    $order_field = $_GET['sort_column'];
+    
+} else {
+    $direction = "desc";
+   $order_field="crawl_results.violation_amount";
+}
+
+$order_by = "order by " . $order_field . " " . $direction . " ";
+
+/* sorting */
+
+ 
+  
+    echo "<br/> Violations from " . $from . " to " . $to;
+ 
+
+
+$query1="select catalog_product_flat_1.sku,
+catalog_product_flat_1.name as pname,
+website.name as wname, 
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(crawl_results.violation_amount,2) as violation_amount,
+crawl_results.website_product_url,
+crawl.date_executed
+from website
+inner join
+prices.crawl_results
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join crawl
+on crawl.id=crawl_results.crawl_id
+where crawl.date_executed between '$to' and '$from'  
+and
+crawl_results.violation_amount>0.05 
+and
+crawl.id = 
+(select max(crawl.id) from crawl)
+order by sku asc LIMIT $start, $limit";
+   
+
+
+$result = mysql_query($query1);
+if (!$result) {
+    echo mysql_error();
+} else {
+
+
+// Initial page num setup
+//if (!$page){$page = 1;}
+    $tab_name = 'violations-history';
+    $prev = $page - 1;
+    $next = $page + 1;
+    $lastpage = ceil($total_pages / $limit);
+    $LastPagem1 = $lastpage - 1;
+    $additional_params = "";
+    $page_param = "page";
+    
+    $additional_params = ""; //addtiion params to pagination url;
+if (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+    $additional_params.="&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'];
+}
+
+if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort']) ) {
+	$additional_params.="&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'];
+}
+    
+}
+
+?>
+
+
+
+
+
+
 
 
 <div class="cleaner" style="padding-top: 15px; ">
     
  </div>
-<?php
- 
-if (isset($to) && isset($from)) {     
-    echo "<br/> Violations from " . $from . " to " . $to;
-}  
 
-
-    ?>
      
     
                 <table class="GrayBlack" align="center">
@@ -366,3 +331,37 @@ if (isset($to) && isset($from)) {
 
     </table>
 </div>
+
+<script type="text/javascript">
+                                                                       
+                                function history_search() {
+                                var field = "sku";
+                                var value = $(".history_search").val();
+                                var url_options= "<?php echo ( isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['sort']) ? "&sort=".$_GET['sort']."&sort_column=".$_GET['sort_column'] : "" );   ?>"
+                                
+                        		if (value.length) {                        			
+                        			url_options+="&action=search&field=" + field + "&value=" + value;
+                        		}
+                            			
+                                var search_link = "index.php?tab=violations-history" + url_options;
+
+                                window.open(search_link, "_self");
+                                tableSearch.runSearch();
+
+                            }
+                            
+                            
+                            function exporttoh()
+                            {
+                                var mode = $("#exporth").val();
+                                var url_options= window.location.search.substring(1);
+                                
+                                if (url_options.length)
+                                		url_options='?'+url_options;
+                        		
+                                if (mode)                                    
+                                    open("export_history_" + mode + ".php"+url_options);
+
+                            }
+
+    </script>

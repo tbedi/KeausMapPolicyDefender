@@ -14,6 +14,7 @@ foreach ($violators_all_array as $violator){
 
   }
 
+  
 $js_data_string_vendors = implode ( $chart_vendor_rows, "," );
 $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
  
