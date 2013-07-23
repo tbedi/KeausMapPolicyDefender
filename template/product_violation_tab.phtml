@@ -77,7 +77,12 @@
 
 <?php
 
-
+if(count($page_violated_products)==0)
+{  ?>
+                    <tr><td>No Records Found  </td> </tr>
+                    
+                    <?php
+}
 
 foreach ($page_violated_products as $product) { 
 
@@ -89,15 +94,6 @@ foreach ($page_violated_products as $product) {
 		$product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 	}  
 
-     if(count($product)==0)
-         {
-    ?>
-                    <tr><td>No Records Found  </td> </tr>
-                    
-                    <?php
-}
-
-                    else{ 
                         ?>
                     
 <tr>
@@ -107,7 +103,7 @@ foreach ($page_violated_products as $product) {
 	<td><?php echo  $product->maxvio ;?></td>
 	<td><?php echo  $product->minvio ;?></td>
 </tr>
-<?php }} ?>
+<?php } ?>
 
 
 </table>	
