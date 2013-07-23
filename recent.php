@@ -5,7 +5,14 @@ $result = mysql_query($sql);
 while ($row = mysql_fetch_assoc($result)) {
     $str = $row['maxd'];
 } 
+
+
 $limit = 10;
+
+if (isset($_GET['limit'])) {
+	$limit=$_GET['limit'];
+} 
+
  $targetpage="index.php";
 /*where*/
 $where = "";
@@ -94,7 +101,7 @@ $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
-$additional_params = ""; //addtiion params to pagination url;
+$additional_params = "&limit=".$limit; //addtiion params to pagination url;
 
 
 /*

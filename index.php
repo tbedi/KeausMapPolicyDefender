@@ -1,21 +1,13 @@
  <?php 
 /*configuration*/
- 
+
 setlocale(LC_MONETARY, 'en_US');
 include_once 'db.php';
 include_once 'db_login.php';
 /*configuration*/
 include_once 'db_class.php'; 
 $db_resource = new DB ();
-/* Example of usage*/
-/*
-$sql="SELECT p.sku as sku FROM catalog_product_flat_1 p LIMIT 2";
-$products=$db_resource->GetResultObj($sql);
-foreach ($products as $product) {
-	echo $product->sku;
-}
-*/
-/* Example of usage*/
+
 ?>
  <?php include_once 'template/head.phtml'; ?>
     <body id="home" >

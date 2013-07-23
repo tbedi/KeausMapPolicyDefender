@@ -10,11 +10,9 @@
         <script src="js/exporting.js"></script>  
         <!-- hightcharts libraries -->             
 
-      
-
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
          <link href="css/kraus.css" rel="stylesheet" type="text/css" />
-        <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  >
+        <link href="css/tblcss.css" rel="stylesheet" type="text/css" />   
         <link href="css/div.css" rel="stylesheet" type="text/css" />  
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
@@ -68,5 +66,12 @@
                 });
             });
             /*highcharts colors*/
+            /* Get parameters for all requests*/
+            var queryParameters = {}, queryString = location.search.substring(1),
+            re = /([^&=]+)=([^&]*)/g, m;
+            while (m = re.exec(queryString)) {
+                queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+            }
+            /* Get parameters for all requests*/
         </script>
     </head>
