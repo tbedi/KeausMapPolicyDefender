@@ -53,15 +53,7 @@ label
     margin:4px;
 
 }
-.button
-{
-    font-size:15px;
-    padding:6px;
-    font-weight:bold;
-    border-radius: 15px;
-    color: #000;
-    background-color: #999;
-}
+
 label.error
 {
     font-size:11px;
@@ -159,6 +151,24 @@ label.error
     
     }
     
+.btn-login {
+	 background-clip: padding-box;
+    background-color: #B0D60A;
+    background-image: linear-gradient(to bottom, #B5DA11, #A9D200);
+    background-repeat: repeat-x;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 1px 2px rgba(0, 1, 1, 0.35), 0 1px 2px rgba(255, 255, 255, 0.5) inset;
+	 width: 321px;
+	 padding-bottom: 12px;
+    padding-top: 13px;
+	cursor: pointer;
+	 font-size: 24px;
+    text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
+    text-transform: capitalize;
+	border: medium none;
+	 color: #FFFFFF;
+	font-weight: normal;
+}
     
     
     

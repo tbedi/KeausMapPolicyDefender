@@ -3,6 +3,7 @@ window.onload=function() {
   	var container = document.getElementById("tabContainer");
 	var tabcon = document.getElementById("tabscontent");
     
+	if (container) {
     
 	/*Alex jQuery tabs*/
         $("#tabscontent .tabpage").each( function() { $(this).css("display","none"); }); 
@@ -27,6 +28,8 @@ window.onload=function() {
     for (var i = 0; i < tabs.length; i++) {
       tabs[i].onclick=displayPage;
     }
+    
+	}
 }
 
 // on click of one of tabs

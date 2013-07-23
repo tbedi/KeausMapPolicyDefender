@@ -55,20 +55,16 @@ if (isset($_POST['login'])) {
         $e = $email;
     }
 }
+
+$title="Kraus Price Defender | Login";
 ?>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Login Form</title>
-        <link href="css/login.css" rel="stylesheet" type="text/css" />
-    </head>
+ 
 
 <?php include_once 'template/head.phtml'; ?>
 
-    <body id="home">
+    <body id="login-page">
 
-<?php include_once 'template/login_header.phtml'; ?> 
-
+ <?php include_once 'template/header.phtml'; ?>   
         <div id="wrapper" align="center">
 
 <?php
@@ -99,7 +95,7 @@ elseif($a === 1){
                                 <input type="checkbox" name="rememberme"  />&nbsp;&nbsp;Remember Me
                             </li>
                             <li>
-                                <input class="button"  type="submit" name="login" value="Login"  />
+                                <input class="button btn-login" type="submit" name="login" value="Login"  />
                             </li>
                         </ul>
                     </form>
@@ -107,11 +103,7 @@ elseif($a === 1){
             </div>    
         </div>
 
-        <div id="templatemo_footer_wrapper">
-            <div id="templatemo_footer">
-                Copyright © Kraus USA 2013
-            </div> 
-        </div> 
+      	<?php include_once 'template/footer.phtml'; ?>        
 
     </body>
 </html>
