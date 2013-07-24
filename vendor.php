@@ -107,9 +107,7 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 include_once 'template/vendor_violation_tab.phtml';
 ?>
  
-<div align="left" style="display:block; " >
-  <?php include ('page2.php'); ?>
-</div>	
+	
 
 <?php
 if ($total_pages == 1) {
