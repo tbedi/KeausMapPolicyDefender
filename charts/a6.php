@@ -77,11 +77,12 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 },
                 labels: {
                     formatter: function() {
-                        return '$' + Highcharts.numberFormat(this.value / 1000, 0) + 'k ';
-                    }
+                       // return '$' + Highcharts.numberFormat(this.value / 1000, 0) + 'k ';
+                        return '$' + Highcharts.numberFormat(this.value / 1, 0) ;                
+    }
                 },
-                minTickInterval: 5000,
-                minorTickInterval: 5000,
+               // minTickInterval: 5000,
+               // minorTickInterval: 5000,
             },
             tooltip: {
                 formatter: function() {
@@ -109,4 +110,4 @@ if (!$result) {
     echo mysql_error();
 }
 ?>
-<div id="chart-a6" style="min-width: 500px; height: 400px; margin: 0 auto"></div>
+<div id="chart-a6" style="min-width: 510px; height: 400px; margin: 0 auto"></div>

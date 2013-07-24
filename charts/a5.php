@@ -72,7 +72,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 },
                 labels: {
                     formatter: function() {
-                        return Highcharts.numberFormat(this.value / 1, 0) + 'k ';
+                        return Highcharts.numberFormat(this.value / 1, 0) ;
                        
                     }
                 },
@@ -93,7 +93,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 y: 100,
             },
             series: [{
-                    name: 'Violations',
+                    name: 'Violations count',
                     data: [<?php echo $js_data_string_amounts; ?>]
                 }]
         });
@@ -104,4 +104,4 @@ if (!$result) {
     echo mysql_error();
 }
 ?>
-<div id="chart-a5" style="min-width: 500px; height: 400px; margin: 0 auto"></div>
+<div id="chart-a5" style="min-width: 490px; height: 400px; margin: 0 auto"></div>

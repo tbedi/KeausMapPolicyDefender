@@ -6,7 +6,7 @@ $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
 $to= date("Y-m-d");
-    $from= date('Y-m-d',strtotime("-1 days"));
+$from= date('Y-m-d',strtotime("-1 days"));
 /*where*/
 
 $where = "";
@@ -15,13 +15,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'searchh' && isset($_GET['value
     $value = strtolower($_GET['value']);
     $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
 }
-
-
 /*where*/
-   
 
-
-/*where*/
 
 /* sorting */
 if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="history"  ) {  
@@ -89,7 +84,7 @@ inner join crawl
 on crawl.id=crawl_results.crawl_id
 where crawl.date_executed between '$from' and '$to'  
 and
-crawl_results.violation_amount>0.05 
+crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 
 " . $order_by . " LIMIT $start, $limit ";
 
