@@ -90,7 +90,7 @@ $title="Kraus Price Defender | Login";
         <div id="wrapper" align="center">
 
 <?php
-$sql1 = "select * from admin_users where email='$e'";
+$sql1 = "select * from admin_users where email='$e'"; //optimize errors. you can use sesion for informational messages
 $products1 = $db_resource->GetResultObj($sql1);
 if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
     echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
