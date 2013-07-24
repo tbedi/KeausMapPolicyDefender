@@ -1,6 +1,6 @@
 * {
-    margin:0;
-    padding:0;
+    margin:60px;
+    padding:20px;
 }
 
 body
@@ -26,24 +26,26 @@ h2{
 }
 
 li{
-    padding:4px;
+    padding:15px;
     margin-bottom:3px;
     background-color: #F7F7F7;
     list-style:none;}
 
+
 ul{	padding:0px;}
 
-label
+/*label
 {
     color:#999;
-    padding:4px;
+    padding:20px;
     margin-top:4px;
     color: #000;
-}
+    font-size: 14;
+}*/
 .input
 {
     padding:9px;
-    border:solid 1px #999;
+    border:solid 1px #C9C9C9;
     margin:4px;
     width:220px;
     border-radius: 80px;
@@ -53,15 +55,39 @@ label
     margin:4px;
 
 }
-.button
-{
-    font-size:15px;
-    padding:6px;
-    font-weight:bold;
-    border-radius: 15px;
-    color: #000;
-    background-color: #999;
+
+.btn-login {
+    background-clip: padding-box;
+    background-color: #B0D60A;
+    background-image: linear-gradient(to bottom, #B5DA11, #A9D200);
+    background-repeat: repeat-x;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 1px 2px rgba(0, 1, 1, 0.35), 0 1px 2px rgba(255, 255, 255, 0.5) inset;
+    width: 321px;
+    padding-bottom: 12px;
+    padding-top: 13px;
+    cursor: pointer;
+    font-size: 24px;
+    text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
+    text-transform: capitalize;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: normal;
 }
+
+
+
+/*.button
+{
+font-size:15px;
+padding:6px;
+font-weight:bold;
+border-radius: 15px;
+color: #000;
+background-color: #999;
+}*/
+
+
 label.error
 {
     font-size:11px;
@@ -87,15 +113,13 @@ label.error
 #login{
     position: absolute;
     top: 0px;
-    width: 50%;	
-    padding-top: 25px;
-    padding-bottom: 25px;
-    padding-right: 20px;
-    padding-left: 20px;
-    margin: 40px 0 35px 90px;
+    width: 100%;
+    align: center;
+    padding: 25px 0px;
+    margin: 0 auto;
     background: rgb(247, 247, 247);
-    border: 1px solid  #808080;
-    border-radius: 60px;
+    /*    border: 1px solid  #808080;*/
+    /*    border-radius: 80px 80px 80px 80px;*/
 }
 #login{
     z-index: 22;
@@ -133,17 +157,16 @@ label.error
 }
 
 #log {
-    background-color:  #f68787;
+    background-color: #B0D60A;
     border: 1px solid  #000;
     width : 50%;
-    height: 3%;
-    border-radius: 60px;
-    padding-top: 2px;
+    height: 5%;
+    padding-top: 8px;
     alignment-adjust: central;
-    
-    }
-    
-    #log1 {
+
+}
+
+#log1 {
     background-color: #f68787;
     border: 1px solid  #000;
     align: center;
@@ -156,9 +179,22 @@ label.error
     margin-bottom:100px;
     margin-right:100px;
     margin-left:100px;
-    
-    }
-    
-    
-    
-    
+
+}
+
+/*#my-settings form input[type=text], #my-settings form input[type=password] {
+    border: 1px solid #BEBEBE;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+    font-size: 14px;
+    height: 25px;
+    line-height: 20px;
+    vertical-align: middle;
+    outline: 0 none;
+}*/
+
+
+

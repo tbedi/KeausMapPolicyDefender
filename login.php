@@ -49,7 +49,7 @@ if (isset($_POST['login'])) {
             }
             else {
 
-               $a = 1; 
+                $a = 1;
             }
         }
         $e = $email;
@@ -63,24 +63,23 @@ if (isset($_POST['login'])) {
         <link href="css/login.css" rel="stylesheet" type="text/css" />
     </head>
 
-<?php include_once 'template/head.phtml'; ?>
+    <?php include_once 'template/head.phtml'; ?>
 
     <body id="home">
 
-<?php include_once 'template/login_header.phtml'; ?> 
+        <?php include_once 'template/login_header.phtml'; ?> 
 
-        <div id="wrapper" align="center">
+        <div id="wrapper" align="center" >
 
-<?php
-$sql1 = "select * from admin_users where email='$e'";
-$products1 = $db_resource->GetResultObj($sql1);
-if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
-    echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
-}
-elseif($a === 1){
-    echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>wrong password!!,please login again with correct password</b>" . "</div>";
-}
-?>
+            <?php
+            $sql1 = "select * from admin_users where email='$e'";
+            $products1 = $db_resource->GetResultObj($sql1);
+            if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
+                echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
+            } elseif ($a === 1) {
+                echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>wrong password!!,please login again with correct password</b>" . "</div>";
+            }
+            ?>
 
             <div style="margin:60px;   padding:20px" align="center"> 
                 <div id="login" align="center" >
@@ -90,16 +89,17 @@ elseif($a === 1){
                                 <h2>Login</h2>
                             </li>
                             <li>
-                                <label><b>Email</b></label> <br/>
-                                <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /><br />
+                                <b>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b> 
+                                    <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /><br /> 
                             </li>
                             <li>
-                                <label><b>Password</b></label><br />
-                                <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
-                                <input type="checkbox" name="rememberme"  />&nbsp;&nbsp;Remember Me
+                                <b> Password:&nbsp;&nbsp;&nbsp;</b>
+                                    <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
+                                    <input type="checkbox" name="rememberme" />&nbsp;&nbsp;Remember me on this computer
+                                
                             </li>
                             <li>
-                                <input class="button"  type="submit" name="login" value="Login"  />
+                                <input class="btn-login"  type="submit" name="login" value="Login"  />
                             </li>
                         </ul>
                     </form>

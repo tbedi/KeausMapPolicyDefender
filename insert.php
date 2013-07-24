@@ -14,18 +14,18 @@ $result=mysql_query($sql);
 
 // if successfully insert data into database, displays message "Successful". 
 if (!$result) {
-    ?>
-    <script>
-        window.alert('Error...')
-        window.location.href = 'users.php';</script>
+?>
+        <script>
+            window.alert('Error...')
+            window.location.href = 'users.php';</script>
     <?php
 
 } else {
     ?>
-    <script>
-        window.alert('User Created...')
-        window.location.href = 'users.php';</script>
+        <script>
+            window.alert('User Created...')
+            window.location.href = 'users.php';</script>
     <?php
 
 }
-?>
+    ?>
