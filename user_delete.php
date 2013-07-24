@@ -1,5 +1,5 @@
 <?php
-
+$title="Kraus Price Defender | user_delete.php";
 include('db.php');
 $uid = $_GET['user_id'];
 // delete the entry

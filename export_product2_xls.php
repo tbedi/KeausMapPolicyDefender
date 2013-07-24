@@ -8,7 +8,6 @@ $dbTable="";
     format(r.violation_amount,2) as violation_amount,
     format( r.vendor_price,2) as vendor_price,
     format(r.map_price,2) as map_price,
-    r.website_product_url
     FROM crawl_results  r
     INNER JOIN website w
     ON r.website_id=w.id

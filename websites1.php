@@ -1,4 +1,5 @@
                     <?php
+                    $title="Kraus Price Defender | websites1.php";
                     ////pagination
                     $tableName = "website";
                     $targetpage = "websites.php";
@@ -23,7 +24,6 @@
 
                         <head>
                             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-                            <title>Login Form</title>
                             <script type="text/javascript" src="js/search.js"></script> 
                             <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  
                             <link rel="stylesheet" type="text/css" href="css/paginator.css" />
@@ -40,7 +40,7 @@
                                                     maxlength="1000" 
                                                     value="<?php if (isset($_GET['action']) == 'recent') echo $_GET['value']; ?>" 
                                                     id="textBoxSearch"   
-                                                    style="padding:5px;
+                                                    style="padding:12px;
                                                     padding-right: 40px;
                                                     background-image:url(images/sr.png); 
                                                     background-position: 100% -5px; 
@@ -106,7 +106,7 @@
                                                 <td ><?php echo $row['domain']; ?></td>
                                                 <td ><?php echo $row['date_created']; ?></td>
                                                 <td ><?php echo $row['excluded']; ?></td>
-                                                <td ><a href="website_edit.php?id=<?php echo($row['id']); ?> " title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                                                <td ><a href="website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                                             </tr>
                                         <?php

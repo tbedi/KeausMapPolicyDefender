@@ -25,12 +25,13 @@ on crawl.id=r.crawl_id
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
 
-
+$filename="Vendors_Violated-".$product_id."-".date('d-m-y').".csv";
 
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="Product_Violation.csv"');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
+//header('Content-Disposition: attachment; filename="Product_Violation.csv"');
 //header('Content-Disposition: attachment; filename='."Sellers_Violated_".$product_id.'_'.date('Y-m-d'));
 
 /* columns */
@@ -38,15 +39,15 @@ $arr_columns = array(
     'Website',
     'Seller Price',
     'MAP',
-    'Violation',
-    'Link'
+    'Violation'
+    
     
 );
 $arr_data = array();
 
 while ($row=  mysql_fetch_assoc($result)) {
     //print_r($row);die();
-$arr_data_row = array($row['vendor'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
+$arr_data_row = array($row['vendor'],$row['vendor_price'],$row['map_price'],$row['violation_amount']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

@@ -1,6 +1,6 @@
 * {
-    margin:60px;
-    padding:20px;
+    margin:0;
+    padding:0;
 }
 
 body
@@ -26,26 +26,24 @@ h2{
 }
 
 li{
-    padding:15px;
+    padding:4px;
     margin-bottom:3px;
-    background-color: #F7F7F7;
+    background: #FFFFFF;
     list-style:none;}
-
 
 ul{	padding:0px;}
 
-/*label
+label
 {
     color:#999;
-    padding:20px;
+    padding:4px;
     margin-top:4px;
     color: #000;
-    font-size: 14;
-}*/
+}
 .input
 {
     padding:9px;
-    border:solid 1px #C9C9C9;
+    border:1px solid #C9C9C9;
     margin:4px;
     width:220px;
     border-radius: 80px;
@@ -75,19 +73,6 @@ ul{	padding:0px;}
     font-weight: normal;
 }
 
-
-
-/*.button
-{
-font-size:15px;
-padding:6px;
-font-weight:bold;
-border-radius: 15px;
-color: #000;
-background-color: #999;
-}*/
-
-
 label.error
 {
     font-size:11px;
@@ -102,66 +87,35 @@ label.error
 {
     display:none;
 }
-#wrapper{
-    width: 60%;
-    right: 0px;
-    min-height: 560px;	
-    margin: 0px auto;	
-    width: 500px;
-    position: relative;	
-}
-#login{
+/*#login{
     position: absolute;
+    border: 1px solid #808080;
+    background:#FFFFFF;
     top: 0px;
     width: 100%;
     align: center;
     padding: 25px 0px;
-    margin: 0 auto;
-    background: rgb(247, 247, 247);
-    /*    border: 1px solid  #808080;*/
-    /*    border-radius: 80px 80px 80px 80px;*/
-}
+    margin-top:100px;
+    margin-bottom:100px;
+    margin-right:50px;
+    margin-left:10px;
+    border-radius:15px;
+    background-color: none repeat scroll 0 0 #F8F8F8;
+    
+    
+}*/
 #login{
     z-index: 22;
 }
 
-#wrapper{
-    width:990px;
-    margin:40px auto 0;
-
-}
-
-#templatemo_header_wrapper {
-    width: 960px;
-    margin: 0 auto;
-    /*padding: 40px 10px 20px;*/
-    padding: 10px 10px 0;
-    /*background: url(../images/templatemo_header_dividier.png) repeat-x bottom*/
-}
-
-#templatemo_footer_wrapper1 {
-    width: 100%;
-    background:#DDDDDD;
-}
-
-#templatemo_footer {
-    width: 500px;
-    margin: 0 auto;
-    padding: 10px;
-    text-align: center;
-}
-
-#templatemo_footer_wrapper1 {
-    width: 100%;
-    background:#DDDDDD;
-}
 
 #log {
     background-color: #B0D60A;
-    border: 1px solid  #000;
+    border-radius: 6px 6px 6px 6px;
+    border: 1px solid  #FFFFFF;
     width : 50%;
     height: 5%;
-    padding-top: 8px;
+    padding-top: 15px;
     alignment-adjust: central;
 
 }
@@ -182,19 +136,23 @@ label.error
 
 }
 
-/*#my-settings form input[type=text], #my-settings form input[type=password] {
-    border: 1px solid #BEBEBE;
+#tabContainlogin{
+    background-color: #B0D60A;
     border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
-    background-clip: padding-box;
-    margin-bottom: 20px;
-    background-color: #FFFFFF;
-    font-size: 14px;
-    height: 25px;
-    line-height: 20px;
-    vertical-align: middle;
-    outline: 0 none;
-}*/
+    padding: 2px;
+    width: 1070px;
+}
 
-
+#home  .butlog
+{
+    font-size:15px;
+    padding:6px;
+    padding-left: 30px;
+    padding-right: 60px;
+    font-weight:bold;
+    border-radius: 15px;
+    color: #000;
+    background-color: #B0D60A;
+    text-transform: uppercase;
+}
 

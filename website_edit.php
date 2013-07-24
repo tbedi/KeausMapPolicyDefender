@@ -14,7 +14,7 @@
 
         <div id="wrapper" align="center" >
 
-            <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
+            <div id="tabContainlogin" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
                
                 <div id="tabscontent" align="center">
 
@@ -44,26 +44,35 @@
                                         <td><input type="hidden" name="" value="" /></td></tr>
                                     <tr>
                                         <td style="background-color:white;font-size:12px">Website Name:</td>
-                                        <td ><input type="text" name="name" Value="<?php echo $row['name']; ?>" /></td>
+                                        <td ><input type="text" name="name" Value="<?php echo $row['name']; ?>" style="padding:5px;"/></td>
                                     </tr>
-                                    <tr></tr>
+                                    <tr><td>&nbsp;</td>
+                                        <td><input type="hidden" name="" value="" /></td></tr>
+                                    <tr>
                                     <tr>
                                         <td style="background-color:white;font-size:12px">Website Link:</td>
-                                        <td ><input type="text" name="domain" value="<?php echo $row['domain']; ?>" /></td>
+                                        <td ><input type="text" name="domain" value="<?php echo $row['domain']; ?>" style="padding:5px;"/></td>
                                     </tr>
-                                    <tr></tr>
+                                    <tr><td>&nbsp;</td>
+                                        <td><input type="hidden" name="" value="" /></td></tr>
+                                    <tr>
                                     <tr>
                                         <td style="background-color:white;font-size:12px">Date Created:</td>
-                                        <td ><input type="text" name="date_created" value="<?php echo $row['date_created']; ?>" /></td>
+                                        <td ><input type="text" name="date_created" value="<?php echo $row['date_created']; ?>" style="padding:5px;"/></td>
                                     </tr>
-                                    <tr></tr>
+                                    <tr><td>&nbsp;</td>
+                                        <td><input type="hidden" name="" value="" /></td></tr>
+                                    <tr>
                                     <tr>
                                         <td style="background-color:white;font-size:12px">Excluded:</td>
-                                        <td ><input type="text" name="excluded" value="<?php echo $row['excluded']; ?>" /></td>
+                                        <td ><input type="text" name="excluded" value="<?php echo $row['excluded']; ?>" style="padding:5px;"/></td>
                                     </tr>
                                     <input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
                                     <tr><td>&nbsp;</td>
                                         <td><input type="hidden" name="" value="" /></td></tr>
+                                    <tr><td>&nbsp;</td>
+                                        <td><input type="hidden" name="" value="" /></td></tr>
+                                    <tr>
                                     <tr>
                                         <td align="center">
                                           <div><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="button" title="Saving" rel="1" > submit</a><a  href="websites.php" class="button" type="reset" >Cancel</a> </div>

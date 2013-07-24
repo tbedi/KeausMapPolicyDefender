@@ -1,5 +1,6 @@
 
 <?php  
+$stages=3;
 $paginate = '';
 // $page_param=( $page_param ? $page_param :  "page" );
 $page_param=((!$page_param) ? "page" : $page_param );

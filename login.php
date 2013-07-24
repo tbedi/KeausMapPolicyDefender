@@ -1,4 +1,7 @@
-<?php
+ <?php
+ session_start();
+ session_destroy();
+ 
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 
@@ -29,14 +32,14 @@ if (isset($_POST['login'])) {
             if (md5($password) === $db_password)
                 $loginok = TRUE;
             else {
-                session_destroy();
-                session_start();
+//               session_destroy();
+                //session_start();
                 $_SESSION['role'] = '';
                 $loginok = FALSE;
             }
             if ($loginok == TRUE) {
-                session_destroy();
-                session_start();
+                //session_destroy();
+                //session_start();
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
                 //print_r($_SESSION);
@@ -49,69 +52,62 @@ if (isset($_POST['login'])) {
             }
             else {
 
-                $a = 1;
+               $a = 1; 
             }
         }
         $e = $email;
     }
 }
+
+$title="Kraus Price Defender | Login";
 ?>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Login Form</title>
-        <link href="css/login.css" rel="stylesheet" type="text/css" />
-    </head>
+ 
 
-    <?php include_once 'template/head.phtml'; ?>
+<?php include_once 'template/head.phtml'; ?>
 
-    <body id="home">
+    <body id="login-page">
 
-        <?php include_once 'template/login_header.phtml'; ?> 
+ <?php include_once 'template/header.phtml'; ?>  
+        <div id="wrapper" align="center">
 
-        <div id="wrapper" align="center" >
-
-            <?php
-            $sql1 = "select * from admin_users where email='$e'";
-            $products1 = $db_resource->GetResultObj($sql1);
-            if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
-                echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
-            } elseif ($a === 1) {
-                echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>wrong password!!,please login again with correct password</b>" . "</div>";
-            }
-            ?>
-
-            <div style="margin:60px;   padding:20px" align="center"> 
-                <div id="login" align="center" >
+<?php
+$sql1 = "select * from admin_users where email='$e'";
+$products1 = $db_resource->GetResultObj($sql1);
+if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
+    echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
+}
+elseif($a === 1){
+    echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>wrong password!!,please login again with correct password</b>" . "</div>";
+}
+?>
+<div  class="main-content" align="center" >
+            <div style="margin:0px;   padding:0px" align="center"> 
+                
                     <form name="form" action="login.php" method="post"  >
                         <ul>
                             <li>
                                 <h2>Login</h2>
                             </li>
                             <li>
-                                <b>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b> 
-                                    <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /><br /> 
+                               <b>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b> 
+                                <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /><br />
                             </li>
                             <li>
-                                <b> Password:&nbsp;&nbsp;&nbsp;</b>
-                                    <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
-                                    <input type="checkbox" name="rememberme" />&nbsp;&nbsp;Remember me on this computer
-                                
+                               <b> Password:&nbsp;&nbsp;&nbsp;</b>
+                                <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
+                                <input type="checkbox" name="rememberme"  />&nbsp;&nbsp;Remember Me
                             </li>
                             <li>
-                                <input class="btn-login"  type="submit" name="login" value="Login"  />
+                                <input class="btn-login" type="submit" name="login" value="Login"  />
                             </li>
                         </ul>
                     </form>
-                </div>
-            </div>    
+               
+            </div>
+</div>
         </div>
 
-        <div id="templatemo_footer_wrapper">
-            <div id="templatemo_footer">
-                Copyright © Kraus USA 2013
-            </div> 
-        </div> 
+      	<?php include_once 'template/footer.phtml'; ?>        
 
     </body>
 </html>

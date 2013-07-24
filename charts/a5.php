@@ -72,7 +72,8 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 },
                 labels: {
                     formatter: function() {
-                        return '$' + Highcharts.numberFormat(this.value / 1000, 0) + 'k ';
+                        return Highcharts.numberFormat(this.value / 1, 0) + 'k ';
+                       
                     }
                 },
                
@@ -92,7 +93,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 y: 100,
             },
             series: [{
-                    name: 'Violation Amount',
+                    name: 'Violations',
                     data: [<?php echo $js_data_string_amounts; ?>]
                 }]
         });

@@ -23,24 +23,27 @@ order by violation_amount desc";
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
+$filename="Products_Violated_By-".$web_id."-".date('d-m-y').".csv";
+
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-header('Content-Disposition: attachment; filename="PSeller_Violation.csv"');
+//header('Content-Disposition: attachment; filename="Seller_Violation.csv"');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
 
 /* columns */
 $arr_columns = array(
     'SKU',
     'Vendor Price',
     'MAP Price',
-    'Violation Amount',
-    'Link'
+    'Violation Amount'
+    
     
 );
 $arr_data = array();
 
 while ($row=  mysql_fetch_assoc($result)) {
     //print_r($row);die();
-$arr_data_row = array($row['sku'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
+$arr_data_row = array($row['sku'],$row['vendor_price'],$row['map_price'],$row['violation_amount']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

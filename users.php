@@ -1,5 +1,6 @@
 <?php include_once 'db.php'; ?>
-<?php include_once 'db_login.php'; ?>
+<?php include_once 'db_login.php'; 
+$title="Kraus Price Defender | users.php"; ?>
 <html>
 
     <head>
@@ -17,7 +18,7 @@
 
     </head>
     <?php include_once 'template/head.phtml'; ?>
-    <body id="home" >
+    <body id="users-page" >
         <?php include_once 'template/header.phtml'; ?> 
 
         <div id="wrapper" align="center" >

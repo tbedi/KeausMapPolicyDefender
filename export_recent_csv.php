@@ -44,14 +44,14 @@ $arr_columns = array(
     'Seller Name',
     'Seller Price',
     'Map Price',
-    'Violation Amount',
-    'URL'
+    'Violation Amount'
+  
 );
 $arr_data = array();
 
 while ($row=  mysql_fetch_assoc($result)) {
     //print_r($row);die();
-$arr_data_row = array($row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount'],$row['website_product_url']) ;
+$arr_data_row = array($row['sku'],$row['wname'],$row['vendor_price'],$row['map_price'],$row['violation_amount']) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } 

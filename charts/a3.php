@@ -79,4 +79,4 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
 
 </script>
 
-<div id="chart-a3"  style="width: 800px; height: 300px; margin: 0 auto"></div>
+<div id="chart-a3"  style="width: 900px; height: 300px; margin: 0 auto"></div>
