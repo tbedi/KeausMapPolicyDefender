@@ -92,7 +92,7 @@ if(count($violators_array)==0)
 <tr>
     <td ><a href="index.php?tab=violation-by-product&action=searchfirst&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
-        <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $violator->website_id; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></td>
+        <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&flag=1&field=website_id&value=<?php echo $violator->website_id; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
     
 	
 	<td><?php echo $violator->vendor_price; ?></td>
