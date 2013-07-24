@@ -93,11 +93,9 @@ if(count($violators_array)==0)
     <td ><a href="index.php?tab=violation-by-product&action=searchfirst&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
         <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&flag=1&field=website_id&value=<?php echo $violator->website_id; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
-    
-	
-	<td><?php echo $violator->vendor_price; ?></td>
-	<td><?php echo $violator->map_price; ?></td>
-      	<td id="<?php echo $cell_id; ?>"><?php echo $violator->violation_amount; ?></td>
+    	<td><?php echo "$".$violator->vendor_price; ?></td>
+	<td><?php echo "$".$violator->map_price; ?></td>
+      	<td id="<?php echo $cell_id; ?>"><?php echo "$".$violator->violation_amount; ?></td>
 	<td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">Link</a></td>			
 </tr>				
 <?php } ?>
@@ -150,8 +148,11 @@ if(count($violators_array)==0)
 
 $('.recent-res-per-page').change(function() {
 	var limit=$(this).val();
+        var url="";
+         url="index.php?tab=recent&";
 	queryParameters['limit'] = limit;
-	location.search = $.param(queryParameters);	  
+	//location.search =url+$.param(queryParameters);	
+        location.search=url+$.param(queryParameters);
 });
  
 </script>   

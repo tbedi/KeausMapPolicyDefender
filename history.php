@@ -5,6 +5,12 @@
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
+
+if (isset($_GET['limit'])) {
+	$limit=$_GET['limit'];
+} 
+
+
 $to= date("Y-m-d");
 $from= date('Y-m-d',strtotime("-1 days"));
 /*where*/
@@ -109,7 +115,7 @@ $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
-$additional_params = ""; //addtiion params to pagination url;
+$additional_params = "&limit=".$limit;  //addtiion params to pagination url;
 
 
 

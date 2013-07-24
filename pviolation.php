@@ -61,6 +61,8 @@ $sql = "SELECT  distinct w.`name` as vendor , r.violation_amount as violation_am
     ".$order_by." LIMIT $start, $limit";
  
 $violators_array=$db_resource->GetResultObj($sql);
+
+ //$namep=$violators_array[0]->sku;
  
 // Initial page num setup
 $tab_name = 'violation-by-product';

@@ -29,7 +29,16 @@
             <div class="divt2">
                 <a href="" id="1" class="myButton" onclick="exporttop();">Export</a>
             </div>
-        </td>
+       
+        
+        <div class="resultsp-per-page" style="float:left;padding-top:6px;">
+            	<select name="recent-limit" class="products-per-page"  >
+            		<option <?php echo  ($limit==10) ? "selected" : "" ; ?> value="10">10</option>
+            		<option  <?php echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php echo  ($limit==20) ? "selected" : "" ; ?>  value="20">20</option>
+            	</select>
+            </div>
+             </td>
     </tr>
 
 </table>
@@ -98,10 +107,10 @@ foreach ($page_violated_products as $product) {
                     
 <tr>
 	<td><a href="<?php echo $product_link; ?>"><?php echo $product->sku ;?></a></td>
-	<td><?php echo $product->map_price ;?></td>
+	<td><?php echo "$".$product->map_price ;?></td>
 	<td><?php echo $product->i_count ;?></td>
-	<td><?php echo  $product->maxvio ;?></td>
-	<td><?php echo  $product->minvio ;?></td>
+	<td><?php echo  "$".$product->maxvio ;?></td>
+	<td><?php echo  "$".$product->minvio ;?></td>
 </tr>
 <?php } ?>
 
@@ -136,4 +145,13 @@ foreach ($page_violated_products as $product) {
 	  var search_link = "index.php?tab=violation-by-product";
 	  window.open(search_link, "_self");
  }
+ 
+ $('.products-per-page').change(function() {
+	var limit=$(this).val();
+        var urlp="";
+         urlp="index.php?tab=violation-by-product";
+	queryParameters['limit'] = limit;
+	//location.search =url+$.param(queryParameters);	
+        location.search=urlp+$.param(queryParameters);
+});
 </script>   

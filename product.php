@@ -1,5 +1,10 @@
 <?php
 $limit = 10;
+
+if (isset($_GET['limit'])) {
+	$limit=$_GET['limit'];
+} 
+
 $product_id=0;
 
 if (isset($_REQUEST['product_id'])) {
@@ -96,7 +101,10 @@ $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
-$additional_params = ""; //addtiion params to pagination url;
+//$additional_params = ""; //addtiion params to pagination url;
+$additional_params = "&limit=".$limit;
+
+
 if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
     $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];
 }
