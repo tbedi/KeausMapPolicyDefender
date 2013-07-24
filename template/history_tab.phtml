@@ -148,6 +148,15 @@
         </tr>
 
         <?php
+             
+if(count($violators_array)==0)
+{  ?>
+                    <tr align="center"><td> No Records Found  </td> </tr>
+                    
+                    <?php
+                    
+}
+
         foreach ($violators_array as $violator) {
 
             $cell_id = "vio";

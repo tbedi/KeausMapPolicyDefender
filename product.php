@@ -51,7 +51,9 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
 // Get page data
-$sql = "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,   catalog_product_flat_1.entity_id as product_id,  catalog_product_flat_1.name,  crawl_results.vendor_price as vendor_price,
+if (isset ($_GET['flag']) && $_GET['flag'] == '1' )
+ {
+ $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,   catalog_product_flat_1.entity_id as product_id,  catalog_product_flat_1.name,  crawl_results.vendor_price as vendor_price,
 				  crawl_results.map_price as map_price,  max(crawl_results.violation_amount) as maxvio,  min(crawl_results.violation_amount) as minvio,
   				  count(crawl_results.product_id) as i_count
 		   FROM prices.catalog_product_flat_1 
@@ -59,7 +61,24 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,   catalog_produc
 		   INNER JOIN crawl ON crawl_results.crawl_id = crawl.id
 		   WHERE crawl_results.violation_amount>0.05 AND  crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) " . $where . "
  		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
-		   ".$order_by." LIMIT $start, $limit";
+		   ".$order_by." LIMIT $start, $limit";  
+}
+
+ else {
+    
+
+$sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,   catalog_product_flat_1.entity_id as product_id,  catalog_product_flat_1.name,  crawl_results.vendor_price as vendor_price,
+				  crawl_results.map_price as map_price,  max(crawl_results.violation_amount) as maxvio,  min(crawl_results.violation_amount) as minvio,
+  				  count(crawl_results.product_id) as i_count
+		   FROM prices.catalog_product_flat_1 
+		   INNER JOIN prices.crawl_results ON catalog_product_flat_1.entity_id = crawl_results.product_id 
+		   INNER JOIN crawl ON crawl_results.crawl_id = crawl.id
+		   WHERE crawl_results.violation_amount>0.05 AND  crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
+ 		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
+		   ".$order_by." LIMIT $start, $limit";  
+}
+
+
 
 $page_violated_products=$db_resource->GetResultObj($sql);
 

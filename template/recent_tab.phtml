@@ -74,7 +74,13 @@
                         
                         </td>
                     </tr>
-<?php                                                        
+<?php       
+if(count($violators_array)==0)
+{  ?>
+                    <tr align="center"><td> No Records Found  </td> </tr>
+                    
+                    <?php
+}
 	foreach ($violators_array as $violator) {
 		
 		$cell_id="vio";
@@ -84,7 +90,7 @@
 			$cell_id="vioR";
 ?>
 <tr>
-    <td ><a href="index.php?tab=violation-by-product&action=searchfirst&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+    <td ><a href="index.php?tab=violation-by-product&action=searchfirst&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
         <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&field=website_id&value=<?php echo $violator->website_id; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></td>
     

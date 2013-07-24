@@ -62,7 +62,15 @@
                         
                         </td>
                     </tr>
-<?php                                                        
+<?php     
+      
+if(count($violators_array)==0)
+{  ?>
+                    <tr align="center"><td> No Records Found  </td> </tr>
+                    
+                    <?php
+}
+
 	foreach ($violators_array as $violator) {
 		
 		$cell_id="vio";
@@ -94,7 +102,7 @@ function vendor_violation_search2() {
                      
 	var search_url_additional_params = "&website_id=<?php echo $website_id;  ?>";
 
-	var search_link = "/index.php?action=searchv2&field=" + field + "&value=" + value +"&tab=violation-by-seller"+ search_url_additional_params;
+	var search_link = "index.php?action=searchv2&field=" + field + "&value=" + value +"&tab=violation-by-seller"+ search_url_additional_params;
 	window.open(search_link, "_self");
 		tableSearch.runSearch();
 }
