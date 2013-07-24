@@ -1,4 +1,13 @@
+* {
+    margin:0;
+    padding:0;
+}
 
+body
+{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:13px;
+}
 
 body.error {
     background-image: url(../images/bg/pick_bg.error.jpg);
@@ -19,7 +28,7 @@ h2{
 li{
     padding:4px;
     margin-bottom:3px;
-    background-color: #F7F7F7;
+    background: #FFFFFF;
     list-style:none;}
 
 ul{	padding:0px;}
@@ -34,7 +43,7 @@ label
 .input
 {
     padding:9px;
-    border:solid 1px #999;
+    border:1px solid #C9C9C9;
     margin:4px;
     width:220px;
     border-radius: 80px;
@@ -43,6 +52,25 @@ label
 {
     margin:4px;
 
+}
+
+.btn-login {
+    background-clip: padding-box;
+    background-color: #B0D60A;
+    background-image: linear-gradient(to bottom, #B5DA11, #A9D200);
+    background-repeat: repeat-x;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 1px 2px rgba(0, 1, 1, 0.35), 0 1px 2px rgba(255, 255, 255, 0.5) inset;
+    width: 321px;
+    padding-bottom: 12px;
+    padding-top: 13px;
+    cursor: pointer;
+    font-size: 24px;
+    text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
+    text-transform: capitalize;
+    border: medium none;
+    color: #FFFFFF;
+    font-weight: normal;
 }
 
 label.error
@@ -59,38 +87,40 @@ label.error
 {
     display:none;
 }
-
-#login{
-   
-    width: 50%;	
-    padding-top: 25px;
-    padding-bottom: 25px;
-    padding-right: 20px;
-    padding-left: 20px;
-    margin: 40px 0 35px 90px;
-    background: rgb(247, 247, 247);
-    border: 1px solid  #808080;
-    border-radius: 60px;
-}
+/*#login{
+    position: absolute;
+    border: 1px solid #808080;
+    background:#FFFFFF;
+    top: 0px;
+    width: 100%;
+    align: center;
+    padding: 25px 0px;
+    margin-top:100px;
+    margin-bottom:100px;
+    margin-right:50px;
+    margin-left:10px;
+    border-radius:15px;
+    background-color: none repeat scroll 0 0 #F8F8F8;
+    
+    
+}*/
 #login{
     z-index: 22;
 }
 
 
-
-
 #log {
-    background-color:  #f68787;
-    border: 1px solid  #000;
+    background-color: #B0D60A;
+    border-radius: 6px 6px 6px 6px;
+    border: 1px solid  #FFFFFF;
     width : 50%;
-    height: 3%;
-    border-radius: 60px;
-    padding-top: 2px;
+    height: 5%;
+    padding-top: 15px;
     alignment-adjust: central;
-    
-    }
-    
-    #log1 {
+
+}
+
+#log1 {
     background-color: #f68787;
     border: 1px solid  #000;
     align: center;
@@ -103,40 +133,26 @@ label.error
     margin-bottom:100px;
     margin-right:100px;
     margin-left:100px;
-    
-    }
-    
-.btn-login {
-	 background-clip: padding-box;
+
+}
+
+#tabContainlogin{
     background-color: #B0D60A;
-    background-image: linear-gradient(to bottom, #B5DA11, #A9D200);
-    background-repeat: repeat-x;
-    border-radius: 6px 6px 6px 6px;
-    box-shadow: 0 1px 2px rgba(0, 1, 1, 0.35), 0 1px 2px rgba(255, 255, 255, 0.5) inset;
-	 width: 321px;
-	 padding-bottom: 12px;
-    padding-top: 13px;
-	cursor: pointer;
-	 font-size: 24px;
-    text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
-    text-transform: capitalize;
-	border: medium none;
-	 color: #FFFFFF;
-	font-weight: normal;
-}
-    
-#my-settings form input[type=text], #my-settings form input[type=password] {
-	border: 1px solid #BEBEBE;
     border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
-	background-clip: padding-box;
-    margin-bottom: 20px;
-	background-color: #FFFFFF;
-	font-size: 14px;
-    height: 25px;
-    line-height: 20px;
-	vertical-align: middle;
-	 outline: 0 none;
-	font-weight: 400;
+    padding: 2px;
+    width: 1070px;
 }
-    
+
+#home  .butlog
+{
+    font-size:15px;
+    padding:6px;
+    padding-left: 30px;
+    padding-right: 60px;
+    font-weight:bold;
+    border-radius: 15px;
+    color: #000;
+    background-color: #B0D60A;
+    text-transform: uppercase;
+}
+

@@ -1,5 +1,5 @@
 <?php
-
+$title="Kraus Price Defender | update_websites.php";
 include('db.php');
 session_start();
 $_SESSION['role'] === 'Admin';

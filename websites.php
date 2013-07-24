@@ -1,7 +1,8 @@
 <?php include_once 'db.php'; ?>
-<?php include_once 'db_login.php'; ?>
+<?php include_once 'db_login.php';
+$title="Kraus Price Defender | websites.php"?>
 <?php include_once 'template/head.phtml'; ?>
-<body id="home" >
+<body id="websites-page" >
     <?php include_once 'template/header.phtml'; ?>    
     <div id="wrapper" align="center" >
 

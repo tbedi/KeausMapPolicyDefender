@@ -1,5 +1,7 @@
-<?php
-session_start();
+ <?php
+ session_start();
+ session_destroy();
+ 
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 
@@ -30,14 +32,14 @@ if (isset($_POST['login'])) {
             if (md5($password) === $db_password)
                 $loginok = TRUE;
             else {
-                session_destroy();
-                session_start();
+//               session_destroy();
+                //session_start();
                 $_SESSION['role'] = '';
                 $loginok = FALSE;
             }
             if ($loginok == TRUE) {
-                session_destroy();
-                session_start();
+                //session_destroy();
+                //session_start();
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
                 //print_r($_SESSION);
@@ -65,7 +67,7 @@ $title="Kraus Price Defender | Login";
 
     <body id="login-page">
 
- <?php include_once 'template/header.phtml'; ?>   
+ <?php include_once 'template/header.phtml'; ?>  
         <div id="wrapper" align="center">
 
 <?php
@@ -78,30 +80,31 @@ elseif($a === 1){
     echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>wrong password!!,please login again with correct password</b>" . "</div>";
 }
 ?>
-
-            <div class="main-content" align="center" > 
-                <div id="login" align="center" >
+<div  class="main-content" align="center" >
+            <div style="margin:0px;   padding:0px" align="center"> 
+                
                     <form name="form" action="login.php" method="post"  >
                         <ul>
                             <li>
                                 <h2>Login</h2>
                             </li>
                             <li>
-                                <label><b>Email</b></label> <br/>
+                               <b>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b> 
                                 <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /><br />
                             </li>
                             <li>
-                                <label><b>Password</b></label><br />
+                               <b> Password:&nbsp;&nbsp;&nbsp;</b>
                                 <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
                                 <input type="checkbox" name="rememberme"  />&nbsp;&nbsp;Remember Me
                             </li>
                             <li>
-                                <input class="button btn-login" type="submit" name="login" value="Login"  />
+                                <input class="btn-login" type="submit" name="login" value="Login"  />
                             </li>
                         </ul>
                     </form>
-                </div>
-            </div>    
+               
+            </div>
+</div>
         </div>
 
       	<?php include_once 'template/footer.phtml'; ?>        

@@ -1,4 +1,11 @@
-<?php 
+<?php
+//session_start();
+//print_r($_SESSION);
+include_once 'db_login.php';
+include_once 'db_class.php';
+$db_resource = new DB ();
+//$em = $_SESSION['email'];
+
 
 $em = (isset($_SESSION['email']) ?  $_SESSION['email']: "");
 $fetch = "select username from admin_users where email='$em'";
@@ -14,7 +21,7 @@ if (isset ( $_SESSION ['username'] )) {
 	$user_info="Welcome Guest! <a href=\"login.php\"> Sign In!</a>";
 }
 ?>
- 
+
 
 <div id="kraus_header_wrapper">
 	<div id="kraus_header">
@@ -25,9 +32,9 @@ if (isset ( $_SESSION ['username'] )) {
 			<div class="logo-text" >Price Defender</div>
 		</div>
 		<div class="menu-container container">
-           <div class="menu-item  first"">  
+           <div class="menu-item  first">  
             	<?php if (isset ( $_SESSION ['username'] )){ ?>
-					<a href="index.php"  class"top-menu-item-3"> Home </a>
+					<a href="index.php"  class="top-menu-item-3"> Home </a>
 				<?php } ?>
            </div>		
 			<div class="menu-item second" >
@@ -43,7 +50,7 @@ if (isset ( $_SESSION ['username'] )) {
 			
 			<div class="menu-item fourth">  
             	<?php if (isset ( $_SESSION ['role'] ) && $_SESSION ['role'] === 'Admin') { ?>
-					<a href="users.php"  class"top-menu-item-3"> users </a>
+					<a href="users.php"  class="top-menu-item-3"> users </a>
 				<?php } ?>
            </div>
 
