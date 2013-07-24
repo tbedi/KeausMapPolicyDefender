@@ -2,8 +2,56 @@
 require_once('export/tcpdf/tcpdf.php');
 $product_id = $_REQUEST['product_id'];
 
+class Bshree extends TCPDF {
 
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    //Page header
+    public function Header() {
+        // Logo
+        $image_file = 'images/Kraus-Logo-HQ.png';
+        
+        // Set font
+        $this->SetFont('helvetica', 'B', 15);
+        // Title
+          if (count($this->pages) === 1) { // Do this only on the first page
+               $this->Image($image_file, 10, 7, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
+            $html .= '
+                    <p> </p>   
+                    Product Violation 
+                ';            
+            }
+
+            $this->writeHTML($html.'-'.$product_id, true, false, false, false, '');
+            
+                       
+
+    }
+
+    // Page footer
+    public function Footer() {
+        // Position at 15 mm from bottom
+        $this->SetY(-15);
+        // Set font
+        $this->SetFont('helvetica', 'I', 8);
+         $this->writeHTML('Kraus USA', true, false, false, false, '');
+        // Page number
+        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    
+         
+        
+    }
+}
+
+// create new PDF document
+$pdf = new Bshree(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+
+
+
+
+$pdf->SetAuthor('Kraus USA');
+$pdf->SetTitle('Product Violation');
+
+
+
 
 // set document information
 //$pdf->SetCreator(PDF_CREATOR);
@@ -78,6 +126,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
 	$start = 0;
 	$page = 1;
 }
+
 $query1 = "SELECT  distinct w.`name` as vendor , crawl.id,
     format(r.violation_amount,2) as violation_amount,
     format( r.vendor_price,2) as vendor_price,
@@ -98,6 +147,7 @@ on crawl.id=r.crawl_id
 		    ORDER BY r.violation_amount DESC ";
 
 $result = mysql_query($query1);
+//echo 'Sellers Violated '.$product_id;
  $html=<<<EOD
 	
          <style type="text/css">
@@ -106,6 +156,7 @@ table.border{background:#e0eaee;margin:1px auto;padding:8px;}
          table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;
 background-color:#eee;}
 </style>  
+        
       <table class="border"> 
     <tr>
    
