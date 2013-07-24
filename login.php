@@ -1,6 +1,6 @@
  <?php
  session_start();
- session_destroy();
+ session_destroy(); // put it into if loged out condition
  
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
@@ -11,13 +11,32 @@ $e = '';
 $a = 0;
 $_SESSION['role'] = '';
 
+/*Cookie check*/ 
+if (isset($_COOKIE['email'])) { //optimize code
+	$email=$_COOKIE['email'];
+	 $sql = "select * from admin_users where email='$email'";
+	$products = $db_resource->GetResultObj($sql);
+	//print_r($products);
+	if (count($products) > 0) {
+	
+		$us = $products[0]->username;	 
+		$role = $products[0]->role;
+	}
+	$_SESSION['username'] = $us;
+	$_SESSION['role'] = $role;
+	$_SESSION['email'] = $email;
+	header("Location: index.php");
+	exit();
+}
+/*Cookie check*/
+
 if (isset($_POST['login'])) {
     //getdata
     $email = $_POST['email'];
     $password = $_POST['password'];
 
     if ($email && $password) {
-        $login = mysql_query("select * from admin_users where email='$email'");
+        $login = mysql_query("select * from admin_users where email='$email'"); //optimize code
         $sql = "select * from admin_users where email='$email'";
         $products = $db_resource->GetResultObj($sql);
         //print_r($products);
