@@ -104,7 +104,14 @@ order by maxvio desc LIMIT $start, $limit";
 $result = mysql_query($query1);
  $html=<<<EOD
 
-         <table border="1"> 
+         
+         <style type="text/css">
+
+table.border{background:#e0eaee;margin:1px auto;padding:8px;}
+         table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;
+background-color:#eee;}
+</style>  
+         <table class="border"> 
     <tr>
          <td>SKU </td>  
          <td>Map Price</td>    

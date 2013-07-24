@@ -8,11 +8,11 @@ $dbTable="";
 website.name as wname, 
 crawl_results.vendor_price,
 crawl_results.map_price,
-crawl_results.violation_amount,
+crawl_results.violation_amount
 from website
 inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
+crawl_results
+on website.id = crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join

@@ -100,11 +100,18 @@ crawl.id =
 (select max(crawl.id) from crawl)
 order by sku asc";
 
+
 $result = mysql_query($query1);
  $html=<<<EOD
 
+      <style type="text/css">
+
+table.border{background:#e0eaee;margin:1px auto;padding:8px;}
+         table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;
+background-color:#eee;}
+</style>   
          
-         <table border="1"> 
+         <table class="border"> 
     <tr>
          <td>Product</td>  
          <td>SKU </td>    

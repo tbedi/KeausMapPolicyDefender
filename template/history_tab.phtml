@@ -17,10 +17,9 @@
 
 <table align="center" width="1000px"   >
     <tr>
-        <td >
+        <td>
 
-            <input class="history_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchh" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>"  
-                   id="textBoxSearch"    /> 
+            <input class="history_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchh" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    /> 
 
 
         </td>
@@ -39,10 +38,10 @@
         <td>
             <form action=" ?tab=violations-history&option=show_dates" method="post"> 
 
-                From </td> <td><input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/> 
-        </td><td>  To </td><td>  <input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
-        </td> <td>
-            <input type="submit" class="myButton" name="submit" value="show" /> </div>
+                From<input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/> 
+                To<input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+       
+            <input type="submit" class="myButton" name="submit" value="show" />
             </form>
 
         </td>
