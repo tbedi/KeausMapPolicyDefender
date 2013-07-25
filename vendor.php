@@ -51,7 +51,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
 // Get page data
-if (isset ($_GET['flag']) && $_GET['flag'] == '1' )
+if ((isset ($_GET['flag']) && $_GET['flag'] == '1' )||(isset($_GET['action']) && $_GET['action'] == "searchfirstv"))
  {
 $sql = "SELECT SQL_CALC_FOUND_ROWS  
 website.name as name,
