@@ -48,9 +48,9 @@ $js_data_string = implode($chart_rows, ",");
         $('#chart-a1').highcharts({
             chart: {
                 plotBackgroundColor: null,
-                plotBorderWidth: null,
+                plotBorderWidth: 3,
                 plotShadow: false,
-                margin: [0, 0, 10, 10]
+                margin: [2, 2, 5, 5]
             },
             title: {
                 text: 'Price Violation by Products'

@@ -50,9 +50,9 @@ $js_data_string = implode($chart_rows, ",");
         $('#chart-a2').highcharts({
             chart: {
                 plotBackgroundColor: null,
-                plotBorderWidth: null,
+                plotBorderWidth: 3,
                 plotShadow: false,
-                margin: [0, 0, 10, 10]
+                margin: [2, 2, 5, 5]
             },
             title: {
                 text: 'Price violation by Seller'
@@ -87,4 +87,4 @@ $js_data_string = implode($chart_rows, ",");
     });
 </script>
 
-<div id="chart-a2" style="width: 580px; height: 500px; margin: 0 auto"></div>
+<div id="chart-a2" style="width: 560px; height: 500px; margin: 0 auto"></div>
