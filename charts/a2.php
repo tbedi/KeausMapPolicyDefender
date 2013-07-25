@@ -71,7 +71,7 @@ $js_data_string = implode($chart_rows, ",");
                         color: '#000000',
                         connectorColor: '#000000',
                         formatter: function() {
-                            return '<b>' + this.point.name + '</b>: ' + Highcharts.numberFormat(this.percentage, 2, '.') + ' %';
+                            return  '<b>' + this.point.name + '</b>: ' + Highcharts.numberFormat(this.percentage, 2, '.') + ' %';
                         }
                     }
                 }
@@ -79,6 +79,15 @@ $js_data_string = implode($chart_rows, ",");
             series: [{
                     type: 'pie',
                     name: 'Price violation by Seller',
+                    point: {
+                        events: {
+                          click: function(e) {
+                             this.slice();                                                   
+                             location.href = "/index.php?tab=violation-by-seller&action=searchfirstv&field=name&value="+ this.name;                        
+                             e.preventDefault();
+                          }
+                       }
+                     },
                     data: [
                         <?php echo $js_data_string; ?>
                     ]
