@@ -70,9 +70,14 @@ else if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' )
     $to= date("Y-m-d");
     $from= date('Y-m-d',strtotime("-1 days"));
 }
-    
+   
 
-if( $to == $from) 
+                   if( $to==NULL or $from==NULL or $from > $to )
+                       {
+                         echo '<script type="text/javascript">alert("Enter correct dates!");</script>';
+                       }
+
+                if( $to == $from) 
 {
     $from=$to;
     
