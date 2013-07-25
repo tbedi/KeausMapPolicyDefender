@@ -13,7 +13,7 @@
 <?php include_once 'template/header.phtml'; ?>
 
         <div id="wrapper" align="center" >
-
+           <div  class="main-content" align="center" >
             <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
                
                 <div id="tabscontent" align="center">
@@ -110,7 +110,7 @@
                 
 
             </div> 
-
+        </div>
         </div> 
 
         <div id="templatemo_footer_wrapper">

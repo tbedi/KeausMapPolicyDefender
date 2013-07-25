@@ -1,5 +1,6 @@
 <?php include_once 'db.php'; ?>
-<?php include_once 'db_login.php';
+<?php
+include_once 'db_login.php';
 $title = "Kraus Price Defender | users.php";
 ?>
 <html>
@@ -23,6 +24,7 @@ $title = "Kraus Price Defender | users.php";
 <?php include_once 'template/header.phtml'; ?> 
 
         <div id="wrapper" align="center" >
+            <div  class="main-content" align="center" >
 
             <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
 
@@ -71,19 +73,20 @@ $title = "Kraus Price Defender | users.php";
 
 
                     </div>
-<div class="tabpage violation-by-product" id="tabpage_2">
+                    <div class="tabpage violation-by-product" id="tabpage_2">
 <?php include_once 'create_user.php'; ?>
- </div>
-    </div>
+                    </div>
+                </div>
 
-<div class="cleaner"></div>
-</div> 
-</div> 
-<div id="templatemo_footer_wrapper">
-<div id="templatemo_footer">
-     Copyright © Kraus USA 2013
-</div> 
- </div> 
+                <div class="cleaner"></div>
+            </div>
+        </div>
+        </div> 
+        <div id="templatemo_footer_wrapper">
+            <div id="templatemo_footer">
+                Copyright © Kraus USA 2013
+            </div> 
+        </div> 
 
     </body>
 </html>

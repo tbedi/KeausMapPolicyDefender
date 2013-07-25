@@ -26,14 +26,14 @@ if (isset($_REQUEST["Submit"])) {
                 ?>
                 <script>
                     window.alert('Error!!!');
-                    window.location.href = 'mysettings.php';</script>-->
+                    window.location.href = 'mysettings.php';</script>
                 <?php
 
             } else {
                 ?>
                 <script>
                     window.alert('Username is successfully entered...');
-                    window.location.href = 'mysettings.php';</script>-->
+                    window.location.href = 'mysettings.php';</script>
                 <?php
 
             }
@@ -43,20 +43,37 @@ if (isset($_REQUEST["Submit"])) {
                 ?>
                 <script>
                     window.alert('Error!!!');
-                    window.location.href = 'mysettings.php';</script>-->
+                    window.location.href = 'mysettings.php';
+                </script>
                 <?php
 
             } else {
                 ?>
                 <script>
                     window.alert('Username and password successfully entered...');
-                    window.location.href = 'mysettings.php';</script>-->
+                    window.location.href = 'mysettings.php';
+                </script>
                 <?php
 
             }
         }
     } elseif ($_SESSION['role'] == '') {
         $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
+           if (!$sql) {
+                ?>
+                <script>
+                    window.alert('Error!!!');
+                    window.location.href = 'mysettings.php';</script>
+                <?php
+
+            } else {
+                ?>
+                <script>
+                    window.alert('Username is successfully entered...');
+                    window.location.href = 'mysettings.php';</script>
+                <?php
+
+            }
     }
 }
 ?>

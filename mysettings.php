@@ -7,8 +7,10 @@ $title = "Kraus Price Defender | User Settings";
 ?>
 <?php include_once 'template/head.phtml'; ?>
 <body id="my-settings" >
+    
     <?php include_once 'template/header.phtml'; ?>  
     <div id="wrapper" align="center" >
+        <div  class="main-content" align="center" >
         <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
             <div id="tabscontent" align="center">
                 <div class="tabpage recent" id="tabpage_1">
@@ -17,6 +19,7 @@ $title = "Kraus Price Defender | User Settings";
             </div> 
         </div>
         <div class="cleaner"></div>
+    </div>
     </div> 
     <div id="templatemo_footer_wrapper">
         <div id="templatemo_footer">

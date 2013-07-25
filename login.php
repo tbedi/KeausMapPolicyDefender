@@ -1,6 +1,13 @@
 <?php
+
 session_start();
-session_destroy(); // put it into if logged out condition
+
+//if(isset($_SESSION['username']))
+//{
+//     header("Location: index.php");
+//}
+session_destroy(); 
+// put it into if logged out condition
 
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
@@ -27,6 +34,7 @@ if (isset($_COOKIE['email'])) { //optimize code
     header("Location: index.php");
     exit();
 }
+//print_r($_SESSION);
 /* Cookie check */
 
 if (isset($_POST['login'])) {
@@ -35,10 +43,8 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
 
     if ($email && $password) {
-        $login = mysql_query("select * from admin_users where email='$email'"); //optimize code
         $sql = "select * from admin_users where email='$email'";
         $products = $db_resource->GetResultObj($sql);
-        //print_r($products);
         if (count($products) > 0) {
 
             $us = $products[0]->username;
@@ -53,11 +59,11 @@ if (isset($_POST['login'])) {
                 $_SESSION['role'] = '';
                 $loginok = FALSE;
             }
-            if ($loginok == TRUE) { 
+            if ($loginok == TRUE) {
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
                 if ($_POST['rememberme'] == "on")
-                setcookie("email", $email, time() + 7200);
+                    setcookie("email", $email, time() + 7200);
                 $_SESSION['email'] = $email;
                 header("Location: index.php");
                 exit();

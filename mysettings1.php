@@ -5,24 +5,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Settings</title>
-        <script language="javascript" type="text/javascript">
-            function validate()
-            {
-
-                var formName = document.frm;
-
-                if (formName.username.value == "")
-                {
-                    document.getElementById("username_label").innerHTML = 'Please Enter username';
-                    formName.username.focus();
-                    return false;
-                }
-                else
-                {
-                    document.getElementById("username_label").innerHTML = '';
-                }
-            }
-        </script>
         <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
     <table align="center"  width="1000px" >
@@ -31,7 +13,7 @@
         </tr>
     </table>
 
-    <form action="update_settings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
+    <form action="update_settings.php" method="post" name="frm" id="frm" >
         <table align="center">
             <tbody>
                 <tr> 
@@ -68,7 +50,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><input type="submit"  name="Submit" value="Update" onSubmit="return validate();"/></td>
+                    <td colspan="2" align="center"><input type="submit"  name="Submit" value="Update" /></td>
                 </tr>
 
             </tbody>
