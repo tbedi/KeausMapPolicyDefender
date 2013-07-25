@@ -1,5 +1,6 @@
 <?php
 session_start();
+
  
     //login check function    
 function loggedin(){
@@ -12,6 +13,7 @@ function loggedin(){
         return $loggedin;
     }
 }
+
 ?>
  
 

@@ -8,13 +8,13 @@
 
             <form name="form1" method="post" action="insert.php">
             <table align="center">
-                <tbody id="data">
+                <tbody>
                     <tr> 
                         <td>
                             Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>	
                         <td>
-                            <input type="text" name="username"  size="40" autocomplete="off" style="padding:5px;"/>
+                            <input type="text" name="username"  size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -28,7 +28,7 @@
                             Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="password"  size="40" autocomplete="off" style="padding:5px;"/>
+                            <input type="text" name="password"  size="40"  style="padding:5px;"/>
                         </td></tr>
                     <tr> 
                         <td>&nbsp;</td>	
@@ -40,7 +40,7 @@
                             Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="email"  size="40" autocomplete="off" style="padding:5px;"/>
+                            <input type="text" name="email"  size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -54,7 +54,7 @@
                             Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="name"  size="40" autocomplete="off" style="padding:5px;"/>
+                            <input type="text" name="name"  size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -67,7 +67,7 @@
                             Role:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="role" size="40" autocomplete="off" style="padding:5px;"/>
+                            <input type="text" name="role" size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -77,7 +77,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                    <td><input type="button" name="submit" value="submit" align="center"/></td>
+                    <td ><input type="submit" name="submit" value="submit" /></td>
             </tr>
              
                 </tbody></table>

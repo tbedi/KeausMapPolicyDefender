@@ -1,6 +1,8 @@
 <?php include_once 'db.php'; ?>
-<?php include_once 'db_login.php'; 
-$title="Kraus Price Defender | users.php"; ?>
+<?php
+include_once 'db_login.php';
+$title = "Kraus Price Defender | users.php";
+?>
 <html>
 
     <head>
@@ -14,14 +16,15 @@ $title="Kraus Price Defender | users.php"; ?>
         <link href="css/style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/paginator.css" />
         <script type="text/javascript">
-            <?php echo (isset($_GET['tab']) ? "var selected_tab='" . $_GET['tab'] . "'; " : "var selected_tab='recent'; " ); ?></script>
+<?php echo (isset($_GET['tab']) ? "var selected_tab='" . $_GET['tab'] . "'; " : "var selected_tab='recent'; " ); ?></script>
 
     </head>
-    <?php include_once 'template/head.phtml'; ?>
+        <?php include_once 'template/head.phtml'; ?>
     <body id="users-page" >
-        <?php include_once 'template/header.phtml'; ?> 
+<?php include_once 'template/header.phtml'; ?> 
 
         <div id="wrapper" align="center" >
+            <div  class="main-content" align="center" >
 
             <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
 
@@ -71,19 +74,14 @@ $title="Kraus Price Defender | users.php"; ?>
 
                     </div>
                     <div class="tabpage violation-by-product" id="tabpage_2">
-                        <?php include_once 'create_user.php'; ?>
-
+<?php include_once 'create_user.php'; ?>
                     </div>
                 </div>
 
-
-
                 <div class="cleaner"></div>
-
-            </div> 
-
+            </div>
+        </div>
         </div> 
-
         <div id="templatemo_footer_wrapper">
             <div id="templatemo_footer">
                 Copyright © Kraus USA 2013
