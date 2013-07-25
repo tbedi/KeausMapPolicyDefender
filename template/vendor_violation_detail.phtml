@@ -74,7 +74,7 @@ if(count($violators_array)==0)
 	foreach ($violators_array as $violator) {
 		
 		$cell_id="vio";
-		if ($violator->violation_amount >= 5 )
+		if ($violator->violation_amount >= 5 && $violator->violation_amount<10 )
 			$cell_id="vioO";
 		else if ($violator->violation_amount >= 10 )
 			$cell_id="vioR";

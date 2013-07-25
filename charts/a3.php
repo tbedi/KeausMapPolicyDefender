@@ -18,7 +18,8 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
      $('#chart-a3').highcharts({
          chart: {
              type: 'column',
-            margin: [ 50, 50, 160, 150]
+            margin: [ 50, 50, 160, 150],
+            
          },
          title: {
              text: 'Violation by product'

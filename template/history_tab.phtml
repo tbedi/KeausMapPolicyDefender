@@ -166,11 +166,11 @@
 
         foreach ($violators_array as $violator) {
 
-            $cell_id = "vio";
-            if ($violator->violation_amount >= 5)
-                $cell_id = "vioO";
-            else if ($violator->violation_amount >= 10)
-                $cell_id = "vioR";
+           $cell_id="vio";
+		if ($violator->violation_amount >= 5 && $violator->violation_amount<10 )
+			$cell_id="vioO";
+		else if ($violator->violation_amount >= 10 )
+			$cell_id="vioR";
             ?>
             <tr>
                 <td><?php echo $violator->sku; ?></td>
