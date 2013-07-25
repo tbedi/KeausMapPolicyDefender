@@ -144,7 +144,7 @@ $violators_array=$db_resource->GetResultObj($sql);
 //document.getElementById(inputFieldfrom).value= <?php $from ;?>
 //document.getElementById(inputFieldto).value= <?php $to ;?>
 document.getElementById(inputFieldfrom).setAttribute(value, <?php $from ; ?> );
-document.getElementById(inputFieldto).setAttribute(value, <?php $from ; ?> );
+//document.getElementById(inputFieldto).setAttribute(value, <?php $from ; ?> );
 
 </script>
     <?php

@@ -1,4 +1,5 @@
 <?php $title = "Kraus Price Defender | mysettings1.php"; ?>
+ 
 <h3 align="center">USER SETTINGS</h3>
 <html>
 
@@ -12,7 +13,7 @@
             <td>
         </tr>
     </table>
-
+ 
     <form action="update_settings.php" method="post" name="frm" id="frm" >
         <table align="center">
             <tbody>

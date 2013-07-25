@@ -1,10 +1,9 @@
 <?php
-session_start();
-//if(isset($_SESSION['username']))
-//{
-//     header("Location: index.php");
-//}
-session_destroy();// put it into if logged out condition
+ 
+if (isset($_GET['action']) && $_GET['action']=='logout') {
+	session_destroy();// put it into if logged out condition
+	unset($_COOKIE['email']); die();
+}
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 
@@ -13,11 +12,11 @@ $db_resource = new DB (); // we created database resourse object which contains 
 $e = '';
 $a = 0;
 $_SESSION['role'] = '';
-
-/* Cookie check */
-if (isset($_COOKIE['email'])) { //optimize code
  
-	$email=$_COOKIE['email'];
+/* Cookie check */
+if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { //optimize code
+ 
+	$email=(isset($_COOKIE['email'])? $_COOKIE['email']: $_SESSION['email'] );
 	 $sql = "select * from admin_users where email='$email'";
 	$products = $db_resource->GetResultObj($sql);
 	//print_r($products);
@@ -99,7 +98,7 @@ $title = "Kraus Price Defender | Login";
         ?>
         <div  class="main-content" align="center" >
             <div style="margin:0px;   padding:0px" align="center"> 
-                <h2 align="center">Login</h2>
+                <span align="center">Login</span>
 
                 <form name="form" action="login.php" method="post"  >
 

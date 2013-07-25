@@ -11,9 +11,12 @@ $title = "Kraus Price Defender | User Settings";
     <?php include_once 'template/header.phtml'; ?>  
     <div id="wrapper" align="center" >
         <div  class="main-content" align="center" >
+        <div class="top-panel">
+            <span> test </span>
+        </div>
         <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
-            <div id="tabscontent" align="center">
-                <div class="tabpage recent" id="tabpage_1">
+            <div id="tabscontent" align="center"> <!-- this page without tabs  -->
+                <div class="tabpage recent" id="tabpage_1"> <!-- remove tab page this page without tabs ! -->
                     <?php include_once 'mysettings1.php'; ?>
                 </div>
             </div> 

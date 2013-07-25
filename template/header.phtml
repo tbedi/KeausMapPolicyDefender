@@ -13,7 +13,7 @@ if (count($products) > 0) {
 }
 
 if (isset($_SESSION ['username'])) {
-    $user_info = "Welcome " . $us . ",<a href=\"login.php\"> Logout</a>";
+    $user_info = "Welcome " . $us . ",<a href=\"login.php?action=logout\"> Logout</a>";
 } else {
     $user_info = "Welcome Guest! <a href=\"login.php\"> Sign In!</a>";
 }
