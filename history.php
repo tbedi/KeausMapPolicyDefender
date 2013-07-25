@@ -88,7 +88,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-where crawl.date_executed between '$from' and '$to'  
+where (  (crawl.date_executed between '$from' and '$to') or date_executed='$to' or date_executed='$from' )  
 and
 crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 
@@ -97,12 +97,19 @@ and website.excluded=0
 
 
 $violators_array=$db_resource->GetResultObj($sql);
+echo $sql;
 
 //$result = mysql_query();
+?>
+<script type="text/javascript">
+    
+document.getElementById(inputFieldfrom).value= <?php $from ;?>
+document.getElementById(inputFieldto).value= <?php $to ;?>
+document.getElementById(inputFieldfrom).setAttribute(value, <?php $from ; ?> );
+document.getElementById(inputFieldto).setAttribute(value, <?php $from ; ?> );
 
-
-
-
+</script>
+    <?php
 // Initial page num setup
 $sql1=" SELECT FOUND_ROWS() as total;";
 $total_pages=$db_resource->GetResultObj($sql1);

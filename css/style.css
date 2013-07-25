@@ -1,3 +1,7 @@
+
+
+
+
 * {
 	margin:0;
 	padding:0;
@@ -171,5 +175,33 @@ cursor:pointer;
     alignment-adjust: central;
     
     }
-   
     
+ 
+  
+
+
+
+
+  
+   /* dropdown.dropdown{
+		position:relative;
+		z-index:10;
+		width:166px !important;
+		height:26px !important;
+		line-height:26px;
+}
+
+
+span.dropdown{
+	position:absolute;
+	bottom:0;
+	float:left;
+	left:0;
+	width:130px;
+	height:25px;
+	line-height:26px;
+	text-indent:10px;
+	background:url(images/bg_select.gif) no-repeat 0 0;
+	cursor:default;
+	z-index:1;
+	} */

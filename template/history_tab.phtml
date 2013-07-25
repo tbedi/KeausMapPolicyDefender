@@ -38,8 +38,8 @@
         <td>
             <form action=" ?tab=violations-history&option=show_dates" method="post"> 
 
-                From<input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat;"/> 
-                To<input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat;"/>
+                From<input type="text" size="12" name="from" id="inputFieldfrom" style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/> 
+                To<input type="text" size="12" name="to" id="inputFieldto"  style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/>
 
                 <input type="submit" class="myButton" name="submit" value="show" />
             </form>
@@ -51,7 +51,10 @@
 
         <td> 
 
-            
+<?php
+
+//$form_state['cache'] = TRUE;
+?>           
 
             <select  id="exporth" name="export_to" class="dropdown" >
                  <option value="">Export </option>
