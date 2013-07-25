@@ -10,25 +10,31 @@
                 <a href="javascript:void(0);" class="myButton"  onclick="recent_violation_search();">Search</a>
             </div>
         </td>
-        <td> 
-            <div class="divt1" style="float:left;width: 156px;">
-                Export To
+        <td>  
+            <div class="divt1">
+               
 
-                <select  id="exportr" name="export_to" class="dropdown"  >
-                    <option value="csv" name="csv" selected  >Excel csv</option>
+   <select title="Export" id="exportr" name="export_to"  class="dropdown"  >
+       
+       <option value="">Export </option>
+                    <option value="csv" >Excel csv</option>
                     <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
-
+     
                 </select>
-            </div>
+                       </div>
+            
             <div class="divt2" style="float:left;width: 100px;" >
                 <a href="" id="1" class="myButton" onclick="exportr();">Export</a>
             </div>
-            <div class="results-per-page" style="float:left;padding-top:6px;">
-            	<select name="recent-limit" class="recent-res-per-page"  >
-            		<option <?php echo  ($limit==10) ? "selected" : "" ; ?> value="10">10</option>
-            		<option  <?php echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php echo  ($limit==20) ? "selected" : "" ; ?>  value="20">20</option>
+        </td>
+        <td>
+            <div class="results-per-page" style="float:left;padding-top:6px;" >
+            	<select name="recent-limit" class="recent-res-per-page dropdown"  >
+                    <option value="" selected > Limit </option>
+            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="10">10</option>
+            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="20">20</option>
             	</select>
             </div>
     </td>

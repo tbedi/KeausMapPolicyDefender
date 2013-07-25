@@ -29,13 +29,14 @@
             <div class="divt2">
                 <a href="" id="1" class="myButton" onclick="exporttop();">Export</a>
             </div>
-       
-        
-        <div class="resultsp-per-page" style="float:left;padding-top:6px;">
-            	<select name="recent-limit" class="products-per-page"  >
-            		<option <?php echo  ($limit==10) ? "selected" : "" ; ?> value="10">10</option>
-            		<option  <?php echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php echo  ($limit==20) ? "selected" : "" ; ?>  value="20">20</option>
+        </td>
+        <td>
+        <div class="resultsp-per-page " style="float:left;padding-top:6px;">
+            	<select name="recent-limit" class="products-per-page dropdown"  >
+                 <option value="" selected > Limit </option>
+            		<option <?php //echo  ($limit==10) ? "selected" : "" ; ?> value="10">10</option>
+            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php //echo  ($limit==20) ? "selected" : "" ; ?>  value="20">20</option>
             	</select>
             </div>
              </td>

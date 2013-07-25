@@ -13,10 +13,11 @@
         </td>
         <td> 
             <div class="divt1">
-                Export To
+                
 
                 <select  id="exportv2" name="export_to"  class="dropdown" >
-                    <option value="csv" name="csv" selected  >Excel csv</option>
+                     <option value="">Export </option>
+                    <option value="csv" name="csv"  >Excel csv</option>
                     <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
 
@@ -42,6 +43,7 @@
                         <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor_2&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
                            		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
                            </a>
+                           
                         </td>
                         <td >Vendor price
                         <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor_2&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
