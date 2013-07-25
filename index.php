@@ -1,6 +1,5 @@
  <?php 
 /*configuration*/
-
 setlocale(LC_MONETARY, 'en_US');
 include_once 'db.php';
 include_once 'db_login.php';

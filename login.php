@@ -1,14 +1,10 @@
 <?php
-
 session_start();
-
 //if(isset($_SESSION['username']))
 //{
 //     header("Location: index.php");
 //}
-session_destroy(); 
-// put it into if logged out condition
-
+session_destroy();// put it into if logged out condition
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 
@@ -36,8 +32,10 @@ if (isset($_COOKIE['email'])) { //optimize code
 	header("Location: index.php");
 	exit();
 }
-/*Cookie check*/
  
+
+/* Cookie check */
+
  
 if (isset($_POST['login'])) {
     //getdata
@@ -94,9 +92,9 @@ $title = "Kraus Price Defender | Login";
         $sql1 = "select * from admin_users where email='$e'"; //optimize errors. you can use session for informational messages
         $products1 = $db_resource->GetResultObj($sql1);
         if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
-            echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>Incorrect email and password</b>" . "</div>";
+            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color="."red".">Incorrect email and password</p>" . "</div>";
         } elseif ($a === 1) {
-            echo " <div id=" . "log" . " align=" . "center" . ">" . "<b>wrong password!!,please login again with correct password</b>" . "</div>";
+            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color="."red".">wrong password!!,please login again with correct password</p>" . "</div>";
         }
         ?>
         <div  class="main-content" align="center" >
