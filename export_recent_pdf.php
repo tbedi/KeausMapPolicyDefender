@@ -1,6 +1,6 @@
-<?php 
-require_once('export/tcpdf/tcpdf.php');
+<?php
 
+require_once('export/tcpdf/tcpdf.php');
 
 class Bshree extends TCPDF {
 
@@ -8,34 +8,37 @@ class Bshree extends TCPDF {
     public function Header() {
         // Logo
         $image_file = 'images/Kraus-Logo-HQ.png';
-        
+
         // Set font
         $this->SetFont('helvetica', 'B', 15);
         // Title
-          if (count($this->pages) === 1) { // Do this only on the first page
-               $this->Image($image_file, 10, 7, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
+        if (count($this->pages) === 1) { // Do this only on the first page
+            $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
             $html .= '
                     <p> </p>   
                     Recent Violations
                 ';
-            }
+        }
 
-            $this->writeHTML($html, true, false, false, false, '');
+        $this->writeHTML($html, true, false, false, false, '');
     }
 
     // Page footer
     public function Footer() {
-        // Position at 15 mm from bottom
         $this->SetY(-15);
-        // Set font
         $this->SetFont('helvetica', 'I', 8);
-         $this->writeHTML('Kraus USA', true, false, false, false, '');
-        // Page number
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
-    
-         
-        
+        //$this->writeHTML('Kraus USA', true, false, false, false, '');
+        $timestamp = date("m/d/Y");
+        if (empty($this->pagegroups)) {
+            $pagenumtxt = $this->getAliasNumPage() . ' / ' . $this->getAliasNbPages();
+        } else {
+            $pagenumtxt = $this->getPageNumGroupAlias() . ' / ' . $this->getPageGroupAlias();
+        }
+        $this->Cell(10, 10, 'Kraus USA', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Page ' . $pagenumtxt, 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Created on ' . $timestamp . '   ' . $this->l['w_page'] . ' ', 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
+
 }
 
 // create new PDF document
@@ -47,8 +50,8 @@ $pdf = new Bshree(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8'
 $pdf->SetAuthor('Kraus USA');
 $pdf->SetTitle('Recent Violations');
 
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-$pdf->setFooterData(array(0,64,0), array(0,64,128));
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE . ' 001', PDF_HEADER_STRING, array(0, 64, 255), array(0, 64, 128));
+$pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -69,13 +72,12 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-	require_once(dirname(__FILE__).'/lang/eng.php');
-	$pdf->setLanguageArray($l);
+if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+    require_once(dirname(__FILE__) . '/lang/eng.php');
+    $pdf->setLanguageArray($l);
 }
 
 // ---------------------------------------------------------
-
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
 
@@ -90,27 +92,27 @@ $pdf->SetFont('times', '', 12, '', true);
 $pdf->AddPage();
 
 // set text shadow effect
-$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
-/* Example adding for products*/
+$pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
+/* Example adding for products */
 include_once 'db.php';
-$limit=10;
-  
+$limit = 10;
+
 
 $where = "";
 
 if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
-	$field = strtolower($_GET['field']);
-	$value = strtolower($_GET['value']);
-	$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
+    $field = strtolower($_GET['field']);
+    $value = strtolower($_GET['value']);
+    $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
 }
 
 
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
-	$page = mysql_escape_string($_GET['page']);
-	$start = ($page - 1) * $limit;
+    $page = mysql_escape_string($_GET['page']);
+    $start = ($page - 1) * $limit;
 } else {
-	$start = 0;
-	$page = 1;
+    $start = 0;
+    $page = 1;
 }
 $query1 = "select catalog_product_flat_1.sku,
 website.name as wname,
@@ -136,7 +138,7 @@ crawl.id =
 order by violation_amount desc LIMIT $start, $limit";
 
 $result = mysql_query($query1);
- $html=<<<EOD
+$html = <<<EOD
 
          
          <style type="text/css">
@@ -159,9 +161,9 @@ background-color:#eee;}
    
    </tr>     
 EOD;
- 
+
 while ($row = mysql_fetch_assoc($result)) {
-	$html.=<<<EOD
+    $html.=<<<EOD
 	 
 	<tr>
             <td>{$row['sku']}</td>
@@ -184,16 +186,14 @@ $html.=<<<EOD
         
 EOD;
 
-/*Example addding for products*/  
-  
+/* Example addding for products */
+
 // Print text using writeHTMLCell()
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 //$pdf->writeHTML($html, true, 0, true, 0);
-
 // ---------------------------------------------------------
-
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-$pdf->Output("Recent_Violations".'-'.date('Y-m-d'), 'I');
+$pdf->Output("Recent_Violations" . '-' . date('Y-m-d'), 'I');
 // 
