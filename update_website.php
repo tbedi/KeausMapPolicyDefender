@@ -1,5 +1,5 @@
 <?php
-$title="Kraus Price Defender | update_websites.php";
+$title = "Kraus Price Defender | update_websites.php";
 include('db.php');
 session_start();
 $_SESSION['role'] === 'Admin';
@@ -12,7 +12,7 @@ $ex = $_POST['excluded'];
 
 
 $result = mysql_query("UPDATE website SET name='$name', domain='$dom', date_created='$dc', excluded='$ex' WHERE id=$id") or die(mysql_error());
-//echo "deleted";
+// if successfully update data, displays message "Successful".
 if (!$result) {
     ?>
     <script>

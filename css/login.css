@@ -26,6 +26,7 @@ h2{
 }
 
 li{
+    font-size:16px;
     padding:4px;
     margin-bottom:3px;
     background: #FFFFFF;
@@ -46,7 +47,9 @@ label
     border:1px solid #C9C9C9;
     margin:4px;
     width:220px;
-    border-radius: 80px;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    height: 40px;
 }
 .radio
 {
@@ -83,27 +86,12 @@ label.error
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
+
 #signup_block
 {
     display:none;
 }
-/*#login{
-    position: absolute;
-    border: 1px solid #808080;
-    background:#FFFFFF;
-    top: 0px;
-    width: 100%;
-    align: center;
-    padding: 25px 0px;
-    margin-top:100px;
-    margin-bottom:100px;
-    margin-right:50px;
-    margin-left:10px;
-    border-radius:15px;
-    background-color: none repeat scroll 0 0 #F8F8F8;
-    
-    
-}*/
+
 #login{
     z-index: 22;
 }
@@ -113,7 +101,7 @@ label.error
     background-color: #B0D60A;
     border-radius: 6px 6px 6px 6px;
     border: 1px solid  #FFFFFF;
-    width : 50%;
+    width : 1070px;
     height: 5%;
     padding-top: 15px;
     alignment-adjust: central;
@@ -155,4 +143,6 @@ label.error
     background-color: #B0D60A;
     text-transform: uppercase;
 }
+
+
 

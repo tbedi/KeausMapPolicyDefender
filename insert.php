@@ -1,6 +1,5 @@
 <?php
 include('db.php');
-
 // Get values from form 
 $uname =$_POST['username'];
 $pass =$_POST['password'];

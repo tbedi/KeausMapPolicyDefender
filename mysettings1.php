@@ -1,67 +1,5 @@
-<?php 
-$title="Kraus Price Defender | mysettings1.php";
-include_once 'db_class.php';
-include('db.php');
-$db_resource = new DB ();
-$em = $_SESSION['email'];
-$fetch = "select username from admin_users where email='$em'";
-$products = $db_resource->GetResultObj($fetch);
-$us = $products[0]->username;
-if (count($products) > 0) {
-            $us = $products[0]->username;
-       }
-//  $user = $_SESSION['username'];
-//print_r($_REQUEST);
-//print_r($_POST);
-if (isset($_REQUEST["Submit"])) {
-    $email = $_SESSION['email'];
-    $user = $_REQUEST['username'];
-    if (isset($_REQUEST['cpassword']))
-        $new_pass = md5($_REQUEST['cpassword']);
-    if ($_SESSION['role'] == 'Admin') {
-        if(isset($user) && trim($_REQUEST['cpassword'])==='' && trim($_REQUEST['newpassword'])===''){
-            $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
-           
-          if (!$sql) {
-   ?>
-   <script>
-        window.alert('Error!!!');
-        window.location.href = 'mysettings.php';</script>-->
-    <?php
-
-} else {
-    ?>
-    <script>
-        window.alert('Username is successfully entered...');
-        window.location.href = 'mysettings.php';</script>-->
-    <?php
-
-}
-}
-      
-        elseif (isset($user) && trim($_REQUEST['cpassword'])!='' && trim($_REQUEST['newpassword'])!=''){
-         $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'"); 
-         if (!$sql) {
-   ?>
-   <script>
-        window.alert('Error!!!');
-        window.location.href = 'mysettings.php';</script>-->
-    <?php
-
-} else {
-    ?>
-    <script>
-        window.alert('Username and password successfully entered...');
-        window.location.href = 'mysettings.php';</script>-->
-    <?php
-
-}
-        }
-    } elseif ($_SESSION['role'] == '') {
-        $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
-    }
-}
-?>
+<?php $title = "Kraus Price Defender | mysettings1.php"; ?>
+<h3 align="center">USER SETTINGS</h3>
 <html>
 
     <head>
@@ -85,50 +23,55 @@ if (isset($_REQUEST["Submit"])) {
                 }
             }
         </script>
-        <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-        <link href="css/tblcss.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
-        <link href="css/div.css" rel="stylesheet" type="text/css" />  <!-- Styles from recent.php -->
         <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
+    <table align="center"  width="1000px" >
+        <tr>
+            <td>
+        </tr>
+    </table>
 
-                        <form action="mysettings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
-                            <div align="center" style="font-size: 150%;">
-                                <table>
-                                    <tr>
-                                        <td colspan="2" align="center"></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" style="background-color:white;font-size:22px" align="center"><b>USER SETTINGS</b></td>
-                                    </tr><tr><td>&nbsp;</td>
-                                        <td><input type="hidden" name="" value="" /></td></tr>
-                                    <tr>
-                                        <td style="background-color:white;font-size:14px">Username:</td>
-                                        <td ><input type="text" name="username"  id="username" value="<?php echo $us; ?>" size="25" autocomplete="off" style="padding:5px;"/>&nbsp; <label id="username_label" ></label></td>
-                                    </tr>
-                                    <tr><td>&nbsp;</td>
-                                        <td><input type="hidden" name="" value="" /></td></tr>
-                                    <?php
-                                    if ($_SESSION['role'] === 'Admin') {
-                                        echo "<tr>
-                                    <td  style=" . "background-color:white;font-size:14px" . ">New Password:</td><td ><input type=" . "password" . " name=" . "newpassword" . " id=" . "newpassword" . " size=" . "25" . " autocomplete=" . "off" . " style="."padding:5px;"." />&nbsp; <label id=" . "newpassword_label" . " ></label></td>
-                                    </tr>";
-                                      echo  "<tr><td>&nbsp;</td>
-                                        <td><input type="."hidden"." name="." value="." /></td></tr>";
-                                    echo "<tr>
-                                    <td style=" . "background-color:white;font-size:14px" . ">Confirm Password:</td>
-                                    <td ><input type=" . "password" . " name=" . "cpassword" . " id=" . "cpassword" . " size=" . "25" . " autocomplete=" . "off" . " style="."padding:5px;"."/>&nbsp; <label id=" . "cpassword_label" . " ></label></td>
-                                    </tr>";
-                                    }
-                                    ?>
-                                     <tr><td>&nbsp;</td>
-                                        <td><input type="hidden" name="" value="" /></td></tr>
-                                    <tr>
-                                        <td colspan="2" align="center"><input type="submit"  name="Submit" value="Update" onSubmit="return validate();"/></td>
-                                        
-                                    </tr>
+    <form action="update_settings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
+        <table align="center">
+            <tbody>
+                <tr> 
+                    <td>
+                        Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>	
+                    <td>
+                        <input type="text" name="username"  size="40" id="username" value="<?php echo $us; ?>" autocomplete="off" style="padding:5px;"/>&nbsp; <label id="username_label" ></label>
+                    </td>
+                </tr>
+                <tr> 
+                    <td>&nbsp;</td>	
+                    <td><input type="hidden" value="hidden"/>
+                    </td>
+                </tr>
+                <?php
+                if ($_SESSION['role'] === 'Admin') {
+                    echo "<tr>
+                    <td>New Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td ><input type=" . "password" . " name=" . "newpassword" . " id=" . "newpassword" . " size=" . "40" . " autocomplete=" . "off" . " style=" . "padding:5px;" . " />&nbsp; <label id=" . "newpassword_label" . " ></label></td>
+                          </tr>";
+                    echo "<tr><td>&nbsp;</td>
+                    <td><input type=" . "hidden" . " name=" . " value=" . " /></td></tr>";
+                    echo "<tr>
+                    <td>Confirm Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                     <td ><input type=" . "password" . " name=" . "cpassword" . " id=" . "cpassword" . " size=" . "40" . " autocomplete=" . "off" . " style=" . "padding:5px;" . "/>&nbsp; <label id=" . "cpassword_label" . " ></label></td>
+                         </tr>";
+                }
+                ?>
+                <tr> 
+                    <td>&nbsp;</td>	
+                    <td>
+                        <input type="hidden" value="hidden"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit"  name="Submit" value="Update" onSubmit="return validate();"/></td>
+                </tr>
 
-                                </table>
-                                
-                            </div>
-                        </form>
+            </tbody>
+        </table>
+      </form>
 </html>
