@@ -5,7 +5,8 @@
 $tableName = "crawl_results";
 $targetpage = "index.php";
 $limit = 10;
-
+$flagfrom=0;
+$flagto=0;
 if (isset($_GET['limit'])) {
 	$limit=$_GET['limit'];
 } 
@@ -71,6 +72,38 @@ else if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' )
 }
     
 
+if( $to == $from) 
+{
+    $from=$to;
+    
+   $sql="SELECT SQL_CALC_FOUND_ROWS  
+    catalog_product_flat_1.sku as sku,
+catalog_product_flat_1.name as pname,
+website.name as wname, 
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(crawl_results.violation_amount,2) as violation_amount,
+crawl_results.website_product_url,
+crawl.date_executed
+from website
+inner join
+crawl_results
+on website.id = crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join crawl
+on crawl.id=crawl_results.crawl_id
+where date_format(date_executed, '%Y-%m-%d' )='$from'   
+and
+crawl_results.violation_amount>0.05 ".$where." 
+and website.excluded=0 
+" . $order_by . " LIMIT $start, $limit "; 
+   
+}
+
+
+else
+{
 $sql="SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku,
 catalog_product_flat_1.name as pname,
@@ -93,18 +126,18 @@ and
 crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 
 " . $order_by . " LIMIT $start, $limit ";
-
+}
 
 
 $violators_array=$db_resource->GetResultObj($sql);
-echo $sql;
+
 
 //$result = mysql_query();
 ?>
 <script type="text/javascript">
     
-document.getElementById(inputFieldfrom).value= <?php $from ;?>
-document.getElementById(inputFieldto).value= <?php $to ;?>
+//document.getElementById(inputFieldfrom).value= <?php $from ;?>
+//document.getElementById(inputFieldto).value= <?php $to ;?>
 document.getElementById(inputFieldfrom).setAttribute(value, <?php $from ; ?> );
 document.getElementById(inputFieldto).setAttribute(value, <?php $from ; ?> );
 
