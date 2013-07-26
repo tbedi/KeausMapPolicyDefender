@@ -26,13 +26,13 @@
         <td>
 
 
-            <a href="javascript:void(0);" class="myButton"  onclick="history_violation_search();">Search</a>
+            <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_search();">Search</a>
 
         </td>
         <td>
 
 
-            <a href="javascript:void(0);" class="myButton"  onclick="history_violation_show_all();" >Show all</a>
+            <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_show_all();" >Show all</a>
 
         </td>
         <td>
@@ -41,7 +41,7 @@
                 From<input type="text" onclick="<?php $flagfrom=1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/> 
                 To<input type="text" onclick="<?php $flagto=1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/>
                 
-                <input type="submit" class="myButton" name="submit" value="show" />
+                <input type="submit" class="btn-searchn" name="submit" value="show" />
             </form>
 
         </td>
@@ -67,7 +67,7 @@
 
         <td>
 
-            <a href="" id="1" class="myButton" onclick="exporttoh();">Export</a>
+            <a href="" id="1" class="btn-search" onclick="exporttoh();">Export</a>
 
         </td>
     </tr>
@@ -92,16 +92,17 @@
 
 </div>
 <br/>
+<!--
 <table class="GrayBlack" align="center">
     <tr>
         <td>
             <?php
-            echo " Violations from " . $from . " to " . $to . "<br/> ";
+            // echo " Violations from " . $from . " to " . $to . "<br/> ";
             ?>
         </td>
     </tr>
 </table>
-
+-->
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr> 

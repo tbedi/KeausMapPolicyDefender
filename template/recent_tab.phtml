@@ -7,7 +7,7 @@
                <input  class="recent_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt2">
-                <a href="javascript:void(0);" class="myButton"  onclick="recent_violation_search();">Search</a>
+                <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</a>
             </div>
         </td>
         <td>  
@@ -25,7 +25,7 @@
                        </div>
             
             <div class="divt2" style="float:left;width: 100px;" >
-                <a href="" id="1" class="myButton" onclick="exportr();">Export</a>
+                <a href="" id="1" class="btn-search" onclick="exportr();">Export</a>
             </div>
         </td>
         <td>

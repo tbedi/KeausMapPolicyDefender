@@ -9,6 +9,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value
 }
 /*where*/
 $sql = "SELECT  distinct w.`name` as vendor ,
+    w.id as website_id,
     format(r.violation_amount,2) as violation_amount,
     format( r.vendor_price,2) as vendor_price,
     format(r.map_price,2) as map_price,

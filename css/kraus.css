@@ -1,7 +1,7 @@
 .search {
-	padding: 5px;
+	padding: 4px;
 	padding-right: 40px;
-	background: url(../images/sr.png) 100% -5px no-repeat;
+	/* background: url(../images/sr.png) 100% -5px no-repeat; */
 	border: 2px solid #456879;
 	border-radius: 10px;
 	float: left;	 
@@ -20,7 +20,20 @@
          cursor:default;
           
 }
-
+.btn-search {
+    background-clip: padding-box;
+    background-color: #B0D60A;
+    background-image: linear-gradient (to bottom, #B5DA11, #A9D200);
+    background-repeat: repeat-x;
+    border-radius: 6px 6px 6px 6px;
+    hight:18px;
+    width: 321px;
+    padding:4px;
+    cursor: pointer;
+    font-size: 16px;
+    border: medium none;
+    color: #FFFFFF;
+    }
 
 .page2 {
 	align: left;

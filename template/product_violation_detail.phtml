@@ -9,7 +9,7 @@
 <input  class="product-violation-search2 search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>"  id="textBoxSearch" onkeyup="tableSearch.search(event);"   /> 
 </div>
             <div class="divt2">
-                <a href="javascript:void(0);" class="myButton"  onclick="product_violation_search2();">Search</a>
+                <a href="javascript:void(0);" class="btn-search"  onclick="product_violation_search2();">Search</a>
             </div>
         </td>
         <td> 
@@ -25,7 +25,7 @@
                 </select>
             </div>
             <div class="divt2">
-                <a href="" id="1" class="myButton" onclick="exporttop2();">Export</a>
+                <a href="" id="1" class="btn-search" onclick="exporttop2();">Export</a>
             </div>
     </td>
 </tr>
@@ -82,7 +82,8 @@ if(count($violators_array)==0)
 			$cell_id="vioR";
 ?>
 <tr>
-	<td><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=website.name&value=<?php echo $violator->vendor; ?>"><?php echo $violator->vendor; ?></a></td>
+	
+    <td><a href="index.php?tab=violation-by-seller&action=searchfirst1&field=website.name&value=<?php echo $violator->vendor; ?>"><?php echo $violator->vendor; ?></a></td>
 	<td><?php echo "$".$violator->vendor_price; ?></td>
 	<td><?php echo "$".$violator->map_price; ?></td>
        <!-- <td><?php //echo money_format('$%i',$violator->map_price); ?></td> -->
