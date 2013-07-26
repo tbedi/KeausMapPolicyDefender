@@ -50,7 +50,7 @@ $js_data_string = implode($chart_rows, ",");
         $('#chart-a2').highcharts({
             chart: {
                 plotBackgroundColor: null,
-                plotBorderWidth: 3,
+               // plotBorderWidth: 3,
                 plotShadow: false,
                 margin: [2, 2, 5, 5]
             },
