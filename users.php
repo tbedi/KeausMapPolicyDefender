@@ -2,6 +2,14 @@
 <?php
 include_once 'db_login.php';
 $title = "Kraus Price Defender | users.php";
+
+if(!isset($_GET['action']) == 'logout'){
+    header('Location: login.php');
+}
+else {
+    header('Location: users.php');
+}
+
 ?>
 <html>
 

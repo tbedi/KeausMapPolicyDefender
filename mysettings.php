@@ -4,6 +4,12 @@ include_once 'db_class.php'; //we included database class
 
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 $title = "Kraus Price Defender | User Settings";
+if(!isset($_GET['action']) == 'logout'){
+    header('Location: login.php');
+}
+else {
+    header('Location: websites.php');
+}
 ?>
 <?php include_once 'template/head.phtml'; ?>
 <body id="my-settings" >

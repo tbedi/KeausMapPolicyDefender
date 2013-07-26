@@ -1,6 +1,12 @@
 <?php include_once 'db.php'; ?>
 <?php include_once 'db_login.php';
-$title = "Kraus Price Defender | websites.php"
+$title = "Kraus Price Defender | websites.php";
+if(!isset($_GET['action']) == 'logout'){
+    header('Location: login.php');
+}
+else {
+    header('Location: websites.php');
+}
 ?>
     <?php include_once 'template/head.phtml'; ?>
 <body id="websites-page" >
