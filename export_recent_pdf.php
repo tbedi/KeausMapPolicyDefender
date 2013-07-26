@@ -144,22 +144,22 @@ $html = <<<EOD
          <style type="text/css">
 
 table.border{background:#e0eaee;margin:1px auto;padding:8px;}
-         table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;
-background-color:#eee;}
+         table.border td{padding:6px;border:1px solid 87B5F1;text-align:center; font-size: 14px;}
+      
+        table.border1 {background:#e0eaee;margin:1px auto;padding:8px;}
+         table.border1 td{padding:6px;border:1px solid 87B5F1;text-align:center;
+                         background-color:#eee;}
 </style>  
-   <table class="border"> 
-    <tr>
-   <td>SKU </td>  
+   <table class="border1"> 
+     <tr>
+        <td>SKU </td>  
          <td>Seller </td>    
          <td>Vendor Price</td>    
          <td>Map Price</td>    
          <td>Violation Amount</td>    
-            
-   
-   
-   
-   
-   </tr>     
+      </tr>
+    </table>
+        <table class="border"> 
 EOD;
 
 while ($row = mysql_fetch_assoc($result)) {
@@ -168,9 +168,9 @@ while ($row = mysql_fetch_assoc($result)) {
 	<tr>
             <td>{$row['sku']}</td>
             <td>{$row['wname']}</td>
-            <td>{$row['vendor_price']}</td>
-            <td>{$row['map_price']}</td>
-            <td>{$row['violation_amount']}</td>
+            <td> $ {$row['vendor_price']}</td>
+            <td> $ {$row['map_price']}</td>
+            <td> $ {$row['violation_amount']}</td>
          
            
                 

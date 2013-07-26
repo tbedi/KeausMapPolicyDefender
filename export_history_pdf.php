@@ -1,6 +1,6 @@
 <?php 
 require_once('export/tcpdf/tcpdf.php');
-
+$html;
 class Bshree extends TCPDF {
 
     //Page header
@@ -144,11 +144,14 @@ $result = mysql_query($query1);
       <style type="text/css">
 
 table.border{background:#e0eaee;margin:1px auto;padding:8px;}
-         table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;
-background-color:#eee;}
+         table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;font}
+      
+        table.border1 {background:#e0eaee;margin:1px auto;padding:8px;}
+         table.border1 td{padding:20px;border:1px solid 87B5F1;text-align:center;
+                         background-color:#eee;}
 </style>   
          
-         <table class="border"> 
+         <table class="border1"> 
     <tr>
          <td>Product</td>  
          <td>SKU </td>    
@@ -156,12 +159,10 @@ background-color:#eee;}
          <td>Vendor Price</td>    
          <td>MAP Price</td>    
          <td>Violation_amount</td>    
-       
-   
-   
-   
-   
-   </tr>     
+     </tr>
+         
+         </table>
+         <table class="border">
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
@@ -170,9 +171,9 @@ while ($row = mysql_fetch_assoc($result)) {
             <td>{$row['pname']}</td>
             <td>{$row['sku']}</td>
             <td>{$row['wname']}</td>
-            <td>{$row['vendor_price']}</td>
-            <td>{$row['map_price']}</td>
-            <td>{$row['violation_amount']}</td>
+            <td> $ {$row['vendor_price']}</td>
+            <td> $ {$row['map_price']}</td>
+            <td> $ {$row['violation_amount']}</td>
         
             
            

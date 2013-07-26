@@ -148,10 +148,13 @@ $result = mysql_query($query1);
          <style type="text/css">
 
 table.border{background:#e0eaee;margin:1px auto;padding:8px;}
-         table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;
-background-color:#eee;}
+         table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;}
+      
+        table.border1 {background:#e0eaee;margin:1px auto;padding:8px;}
+         table.border1 td{padding:20px;border:1px solid 87B5F1;text-align:center;
+                         background-color:#eee;}
 </style>  
-         <table class="border"> 
+         <table class="border1"> 
     <tr>
          <td>SKU </td>  
          <td>Map Price</td>    
@@ -159,20 +162,19 @@ background-color:#eee;}
          <td>Max Violation</td>    
          <td>Min Violation</td>    
          
-   
-   
-   
-   </tr>     
+   </tr>   
+         </table>
+         <table class="border"> 
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
 	 
 	<tr>
             <td>{$row['sku']}</td>
-            <td>{$row['map_price']}</td>
+            <td> $ {$row['map_price']}</td>
             <td>{$row['i_count']}</td>
-            <td>{$row['maxvio']}</td>
-            <td>{$row['minvio']}</td>
+            <td> $ {$row['maxvio']}</td>
+            <td> $ {$row['minvio']}</td>
             
            
                 
