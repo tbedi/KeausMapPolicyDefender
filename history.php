@@ -12,8 +12,8 @@ if (isset($_GET['limit'])) {
 } 
 
 
-$to= date("Y-m-d");
-$from= date('Y-m-d',strtotime("-1 days"));
+static $to ;
+static $from;
 /*where*/
 
 $where = "";
@@ -53,24 +53,40 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 }
 /* Pagination */
 
-
-
+/* calender dates */
+ 
+if ( isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET['option'] == 'show_dates' ) {  
+	$to =$_POST["to"];
+	$from =$_POST["from"];
+	$_SESSION['t']=$_POST["to"];
+	$_SESSION['fr']=$_POST["from"];
+} else if (isset($_SESSION['t']) && isset($_SESSION['fr']) ) {
+	$to = $_SESSION['t'];
+	$from =$_SESSION['fr'];
+} else {
+	 $to= date("Y-m-d");
+         $from= date('Y-m-d',strtotime("-1 days"));
+	$_SESSION['t'] = date("Y-m-d");
+	$_SESSION['fr'] = date('Y-m-d',strtotime("-1 days"));
+}        
+/* calender dates */
 
 
 //if (isset($_GET['action']) && $_GET['action'] == 'searchh' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+/*
 if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
 	 
 	$to = $_POST["to"];
 	$from = $_POST["from"];
 	
-
 }
 else if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' )
 {
     $to= date("Y-m-d");
     $from= date('Y-m-d',strtotime("-1 days"));
-}
    
+}
+  */ 
 
                    if( $to==NULL or $from==NULL or $from > $to )
                        {

@@ -63,8 +63,8 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
     catalog_product_flat_1.sku,
 website.name as name, 
 website.id as website_id,
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
+cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
+cast(crawl_results.map_price as decimal(10,2)) as map_price,
 format(crawl_results.violation_amount,2) as violation_amount,
 crawl_results.website_product_url
 from website

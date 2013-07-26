@@ -58,9 +58,14 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 // Get page data
 if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) && $_GET['action'] == "searchfirst")  )
  {
- $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,   catalog_product_flat_1.entity_id as product_id,  catalog_product_flat_1.name,  crawl_results.vendor_price as vendor_price,
-				  crawl_results.map_price as map_price,  max(crawl_results.violation_amount) as maxvio,  min(crawl_results.violation_amount) as minvio,
-  				  count(crawl_results.product_id) as i_count
+ $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku, 
+     catalog_product_flat_1.entity_id as product_id,
+     catalog_product_flat_1.name,  
+     crawl_results.vendor_price as vendor_price,
+       crawl_results.map_price as map_price, 
+        max(crawl_results.violation_amount) as maxvio,
+        min(crawl_results.violation_amount) as minvio,
+         count(crawl_results.product_id) as i_count
 		   FROM prices.catalog_product_flat_1 
 		   INNER JOIN prices.crawl_results ON catalog_product_flat_1.entity_id = crawl_results.product_id 
 		   INNER JOIN crawl ON crawl_results.crawl_id = crawl.id

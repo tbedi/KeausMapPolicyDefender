@@ -19,25 +19,7 @@ if ($website_id) {
 }
 /*where*/
 
-/* sorting */
-if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vvendor"  ) {  
-	$direction =$_GET['dir'];
-	$order_field =$_GET['sort'];
-	$_SESSION['sort_vvendor_dir']=$_GET['dir'];
-	$_SESSION['sort_vvendor_field']=$_GET['sort'];
-} else if (isset($_SESSION['sort_vvendor_field']) && isset($_SESSION['sort_vvendor_dir']) ) {
-	$direction = $_SESSION['sort_vvendor_dir'];
-	$order_field =$_SESSION['sort_vvendor_field'];
-} else {
-	$direction = "desc";
-	$order_field = "maxvio";
-	$_SESSION['sort_vvendor_dir'] = "desc";
-	$_SESSION['sort_vvendor_field'] = "maxvio";
-}
 
-$order_by = "order by " . $order_field . " " . $direction . " ";
-
-/* sorting */
 
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
@@ -56,8 +38,8 @@ if ((isset ($_GET['flag']) && $_GET['flag'] == '1' )||(isset($_GET['action']) &&
 $sql = "SELECT SQL_CALC_FOUND_ROWS  
 website.name as name,
 crawl_results.website_id as website_id,
-format(max(crawl_results.violation_amount),2) as maxvio,
-format(min(crawl_results.violation_amount),2) as minvio,
+cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
+cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
 count(crawl_results.website_id) as wi_count
 from website
 inner join
@@ -73,7 +55,7 @@ website.excluded=0
 and
 crawl.id = 
 (select max(crawl.id) from crawl)  " . $where . "
-group by website.name , crawl_results.website_id
+group by website.name , crawl_results.website_id 
 ".$order_by." LIMIT $start, $limit";
 
 
@@ -86,8 +68,8 @@ group by website.name , crawl_results.website_id
 $sql = "SELECT SQL_CALC_FOUND_ROWS  
 website.name as name,
 crawl_results.website_id as website_id,
-format(max(crawl_results.violation_amount),2) as maxvio,
-format(min(crawl_results.violation_amount),2) as minvio,
+cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
+cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
 count(crawl_results.website_id) as wi_count
 from website
 inner join
@@ -111,6 +93,29 @@ group by website.name , crawl_results.website_id
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
 //$result = mysql_query($query1);
+
+
+
+/* sorting */
+if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vvendor"  ) {  
+	$direction =$_GET['dir'];
+	$order_field =$_GET['sort'];
+	$_SESSION['sort_vvendor_dir']=$_GET['dir'];
+	$_SESSION['sort_vvendor_field']=$_GET['sort'];
+} else if (isset($_SESSION['sort_vvendor_field']) && isset($_SESSION['sort_vvendor_dir']) ) {
+	$direction = $_SESSION['sort_vvendor_dir'];
+	$order_field =$_SESSION['sort_vvendor_field'];
+} else {
+	$direction = "desc";
+	$order_field = "maxvio";
+	$_SESSION['sort_vvendor_dir'] = "desc";
+	$_SESSION['sort_vvendor_field'] = "maxvio";
+}
+$order_by = "order by " . $order_field . " " . $direction . " ";
+/* sorting */
+
+
+
 
 // Initial page num setup
 $sql=" SELECT FOUND_ROWS() as total;";
