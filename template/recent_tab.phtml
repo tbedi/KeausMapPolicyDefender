@@ -16,8 +16,8 @@
 
    <select title="Export" id="exportr" name="export_to"  class="dropdown"  >
        
-       <option value="">Export </option>
-                    <option value="csv" >Excel csv</option>
+      
+                    <option value="csv" selected>Excel csv</option>
                     <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
      
@@ -32,9 +32,11 @@
             <div class="results-per-page" style="float:left;padding-top:6px;" >
             	<select name="recent-limit" class="recent-res-per-page dropdown"  >
                     <option value="" selected > Limit </option>
-            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="10">10</option>
-            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="20">20</option>
+            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
+            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
+                        <option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
+            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="100">100</option>
             	</select>
             </div>
     </td>
@@ -155,8 +157,7 @@ $('.recent-res-per-page').change(function() {
         var url="";
          url="index.php?tab=recent&";
 	queryParameters['limit'] = limit;
-	//location.search =url+$.param(queryParameters);	
-        location.search=url+$.param(queryParameters);
+	location.search=url+$.param(queryParameters);
 });
  
 </script>   

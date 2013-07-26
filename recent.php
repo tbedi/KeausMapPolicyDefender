@@ -7,7 +7,7 @@ while ($row = mysql_fetch_assoc($result)) {
 } 
 
 
-$limit = 10;
+$limit = 15;
 
 if (isset($_GET['limit'])) {
 	$limit=$_GET['limit'];

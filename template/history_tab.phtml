@@ -57,8 +57,8 @@
 ?>           
 
             <select  id="exporth" name="export_to" class="dropdown" >
-                 <option value="">Export </option>
-                <option value="csv" name="csv"  >Excel csv</option>
+                
+                <option value="csv" selected  >Excel csv</option>
                 <option value="xls" >Excel xls</option>
                 <option value="pdf" >PDF</option>
 
@@ -71,18 +71,18 @@
 
         </td>
     </tr>
-   <!-- <tr>
+   <tr>
         <td>
             <div class="resultsh-per-page" >
                 <select name="recent-limit" class="history-per-page"  >
-                    <option <?php //echo ($limit == 10) ? "selected" : ""; ?> value="10">10</option>
-                    <option  <?php //echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
-                    <option  <?php //echo ($limit == 20) ? "selected" : ""; ?>  value="20">20</option>
+                    <option <?php echo ($limit == 10) ? "selected" : ""; ?> value="10">10</option>
+                    <option  <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
+                    <option  <?php echo ($limit == 20) ? "selected" : ""; ?>  value="20">20</option>
                 </select>
             </div>
         </td>
     </tr>
--->
+
 
 </table>
 
