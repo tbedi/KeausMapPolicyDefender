@@ -65,7 +65,7 @@ website.name as name,
 website.id as website_id,
 cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
 cast(crawl_results.map_price as decimal(10,2)) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
+cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
 crawl_results.website_product_url
 from website
 inner join

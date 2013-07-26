@@ -156,9 +156,7 @@
                     <img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
                 </a>
             </td>
-            <td>
-                Screenshot
-            </td>
+           
         </tr>
 
         <?php
@@ -185,7 +183,7 @@
                 <td><?php echo "$".$violator->map_price; ?></td>
                 <td id="<?php echo $cell_id; ?>"><?php echo "$".$violator->violation_amount; ?></td>
                 <td><?php echo $violator->date_executed; ?></td>
-                <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">Link</a></td>			
+                			
             </tr>				
         <?php } ?>
 
@@ -223,10 +221,7 @@
         var search_link = "index.php?tab=violations-history" + url_options;
         window.open(search_link, "_self");
       
-      
-      
-      
-   
+     
     }
 
 

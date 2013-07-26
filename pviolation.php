@@ -10,9 +10,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value
 /*where*/
 $sql = "SELECT  distinct w.`name` as vendor ,
     w.id as website_id,
-    format(r.violation_amount,2) as violation_amount,
-    format( r.vendor_price,2) as vendor_price,
-    format(r.map_price,2) as map_price,
+    cast(r.violation_amount as decimal(10,2)) as violation_amount,
+    cast( r.vendor_price as decimal(10,2)) as vendor_price,
+    cast(r.map_price as decimal(10,2)) as map_price,
     r.website_product_url,
 	p.sku as sku
     FROM crawl_results  r
@@ -54,7 +54,12 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
-$sql = "SELECT  distinct w.`name` as vendor , r.violation_amount as violation_amount, r.vendor_price as vendor_price, r.map_price as map_price, r.website_product_url, p.sku as sku
+$sql = "SELECT  distinct w.`name` as vendor ,
+    r.violation_amount as violation_amount,
+    r.vendor_price as vendor_price,
+    cast(r.map_price as decimal(10,2)) as map_price,
+    r.website_product_url,
+    p.sku as sku
     FROM crawl_results  r
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
