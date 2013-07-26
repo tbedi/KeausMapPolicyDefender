@@ -7,11 +7,7 @@
 	padding:0;
 }
 
-body {
-	
-	font: .8em "Arial", "Helvetica", sans-serif;
-}
-
+ 
 #searchbox{
 background-image:url(images/sr.png) no-repeat 4px 4px;	
 	border:2px solid #456879;
@@ -80,20 +76,8 @@ cursor:pointer;
 }
 
 #tabscontent {
-	/*-moz-border-radius-topleft: 0px;
-	-moz-border-radius-topright: 4px;
-	-moz-border-radius-bottomright: 4px;
-	-moz-border-radius-bottomleft: 4px;
-	border-top-left-radius: 0px;
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
-	border-bottom-left-radius: 4px; */
 	padding:10px 10px 25px;
-	/*background: #FFFFFF; /* old browsers *//*
-	background: -moz-linear-gradient(top, #FFFFFF 0%, #FFFFFF 90%, #e4e9ed 100%); /* firefox *//*
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(90%,#FFFFFF), color-stop(100%,#e4e9ed)); /* webkit */
 	margin:0;
-	color:#333;
 	border-top: 1px solid #A6CF00;
 }
 

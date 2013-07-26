@@ -101,7 +101,7 @@
 }
 
 .chartt {
-	display: table-row-group;
+	padding-top:25px;
 }
 /*Common styles*/
 @font-face {
@@ -123,7 +123,7 @@
 	min-height: 1px;
 	overflow: auto;
 }
-
+ 
 /*Common styles*/
 /* Header*/
 #kraus_header {
@@ -203,11 +203,12 @@
 /*Header*/
 /* Content*/
 .main-content {
-    width:1070px;
-	 
+    width:1060px;
+	padding:0px;
 	background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 10px 10px 10px 10px;
     box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.2);}
+#tabContainer {padding-left:10px;padding-top:15px;}	
 /*Content*/
 /*Single page*/
 .top-panel {  background: none repeat scroll 0 0 #ECF5DC;

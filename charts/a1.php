@@ -48,7 +48,7 @@ $js_data_string = implode($chart_rows, ",");
         $('#chart-a1').highcharts({
             chart: {
                 plotBackgroundColor: null,
-                //plotBorderWidth: 3,
+                plotBorderWidth: 0,
                 plotShadow: false,
                 margin: [2, 2, 5, 5]
             },
@@ -85,4 +85,4 @@ $js_data_string = implode($chart_rows, ",");
     });
 </script>
 
-<div id="chart-a1" style="width: 470px; height: 500px; margin: 0 auto"></div>
+<div id="chart-a1" style="width: 470px; height: 340px; margin: 0 auto"></div>

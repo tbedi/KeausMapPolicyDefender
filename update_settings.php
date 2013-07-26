@@ -1,4 +1,6 @@
 <?php
+/*What is it????*/
+
 $title = "Kraus Price Defender | update_settings.php";
 include_once 'db_login.php';
 include_once 'db_class.php';

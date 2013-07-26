@@ -18,7 +18,7 @@ else {
         <div class="top-panel">
             <span>User Settings</span>
         </div>
-        <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
+        <div  align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
                 <?php include_once 'update_settings.php';} ?>
         </div>
         <div class="cleaner"></div>
