@@ -10,7 +10,6 @@ include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 
-$e = '';
 $a = 0;
 $_SESSION['role'] = '';
 
@@ -34,7 +33,6 @@ if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { //optimize code
 
 
 /* Cookie check */
-
 
 if (isset($_POST['login'])) {
     //getdata
@@ -71,8 +69,7 @@ if (isset($_POST['login'])) {
 
                 $a = 1;
             }
-        }
-        $e = $email;
+        } 
     }
 }
 
@@ -88,9 +85,7 @@ $title = "Kraus Price Defender | Login";
     <div id="wrapper" align="center">
 
         <?php
-        $sql1 = "select * from admin_users where email='$e'"; //optimize errors. you can use session for informational messages
-        $products1 = $db_resource->GetResultObj($sql1);
-        if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
+        if (count($products) === 0 && isset($_POST['email']) && $a === 0) {
             echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color=" . "red" . ">Incorrect email and password</p>" . "</div>";
         } elseif ($a === 1) {
             echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color=" . "red" . ">wrong password!!,please login again with correct password</p>" . "</div>";

@@ -3,12 +3,11 @@
 include_once 'db_login.php';
 $title = "Kraus Price Defender | users.php";
 
-if(!isset($_GET['action']) == 'logout'){
+if(!isset($_SESSION['username'])){
     header('Location: login.php');
 }
 else {
-    header('Location: users.php');
-}
+   
 
 ?>
 <html>
@@ -29,7 +28,7 @@ else {
     </head>
         <?php include_once 'template/head.phtml'; ?>
     <body id="users-page" >
-<?php include_once 'template/header.phtml'; ?> 
+<?php include_once 'template/header.phtml';?> 
 
         <div id="wrapper" align="center" >
             <div  class="main-content" align="center" >
@@ -82,7 +81,7 @@ else {
 
                     </div>
                     <div class="tabpage violation-by-product" id="tabpage_2">
-<?php include_once 'create_user.php'; ?>
+                    <?php include_once 'create_user.php'; }?>
                     </div>
                 </div>
 

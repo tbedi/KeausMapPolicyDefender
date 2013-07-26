@@ -95,7 +95,7 @@
                     </tr>
                     <tr align="center">
                     <td rowspan="5" colspan="5" align="center">
-                    <div ><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="button" title="Saving" rel="1" > submit</a><a  href="websites.php" class="button" type="reset" >Cancel</a> </div>
+                        <div ><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="btn-login" title="Saving" rel="1" > submit</a> &nbsp;<a  href="websites.php" class="btn-login" type="reset" >Cancel</a> </div>
                     </td>
                      </tr>
              

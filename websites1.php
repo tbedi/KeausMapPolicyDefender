@@ -30,32 +30,23 @@ if (isset($_GET['page'])) {
         <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
     <br>
-    <table align="center" width="1000px" >
-        <tr>
-            <td >
-                <div style="padding-right: 20px;padding-left:0px; float: left">
+    
+    
+    
+    <table class="table1" >
+    <tr>
+        <td >
+            <div class="divt1">
 
-
-                    <input  class="recent_search" 	placeholder="Search here..." type="text" size="30"  
-                            maxlength="1000" 
-                            value="<?php if (isset($_GET['action']) == 'recent') echo $_GET['value']; ?>" 
-                            id="textBoxSearch"   
-                            style="padding:12px;
-                            padding-right: 40px;
-                            background-image:url(images/sr.png); 
-                            background-position: 100% -5px; 
-                            background-repeat: no-repeat;
-                            border:2px solid #456879;
-                            border-radius:10px;float:left;
-                            height: 15px;
-                            outline:none; 
-                            width: 200px; "/> </div>
-
-                <a href="javascript:void(0);" class="myButton"  onclick="recent_search();">Search</a>
-            </td>
-
-            <td>
-    </table>
+               <input  class="websites_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+</div>
+            <div class="divt2">
+                <a href="javascript:void(0);" class="myButton"  onclick="websites_search();">Search</a>
+            </div>
+        </td>
+      
+</tr>
+</table>
 
     <div class="cleaner" style="padding-top: 15px; ">
 
@@ -103,7 +94,7 @@ if (isset($_GET['page'])) {
                     <tr>
                         <td ><?php echo $row['id']; ?></td>
                         <td ><?php echo $row['name']; ?></td> 
-                        <td ><?php echo $row['domain']; ?></td>
+                        <td ><a href="website_product_url" ><?php echo $row['domain']; ?></a></td>
                         <td ><?php echo $row['date_created']; ?></td>
                         <td ><?php echo $row['excluded']; ?></td>
                         <td ><a href="website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
@@ -192,5 +183,31 @@ if (isset($_GET['page'])) {
     // pagination
     echo $paginate;
     ?>
+
+    <script type="text/javascript">
+  
+ function recent_violation_search() {
+     var field = "sku";
+     var value = $(".websites_search").val();
+     var url_options="";
+     if (value.length) {
+         url_options += "&action=search&field=" + field + "&value=" + value;
+     }
+
+     var search_link = "websites.php"+url_options;
+     window.open(search_link, "_self");
+ }
+ 
+
+$('.recent-res-per-page').change(function() {
+	var limit=$(this).val();
+        var url="";
+         url="index.php?tab=recent&";
+	queryParameters['limit'] = limit;
+	//location.search =url+$.param(queryParameters);	
+        location.search=url+$.param(queryParameters);
+});
+ 
+</script>  
 
 

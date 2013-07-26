@@ -205,7 +205,10 @@
     text-transform: uppercase;
     word-spacing: 2px;}
 .top-panel span {  display: block;
-    padding: 8px; color: #A6CF00;}		
+    padding: 8px; 
+    font-weight: 400;
+    font-size: 27px;
+    color: #A6CF00;}		
 	
 /* Single page*/
 /* Tab Page */
