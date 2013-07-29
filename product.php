@@ -63,8 +63,8 @@ if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) &
      catalog_product_flat_1.name,  
      crawl_results.vendor_price as vendor_price,
      cast(crawl_results.map_price as decimal(10,2)) as map_price, 
-        max(crawl_results.violation_amount) as maxvio,
-        min(crawl_results.violation_amount) as minvio,
+      cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
+cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
          count(crawl_results.product_id) as i_count
 		   FROM prices.catalog_product_flat_1 
 		   INNER JOIN prices.crawl_results ON catalog_product_flat_1.entity_id = crawl_results.product_id 
@@ -83,8 +83,8 @@ $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,
     catalog_product_flat_1.name,  
     crawl_results.vendor_price as vendor_price,
     cast(crawl_results.map_price as decimal(10,2)) as map_price,
-    max(crawl_results.violation_amount) as maxvio, 
-    min(crawl_results.violation_amount) as minvio,
+  cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
+cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
     count(crawl_results.product_id) as i_count
 		   FROM prices.catalog_product_flat_1 
 		   INNER JOIN prices.crawl_results ON catalog_product_flat_1.entity_id = crawl_results.product_id 

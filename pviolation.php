@@ -55,7 +55,7 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
 $sql = "SELECT  distinct w.`name` as vendor ,
-    r.violation_amount as violation_amount,
+    r.violation_amount as violation_amount,w.id as website_id,
     r.vendor_price as vendor_price,
     cast(r.map_price as decimal(10,2)) as map_price,
     r.website_product_url,
