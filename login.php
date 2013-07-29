@@ -1,10 +1,7 @@
 <?php
- 
- 
- 
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     session_start();
-    session_destroy(); // put it into if logged out condition
+    session_destroy(); 
     unset($_COOKIE['email']);
     header('Location: login.php');
     die();
@@ -79,8 +76,6 @@ if (isset($_POST['login'])) {
 
 $title = "Kraus Price Defender | Login";
 ?>
-
-
 <?php include_once 'template/head.phtml'; ?>
 
 <body id="login-page">
@@ -90,9 +85,9 @@ $title = "Kraus Price Defender | Login";
 
         <?php
         if (count($products) === 0 && isset($_POST['email']) && $a === 0) {
-            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color=" . "red" . ">Incorrect email and password</p>" . "</div>";
+            echo " <div id=" . "log" . " style="."color:#f40f0f"." align=" . "center" . ">" . "<p font color=" . "red" . ">Incorrect email and password</p>" . "</div>";
         } elseif ($a === 1) {
-            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color=" . "red" . ">wrong password!!,please login again with correct password</p>" . "</div>";
+            echo " <div id=" . "log" . " style="."color:#f40f0f"." align=" . "center" . ">" . "<p font color=" . "red" . ">wrong password!!,please login again with correct password</p>" . "</div>";
         }
         ?>
         <div  class="main-content" align="center" >

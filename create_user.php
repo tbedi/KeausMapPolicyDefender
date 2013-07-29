@@ -1,11 +1,4 @@
-<?php $title="Kraus Price Defender | Create_users.php"; ?>
-<table align="center"  width="1000px" >
-    <tr>
-        <td>
-    </tr>
-</table>
-
-            <form name="form1" method="post" action="insert.php">
+  <form name="form1" method="post" action="insert.php">
             <table align="center">
                 <tbody align="center">
                     <tr> 

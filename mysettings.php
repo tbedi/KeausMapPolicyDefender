@@ -10,24 +10,22 @@ if(!isset($_SESSION['username'])){
 else {
 ?>
 <?php include_once 'template/head.phtml'; ?>
-<body id="my-settings" >
+<body id="login-page" >
     
     <?php include_once 'template/header.phtml'; ?>  
     <div id="wrapper" align="center" >
         <div  class="main-content" align="center" >
         <div class="top-panel">
-            <span>User Settings</span>
+            <span style="font-size: 1.3em;">User Settings</span>
         </div>
         <div  align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
-                <?php include_once 'update_settings.php';} ?>
+                <?php include_once 'mysettings1.php';}
+                
+                ?>
         </div>
         <div class="cleaner"></div>
     </div>
     </div> 
-    <div id="templatemo_footer_wrapper">
-        <div id="templatemo_footer">
-            Copyright © Kraus USA 2013
-        </div> 
-    </div> 
+     <?php include_once 'template/footer.phtml'; ?> 
 
 </body>

@@ -76,11 +76,7 @@ $title = "Kraus Price Defender | user_edit.php";
             </div> 
         </div> 
 
-        <div id="templatemo_footer_wrapper">
-            <div id="templatemo_footer">
-                Copyright © Kraus USA 2013
-            </div> 
-        </div> 
+         <?php include_once 'template/footer.phtml'; ?> 
     </body>
 </html>
 

@@ -8,30 +8,28 @@ else {
 ?>
     <?php include_once 'template/head.phtml'; ?>
 <body id="websites-page" >
-<?php include_once 'template/header.phtml'; 
-?>    
+<?php include_once 'template/header.phtml'; ?>    
     <div id="wrapper" align="center" >
         <div  class="main-content" align="center" >
+            <div class="top-panel">
+            <span style="font-size: 1.3em";>Websites</span>
+        </div>
         <div style="margin:0px;   padding:0px" align="center">
         <div id="tabContainer" align="center" > 
 
-            <div id="tabscontent" align="center">  
+<!--            <div id="tabscontent" align="center">  -->
              <?php include_once 'websites1.php';} ?>
-            </div>
+<!--            </div>-->
 
 
             <div class="cleaner"></div>
 
         </div> 
         </div>
+        </div>
     </div>
-    </div> 
-
-    <div id="templatemo_footer_wrapper">
-        <div id="templatemo_footer">
-            Copyright © Kraus USA 2013
-        </div> 
-    </div> 
+        
+    <?php include_once 'template/footer.phtml'; ?> 
 
 </body>
 </html>
