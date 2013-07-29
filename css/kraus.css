@@ -28,13 +28,18 @@
     border-radius: 6px 6px 6px 6px;
     hight:18px;
     width: 321px;
-    padding:4px;
+    padding-bottom: 12px;
+    padding-top: 13px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 24px;
+    text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
+    text-transform: capitalize;
     border: medium none;
-    color: #FFFFFF;
+    color: #f9f9f9;
+    font-weight: normal;
     }
-
+    
+    
 .page2 {
 	align: left;
 	display: block;
@@ -45,15 +50,29 @@
 	width: 1000px;
 }
 
+.divcc
+{
+  padding-top: 15px;
+  color:#B0D60A;
+  
+}
+
+
 .divt1 {
 	padding-right: 20px;
 	padding-left: 0px;
-	float: left
+	float: left;
+        
 }
 
 .divt2 {
 	padding-right: 20px;
 	padding-left: 0px;
+}
+.divt8
+{
+    padding-right: 5px;
+	padding-left:5px;
 }
 
 .divt22 {

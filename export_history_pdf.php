@@ -1,22 +1,24 @@
 <?php 
 require_once('export/tcpdf/tcpdf.php');
-$html;
+ static $html;
 class Bshree extends TCPDF {
 
     //Page header
     public function Header() {
+        $html;  
         // Logo
         $image_file = 'images/Kraus-Logo-HQ.png';
         
         // Set font
         $this->SetFont('helvetica', 'B', 15);
         // Title
-        $html;  
+        
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
             $html .= '
-                    <p> </p>   
-                    Violations History
+           
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Violation History 
                 ';
             }
 

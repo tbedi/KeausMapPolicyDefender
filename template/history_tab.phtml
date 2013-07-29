@@ -18,70 +18,88 @@
 <table align="center" width="1000px"   >
     <tr>
         <td>
-
-            <input class="history_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchh" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    /> 
-
-
+            <div class="divt1">
+                <input class="history_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchh" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    /> 
+            </div>
+            <div class="divt22">
+                <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_search();">Search</a>
+            </div>
+            <div class="divt22">
+                <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_show_all();" >Show all</a>
+            </div>
         </td>
-        <td>
 
-
-            <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_search();">Search</a>
-
-        </td>
-        <td>
-
-
-            <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_show_all();" >Show all</a>
-
-        </td>
-        <td>
-            <form action=" ?tab=violations-history&option=show_dates" method="post"> 
-
-                From<input type="text" onclick="<?php $flagfrom=1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/> 
-                To<input type="text" onclick="<?php $flagto=1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/>
-                
-                <input type="submit" class="btn-searchn" name="submit" value="show" />
-            </form>
-
-        </td>
 
         <td> 
+            <div class="divt1">
+                <select  id="exporth" name="export_to" class="dropdown" >
 
-<?php
+                    <option value="csv" selected  >Excel csv</option>
+                    <option value="xls" >Excel xls</option>
+                    <option value="pdf" >PDF</option>
 
-
-
-
-//$form_state['cache'] = TRUE;
-?>           
-
-            <select  id="exporth" name="export_to" class="dropdown" >
-                
-                <option value="csv" selected  >Excel csv</option>
-                <option value="xls" >Excel xls</option>
-                <option value="pdf" >PDF</option>
-
-            </select>
+                </select>
+            </div>
+            <div class="divt22">
+                <a href="" id="1" class="btn-search" onclick="exporttoh();">Export</a>
+            </div>
         </td>
 
-        <td>
 
-            <a href="" id="1" class="btn-search" onclick="exporttoh();">Export</a>
-
-        </td>
-    </tr>
-   <tr>
         <td>
             <div class="resultsh-per-page" >
-                <select name="recent-limit" class="history-per-page"  >
-                    <option <?php echo ($limit == 10) ? "selected" : ""; ?> value="10">10</option>
-                    <option  <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
-                    <option  <?php echo ($limit == 20) ? "selected" : ""; ?>  value="20">20</option>
+                <select name="recent-limit" class="history-per-page dropdown"  >
+                    <option  value="">Limit</option>
+                    <option <?php // echo ($limit == 10) ? "selected" : "";  ?> value="10">10</option>
+                    <option  <?php // echo ($limit == 15) ? "selected" : "";  ?> value="15">15</option>
+                    <option  <?php // echo ($limit == 20) ? "selected" : "";  ?>  value="20">20</option>
                 </select>
             </div>
         </td>
+
     </tr>
+</table>
+    <table>
+    <tr>
+
+        <td>
+
+            <div class=" divcc" >
+                ______________________________________________________________________________________________________________
+            </div>  
+             <div class=" divcc" >
+               
+            </div> 
+        </td>
+
+    </tr> 
+    </table>
+
+<table>
+    <td>
+
+        <form action=" ?tab=violations-history&option=show_dates" method="post"> 
+            <div class="divt22">
+            From
+            </div>
+            <div class="divt22">
+            <input type="text" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/> 
+  </div>
+   
+        <div class="divt22">
+        To
+        </div>
+           <div class="divt22">
+        <input type="text" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/>
+</div>
+        <div class="divt22">
+        <input type="submit" class="btn-search" name="submit" value="show" />
+        </div>
+        </form>
+
+    </td>
+</tr>
+
 
 
 </table>
@@ -96,9 +114,9 @@
 <table class="GrayBlack" align="center">
     <tr>
         <td>
-            <?php
-            // echo " Violations from " . $from . " to " . $to . "<br/> ";
-            ?>
+<?php
+// echo " Violations from " . $from . " to " . $to . "<br/> ";
+?>
         </td>
     </tr>
 </table>
@@ -156,7 +174,7 @@
                     <img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
                 </a>
             </td>
-           
+
         </tr>
 
         <?php
@@ -169,21 +187,21 @@
 
         foreach ($violators_array as $violator) {
 
-           $cell_id="vio";
-		if ($violator->violation_amount >= 5 && $violator->violation_amount<10 )
-			$cell_id="vioO";
-		else if ($violator->violation_amount >= 10 )
-			$cell_id="vioR";
+            $cell_id = "vio";
+            if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
+                $cell_id = "vioO";
+            else if ($violator->violation_amount >= 10)
+                $cell_id = "vioR";
             ?>
             <tr>
                 <td><?php echo $violator->sku; ?></td>
                 <td><?php echo $violator->pname; ?></td>
                 <td><?php echo $violator->wname; ?></td>
-                <td><?php echo "$".$violator->vendor_price; ?></td>
-                <td><?php echo "$".$violator->map_price; ?></td>
-                <td id="<?php echo $cell_id; ?>"><?php echo "$".$violator->violation_amount; ?></td>
+                <td><?php echo "$" . $violator->vendor_price; ?></td>
+                <td><?php echo "$" . $violator->map_price; ?></td>
+                <td id="<?php echo $cell_id; ?>"><?php echo "$" . $violator->violation_amount; ?></td>
                 <td><?php echo $violator->date_executed; ?></td>
-                			
+
             </tr>				
         <?php } ?>
 
@@ -215,19 +233,19 @@
         var field = "sku";
         var value = $(".history_violation_search").val();
         var url_options = "";
-      if (value.length) {
+        if (value.length) {
             url_options += "&action=searchh&field=" + field + "&value=" + value;
         }
         var search_link = "index.php?tab=violations-history" + url_options;
         window.open(search_link, "_self");
-      
-     
+
+
     }
 
 
-    
-    
-    
+
+
+
     function exporttoh()
     {
         var mode = $("#exporth").val();
@@ -249,10 +267,10 @@
 
     $('.history-per-page').change(function() {
         var limit = $(this).val();
-         var urlh="";
-         urlh="index.php?tab=violations-history&";
-	queryParameters['limit']=limit;
-	location.search=urlh+$.param(queryParameters);
+        var urlh = "";
+        urlh = "index.php?tab=violations-history&";
+        queryParameters['limit'] = limit;
+        location.search = urlh + $.param(queryParameters);
         //location.search=$.param(queryParameters);
     });
 
