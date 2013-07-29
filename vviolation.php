@@ -9,7 +9,33 @@ if (isset($_GET['action']) && $_GET['action'] == 'searchv2' && isset($_GET['valu
 }
 /*where*/
 
-      
+      $sql = 
+        
+        "select distinct crawl_results.website_id,
+domain,
+website.name as wname,
+catalog_product_flat_1.entity_id,
+catalog_product_flat_1.name as name,
+catalog_product_flat_1.sku,
+format(crawl_results.vendor_price,2) as vendor_price,
+format(crawl_results.map_price,2) as map_price,
+format(crawl_results.violation_amount,2) as violation_amount,
+website_id,
+crawl_results.website_product_url
+from crawl_results
+inner join
+website
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+where crawl_results.violation_amount>0.05 
+and
+website.excluded=0
+and website_id = '" .$website_id. "'
+  " . $where ;
+        
+        
+
       
 //pagination
 $limit = 10;
@@ -112,10 +138,4 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
 include_once 'template/vendor_violation_detail.phtml';
 ?>
   
-<div align="left" style="display:block;" >
-	<?php include ('page2.php'); ?>
-</div>	
- 
-<div>
-    <?php include_once 'charts/a4.php'; ?>
-</div>
+
