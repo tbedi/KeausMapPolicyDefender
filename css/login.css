@@ -136,5 +136,23 @@ label.error
     text-transform: uppercase;
 }
 
+/*Single page*/
+.top-panel {  background: none repeat scroll 0 0 #ECF5DC;
+    border-radius: 10px 10px 0 0;
+    color: #A6CF00;
+    font-size: 12px;
+    text-align: center;
+    text-transform: capitalize;
+    word-spacing: 2px;}
+.top-panel span {  
+    display: block;
+    padding: 15px; 
+    font-weight: 400;
+    font-size: 27px;
+    color: #9AC847;
+    font-family: freightsans-prolight, Helvetica, Arial,sans-serif;
+}		
+	
+
 
 

@@ -15,16 +15,13 @@ else {
             <span style="font-size: 1.3em";>Websites</span>
         </div>
         <div style="margin:0px;   padding:0px" align="center">
-        <div id="tabContainer" align="center" > 
-
-<!--            <div id="tabscontent" align="center">  -->
+             <div id="tabscontent" align="center">  
              <?php include_once 'websites1.php';} ?>
-<!--            </div>-->
+            </div>
 
 
             <div class="cleaner"></div>
 
-        </div> 
         </div>
         </div>
     </div>

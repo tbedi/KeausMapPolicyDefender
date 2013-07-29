@@ -7,11 +7,12 @@ if (!isset($_SESSION['username'])) {
 } else {
     ?>
     <?php include_once 'template/head.phtml'; ?>
-    <body id="users-page" >
+    <body id="login-page" >
         <?php include_once 'template/header.phtml'; ?> 
 
         <div id="wrapper" align="center" >
                 <div id="tabContainer" class="main-content" align="center" >
+                    
 
                     <div id="tabs" align="center">
                         <ul>
@@ -19,9 +20,10 @@ if (!isset($_SESSION['username'])) {
                             <li id="tabHeader_2" class="violation-by-product" >Create New User</li>
                         </ul>
                     </div>
+                    
 
                     <div id="tabscontent" align="center">
-
+                        
                         <div class="tabpage recent" id="tabpage_1">
                             <?php include_once 'new_user.php'; ?>
                          </div>
@@ -29,7 +31,7 @@ if (!isset($_SESSION['username'])) {
                             <?php include_once 'create_user.php';}?>
                     </div>
                 </div>
-
+                  
                 <div class="cleaner"></div>
             </div>
         </div>

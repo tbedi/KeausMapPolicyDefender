@@ -2,10 +2,10 @@
                                 <tbody id="data">
                                     <tr>
                                         <td>S.no</td>
-                                        <td>USER NAME</td>
-                                        <td>EMAIL</td>
-                                        <td>NAME</td>
-                                        <td>ROLE</td>
+                                        <td>Username</td>
+                                        <td>Email</td>
+                                        <td>Name</td>
+                                        <td>Role</td>
                                         <td>Edit</td>
                                     </tr>
 

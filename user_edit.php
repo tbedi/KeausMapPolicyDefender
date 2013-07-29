@@ -76,7 +76,7 @@ $title = "Kraus Price Defender | user_edit.php";
             </div> 
         </div> 
 
-         <?php include_once 'template/footer.phtml'; ?> 
+        <?php include_once 'template/footer.phtml'; ?> 
     </body>
 </html>
 
