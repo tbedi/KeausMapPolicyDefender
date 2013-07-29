@@ -114,7 +114,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-where date_format(date_executed, '%Y-%m-%d' )='$from'   
+where date_format(date_executed, '%d-%m-%Y' )='$from'   
 and
 crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 

@@ -270,13 +270,11 @@
     $('.history-per-page').change(function() {
         var limith = $(this).val();
         var urlh = "";
-       // urlh = "index.php?tab=violations-history&";
+        urlh = "tab=violations-history&";
         queryParameters['limith'] = limith;
-        //location.search = urlh + $.param(queryParameters);
-       location.search=$.param(queryParameters);
-      
-      
-      
+        location.search = urlh + $.param(queryParameters);
+      // location.search=$.param(queryParameters);
+              
      // urlh = "index.php?tab=violations-history&limith=". limith;
       
      // location.search= $.param(queryParameters)+urlh;

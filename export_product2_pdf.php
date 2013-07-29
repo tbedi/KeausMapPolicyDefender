@@ -1,9 +1,11 @@
 <?php 
 require_once('export/tcpdf/tcpdf.php');
-$product_id = $_REQUEST['product_id'];
-
+ $product_id = $_REQUEST['product_id'];
+$sku=$_REQUEST['sku'];
 class Bshree extends TCPDF {
+
 public $html;
+
     //Page header
     public function Header() {
         // Logo
@@ -14,13 +16,14 @@ public $html;
         // Title
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
-            $html .= '
+               $product_id = $_REQUEST['product_id'];
+               $html .= '
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                    Product Violation 
+                    Vendors Violated by '.$product_id.'
                 ';            
             }
 
-            $this->writeHTML($html.'-'.$product_id, true, false, false, false, '');
+            $this->writeHTML($html.'-', true, false, false, false, '');
             
                        
 
