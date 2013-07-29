@@ -61,24 +61,24 @@ if (isset($_REQUEST["Submit"])) {
             $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
 
             if (!$sql) {
-                echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
             } else {
-                echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username is added successfully</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username is added successfully</p>" . "</div>";
             }
         } elseif (isset($user) && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
             $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");
             if (!$sql) {
-                echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
             } else {
-                echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username and password successfully entered..</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username and password successfully entered..</p>" . "</div>";
             }
         }
     } elseif ($_SESSION['role'] == '') {
         $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
         if (!$sql) {
-            echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
+            echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
         } else {
-            echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">user is added successfully</p>" . "</div>";
+            echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">user is added successfully</p>" . "</div>";
         }
     }
 }

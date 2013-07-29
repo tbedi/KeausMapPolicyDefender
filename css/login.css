@@ -99,7 +99,18 @@ label.error
     alignment-adjust: central;
 
 }
+#logs {
+    background-color: #B0D60A;
+    border-radius: 6px 6px 6px 6px;
+    border: 2px solid  #B0D60A;
+    width : 1040px;
+    height: 5%;
+    padding-top: 15px;
+    alignment-adjust: central;
+     text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
+    text-transform: capitalize;
 
+}
 #log1 {
     background-color: #f68787;
     border: 1px solid  #000;
