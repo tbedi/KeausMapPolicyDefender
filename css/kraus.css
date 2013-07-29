@@ -28,15 +28,14 @@
     border-radius: 6px 6px 6px 6px;
     hight:18px;
     width: 321px;
-    padding-bottom: 12px;
-    padding-top: 13px;
+    padding:6px;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
     text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
     text-transform: capitalize;
     border: medium none;
     color: #f9f9f9;
-    font-weight: normal;
+    
     }
     
     

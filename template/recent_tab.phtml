@@ -6,8 +6,11 @@
 
                <input  class="recent_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
-            <div class="divt2">
+            <div class="divt22">
                 <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</a>
+            </div>
+             <div class="divt22">
+                <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_show_all();" >Show all</a>
             </div>
         </td>
         <td>  
@@ -143,16 +146,18 @@ if(count($violators_array)==0)
      var search_link = "index.php?tab=recent"+url_options;
      window.open(search_link, "_self");
  }
- function product_violation_show_all() {
-	  var search_link = "index.php?tab=recent";
-	  window.open(search_link, "_self");
- }
+
+
+  function recent_violation_show_all() {
+        var search_link = "index.php?tab=recent";
+        window.open(search_link, "_self");
+    }
 
 
 $('.recent-res-per-page').change(function() {
 	var limit=$(this).val();
         var url="";
-         url="index.php?tab=recent&";
+        // url="index.php?tab=recent&";
 	queryParameters['limit'] = limit;
 	location.search=url+$.param(queryParameters);
 });

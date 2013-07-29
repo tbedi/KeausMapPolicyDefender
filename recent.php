@@ -79,6 +79,7 @@ on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0
+AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) 
 and
 crawl.id = 
 (select max(crawl.id) from crawl) " . $where . " 
@@ -117,18 +118,5 @@ include_once 'template/recent_tab.phtml';
 ?>
  
 
-
-<script language="javascript" type="text/javascript">
-
-    function popitup(url) {
-        newwindow = window.open(url, 'name', 'height=200,width=150');
-        if (window.focus) {
-            newwindow.focus()
-        }
-        return false;
-    }
-
-
-</script>
 
 
