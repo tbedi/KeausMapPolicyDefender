@@ -1,5 +1,4 @@
 <?php $title="Kraus Price Defender | Create_users.php"; ?>
-<h3 align="center">Create New User</h3>
 <table align="center"  width="1000px" >
     <tr>
         <td>
@@ -8,13 +7,13 @@
 
             <form name="form1" method="post" action="insert.php">
             <table align="center">
-                <tbody>
+                <tbody align="center">
                     <tr> 
-                        <td>
+                        <td align="left">
                             Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>	
                         <td>
-                            <input type="text" name="username"  size="40"  style="padding:5px;"/>
+                            <input type="text" class="input" name="username"  size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -24,11 +23,11 @@
                     </tr>
                     <tr>
 
-                        <td>
+                        <td align="left">
                             Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="password"  size="40"  style="padding:5px;"/>
+                            <input type="text" class="input"  name="password"  size="40"  style="padding:5px;"/>
                         </td></tr>
                     <tr> 
                         <td>&nbsp;</td>	
@@ -36,11 +35,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td align="left">
                             Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="email"  size="40"  style="padding:5px;"/>
+                            <input type="text" class="input"  name="email"  size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -50,11 +49,11 @@
                     </tr>
                     <tr>
 
-                        <td>
+                        <td align="left">
                             Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="name"  size="40"  style="padding:5px;"/>
+                            <input type="text" class="input"  name="name"  size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -63,11 +62,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td align="left">
                             Role:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </td>
                         <td>
-                            <input type="text" name="role" size="40"  style="padding:5px;"/>
+                            <input type="text" class="input"  name="role" size="40"  style="padding:5px;"/>
                         </td>
                     </tr>
                     <tr> 
@@ -76,8 +75,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                    <td ><input type="submit" name="submit" value="submit" /></td>
+                    <td rowspan="2" colspan="2" align="center"><input type="submit" class="btn-login" name="submit" value="submit" /></td>
             </tr>
              
                 </tbody></table>

@@ -1,6 +1,8 @@
 <?php
+/*What is it????*/
+
 $title = "Kraus Price Defender | update_settings.php";
-session_start();
+include_once 'db_login.php';
 include_once 'db_class.php';
 include('db.php');
 $db_resource = new DB ();
@@ -76,4 +78,5 @@ if (isset($_REQUEST["Submit"])) {
             }
     }
 }
+include_once 'template/mysettings1.phtml';
 ?>

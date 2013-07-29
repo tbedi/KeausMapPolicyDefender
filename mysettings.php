@@ -4,6 +4,10 @@ include_once 'db_class.php'; //we included database class
 
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 $title = "Kraus Price Defender | User Settings";
+if(!isset($_SESSION['username'])){
+    header('Location: login.php');
+}
+else {
 ?>
 <?php include_once 'template/head.phtml'; ?>
 <body id="my-settings" >
@@ -12,14 +16,10 @@ $title = "Kraus Price Defender | User Settings";
     <div id="wrapper" align="center" >
         <div  class="main-content" align="center" >
         <div class="top-panel">
-            <span> test </span>
+            <span>User Settings</span>
         </div>
-        <div id="tabContainer" align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
-            <div id="tabscontent" align="center"> <!-- this page without tabs  -->
-                <div class="tabpage recent" id="tabpage_1"> <!-- remove tab page this page without tabs ! -->
-                    <?php include_once 'mysettings1.php'; ?>
-                </div>
-            </div> 
+        <div  align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  -->  
+                <?php include_once 'update_settings.php';} ?>
         </div>
         <div class="cleaner"></div>
     </div>

@@ -1,41 +1,43 @@
 <?php
  
-if (isset($_GET['action']) && $_GET['action']=='logout') {
-	session_destroy();// put it into if logged out condition
-	unset($_COOKIE['email']); die();
+ 
+ 
+if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+    session_start();
+    session_destroy(); // put it into if logged out condition
+    unset($_COOKIE['email']);
+    header('Location: login.php');
+    die();
+ 
 }
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
-
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 
-$e = '';
 $a = 0;
 $_SESSION['role'] = '';
- 
+
 /* Cookie check */
 if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { //optimize code
- 
-	$email=(isset($_COOKIE['email'])? $_COOKIE['email']: $_SESSION['email'] );
-	 $sql = "select * from admin_users where email='$email'";
-	$products = $db_resource->GetResultObj($sql);
-	//print_r($products);
-	if (count($products) > 0) {
-	
-		$us = $products[0]->username;	 
-		$role = $products[0]->role;
-	}
-	$_SESSION['username'] = $us;
-	$_SESSION['role'] = $role;
-	$_SESSION['email'] = $email;
-	header("Location: index.php");
-	exit();
+    $email = (isset($_COOKIE['email']) ? $_COOKIE['email'] : $_SESSION['email'] );
+    $sql = "select * from admin_users where email='$email'";
+    $products = $db_resource->GetResultObj($sql);
+    //print_r($products);
+    if (count($products) > 0) {
+
+        $us = $products[0]->username;
+        $role = $products[0]->role;
+    }
+    $_SESSION['username'] = $us;
+    $_SESSION['role'] = $role;
+    $_SESSION['email'] = $email;
+    header("Location: index.php");
+    exit();
 }
- 
+
 
 /* Cookie check */
 
- 
 if (isset($_POST['login'])) {
     //getdata
     $email = $_POST['email'];
@@ -71,8 +73,7 @@ if (isset($_POST['login'])) {
 
                 $a = 1;
             }
-        }
-        $e = $email;
+        } 
     }
 }
 
@@ -88,17 +89,15 @@ $title = "Kraus Price Defender | Login";
     <div id="wrapper" align="center">
 
         <?php
-        $sql1 = "select * from admin_users where email='$e'"; //optimize errors. you can use session for informational messages
-        $products1 = $db_resource->GetResultObj($sql1);
-        if (count($products1) === 0 && isset($_POST['email']) && $a === 0) {
-            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color="."red".">Incorrect email and password</p>" . "</div>";
+        if (count($products) === 0 && isset($_POST['email']) && $a === 0) {
+            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color=" . "red" . ">Incorrect email and password</p>" . "</div>";
         } elseif ($a === 1) {
-            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color="."red".">wrong password!!,please login again with correct password</p>" . "</div>";
+            echo " <div id=" . "log" . " align=" . "center" . ">" . "<p font color=" . "red" . ">wrong password!!,please login again with correct password</p>" . "</div>";
         }
         ?>
         <div  class="main-content" align="center" >
             <div style="margin:0px;   padding:0px" align="center"> 
-                <span align="center">Login</span>
+                <h3 align="center">Login</h3>
 
                 <form name="form" action="login.php" method="post"  >
 
