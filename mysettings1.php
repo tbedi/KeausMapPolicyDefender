@@ -12,12 +12,14 @@
             </tr>
             <tr><td>&nbsp;</td>
                 <td><input type="hidden" name="" value="" /></td></tr>
-            <tr>
-                <td style="background-color:white;font-size:14px">Username:</td>
-                <td>
-                    <input type="text" name="username"  size="40" class="input" id="username" value="<?php echo $us; ?>" autocomplete="off" style="padding:5px;"/>&nbsp; <label id="username_label" ></label>
-                </td>
-            </tr>
+            <tr> 
+                        <td align="left">
+                            Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>	
+                        <td>
+                            <input type="text" class="input" name="username" id="username"  size="40" value="<?php echo $us; ?>" autocomplete="off" style="padding:5px;"/>&nbsp; <label id="username_label" ></label>
+                        </td>
+                    </tr>
             <?php
             if ($_SESSION['role'] === 'Admin') {
                 echo "<tr>
