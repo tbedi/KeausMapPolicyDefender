@@ -48,26 +48,26 @@
                         <td>
                             Seller
                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=name&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td>
                             Total Violations 
                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=wi_count&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="wi_count" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="wi_count" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>	
 
                         <td>
                             Max Violation amount
                              <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=maxvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="maxvio" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="maxvio" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td>
                             Min Violation amount
                             <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=minvio&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="minvio" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="minvio" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                     </tr>
