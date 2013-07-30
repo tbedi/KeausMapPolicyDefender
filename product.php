@@ -1,8 +1,8 @@
 <?php
-$limit = 10;
+$limitp = 15;
 
-if (isset($_GET['limit'])) {
-	$limit=$_GET['limit'];
+if (isset($_GET['limitp'])) {
+	$limitp=$_GET['limitp'];
 } 
 
 $product_id=0;
@@ -47,7 +47,7 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
     $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limit;
+    $start = ($page - 1) * $limitp;
 } else {
     $start = 0;
     $page = 1;
@@ -73,7 +73,7 @@ cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
 		   WHERE crawl_results.violation_amount>0.05 AND website.excluded=0 
                    AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) " . $where . "
  		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
-		   ".$order_by." LIMIT $start, $limit";  
+		   ".$order_by." LIMIT $start, $limitp";  
 }
 
  else {
@@ -93,7 +93,7 @@ cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
 		   WHERE crawl_results.violation_amount>0.05 AND website.excluded=0 
                    AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
  		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
-		   ".$order_by." LIMIT $start, $limit";  
+		   ".$order_by." LIMIT $start, $limitp";  
 }
 
 
@@ -110,12 +110,12 @@ $total_pages=$total_pages[0]->total;
 $tab_name = 'violation-by-product';
 $prev = $page - 1;
 $next = $page + 1;
-$lastpage = ceil($total_pages / $limit);
+$lastpage = ceil($total_pages / $limitp);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
 //$additional_params = ""; //addtiion params to pagination url;
-$additional_params = "&limit=".$limit;
+$additional_params = "&limitp=".$limitp;
 
 
 if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table

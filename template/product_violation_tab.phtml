@@ -28,16 +28,18 @@
                 <button href="" id="1" class="btn-search" onclick="exporttop();">Export</button>
             </div>
         </td>
-        <td>
-        <div class="resultsp-per-page " style="float:left;padding-top:6px;">
-            	<select name="recent-limit" class="products-per-page dropdown"  >
-                 <option value="" selected > Limit </option>
-            		<option <?php //echo  ($limit==10) ? "selected" : "" ; ?> value="10">10</option>
-            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php //echo  ($limit==20) ? "selected" : "" ; ?>  value="20">20</option>
+            <td>
+            <div class="results-per-page" style="float:left;padding-top:6px;" >
+            	<select name="product-limitp" class="product-per-page dropdown"  >
+                    <option value="" selected > Limit </option>
+            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
+            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
+                        <option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
+            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="100">100</option>
             	</select>
             </div>
-             </td>
+    </td>
     </tr>
 
 </table>
@@ -155,11 +157,25 @@ foreach ($page_violated_products as $product) {
  }
  
  $('.products-per-page').change(function() {
-	var limit=$(this).val();
+	var limitp=$(this).val();
         var urlp="";
          urlp="index.php?tab=violation-by-product";
-	queryParameters['limit'] = limit;
+	queryParameters['limitp'] = limitp;
 	//location.search =url+$.param(queryParameters);	
         location.search=urlp+$.param(queryParameters);
 });
+
+$('.product-per-page').change(function() {
+        var limitp = $(this).val();
+        var urlp = "";
+        urlp = "tab=violation-by-product&";
+        queryParameters['limitp'] = limitp;
+        location.search = urlp + $.param(queryParameters);
+   
+      
+    });
+
+
+
+
 </script>   
