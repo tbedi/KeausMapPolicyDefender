@@ -99,13 +99,13 @@ else if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' )
     
    $sql="SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku,
+    date_format(crawl.date_executed,'%d-%m-%Y %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,
 website.name as wname, 
 format(crawl_results.vendor_price,2) as vendor_price,
 format(crawl_results.map_price,2) as map_price,
 format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url,
-crawl.date_executed
+crawl_results.website_product_url
 from website
 inner join
 crawl_results
@@ -127,13 +127,13 @@ else
 {
 $sql="SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku,
+    date_format(crawl.date_executed,'%d-%m-%Y %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,
 website.name as wname, 
 format(crawl_results.vendor_price,2) as vendor_price,
 format(crawl_results.map_price,2) as map_price,
 format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url,
-crawl.date_executed
+crawl_results.website_product_url
 from website
 inner join
 crawl_results
@@ -142,7 +142,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-where (  (crawl.date_executed between '$from' and '$to') or date_executed='$to' or date_executed='$from' )  
+where  (crawl.date_executed between '$from' and '$to' )  
 and
 crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 

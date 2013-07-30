@@ -14,6 +14,49 @@
     };
 </script>
 <div class="tab-title">Violations History</div>
+<table align="left">
+    <td>
+        <form action=" ?tab=violations-history&option=show_dates" method="post"> 
+            <div class="divt22">
+            From
+            </div>
+            <div class="divt22">
+            <input type="text" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/> 
+  </div>
+            <div class="divt22">  &NonBreakingSpace;</div>
+        <div class="divt22">
+        To
+        </div>
+           <div class="divt22">
+        <input type="text" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/>
+</div>
+            <div class="divt22">  &NonBreakingSpace;</div>
+        <div class="divt22">
+        <input type="submit" class="btn-search" name="submit" value="show" />
+        </div>
+        </form>
+
+    </td>
+</tr>
+</table>
+
+ <table>
+    <tr>
+
+        <td>
+
+            <div class=" divcc" >
+           <hr >
+                &NonBreakingSpace;
+            </div>  
+             <div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
+        </td>
+
+    </tr> 
+    </table>
+
 
 <table align="center" width="1000px"   >
     <tr>
@@ -61,51 +104,8 @@
 
     </tr>
 </table>
-    <table>
-    <tr>
+   
 
-        <td>
-
-            <div class=" divcc" >
-                ______________________________________________________________________________________________________________
-            </div>  
-             <div class=" divcc" >
-               
-            </div> 
-        </td>
-
-    </tr> 
-    </table>
-
-<table align="left">
-    <td>
-
-        <form action=" ?tab=violations-history&option=show_dates" method="post"> 
-            <div class="divt22">
-            From
-            </div>
-            <div class="divt22">
-            <input type="text" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/> 
-  </div>
-            <div class="divt22">  &NonBreakingSpace;</div>
-        <div class="divt22">
-        To
-        </div>
-           <div class="divt22">
-        <input type="text" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/>
-</div>
-            <div class="divt22">  &NonBreakingSpace;</div>
-        <div class="divt22">
-        <input type="submit" class="btn-search" name="submit" value="show" />
-        </div>
-        </form>
-
-    </td>
-</tr>
-
-
-
-</table>
 
 
 
@@ -136,13 +136,7 @@
 
             </td>	
 
-            <td>
-                Product
-                <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=pname&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
-                    <img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field == "pname" ? $direction : "asc" ); ?>_1.png" />
-                </a>
-
-            </td>
+          
             <td>
                 Seller
                 <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=wname&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
@@ -198,7 +192,6 @@
             ?>
             <tr>
                 <td><?php echo $violator->sku; ?></td>
-                <td><?php echo $violator->pname; ?></td>
                 <td><?php echo $violator->wname; ?></td>
                 <td><?php echo "$" . $violator->vendor_price; ?></td>
                 <td><?php echo "$" . $violator->map_price; ?></td>

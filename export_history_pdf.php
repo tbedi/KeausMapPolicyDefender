@@ -2,7 +2,6 @@
 require_once('export/tcpdf/tcpdf.php');
  static $html;
 class Bshree extends TCPDF {
-
     //Page header
     public function Header() {
         $html;  
@@ -12,15 +11,13 @@ class Bshree extends TCPDF {
         // Set font
         $this->SetFont('helvetica', 'B', 15);
         // Title
-        
-          if (count($this->pages) === 1) { // Do this only on the first page
+                  if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
             $html .= '
                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     Violation History 
                 ';
             }
-
             $this->writeHTML($html, true, false, false, false, '');
     }
 
