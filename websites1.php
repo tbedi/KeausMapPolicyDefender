@@ -95,7 +95,7 @@ crawl_results.website_id = website.id LIMIT $start, $limit";
 
                     <tr>
                         <td ><?php echo $row['id']; ?></td>
-                        <td ><?php echo $row['name']; ?></td> 
+                        <td ><?ph echo $row['name']; ?></td> 
                         <?php echo "<td>"."<a href =".$row['website_product_url']. ">" .$row['domain'] . "</a></td>";  ?> 
                         <td ><?php echo $row['date_created']; ?></td>
                         <td ><?php echo $row['excluded']; ?></td>

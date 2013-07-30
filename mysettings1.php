@@ -1,3 +1,9 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript"> 
+      $(document).ready( function() {
+        $('#logs').delay(2000).fadeOut();
+      });
+    </script>
 <form action="mysettings.php" method="post" name="frm" id="frm">
     <div align="center" style="font-size: 150%;">
         <table>
@@ -61,24 +67,24 @@ if (isset($_REQUEST["Submit"])) {
             $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
 
             if (!$sql) {
-                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:#9AC847" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
             } else {
-                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username is added successfully</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:#9AC847" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username is added successfully</p>" . "</div>";
             }
         } elseif (isset($user) && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
             $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");
             if (!$sql) {
-                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:#9AC847" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
             } else {
-                echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username and password successfully entered..</p>" . "</div>";
+                echo " <div id=" . "logs" . " style=" . "color:#9AC847" . " align=" . "center" . ">" . "<p font color=" . "red" . ">username and password successfully entered..</p>" . "</div>";
             }
         }
     } elseif ($_SESSION['role'] == '') {
         $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
         if (!$sql) {
-            echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
+            echo " <div id=" . "logs" . " style=" . "color:#9AC847" . " align=" . "center" . ">" . "<p font color=" . "red" . ">error</p>" . "</div>";
         } else {
-            echo " <div id=" . "logs" . " style=" . "color:white" . " align=" . "center" . ">" . "<p font color=" . "red" . ">user is added successfully</p>" . "</div>";
+            echo " <div id=" . "logs" . " style=" . "color:#9AC847" . " align=" . "center" . ">" . "<p font color=" . "red" . ">user is added successfully</p>" . "</div>";
         }
     }
 }

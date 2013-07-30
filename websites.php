@@ -12,7 +12,7 @@ else {
     <div id="wrapper" align="center" >
         <div  class="main-content" align="center" >
             <div class="top-panel">
-            <span style="font-size: 1.3em";>Websites</span>
+            <span style="font-size: 1.8em;">Websites</span>
         </div>
         <div style="margin:0px;   padding:0px" align="center">
              <div id="tabscontent" align="center">  

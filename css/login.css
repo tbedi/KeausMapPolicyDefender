@@ -100,14 +100,15 @@ label.error
 
 }
 #logs {
-    background-color: #B0D60A;
+    background-color: #ECF5DC;
     border-radius: 6px 6px 6px 6px;
     border: 2px solid  #B0D60A;
     width : 1040px;
     height: 5%;
     padding-top: 15px;
     alignment-adjust: central;
-     text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
+    font-family: Andale Mono, monospace;
+/*    text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);*/
     text-transform: capitalize;
 
 }
@@ -161,7 +162,7 @@ label.error
     font-weight: 400;
     font-size: 27px;
     color: #9AC847;
-    font-family: freightsans-prolight, Helvetica, Arial,sans-serif;
+    font-family: Andale Mono, monospace;
 }		
 	
 

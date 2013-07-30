@@ -1,4 +1,9 @@
  <?php 
+// if(!isset($email))
+// {
+//     $_SESSION['error_code'] == err1;
+//     header("Location: login.php");
+// }
 /*configuration*/
 setlocale(LC_MONETARY, 'en_US');
 include_once 'db.php';

@@ -15,10 +15,11 @@ if (!isset($_SESSION['username'])) {
         <div id="wrapper" align="center" >
             <div  class="main-content" align="center" >
                 <div class="top-panel">
-                    <span style="font-size: 1.4em;">User Settings</span>
+                    <span style="font-size: 1.8em;">User Settings</span>
                 </div>
                 <div  align="center" ><!-- onclick="tableSearch.init()" onmousemove="tableSearch.init()"  --> 
                     <div id="tabscontent" align="center">  
+                        
                     <?php include_once 'mysettings1.php';
                 }
                 ?>

@@ -1,3 +1,9 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript"> 
+      $(document).ready( function() {
+        $('#log').delay(2000).fadeOut();
+      });
+    </script>
 <?php
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     session_start();
@@ -81,8 +87,7 @@ $title = "Kraus Price Defender | Login";
 
     <?php include_once 'template/header.phtml'; ?>  
     <div id="wrapper" align="center">
-
-        <?php
+    <?php
         if (count($products) === 0 && isset($_POST['email']) && $a === 0) {
             echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">Incorrect email and password</p>" . "</div>";
         } elseif ($a === 1) {
