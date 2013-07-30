@@ -27,7 +27,7 @@ if (isset($_GET['page'])) {
         <td >
             <div class="divt1">
 
-               <input  class="recent_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) == 'recent') echo $_GET['value'];  ?>"  id="textBoxSearch"    /> 
+               <input  class="recent_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action'])&& $_GET['action'] == 'search') echo $_GET['value'];  ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt2">
                 <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</a>
@@ -196,13 +196,17 @@ crawl_results.website_id = website.id LIMIT $start, $limit";
          url_options += "&action=search&field=" + field + "&value=" + value;
      }
 
-     var search_link = "websites.php?tab=recent"+url_options;
+      var search_link = "websites.php?tab=recent"+url_options;
      window.open(search_link, "_self");
+ }
+ function product_violation_show_all() {
+	  var search_link = "websites.php?tab=recent";
+	  window.open(search_link, "_self");
  }
  $('.recent-res-per-page').change(function() {
 	var limit=$(this).val();
         var url="";
-         url="websites.php";
+         url="websites.php?tab=recent";
 	queryParameters['limit'] = limit;
 	location.search=url+$.param(queryParameters);
 });
