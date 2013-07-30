@@ -25,8 +25,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value'
 
 /*where*/
 
-
-
 /* sorting */
 if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="recent"  ) {  
 	$direction =$_GET['dir'];

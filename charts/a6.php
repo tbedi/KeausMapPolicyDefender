@@ -11,7 +11,7 @@ where
 violation_amount > 0.05 
 and sites.excluded = 0 
 group by crawl.date_executed
-order by crawl.date_executed  limit " . $limit;
+order by crawl.date_executed desc limit 0," . $limit;
 $result = mysql_query($sql);
 
 

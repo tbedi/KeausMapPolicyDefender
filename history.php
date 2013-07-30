@@ -64,29 +64,15 @@ if ( isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET[
 	$to = $_SESSION['t'];
 	$from =$_SESSION['fr'];
 } else {
-	 $to= date("Y-m-d");
-         $from= date('Y-m-d',strtotime("-1 days"));
-	$_SESSION['t'] = date("Y-m-d");
-	$_SESSION['fr'] = date('Y-m-d',strtotime("-1 days"));
+	 $to= date("d-m-Y");
+         $from= date('d-m-Y',strtotime("-1 days"));
+	$_SESSION['t'] = date("d-m-Y");
+	$_SESSION['fr'] = date('d-m-Y',strtotime("-1 days"));
 }        
 /* calender dates */
 
 
-//if (isset($_GET['action']) && $_GET['action'] == 'searchh' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-/*
-if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
-	 
-	$to = $_POST["to"];
-	$from = $_POST["from"];
-	
-}
-else if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' )
-{
-    $to= date("Y-m-d");
-    $from= date('Y-m-d',strtotime("-1 days"));
-   
-}
-  */ 
+
 
                    if( $to==NULL or $from==NULL or $from > $to )
                        {
@@ -96,15 +82,14 @@ else if (isset($_GET['tab']) && $_GET['tab'] == 'violations-history' )
                 if( $to == $from) 
 {
     $from=$to;
-    
-   $sql="SELECT SQL_CALC_FOUND_ROWS  
+    $sql="SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku,
     date_format(crawl.date_executed,'%d-%m-%Y %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,
 website.name as wname, 
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
+cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
+cast(crawl_results.map_price as decimal(10,2)) as map_price,
+cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
 crawl_results.website_product_url
 from website
 inner join
@@ -114,7 +99,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-where date_format(date_executed, '%d-%m-%Y' )='$from'   
+where date_format(date_executed, '%Y-%m-%d' )='$from'   
 and
 crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 
@@ -130,9 +115,9 @@ $sql="SELECT SQL_CALC_FOUND_ROWS
     date_format(crawl.date_executed,'%d-%m-%Y %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,
 website.name as wname, 
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
+cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
+cast(crawl_results.map_price as decimal(10,2)) as map_price,
+cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
 crawl_results.website_product_url
 from website
 inner join
