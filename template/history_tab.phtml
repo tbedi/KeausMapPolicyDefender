@@ -22,10 +22,10 @@
                 <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchh" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    /> 
             </div>
             <div class="divt22">
-                <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_search();">Search</a>
+                <button href="javascript:void(0);" class="btn-search"  onclick="history_violation_search();">Search</button>
             </div>
             <div class="divt22">
-                <a href="javascript:void(0);" class="btn-search"  onclick="history_violation_show_all();" >Show all</a>
+                <button href="javascript:void(0);" class="btn-search"  onclick="history_violation_show_all();" >Show all</button>
             </div>
         </td>
 
@@ -41,7 +41,7 @@
                 </select>
             </div>
             <div class="divt22">
-                <a href="" id="1" class="btn-search" onclick="exporttoh();">Export</a>
+                <button href="" id="1" class="btn-search" onclick="exporttoh();">Export</button>
             </div>
         </td>
 
@@ -77,7 +77,7 @@
     </tr> 
     </table>
 
-<table>
+<table align="left">
     <td>
 
         <form action=" ?tab=violations-history&option=show_dates" method="post"> 
@@ -87,13 +87,14 @@
             <div class="divt22">
             <input type="text" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/> 
   </div>
-   
+            <div class="divt22">  &NonBreakingSpace;</div>
         <div class="divt22">
         To
         </div>
            <div class="divt22">
         <input type="text" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(img/cal2.png) right no-repeat; padding-right: 10px;"/>
 </div>
+            <div class="divt22">  &NonBreakingSpace;</div>
         <div class="divt22">
         <input type="submit" class="btn-search" name="submit" value="show" />
         </div>

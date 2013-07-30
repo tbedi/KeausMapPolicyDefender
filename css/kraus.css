@@ -35,7 +35,7 @@
     background-repeat: repeat-x;
     border-radius: 6px 6px 6px 6px;
     hight:18px;
-    width: 321px;
+    width: 90px;
     padding:6px;
     cursor: pointer;
     font-size: 18px;
@@ -91,6 +91,18 @@
 .divt23 {
 	padding-right: 20px;
 	padding-left: 20px;
+}
+
+.divt222{
+    padding-right: 23px;
+	padding-left: 20px;
+    
+}
+
+.divt224{
+    padding-right: 20px;
+	padding-left: 23px;
+    
 }
 
 .cleaner1 {

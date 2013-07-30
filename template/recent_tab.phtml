@@ -7,10 +7,10 @@
                <input  class="recent_violation_search search" placeholder="Enter SKU ..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt22">
-                <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</a>
+                <button href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</button>
             </div>
              <div class="divt22">
-                <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_show_all();" >Show all</a>
+                 <button href="javascript:void(0);" class="btn-search"  onclick="recent_violation_show_all();" >Show all</button>
             </div>
         </td>
         <td>  
@@ -28,7 +28,7 @@
                        </div>
             
             <div class="divt2" style="float:left;width: 100px;" >
-                <a href="" id="1" class="btn-search" onclick="exportr();">Export</a>
+                <button href="" id="1" class="btn-search" onclick="exportr();">Export</button>
             </div>
         </td>
         <td>

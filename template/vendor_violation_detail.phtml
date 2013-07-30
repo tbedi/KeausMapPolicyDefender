@@ -8,8 +8,9 @@
 <input  class="vendor-violation-search2 search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"  id="textBoxSearch" onkeyup="tableSearch.search(event);"   /> 
 </div>
             <div class="divt2">
-                <a href="javascript:void(0);" class="btn-search"  onclick="vendor_violation_search2();">Search</a>
+                <button href="javascript:void(0);" class="btn-search"  onclick="vendor_violation_search2();">Search</button>
             </div>
+           
         </td>
         <td> 
             <div class="divt1">
@@ -24,7 +25,7 @@
                 </select>
             </div>
             <div class="divt2">
-                <a href="" id="1" class="btn-search" onclick="exporttov2();">Export</a>
+                <button href="" id="1" class="btn-search" onclick="exporttov2();">Export</button>
             </div>
     </td>
 </tr>
