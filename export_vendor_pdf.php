@@ -148,10 +148,10 @@ table.border{background:#e0eaee;margin:1px auto;padding:8px;}
          <table class="border1"> 
     <tr>
     
-         <td>Seller </td>    
-         <td>Violation Count</td>    
-         <td>Max Violation</td>    
-         <td>Min Violation</td>    
+         <td style="width:280px">Seller </td>    
+         <td style="width:95px">Violation Count</td>    
+         <td style="width:95px">Max Violation</td>    
+         <td style="width:95px">Min Violation</td>    
        
    </tr>     
          </table>
@@ -162,10 +162,10 @@ while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
 	 
 	<tr>
-            <td>{$row['wname']}</td>
-            <td>{$row['wi_count']}</td>
-            <td> $ {$row['maxvio']}</td>
-            <td> $ {$row['minvio']}</td>
+            <td style="width:280px">{$row['wname']}</td>
+            <td style="width:95px">{$row['wi_count']}</td>
+            <td style="width:95px"> $ {$row['maxvio']}</td>
+            <td style="width:95px"> $ {$row['minvio']}</td>
             
            
                 

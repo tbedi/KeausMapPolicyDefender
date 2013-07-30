@@ -20,7 +20,7 @@ catalog_product_flat_1.sku,
 format(crawl_results.vendor_price,2) as vendor_price,
 format(crawl_results.map_price,2) as map_price,
 format(crawl_results.violation_amount,2) as violation_amount,
-website_id,
+website_id,  website.name as wname,
 crawl_results.website_product_url
 from crawl_results
 inner join

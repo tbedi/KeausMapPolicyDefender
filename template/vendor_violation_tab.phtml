@@ -87,7 +87,7 @@ if(count($page_violated_seller)==0)
 }
 foreach ($page_violated_seller as $vendor) { 
 
-	$vendor_link = "?tab=violation-by-seller&website_id=" .$vendor->website_id;
+	$vendor_link = "?tab=violation-by-seller&website_id=" .$vendor->website_id."&wname=" .$vendor->name;
 	if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
 		$vendor_link.="&page=" . $_GET['page'];
 	}

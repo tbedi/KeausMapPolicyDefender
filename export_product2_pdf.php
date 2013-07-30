@@ -16,14 +16,15 @@ public $html;
         // Title
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
-               $product_id = $_REQUEST['product_id'];
+               
+                $sku = $_REQUEST['sku'];
                $html .= '
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                    Vendors Violated by '.$product_id.'
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                    Vendors Violated by '.$sku.'
                 ';            
             }
 
-            $this->writeHTML($html.'-', true, false, false, false, '');
+            $this->writeHTML($html.'', true, false, false, false, '');
             
                        
 
@@ -157,21 +158,21 @@ $result = mysql_query($query1);
 	
          <style type="text/css">
 
-table.border{background:#e0eaee;margin:1px auto;padding:8px;}
+table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          table.border td{padding:10px;border:1px solid 87B5F1;text-align:center;}
       
-        table.border1 {background:#e0eaee;margin:1px auto;padding:8px;}
-         table.border1 td{padding:20px;border:1px solid 87B5F1;text-align:center;
+        table.border1 {background:#e0eaee;margin:1px auto;padding:4px;}
+         table.border1 td{padding:10px;border:1px solid 87B5F1;text-align:center;
                          background-color:#eee;}
 </style>  
         
       <table class="border1"> 
     <tr>
    
-         <td>Seller </td>    
-         <td>Vendor Price</td>    
-         <td>Map Price</td>    
-         <td>Violation Amount</td>    
+         <td style="width:250px">Seller </td>    
+         <td style="width:85px">Vendor Price</td>    
+         <td style="width:85px">Map Price</td>    
+         <td style="width:85px">Violation Amount</td>    
         </tr>  
             </table>
          <table class="border">
@@ -180,10 +181,10 @@ while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
 	 
 	<tr>
-            <td>{$row['vendor']}</td>
-            <td> $ {$row['vendor_price']}</td>
-            <td> $ {$row['map_price']}</td>
-            <td> $ {$row['violation_amount']}</td>
+            <td style="width:250px">{$row['vendor']}</td>
+            <td style="width:85px"> $ {$row['vendor_price']}</td>
+            <td style="width:85px"> $ {$row['map_price']}</td>
+            <td style="width:85px"> $ {$row['violation_amount']}</td>
         
            
                 

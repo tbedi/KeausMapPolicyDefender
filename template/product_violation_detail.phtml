@@ -84,7 +84,7 @@ if(count($violators_array)==0)
     <td><a href="index.php?tab=violation-by-seller&action=searchfirstv&field=website.id&value=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
 	<td><?php echo "$".$violator->vendor_price; ?></td>
 	<td><?php echo "$".$violator->map_price; ?></td>
-       <!-- <td><?php //echo money_format('$%i',$violator->map_price); ?></td> -->
+     
 	<td id="<?php echo $cell_id; ?>"><?php echo "$".$violator->violation_amount; ?></td>
 				
 </tr>				
@@ -118,6 +118,7 @@ function exporttop2(){
                                 
 	if (url_options.length)
 		url_options='?'+url_options;
+       
                         		
 	if (mode)                                    
 		open("export_product2_" + mode + ".php"+url_options);

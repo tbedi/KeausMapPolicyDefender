@@ -96,7 +96,7 @@ if(count($page_violated_products)==0)
 
 foreach ($page_violated_products as $product) { 
 
-	$product_link = "?tab=violation-by-product&product_id=" .$product->product_id;
+	$product_link = "?tab=violation-by-product&product_id=" .$product->product_id."&sku=".$product->sku;
 	if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
 		$product_link.="&page=" . $_GET['page'];
 	}

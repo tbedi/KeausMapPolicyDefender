@@ -1,12 +1,18 @@
 <?php
 
 require_once('export/tcpdf/tcpdf.php');
-
+static $str=0;
 class Bshree extends TCPDF {
 
     //Page header
     public function Header() {
         // Logo
+        $sql = "select max(DATE_FORMAT(crawl.date_executed, '%d %b %Y')) as maxd
+                 from crawl;";
+        $result = mysql_query($sql);
+        while ($row = mysql_fetch_assoc($result)) {
+            $str = $row['maxd'];
+        }
         $image_file = 'images/Kraus-Logo-HQ.png';
 
         // Set font
@@ -15,9 +21,8 @@ class Bshree extends TCPDF {
         if (count($this->pages) === 1) { // Do this only on the first page
             $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
             $html .= '
-           
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Recent Violations 
+                    Recent Violations '.$str.'
                 ';
         }
 
