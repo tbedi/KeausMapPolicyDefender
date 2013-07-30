@@ -77,12 +77,11 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 },
                 labels: {
                     formatter: function() {
-                       // return '$' + Highcharts.numberFormat(this.value / 1000, 0) + 'k ';
+                    
                         return '$' + Highcharts.numberFormat(this.value / 1, 0) ;                
     }
                 },
-               // minTickInterval: 5000,
-               // minorTickInterval: 5000,
+            
             },
             tooltip: {
                 formatter: function() {
