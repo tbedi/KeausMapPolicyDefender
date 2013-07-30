@@ -157,7 +157,7 @@ if(count($violators_array)==0)
 $('.recent-res-per-page').change(function() {
 	var limit=$(this).val();
         var url="";
-        // url="index.php?tab=recent&";
+         url="tab=recent&";
 	queryParameters['limit'] = limit;
 	location.search=url+$.param(queryParameters);
 });

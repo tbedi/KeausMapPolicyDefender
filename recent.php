@@ -6,9 +6,10 @@ while ($row = mysql_fetch_assoc($result)) {
     $str = $row['maxd'];
 } 
 
+ 
 
 $limit = 15;
-
+$_SESSION['limit'] = $limit;
 if (isset($_GET['limit'])) {
 	$limit=$_GET['limit'];
 } 
@@ -21,8 +22,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value'
     $value = strtolower($_GET['value']);
     $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
 }
-
-
 /*where*/
 
 /* sorting */
@@ -42,7 +41,6 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 }
 
 $order_by = "order by " . $order_field . " " . $direction . " ";
-
 /* sorting */
 
 /* Pagination */

@@ -1,8 +1,10 @@
 <?php
 
 include('db.php');
-
+//$limit = $_SESSION['limit'];
 $dbTable = "";
+$limit=15;
+/*
 $sql = "select catalog_product_flat_1.sku,
 website.name as wname, 
 crawl_results.vendor_price,
@@ -25,6 +27,32 @@ and
 crawl.id = 
 (select max(crawl.id) from crawl)
 order by sku asc";
+*/
+
+
+$sql = "select catalog_product_flat_1.sku,
+website.name as wname, 
+crawl_results.vendor_price,
+crawl_results.map_price,
+crawl_results.violation_amount,
+crawl_results.website_product_url
+from website
+inner join
+prices.crawl_results
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join
+crawl 
+on crawl.id=crawl_results.crawl_id
+where crawl_results.violation_amount>0.05 
+and
+website.excluded = 0
+and
+crawl.id = 
+(select max(crawl.id) from crawl) 
+order by sku asc LIMIT 0, $limit";
+
 
 $result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
 
