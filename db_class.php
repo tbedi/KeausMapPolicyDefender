@@ -102,7 +102,11 @@ class DB {
 			$last_insert_id=$this->InsertObj($table,$uniq_objects);
  
 		return  $last_insert_id;
-	} 
+	}
+
+	public function ExecSql($sql){
+		$this->db_handle->query($sql) or die(mysql_error());	
+	}
 	
 }
 
