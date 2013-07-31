@@ -10,10 +10,15 @@ else {
 <body id="websites-page" >
 <?php include_once 'template/header.phtml'; ?>    
     <div id="wrapper" align="center" >
+        <?php
+        //echo $_SESSION['a'];
+        if(isset($_SESSION['a']) && $_SESSION['a'] === '1')
+              echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">Website is updated successfully</div>";
+                 elseif(isset($_SESSION['a']) && $_SESSION['a'] === '0')   echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">User failed</div>";
+                 
+             ?>
         <div  class="main-content" align="center" >
-            <div class="top-panel">
-            <span style="font-size: 1.8em;">Websites</span>
-        </div>
+            <div class="top-panel">Websites</div>
         <div style="margin:0px;   padding:0px" align="center">
              <div id="tabscontent" align="center">  
              <?php include_once 'websites1.php';} ?>
@@ -29,4 +34,11 @@ else {
     <?php include_once 'template/footer.phtml'; ?> 
 
 </body>
-</html>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('#logs').delay(2000).fadeOut();
+        });
+</script>
+

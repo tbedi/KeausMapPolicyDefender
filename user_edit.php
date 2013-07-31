@@ -8,9 +8,7 @@ $title = "Kraus Price Defender | user_edit.php";
     <div id="wrapper" align="center" >
         <div class="main-content" align="center" >
             <div style="margin:0px;   padding:0px" align="center"> 
-                <div class="top-panel">
-                    <span style="font-size: 1.8em;">Edit User</span>
-                </div>
+                <div class="top-panel">Edit User</div>
                 <div id="tabscontent" align="center">
                     <div class="tabpage recent" id="tabpage_1">
                         <form id="test" action="update_user.php" method="POST"> 
@@ -35,6 +33,11 @@ $title = "Kraus Price Defender | user_edit.php";
                                                 <input type="text" class="input" name="username" Value="<?php echo $row['username']; ?>"  size="40"  style="padding:5px;"/>
                                             </td>
                                         </tr>
+                                        <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
                                         <tr>
 
                                             <td align="left">
@@ -43,6 +46,11 @@ $title = "Kraus Price Defender | user_edit.php";
                                             <td>
                                                 <input type="text" class="input"  name="email" value="<?php echo $row['email']; ?>"  size="40"  style="padding:5px;"/>
                                             </td></tr>
+                                        <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
                                         <tr>
 
                                             <td align="left">
@@ -52,6 +60,11 @@ $title = "Kraus Price Defender | user_edit.php";
                                                 <input type="text" class="input"  name="name" value="<?php echo $row['name']; ?>"  size="40"  style="padding:5px;"/>
                                             </td>
                                         </tr>
+                                        <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
                                         <tr>
                                             <td align="left">
                                                 Role:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -62,10 +75,15 @@ $title = "Kraus Price Defender | user_edit.php";
                                         </tr>
                                     <input type="hidden" name="user_id" value=" <?php echo $row['user_id']; ?> " style="padding:5px;"/>      
                                     <tr><td>&nbsp;</td>
-                                        <td><input type="hidden" name="" value="" /></td></tr>             
+                                        <td><input type="hidden" name="" value="" /></td></tr> 
+                                    <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td rowspan="5" colspan="5" align="center">
-                                            <div><a  href="javascript:()" onclick="document.getElementById('test').submit();" class="btn-login" title="Saving" rel="1" > submit</a> &nbsp;<a  href="users.php" class="btn-login" type="reset" >Cancel</a></div>
+                                            <div><button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<button  href="users.php" class="butl" type="reset" >Cancel</button></div>
                                         </td>
                                     </tr>         
 

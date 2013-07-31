@@ -211,12 +211,13 @@
 #tabContainer {padding-left:10px;padding-top:15px;}	
 /*Content*/
 /*Single page*/
-.top-panel {  background: none repeat scroll 0 0 #ECF5DC;
+/*.top-panel {  background: none repeat scroll 0 0 #ECF5DC;
     border-radius: 10px 10px 0 0;
     color: #A6CF00;
     font-size: 14px;
     text-align: center;
     text-transform: uppercase;
+    font-family: freightsans_prolight, Helvetica, Arial, sans-serif;
     word-spacing: 2px;}
 .top-panel span {  display: block;
     padding: 8px; 
@@ -224,7 +225,7 @@
     font-size: 27px;
     color: #9AC847;
 font-family: freightsans-prolight, Helvetica, Arial,sans-serif;
-}		
+}		*/
 	
 /* Single page*/
 /* Tab Page */

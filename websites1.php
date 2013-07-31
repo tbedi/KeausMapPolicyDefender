@@ -66,16 +66,14 @@ if (isset($_GET['page'])) {
  <?php
             // Get page data
 $query1 = "SELECT
-crawl_results.website_product_url,
 website.id,
 website.name,
 website.domain,
 website.date_created,
 website.excluded
 from
-crawl_results inner join website
-on
-crawl_results.website_id = website.id LIMIT $start, $limit";
+website
+LIMIT $start, $limit";
             $result = mysql_query($query1);
 
             // Initial page num setup
@@ -96,7 +94,7 @@ crawl_results.website_id = website.id LIMIT $start, $limit";
                     <tr>
                         <td ><?php echo $row['id']; ?></td>
                         <td ><?php echo $row['name']; ?></td> 
-                        <?php echo "<td>"."<a href =".$row['website_product_url']. ">" .$row['domain'] . "</a></td>";  ?> 
+                        <?php echo "<td>"."<a href ="."http://www.".$row['domain']. ">" .$row['domain'] . "</a></td>";  ?> 
                         <td ><?php echo $row['date_created']; ?></td>
                         <td ><?php echo $row['excluded']; ?></td>
                         <td ><a href="website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>

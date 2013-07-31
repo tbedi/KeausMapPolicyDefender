@@ -15,7 +15,6 @@ if (!$result) {
 } else {
     ?>
     <script>
-        window.alert('user Deleted successfully...')
         window.location.href = 'users.php';</script>
     <?php
 

@@ -1,9 +1,5 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript"> 
-      $(document).ready( function() {
-        $('#log').delay(2000).fadeOut();
-      });
-    </script>
+    
 <?php
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     session_start();
@@ -16,7 +12,7 @@ include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 
-$a = 0;
+$_session['a'] = '0';
 $_SESSION['role'] = '';
 
 /* Cookie check */
@@ -73,7 +69,7 @@ if (isset($_POST['login'])) {
             }
             else {
 
-                $a = 1;
+                $_session['a'] = '1';
             }
         }
     }
@@ -87,17 +83,19 @@ $title = "Kraus Price Defender | Login";
 
     <?php include_once 'template/header.phtml'; ?>  
     <div id="wrapper" align="center">
+
     <?php
-        if (count($products) === 0 && isset($_POST['email']) && $a === 0) {
-            echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">Incorrect email and password</p>" . "</div>";
-        } elseif ($a === 1) {
-            echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">wrong password!!,please login again with correct password</p>" . "</div>";
-        }
+
+        if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' ) {
+        echo " <div class=" . "log" . " style=" . "color:#f40f0f" . " align=" . "left" . ">" . "<p font color=" . "red" . ">Please Register..</div>";
+       } elseif ($_session['a']=== '1') {
+       echo " <div class=" . "log" . " style=" . "color:#f40f0f" . " align=" . "left" . " >Wrong password!!,Please login again with correct password</div>";
+       }
         ?>
         <div  class="main-content" align="center" >
             <div style="margin:0px;   padding:0px" align="center"> 
                 <div class="top-panel">
-                    <span style="font-size: 1.8em;">Login</span>
+                   Login
                 </div>
                 <div id="tabscontent" align="center">  
                 <form name="form" action="login.php" method="post"  >
