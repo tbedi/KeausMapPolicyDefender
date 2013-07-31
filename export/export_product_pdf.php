@@ -1,7 +1,12 @@
 <?php 
 require_once('/tcpdf/tcpdf.php');
+session_start();
 
-
+$violators_array=$_SESSION['productArray'];
+if(isset($_SESSION['productArray']))
+{
+     //  print_r($violators_array);
+}
 class Bshree extends TCPDF {
 
     //Page header
@@ -115,34 +120,10 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 	$start = 0;
 	$page = 1;
 }
-$query1 = "SELECT distinct 
-catalog_product_flat_1.sku,
-catalog_product_flat_1.entity_id as product_id,
-catalog_product_flat_1.name,
-format(crawl_results.vendor_price,2) as vendor_price ,
-format(crawl_results.map_price,2)as map_price,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
-count(crawl_results.product_id) as i_count
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id 
-where crawl_results.violation_amount>0.05
 
- and 
-crawl.id = 
-(select max(crawl.id) from crawl) 
-group by prices.catalog_product_flat_1.sku,
-prices.catalog_product_flat_1.name
-order by maxvio desc LIMIT $start, $limit";
-
-$result = mysql_query($query1);
- $html=<<<EOD
+ 
+  $html=<<<EOD
+ 
 
          
          <style type="text/css">
@@ -166,20 +147,17 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          </table>
          <table class="border"> 
 EOD;
-while ($row = mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ){
 	$html.=<<<EOD
 	 
 	<tr>
-            <td style="width:260px">{$row['sku']}</td>
-            <td style="width:90px"> $ {$row['map_price']}</td>
-            <td style="width:75px">{$row['i_count']}</td>
-            <td style="width:90px"> $ {$row['maxvio']}</td>
-            <td style="width:90px"> $ {$row['minvio']}</td>
-            
-           
-                
-   </tr>
-	  
+            <td style="width:260px">{$violators_array->sku}</td>
+            <td style="width:90px"> $ {$violators_array->map_price}</td>
+            <td style="width:75px">{$violators_array->i_count}</td>
+            <td style="width:90px"> $ {$violators_array->maxvio}</td>
+            <td style="width:90px"> $ {$violators_array->minvio}</td>
+       </tr>
+	
 EOD;
 }
 $html.=<<<EOD

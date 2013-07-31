@@ -1,28 +1,16 @@
 <?php
 
-include('db.php');
-$product_id = $_REQUEST['product_id'];
-$dbTable = "";
-$sql = "SELECT  distinct w.`name` as vendor , crawl.id,
-    format(r.violation_amount,2) as violation_amount,
-    format( r.vendor_price,2) as vendor_price,
-    format(r.map_price,2) as map_price,
-    r.website_product_url
-    FROM crawl_results  r
-    INNER JOIN website w
-    ON r.website_id=w.id
-    INNER JOIN catalog_product_flat_1 p
-    ON p.entity_id=r.product_id
-    AND p.entity_id='" . $product_id . "'
-        inner join crawl
-on crawl.id=r.crawl_id
-    WHERE crawl.id = 
-(select max(crawl.id) from crawl) 
-		    AND r.violation_amount>0.05
-                    and w.excluded=0
-		    ORDER BY r.violation_amount DESC";
 
-$result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
+$product_id = $_REQUEST['product_id'];
+session_start();
+$violators_array=$_SESSION['product2Array'];
+
+if(isset($_SESSION['product2Array']))
+{
+    //   print_r($violators_array);
+}
+
+
 
 
 $filename="Vendors_Violated-".$product_id."-".date('d-m-y').".csv";
@@ -45,9 +33,9 @@ $arr_columns = array(
 );
 $arr_data = array();
 
-while ($row=  mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ){
     //print_r($row);die();
-$arr_data_row = array($row['vendor'],$row['vendor_price'],$row['map_price'],$row['violation_amount']) ;
+$arr_data_row = array($violators_array->vendor,$violators_array->vendor_price,$violators_array->map_price,$violators_array->violation_amount);
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

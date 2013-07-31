@@ -1,6 +1,11 @@
 <?php 
 require_once('tcpdf/tcpdf.php');
-
+session_start();
+$violators_array=$_SESSION['vendorArray'];
+if(isset($_SESSION['vendorArray']))
+{
+      // print_r($violators_array);
+}
 
 class Bshree extends TCPDF {
 
@@ -111,28 +116,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 	$start = 0;
 	$page = 1;
 }
-$query1 = "select website.name as wname,
-crawl_results.website_id,
-format(max(crawl_results.violation_amount),2) as maxvio,
-format(min(crawl_results.violation_amount),2) as minvio,
-count(crawl_results.website_id) as wi_count
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-group by website.name , crawl_results.website_id
-order by crawl_results.website_id desc";
 
-$result = mysql_query($query1);
  $html=<<<EOD
  
          <style type="text/css"> 
@@ -158,14 +142,14 @@ table.border{background:#e0eaee;margin:1px auto;padding:8px;}
          <table class="border">
          
 EOD;
-while ($row = mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ) {
 	$html.=<<<EOD
 	 
 	<tr>
-            <td style="width:280px">{$row['wname']}</td>
-            <td style="width:95px">{$row['wi_count']}</td>
-            <td style="width:95px"> $ {$row['maxvio']}</td>
-            <td style="width:95px"> $ {$row['minvio']}</td>
+            <td style="width:280px">{$violators_array->name}</td>
+            <td style="width:95px">{$violators_array->wi_count}</td>
+            <td style="width:95px"> $ {$violators_array->maxvio}</td>
+            <td style="width:95px"> $ {$violators_array->minvio}</td>
             
            
                 

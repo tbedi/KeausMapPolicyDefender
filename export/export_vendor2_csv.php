@@ -1,29 +1,13 @@
 <?php
+session_start();
+$violators_array=$_SESSION['vendor2Array'];
+if(isset($_SESSION['vendor2Array']))
+{
+      // print_r($violators_array);
+}
+ $web_name = $_REQUEST['wname'];
 
-include('db.php');
-$web_id = $_REQUEST['website_id'];
-$dbTable = "";
-$sql = "select distinct 
-catalog_product_flat_1.sku,
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url
-from crawl_results
-inner join
-website
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded = 0
-and crawl_results.website_id = $web_id
-order by violation_amount desc";
-
-$result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
-
-$filename="Products_Violated_By-".$web_id."-".date('d-m-y').".csv";
+$filename="Products_Violated_By-".$web_name."-".date('d-m-y').".csv";
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
@@ -41,9 +25,9 @@ $arr_columns = array(
 );
 $arr_data = array();
 
-while ($row=  mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ) {
     //print_r($row);die();
-$arr_data_row = array($row['sku'],$row['vendor_price'],$row['map_price'],$row['violation_amount']) ;
+$arr_data_row = array($violators_array->sku,$violators_array->vendor_price,$violators_array->map_price,$violators_array->violation_amount);
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

@@ -34,6 +34,20 @@
                 <button href="" id="1" class="btn-search" onclick="exporttop2();">Export</button>
             </div>
     </td>
+    
+    
+     <td>
+            <div class="results-per-page" style="float:left;padding-top:6px;" >
+                <select name="product2-limitp2" class="product2-per-page dropdown"  >
+                    <option value="" selected > Limit </option>
+                    <option <?php // echo  ($limit==10) ? "selected" : "" ;   ?> value="15">15</option>
+                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;   ?> value="25">25</option>
+                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;   ?>  value="50">50</option>
+                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;   ?> value="75">75</option>
+                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;   ?>  value="100">100</option>
+                </select>
+            </div>
+        </td>
 </tr>
 </table>
 <!-- table part -->
@@ -141,4 +155,17 @@ function exporttop2(){
 	if (mode)                                    
 		open("export/export_product2_" + mode + ".php"+url_options);
 }
+
+
+$('.product2-per-page').change(function() {
+        
+      
+        var limitp2 = $(this).val();
+        var urlp2 = "";
+        urlp2 = "&grid=vproduct_2";
+        queryParameters['limitp2'] = limitp2;
+        location.search =  $.param(queryParameters)+urlp2;
+
+          
+    });
 </script>

@@ -1,6 +1,7 @@
 <?php
 $limitp = 15;
 
+$_SESSION['limitp'] = $limitp;
 if (isset($_GET['limitp'])) {
 	$limitp=$_GET['limitp'];
 } 
@@ -99,6 +100,14 @@ cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
 
 
 $page_violated_products=$db_resource->GetResultObj($sql);
+
+$_SESSION['productArray']=$page_violated_products;
+if(isset($_SESSION['productArray']))
+{
+   // print_r($_SESSION['recentArray']); 
+  
+}
+
 
 //$result = mysql_query($query1);
 

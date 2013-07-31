@@ -36,7 +36,7 @@
         </td>
         <td>
             <div class="results-per-page" style="float:left;padding-top:6px;" >
-                <select name="vendor2-limitv" class="vendor2-per-page dropdown"  >
+                <select name="vendor2-limitv2" class="vendor2-per-page dropdown"  >
                     <option value="" selected > Limit </option>
                     <option <?php // echo  ($limit==10) ? "selected" : "" ;   ?> value="15">15</option>
                     <option  <?php //echo  ($limit==15) ? "selected" : "" ;   ?> value="25">25</option>
@@ -155,9 +155,9 @@
       
         var limitv2 = $(this).val();
         var urlv2 = "";
-        urlv2 = "&grid=vvendor_2";
+      //  urlv2 = "&grid=vvendor_2";
         queryParameters['limitv2'] = limitv2;
-        location.search =  $.param(queryParameters)+urlv2;
+        location.search =  $.param(queryParameters);
 
           
     });

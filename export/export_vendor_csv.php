@@ -1,31 +1,14 @@
 <?php
 
-include('db.php');
+session_start();
+$violators_array=$_SESSION['vendorArray'];
+if(isset($_SESSION['vendorArray']))
+{
+      // print_r($violators_array);
+}
 
-$dbTable = "";
-$sql = "select website.name as wname,
-crawl_results.website_id,
-format(max(crawl_results.violation_amount),2) as maxvio,
-format(min(crawl_results.violation_amount),2) as minvio,
-count(crawl_results.website_id) as wi_count
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-group by website.name , crawl_results.website_id
-order by crawl_results.website_id desc";
 
-$result = mysql_query($sql) or die("Couldn't execute query:<br>" . mysql_error() . '<br>' . mysql_errno());
-$filename="PVendor_Violations-".date('d-m-y').".csv";
+$filename="Vendor_Violations-".date('d-m-y').".csv";
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
@@ -42,9 +25,9 @@ $arr_columns = array(
 );
 $arr_data = array();
 
-while ($row=  mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ) {
     //print_r($row);die();
-$arr_data_row = array($row['wname'],$row['wi_count'],$row['maxvio'],$row['minvio']) ;
+$arr_data_row = array($violators_array->name,$violators_array->wi_count,$violators_array->maxvio,$violators_array->minvio);
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

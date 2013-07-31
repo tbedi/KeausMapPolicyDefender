@@ -2,6 +2,13 @@
 /*where*/
 $where = "";
 $limitv2 = 15;
+
+$_SESSION['limitv2'] = $limitv2;
+if (isset($_GET['limitv2'])) {
+	$limitv2=$_GET['limitv2'];
+} 
+
+
 if (isset($_GET['action']) && $_GET['action'] == 'searchv2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
 	$field = strtolower($_GET['field']);
 	$value = strtolower($_GET['value']);
@@ -9,9 +16,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'searchv2' && isset($_GET['valu
 }
 /*where*/
 
-      $sql = 
-        
-        "select distinct crawl_results.website_id,
+
+      $sql ="select distinct crawl_results.website_id,
 domain,
 website.name as wname,
 catalog_product_flat_1.entity_id,
@@ -100,6 +106,18 @@ and website_id = $website_id " . $where . "
 
  
 $violators_array=$db_resource->GetResultObj($sql);
+
+
+$_SESSION['vendor2Array']=$violators_array;
+if(isset($_SESSION['vendor2Array']))
+{
+   // print_r($_SESSION['vendor2Array']); 
+  
+}
+
+
+
+
 
 $sql3 = "select distinct 
 website.name as wname

@@ -1,5 +1,12 @@
 <?php 
 require_once('tcpdf/tcpdf.php');
+session_start();
+$violators_array=$_SESSION['historyArray'];
+if(isset($_SESSION['historyArray']))
+{
+      // print_r($violators_array);
+}
+
  static $html;
 class Bshree extends TCPDF {
     //Page header
@@ -110,32 +117,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 	$start = 0;
 	$page = 1;
 }
-$query1 = "select catalog_product_flat_1.sku,
-website.name as wname, 
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url,
-crawl.date_executed
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join crawl
-on crawl.id=crawl_results.crawl_id
-where 
-crawl_results.violation_amount>0.05 
-and
-website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-order by sku asc";
 
-
-$result = mysql_query($query1);
  $html=<<<EOD
 
       <style type="text/css">
@@ -161,16 +143,16 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          </table>
          <table class="border">
 EOD;
-while ($row = mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ) {
 	$html.=<<<EOD
 	 
 	<tr>
             
-            <td style="width:240px">{$row['sku']}</td>
-            <td style="width:220px">{$row['wname']}</td>
-            <td style="width:75px"> $ {$row['vendor_price']}</td>
-            <td style="width:75px"> $ {$row['map_price']}</td>
-            <td style="width:75px"> $ {$row['violation_amount']}</td>
+            <td style="width:240px">{$violators_array->sku}</td>
+            <td style="width:220px">{$violators_array->wname}</td>
+            <td style="width:75px"> $ {$violators_array->vendor_price}</td>
+            <td style="width:75px"> $ {$violators_array->map_price}</td>
+            <td style="width:75px"> $ {$violators_array->violation_amount}</td>
         
             
            

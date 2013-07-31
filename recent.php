@@ -8,11 +8,15 @@ while ($row = mysql_fetch_assoc($result)) {
 
  
 
-$limit = 15;
+$limit=15;
+
 $_SESSION['limit'] = $limit;
 if (isset($_GET['limit'])) {
 	$limit=$_GET['limit'];
 } 
+
+   // print_r($_SESSION['limit']);
+
 
  $targetpage="index.php";
 /*where*/
@@ -83,7 +87,12 @@ crawl.id =
 
 $violators_array=$db_resource->GetResultObj($sql);
 
-
+$_SESSION['recentArray']=$violators_array;
+if(isset($_SESSION['recentArray']))
+{
+   // print_r($_SESSION['recentArray']); 
+  
+}
 
 
 // Initial page num setup

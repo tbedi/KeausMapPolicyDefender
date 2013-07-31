@@ -2,6 +2,12 @@
 require_once('/tcpdf/tcpdf.php');
  $product_id = $_REQUEST['product_id'];
 $sku=$_REQUEST['sku'];
+session_start();
+$violators_array=$_SESSION['product2Array'];
+if(isset($_SESSION['product2Array']))
+{
+       print_r($violators_array);
+}
 class Bshree extends TCPDF {
 
 public $html;
@@ -56,15 +62,6 @@ $pdf = new Bshree(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8'
 $pdf->SetAuthor('Kraus USA');
 $pdf->SetTitle('Product Violation');
 
-
-
-
-// set document information
-//$pdf->SetCreator(PDF_CREATOR);
-//$pdf->SetAuthor('Kraus USA');
-//$pdf->SetTitle('Recent Violations');
-//$pdf->SetSubject('TCPDF Tutorial');
-//$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
@@ -133,27 +130,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
 	$page = 1;
 }
 
-$query1 = "SELECT  distinct w.`name` as vendor , crawl.id,
-    format(r.violation_amount,2) as violation_amount,
-    format( r.vendor_price,2) as vendor_price,
-    format(r.map_price,2) as map_price,
-    r.website_product_url
-    FROM crawl_results  r
-    INNER JOIN website w
-    ON r.website_id=w.id
-    INNER JOIN catalog_product_flat_1 p
-    ON p.entity_id=r.product_id
-    AND p.entity_id='" . $product_id . "'
-        inner join crawl
-on crawl.id=r.crawl_id
-    WHERE crawl.id = 
-(select max(crawl.id) from crawl) 
-		    AND r.violation_amount>0.05
-                    and w.excluded=0
-		    ORDER BY r.violation_amount DESC ";
 
-$result = mysql_query($query1);
-//echo 'Sellers Violated '.$product_id;
  $html=<<<EOD
 	
          <style type="text/css">
@@ -177,17 +154,15 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
             </table>
          <table class="border">
 EOD;
-while ($row = mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ){
 	$html.=<<<EOD
 	 
 	<tr>
-            <td style="width:250px">{$row['vendor']}</td>
-            <td style="width:85px"> $ {$row['vendor_price']}</td>
-            <td style="width:85px"> $ {$row['map_price']}</td>
-            <td style="width:85px"> $ {$row['violation_amount']}</td>
-        
-           
-                
+            <td style="width:250px">{$violators_array->vendor}</td>
+            <td style="width:85px"> $ {$violators_array->vendor_price}</td>
+            <td style="width:85px"> $ {$violators_array->map_price}</td>
+            <td style="width:85px"> $ {$violators_array->violation_amount}</td>
+         
    </tr>
 	  
 EOD;

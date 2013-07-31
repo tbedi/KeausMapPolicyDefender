@@ -40,19 +40,20 @@
 }
 .btn-search {
     background-clip: padding-box;
-    background-color: #B0D60A;
+    background-color:#ededed;
     background-image: linear-gradient (to bottom, #B5DA11, #A9D200);
     background-repeat: repeat-x;
     border-radius: 3px 3px 3px 3px;
-    hight:18px;
+    hight:14px;
     width: 90px;
-    padding:6px;
+    padding:5px;
     cursor: pointer;
-    font-size: 17px;
-    text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
+    font-size: 19px;
+     font-family: freightsans_prolight, Helvetica, Arial, sans-serif;
+     text-transform: capitalize;
     text-transform: capitalize;
     border: medium none;
-    color: #FFFFFF;
+    color: #000;
     
     }
     

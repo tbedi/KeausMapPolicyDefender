@@ -1,5 +1,10 @@
 <?php
 $limitv = 15;
+
+$_SESSION['limitv'] = $limitv;
+if (isset($_GET['limitv'])) {
+	$limitv=$_GET['limitv'];
+} 
 $website_id=0;
 
 if (isset($_REQUEST['website_id'])) {
@@ -113,10 +118,15 @@ group by website.name , crawl_results.website_id
 
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
-//$result = mysql_query($query1);
 
 
 
+$_SESSION['vendorArray']=$page_violated_seller;
+if(isset($_SESSION['vendorArray']))
+{
+   // print_r($_SESSION['vendorArray']); 
+  
+}
 
 
 

@@ -5,9 +5,10 @@ $targetpage = "index.php";
 $limith = 15;
 $flagfrom=0;
 $flagto=0;
+$_SESSION['limith'] = $limith;
 if (isset($_GET['limith'])) {
 	$limith=$_GET['limith'];
-} 
+}  
 
 static $to ;
 static $from;
@@ -134,8 +135,12 @@ and website.excluded=0
 
 $violators_array=$db_resource->GetResultObj($sql);
 
+$_SESSION['historyArray']=$violators_array;
+if(isset($_SESSION['historyArray']))
+{
+   // print_r($_SESSION['historyArray']); 
+}
 
-//$result = mysql_query();
 ?>
 <script type="text/javascript">
     

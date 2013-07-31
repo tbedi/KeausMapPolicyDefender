@@ -1,8 +1,13 @@
 <?php 
 require_once('/tcpdf/tcpdf.php');
-$web_id = $_REQUEST['website_id'];
 
-
+ $web_name = $_REQUEST['wname'];
+session_start();
+$violators_array=$_SESSION['vendor2Array'];
+if(isset($_SESSION['vendor2Array']))
+{
+      // print_r($violators_array);
+}
 class Bshree extends TCPDF {
 
     //Page header
@@ -15,7 +20,7 @@ class Bshree extends TCPDF {
         // Title
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
-           $web_id = $_REQUEST['website_id'];
+           
  $web_name = $_REQUEST['wname'];
                $html .= '
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
@@ -119,25 +124,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 	$start = 0;
 	$page = 1;
 }
-$query1 = "select distinct 
-catalog_product_flat_1.sku,
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
-crawl_results.website_product_url
-from crawl_results
-inner join
-website
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded = 0
-and crawl_results.website_id = $web_id
-order by violation_amount desc";
 
-$result = mysql_query($query1);
  $html=<<<EOD
  	
          
@@ -159,14 +146,14 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          </table>
          <table class="border">
 EOD;
-while ($row = mysql_fetch_assoc($result)) {
+foreach ($violators_array as $violators_array ) {
 	$html.=<<<EOD
 	 
 	<tr>
-            <td style="width:260px">{$row['sku']}</td>
-            <td style="width:95px"> $ {$row['vendor_price']}</td>
-            <td style="width:95px"> $ {$row['map_price']}</td>
-            <td style="width:95px"> $ {$row['violation_amount']}</td>
+            <td style="width:260px">{$violators_array->sku}</td>
+            <td style="width:95px"> $ {$violators_array->vendor_price}</td>
+            <td style="width:95px"> $ {$violators_array->map_price}</td>
+            <td style="width:95px"> $ {$violators_array->violation_amount}</td>
           
             
            
@@ -190,5 +177,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-        $pdf->Output("Products_Violated_by_".$web_id.'-'.date('Y-m-d'), 'I');
+        $pdf->Output("Products_Violated_by_".$web_name.'-'.date('Y-m-d'), 'I');
 // 
