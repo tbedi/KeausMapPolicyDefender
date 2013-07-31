@@ -29,7 +29,7 @@
 
 .dropdown {
 	widht: 120px;
-	height: 29px;
+	
 	line-height: 20px;
 	margin: 0;
 	padding: 4;
@@ -273,7 +273,8 @@
 }
 
 
-.top-paneltab {  background: none repeat scroll 0 0 #ECF5DC;
+.top-paneltab { 
+    /* background: none repeat scroll 0 0 #ECF5DC;*/
     border-radius: 10px 10px 0 0;
     color: #A6CF00;
     font-size: 30px;
@@ -289,7 +290,8 @@
     padding: 8px; 
     font-weight: 400;
     font-size: 27px;
-    color: #A6CF00;}		
+    color: #A6CF00;
+}		
 	
 /* Single page*/
 /* Tab Page */

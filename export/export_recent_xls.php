@@ -1,32 +1,16 @@
-<html>
-<body>
+
  <?php
-include('db.php');
+ session_start();
+$violators_array=$_SESSION['recentArray'];
+if(isset($_SESSION['recentArray']))
+{
+       print_r($violators_array);
+}
 
-$dbTable="";
-	$sql = "select catalog_product_flat_1.sku,
-website.name as wname, 
-crawl_results.vendor_price,
-crawl_results.map_price,
-crawl_results.violation_amount
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded = 0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-order by sku asc";
+ // $limitex = $_REQUEST['limit'];
 
-	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
+
+
 
 	header('Content-Type: application/vnd.ms-excel');	//define header info for browser
 	header('Content-Disposition: attachment; filename='."Recent_Violations".'-'.date('d-m-y'));
@@ -34,24 +18,41 @@ order by sku asc";
 	header('Expires: 0');
 
 	echo '<table><tr>';
-	for ($i = 0; $i < mysql_num_fields($result); $i++)	 // show column names as names of MySQL fields
-		echo '<th>'.mysql_field_name($result, $i).'</th>';
+	echo '<td>SKU </td>'  ;
+       echo '<td>Seller </td>';    
+        echo '<td>Vendor Price </td>';    
+        echo '<td>Map Price </td>';    
+        echo '<td>Violation Amount </td>';   
+        
+        
+        
 	print('</tr>');
 
-	while($row = mysql_fetch_row($result))
+	foreach ($violators_array as $violators_array ) {
 	{
 		//set_time_limit(60); // you can enable this if you have lot of data
 		$output = '<tr>';
-		for($j=0; $j<mysql_num_fields($result); $j++)
+		for($j=0; $j< count($violators_array); $j++)
 		{
-			if(!isset($row[$j]))
+			if(!isset($violators_array[$j]))
 				$output .= '<td>&nbsp;</td>';
 			else
-				$output .= "<td>$row[$j]</td>";
+				//$output .= "<td>$violators_array[$j]</td>";
+                        $output .= "<td>".$violators_array[$j]->sku."</td>";
+                          $output .= "<td>".$violators_array[$j]->name."</td>";
+                            $output .= "<td>".$violators_array[$j]->vendor_price."</td>";
+                              $output .= "<td>".$violators_array[$j]->map_price."</td>";
+                                $output .= "<td>".$violators_array[$j]->violation_amount."</td>";
+                                
+                        
+                        
+                        
+                     
+                        
+                        
 		}
 		print(trim($output))."</tr>\t\n";
 	}
 	echo('</table>');
+        }
 ?>
-</body>
-</html>
