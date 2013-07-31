@@ -14,7 +14,7 @@
                 <input  class="vendor-violation-search2 search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
             </div>
             <div class="divt2">
-                <button href="javascript:void(0);" class="btn-search"  onclick="vendor_violation_search2();">Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.vendor-violation-search2','sku','search2');">Search</button>
             </div>
 
         </td>
@@ -128,17 +128,6 @@
 </div>
 
 <script type="text/javascript">
-    function vendor_violation_search2() {
-        var field = "sku";
-        var value = $(".vendor-violation-search2").val();
-
-        var search_url_additional_params = "&website_id=<?php echo $website_id; ?>";
-
-        var search_link = "index.php?action=searchv2&field=" + field + "&value=" + value + "&tab=violation-by-seller" + search_url_additional_params;
-        window.open(search_link, "_self");
-        tableSearch.runSearch();
-    }
-
     function exporttov2() {
         var mode = $("#exportv2").val();
         var url_options = window.location.search.substring(1);

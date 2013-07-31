@@ -11,7 +11,7 @@
             </div>
             <div class="divt22">
 
-                <button href="javascript:void(0);" class="btn-search"  onclick="product_violation_search();" >Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search','sku','search');" >Search</button>
             </div>
         	<div class="divt23">
 
@@ -137,22 +137,29 @@ foreach ($page_violated_products as $product) {
 	if (mode)
 		open("export/export_product_" + mode + ".php?" + $.param(queryParameters));
 }
-	 
- function product_violation_search() {
-     var field = "sku";
-     var value = $(".product-violation-search").val();
-
-     queryParameters={}; //clear parameters
-      
-     queryParameters['tab'] = "violation-by-product";
-     if (value.length) {
-     	queryParameters['action'] = "search";
-     	queryParameters['field'] = field;
-     	queryParameters['value'] =  value;
-     }
-     
-     location.search='?'+$.param(queryParameters);  
- }
+	
+/*Common search function*/
+  function search(name, search_field, action) {
+	  var field = search_field;
+	  var value = $(name).val();
+	  var v_id=queryParameters['website_id'];
+	  var p_id=queryParameters['product_id'];
+	  queryParameters={}; //clear parameters
+	  queryParameters['tab'] = selected_tab;
+	  
+	  if (value.length) {
+	     	queryParameters['action'] = action;
+	     	queryParameters['field'] = field;
+	     	queryParameters['value'] =  value;
+	  }
+	  if (v_id) 
+		  queryParameters['website_id']=v_id;
+	  if (p_id)
+		  queryParameters['product_id']=p_id;
+	     
+	     location.search='?'+$.param(queryParameters);  
+  }
+ /*Common search function*/
  /*Show all common method*/
  function show_all() {		  
 	  location.search='?tab='+selected_tab; 

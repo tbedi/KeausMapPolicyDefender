@@ -15,7 +15,7 @@
 <input  class="product-violation-search2 search" placeholder="Enter website..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt2">
-                <button href="javascript:void(0);" class="btn-search"  onclick="product_violation_search2();">Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search2','w.`name`','search2');">Search</button>
             </div>
         </td>
         <td> 
@@ -100,7 +100,7 @@ if(count($violators_array)==0)
 ?>
 <tr>
 	
-    <td><a href="index.php?tab=violation-by-seller&action=searchfirstv&field=website.id&value=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
+    <td><a href="index.php?tab=violation-by-seller&action=search&field=website.id&value=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
 	<td><?php echo "$".$violator->vendor_price; ?></td>
 	<td><?php echo "$".$violator->map_price; ?></td>
      

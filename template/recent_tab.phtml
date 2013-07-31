@@ -8,7 +8,7 @@
                <input  class="recent_violation_search search" placeholder="Enter SKU ..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt22">
-                <button href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.recent_violation_search','sku','search');">Search</button>
             </div>
              <div class="divt22">
                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
@@ -141,18 +141,7 @@ if(count($violators_array)==0)
 	if (mode)
 		open("export/export_recent_" + mode + ".php?" + $.param(queryParameters));
 }
-  
- function recent_violation_search() {
-     var field = "sku";
-     var value = $(".recent_violation_search").val();
-     var url_options="";
-     if (value.length) {
-         url_options += "&action=search&field=" + field + "&value=" + value;
-     }
-
-     var search_link = "index.php?tab="+selected_tab+url_options;
-     window.open(search_link, "_self");
- }
+ 
 		/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
 	function check_for_search_params(){
 		if (queryParameters['tab']!=selected_tab) {			 

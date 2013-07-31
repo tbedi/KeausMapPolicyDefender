@@ -57,7 +57,7 @@
                 <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    /> 
             </div>
             <div class="divt22">
-                <button href="javascript:void(0);" class="btn-search"  onclick="history_violation_search();">Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search','sku','search');">Search</button>
             </div>
             <div class="divt22">
                 <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
@@ -199,23 +199,6 @@
 </div>
 
 <script type="text/javascript">
-
-    function history_violation_search() {
-        var field = "sku";
-        var value = $(".history_violation_search").val();
-        var url_options = "";
-        if (value.length) {
-            url_options += "&action=search&field=" + field + "&value=" + value;
-        }
-        var search_link = "index.php?tab="+selected_tab + url_options;
-        window.open(search_link, "_self");
-
-
-    }
-
-
-
-
 
     function exporttoh()
     {

@@ -11,7 +11,7 @@
             </div>
             <div class="divt22">
 
-                <button href="javascript:void(0);" class="btn-search"  onclick="vendor_violation_search();" >Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.vendor-violation-search','name','search');" >Search</button>
             </div>
             <div class="divt22">
 
@@ -140,19 +140,5 @@
                                 if (mode)
                                     open("export/export_vendor_" + mode + ".php" + url_options);
                             }
-
-                            function vendor_violation_search() {
-                                var field = "name";
-                                var value = $(".vendor-violation-search").val();
-                                var url_options = "";
-                                if (value.length) {
-                                    url_options += "&action=search&field=" + field + "&value=" + value;
-                                }
-
-                                var search_link = "index.php?tab=violation-by-seller" + url_options;
-                                window.open(search_link, "_self");
-                            }
-                       
- 
 
 </script>   
