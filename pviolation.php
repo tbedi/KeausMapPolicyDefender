@@ -20,10 +20,10 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)  AND r.violation_amount>0.05 AND w.excluded=0 " . $where ;
 //pagination
-$limitp2 = 15;
-$_SESSION['limitp2'] = $limitp2;
-if (isset($_GET['limitp2'])) {
-	$limitp2=$_GET['limitp2'];
+$limit = 15;
+//$_SESSION['limitp2'] = $limit;
+if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violation-by-product' ) {
+	$limit=$_GET['limit2'];
 } 
 
 
@@ -33,7 +33,7 @@ $total_pages =  count($violators_all_array);
 /*second grid pagination*/
 if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
     $page = $_GET['second_grid_page']; //$page_param should have same value
-    $start = ($page - 1) * $limitp2;
+    $start = ($page - 1) * $limit;
 } else {
     $start = 0;
     $page = 1;
@@ -70,7 +70,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05 AND r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) and w.excluded=0  " . $where . " 
-    ".$order_by." LIMIT $start, $limitp2";
+    ".$order_by." LIMIT $start, $limit";
  
 $violators_array=$db_resource->GetResultObj($sql);
 
@@ -80,7 +80,7 @@ $sql3 = "SELECT  distinct  p.sku as sku
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05 AND w.excluded=0 AND r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)  
-    ".$order_by." LIMIT $start, $limitp2";
+    ".$order_by." LIMIT $start, $limit";
  
 $violators_array3=$db_resource->GetResultObj($sql3);
 
@@ -96,7 +96,7 @@ if(isset($_SESSION['product2Array']))
 $tab_name = 'violation-by-product';
 $prev = $page - 1;
 $next = $page + 1;
-$lastpage = ceil($total_pages / $limitp2);
+$lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 $page_param = "second_grid_page"; //variable used for pagination
 $additional_params = "&product_id=" . $product_id; //addtiion params to pagination url;

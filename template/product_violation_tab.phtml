@@ -32,14 +32,13 @@
             </div>
         </td>
             <td>
-            <div class="results-per-page" style="float:left;padding-top:6px;" >
-            	<select name="product-limitp" class="product-per-page dropdown"  >
-                    <option value="" selected > Limit </option>
-            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
-                        <option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="100">100</option>
+            <div class="results-per-page-block" style="float:left;padding-top:6px;" >
+            	<select name="product-limit" class="results-per-page dropdown"  >                    
+            		<option <?php  echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php echo  ($limit==25) ? "selected" : "" ; ?> value="25">25</option>
+            		<option  <?php  echo  ($limit==50) ? "selected" : "" ; ?>  value="50">50</option>
+                        <option  <?php echo  ($limit==75) ? "selected" : "" ; ?> value="75">75</option>
+            		<option  <?php  echo  ($limit==100) ? "selected" : "" ; ?>  value="100">100</option>
             	</select>
             </div>
     </td>
@@ -133,52 +132,55 @@ foreach ($page_violated_products as $product) {
 </div>
 <script type="text/javascript">
  function exporttop(){
-	var mode = $("#exportp").val();
-	var url_options = window.location.search.substring(1);
-
-	if (url_options.length)
-		url_options = '?' + url_options;
-
+	var mode = $("#exportp").val();	 
+	queryParameters['tab'] = "violation-by-product";
 	if (mode)
-		open("export/export_product_" + mode + ".php" + url_options);
+		open("export/export_product_" + mode + ".php?" + $.param(queryParameters));
 }
   
  function product_violation_search() {
      var field = "sku";
      var value = $(".product-violation-search").val();
-     var url_options="";
-     if (value.length) {
-         url_options += "&action=searchfirst&field=" + field + "&value=" + value;
-     }
 
-     var search_link = "index.php?tab=violation-by-product"+url_options;
-     window.open(search_link, "_self");
- }
- function product_violation_show_all() {
-	  var search_link = "index.php?tab=violation-by-product";
-	  window.open(search_link, "_self");
+     queryParameters['tab'] = "violation-by-product";
+     if (value.length) {
+     	queryParameters['action'] = "searchfirst";
+     	queryParameters['field'] = field;
+     	queryParameters['value'] =  value;
+     }
+     
+     location.search='?'+$.param(queryParameters);  
  }
  
- $('.products-per-page').change(function() {
-	var limitp=$(this).val();
-        var urlp="";
-         urlp="index.php?tab=violation-by-product";
-	queryParameters['limitp'] = limitp;
-	//location.search =url+$.param(queryParameters);	
-        location.search=urlp+$.param(queryParameters);
-});
+ function product_violation_show_all() {	
+	  location.search='?tab=violation-by-product'; 
+ }
+  
+ $(document).ready(function() {
+	 $('.results-per-page').each(function() {	  
+		  $(this).change(function() {  
+				var limit=$(this).val();    			 
+		    	queryParameters['tab'] = selected_tab;
+				queryParameters['limit'] = limit;	 
+		    	location.search='?'+$.param(queryParameters);
+			}); 
+ 	});
 
-$('.product-per-page').change(function() {
-        var limitp = $(this).val();
-        var urlp = "";
-        urlp = "tab=violation-by-product&";
-        queryParameters['limitp'] = limitp;
-        location.search = urlp + $.param(queryParameters);
-   
-      
-    });
+	$('.results-per-page2').each(function() {	  
+			  $(this).change(function() {  
+					var limit=$(this).val();    			 
+				    queryParameters['tab'] = selected_tab;
+					queryParameters['limit2'] = limit;	 
+				    location.search='?'+$.param(queryParameters);
+				}); 
+		});
 
-
-
-
+	function switch_page(page_num, param_name){
+		queryParameters['tab'] = selected_tab;
+		queryParameters["'"+param_name+"'"] = page_num;	 
+		 location.search='?'+$.param(queryParameters);
+	}
+	 	
+ });
+ 
 </script>   

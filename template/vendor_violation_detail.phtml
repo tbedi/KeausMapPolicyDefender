@@ -35,14 +35,14 @@
             </div>
         </td>
         <td>
-            <div class="results-per-page" style="float:left;padding-top:6px;" >
-                <select name="vendor2-limitv2" class="vendor2-per-page dropdown"  >
-                    <option value="" selected > Limit </option>
-                    <option <?php // echo  ($limit==10) ? "selected" : "" ;   ?> value="15">15</option>
-                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;   ?> value="25">25</option>
-                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;   ?>  value="50">50</option>
-                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;   ?> value="75">75</option>
-                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;   ?>  value="100">100</option>
+            <div class="results-per-page-block" style="float:left;padding-top:6px;" >
+                <select name="vendor2-limitv2" class="results-per-page2 dropdown"  >
+                   
+                    <option <?php echo  ($limit==15) ? "selected" : "" ;   ?> value="15">15</option>
+                    <option  <?php echo  ($limit==25) ? "selected" : "" ;   ?> value="25">25</option>
+                    <option  <?php echo  ($limit==50) ? "selected" : "" ;   ?>  value="50">50</option>
+                    <option  <?php echo  ($limit==75) ? "selected" : "" ;   ?> value="75">75</option>
+                    <option  <?php echo  ($limit==100) ? "selected" : "" ;   ?>  value="100">100</option>
                 </select>
             </div>
         </td>
@@ -150,15 +150,5 @@
             open("export/export_vendor2_" + mode + ".php" + url_options);
     }
 
-    $('.vendor2-per-page').change(function() {
-        
-      
-        var limitv2 = $(this).val();
-        var urlv2 = "";
-      //  urlv2 = "&grid=vvendor_2";
-        queryParameters['limitv2'] = limitv2;
-        location.search =  $.param(queryParameters);
-
-          
-    });
+ 
 </script>

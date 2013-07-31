@@ -1,9 +1,9 @@
 <?php
-$limitp = 15;
+$limit = 15;
 
-$_SESSION['limitp'] = $limitp;
-if (isset($_GET['limitp'])) {
-	$limitp=$_GET['limitp'];
+//$_SESSION['limit'] = $limit;
+if (isset($_GET['limit'])  && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+	$limit=$_GET['limit'];
 } 
 
 $product_id=0;
@@ -48,7 +48,7 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
     $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limitp;
+    $start = ($page - 1) * $limit;
 } else {
     $start = 0;
     $page = 1;
@@ -74,7 +74,7 @@ cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
 		   WHERE crawl_results.violation_amount>0.05 AND website.excluded=0 
                    AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) " . $where . "
  		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
-		   ".$order_by." LIMIT $start, $limitp";  
+		   ".$order_by." LIMIT $start, $limit";  
 }
 
  else {
@@ -94,7 +94,7 @@ cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
 		   WHERE crawl_results.violation_amount>0.05 AND website.excluded=0 
                    AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
  		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
-		   ".$order_by." LIMIT $start, $limitp";  
+		   ".$order_by." LIMIT $start, $limit";  
 }
 
 
@@ -119,12 +119,12 @@ $total_pages=$total_pages[0]->total;
 $tab_name = 'violation-by-product';
 $prev = $page - 1;
 $next = $page + 1;
-$lastpage = ceil($total_pages / $limitp);
+$lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
 //$additional_params = ""; //addtiion params to pagination url;
-$additional_params = "&limitp=".$limitp;
+$additional_params = "&limit=".$limit;
 
 
 if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table

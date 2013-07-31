@@ -2,12 +2,13 @@
 //pagination
 $tableName = "crawl_results";
 $targetpage = "index.php";
-$limith = 15;
+$limit = 15;
 $flagfrom=0;
 $flagto=0;
-$_SESSION['limith'] = $limith;
-if (isset($_GET['limith'])) {
-	$limith=$_GET['limith'];
+
+//$_SESSION['limit'] = $limit;
+if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+	$limit=$_GET['limit'];
 }  
 
 static $to ;
@@ -44,7 +45,7 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limith;
+    $start = ($page - 1) * $limit;
 } else {
     $start = 0;
     $page = 1;
@@ -101,7 +102,7 @@ where date_format(date_executed, '%Y-%m-%d' )='$from'
 and
 crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 
-" . $order_by . " LIMIT $start, $limith "; 
+" . $order_by . " LIMIT $start, $limit "; 
    
 }
 
@@ -129,7 +130,7 @@ where  (crawl.date_executed between '$from' and '$to' )
 and
 crawl_results.violation_amount>0.05 ".$where." 
 and website.excluded=0 
-" . $order_by . " LIMIT $start, $limith ";
+" . $order_by . " LIMIT $start, $limit ";
 }
 
 
@@ -159,11 +160,11 @@ $total_pages=$total_pages[0]->total;
 $tab_name = 'violations-history';
 $prev = $page - 1;
 $next = $page + 1;
-$lastpage = ceil($total_pages / $limith);
+$lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
-$additional_params = "&limith=".$limith;  //addtiion params to pagination url;
+$additional_params = "&limit=".$limit;  //addtiion params to pagination url;
 
 
 

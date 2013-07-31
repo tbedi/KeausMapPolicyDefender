@@ -1,9 +1,9 @@
 <?php
-$limitv = 15;
+$limit = 15;
 
-$_SESSION['limitv'] = $limitv;
-if (isset($_GET['limitv'])) {
-	$limitv=$_GET['limitv'];
+ 
+if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+	$limit=$_GET['limit'];
 } 
 $website_id=0;
 
@@ -50,7 +50,7 @@ if ($website_id) {
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
     $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limitv;
+    $start = ($page - 1) * $limit;
 } else {
     $start = 0;
     $page = 1;
@@ -82,7 +82,7 @@ and
 crawl.id = 
 (select max(crawl.id) from crawl)  " . $where . "
 group by website.name , crawl_results.website_id 
-".$order_by." LIMIT $start, $limitv";
+".$order_by." LIMIT $start, $limit";
 
 
  }
@@ -112,7 +112,7 @@ and
 crawl.id = 
 (select max(crawl.id) from crawl)
 group by website.name , crawl_results.website_id
-".$order_by." LIMIT $start, $limitv";
+".$order_by." LIMIT $start, $limit";
 
 }
 
@@ -140,12 +140,12 @@ $total_pages=$total_pages[0]->total;
 $tab_name = 'violation-by-seller';
 $prev = $page - 1;
 $next = $page + 1;
-$lastpage = ceil($total_pages / $limitv);
+$lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
 //$additional_params = ""; //addtiion params to pagination url;
-$additional_params = "&limitv=".$limitv;
+$additional_params = "&limit=".$limit;
 
 if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
     $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];

@@ -10,8 +10,8 @@ while ($row = mysql_fetch_assoc($result)) {
 
 $limit=15;
 
-$_SESSION['limit'] = $limit;
-if (isset($_GET['limit'])) {
+//$_SESSION['limit'] = $limit;
+if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent') {
 	$limit=$_GET['limit'];
 } 
 

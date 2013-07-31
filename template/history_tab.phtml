@@ -82,14 +82,14 @@
 
 
         <td>
-            <div class="resultsh-per-page" >
-                <select name="recent-limit" class="history-per-page dropdown"  >
-                    <option  value="">Limit</option>
-                        <option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
-                        <option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="100">100</option>
+            <div class="results-per-page-block" >
+                <select name="recent-limit" class="results-per-page dropdown"  >
+          
+                        <option <?php echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php echo  ($limit==25) ? "selected" : "" ; ?> value="25">25</option>
+            		<option  <?php echo  ($limit==50) ? "selected" : "" ; ?>  value="50">50</option>
+                        <option  <?php echo  ($limit==75) ? "selected" : "" ; ?> value="75">75</option>
+            		<option  <?php echo  ($limit==100) ? "selected" : "" ; ?>  value="100">100</option>
                 </select>
             </div>
         </td>
@@ -236,7 +236,7 @@
         window.open(search_link, "_self");
     }
 
-    $('.history-per-page').change(function() {
+    /*$('.history-per-page').change(function() {
         var limith = $(this).val();
         var urlh = "";
         urlh = "tab=violations-history&";
@@ -249,6 +249,6 @@
      // location.search= $.param(queryParameters)+urlh;
       
       
-    });
+    });*/
 
 </script>

@@ -35,14 +35,13 @@
         </td>
 
         <td>
-            <div class="results-per-page" style="float:left;padding-top:6px;" >
-                <select name="vendor-limitv" class="vendor-per-page dropdown"  >
-                    <option value="" selected > Limit </option>
-                    <option <?php // echo  ($limit==10) ? "selected" : "" ;  ?> value="15">15</option>
-                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;  ?> value="25">25</option>
-                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;  ?>  value="50">50</option>
-                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;  ?> value="75">75</option>
-                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;  ?>  value="100">100</option>
+            <div class="results-per-page-block" style="float:left;padding-top:6px;" >
+                <select name="vendor-limitv" class="results-per-page dropdown"  >
+                    <option <?php echo  ($limit==15) ? "selected" : "" ;  ?> value="15">15</option>
+                    <option  <?php echo  ($limit==25) ? "selected" : "" ;  ?> value="25">25</option>
+                    <option  <?php echo  ($limit==50) ? "selected" : "" ;  ?>  value="50">50</option>
+                    <option  <?php echo  ($limit==75) ? "selected" : "" ;  ?> value="75">75</option>
+                    <option  <?php echo  ($limit==100) ? "selected" : "" ;  ?>  value="100">100</option>
                 </select>
             </div>
         </td>
@@ -157,16 +156,6 @@
                                 var search_link = "index.php?tab=violation-by-seller";
                                 window.open(search_link, "_self");
                             }
-
-
-                            $('.vendor-per-page').change(function() {
-                                var limitv = $(this).val();
-                                var urlv = "";
-                                urlv = "tab=violation-by-seller&";
-                                queryParameters['limitv'] = limitv;
-                                location.search = urlv + $.param(queryParameters);
-
-
-                            });
+ 
 
 </script>   
