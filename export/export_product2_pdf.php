@@ -1,30 +1,37 @@
 <?php 
-require_once('export/tcpdf/tcpdf.php');
-
-
+require_once('/tcpdf/tcpdf.php');
+ $product_id = $_REQUEST['product_id'];
+$sku=$_REQUEST['sku'];
 class Bshree extends TCPDF {
+
+public $html;
 
     //Page header
     public function Header() {
         // Logo
-        $image_file = 'images/Kraus-Logo-HQ.png';
+        $image_file = 'Kraus-Logo-HQ.png';
         
         // Set font
         $this->SetFont('helvetica', 'B', 15);
         // Title
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
-            $html .= '
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                    Product Violations
-                ';
+               
+                $sku = $_REQUEST['sku'];
+               $html .= '
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                    Vendors Violated by '.$sku.'
+                ';            
             }
 
-            $this->writeHTML($html, true, false, false, false, '');
+            $this->writeHTML($html.'', true, false, false, false, '');
+            
+                       
+
     }
 
     // Page footer
-   public function Footer() {
+    public function Footer() {
         $this->SetY(-15);
         $this->SetFont('helvetica', 'I', 8);
         //$this->writeHTML('Kraus USA', true, false, false, false, '');
@@ -45,11 +52,21 @@ $pdf = new Bshree(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8'
 
 
 
+
 $pdf->SetAuthor('Kraus USA');
 $pdf->SetTitle('Product Violation');
 
 
 
+
+// set document information
+//$pdf->SetCreator(PDF_CREATOR);
+//$pdf->SetAuthor('Kraus USA');
+//$pdf->SetTitle('Recent Violations');
+//$pdf->SetSubject('TCPDF Tutorial');
+//$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+
+// set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
 $pdf->setFooterData(array(0,64,0), array(0,64,128));
 
@@ -101,50 +118,44 @@ $limit=10;
 
 $where = "";
 
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
 	$field = strtolower($_GET['field']);
 	$value = strtolower($_GET['value']);
 	$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
 }
 
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
 	$page = mysql_escape_string($_GET['page']);
 	$start = ($page - 1) * $limit;
 } else {
 	$start = 0;
 	$page = 1;
 }
-$query1 = "SELECT distinct 
-catalog_product_flat_1.sku,
-catalog_product_flat_1.entity_id as product_id,
-catalog_product_flat_1.name,
-format(crawl_results.vendor_price,2) as vendor_price ,
-format(crawl_results.map_price,2)as map_price,
-max(crawl_results.violation_amount) as maxvio,
-min(crawl_results.violation_amount) as minvio,
-count(crawl_results.product_id) as i_count
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id 
-where crawl_results.violation_amount>0.05
 
- and 
-crawl.id = 
+$query1 = "SELECT  distinct w.`name` as vendor , crawl.id,
+    format(r.violation_amount,2) as violation_amount,
+    format( r.vendor_price,2) as vendor_price,
+    format(r.map_price,2) as map_price,
+    r.website_product_url
+    FROM crawl_results  r
+    INNER JOIN website w
+    ON r.website_id=w.id
+    INNER JOIN catalog_product_flat_1 p
+    ON p.entity_id=r.product_id
+    AND p.entity_id='" . $product_id . "'
+        inner join crawl
+on crawl.id=r.crawl_id
+    WHERE crawl.id = 
 (select max(crawl.id) from crawl) 
-group by prices.catalog_product_flat_1.sku,
-prices.catalog_product_flat_1.name
-order by maxvio desc LIMIT $start, $limit";
+		    AND r.violation_amount>0.05
+                    and w.excluded=0
+		    ORDER BY r.violation_amount DESC ";
 
 $result = mysql_query($query1);
+//echo 'Sellers Violated '.$product_id;
  $html=<<<EOD
-
-         
+	
          <style type="text/css">
 
 table.border{background:#e0eaee;margin:1px auto;padding:4px;}
@@ -154,28 +165,27 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          table.border1 td{padding:10px;border:1px solid 87B5F1;text-align:center;
                          background-color:#eee;}
 </style>  
-         <table class="border1"> 
+        
+      <table class="border1"> 
     <tr>
-         <td style="width:260px">SKU </td>  
-         <td style="width:90px">Map Price</td>    
-         <td style="width:75px">Violation Count</td>    
-         <td style="width:90px">Max Violation</td>    
-         <td style="width:90px">Min Violation</td>    
-         
-   </tr>   
-         </table>
-         <table class="border"> 
+   
+         <td style="width:250px">Seller </td>    
+         <td style="width:85px">Vendor Price</td>    
+         <td style="width:85px">Map Price</td>    
+         <td style="width:85px">Violation Amount</td>    
+        </tr>  
+            </table>
+         <table class="border">
 EOD;
 while ($row = mysql_fetch_assoc($result)) {
 	$html.=<<<EOD
 	 
 	<tr>
-            <td style="width:260px">{$row['sku']}</td>
-            <td style="width:90px"> $ {$row['map_price']}</td>
-            <td style="width:75px">{$row['i_count']}</td>
-            <td style="width:90px"> $ {$row['maxvio']}</td>
-            <td style="width:90px"> $ {$row['minvio']}</td>
-            
+            <td style="width:250px">{$row['vendor']}</td>
+            <td style="width:85px"> $ {$row['vendor_price']}</td>
+            <td style="width:85px"> $ {$row['map_price']}</td>
+            <td style="width:85px"> $ {$row['violation_amount']}</td>
+        
            
                 
    </tr>
@@ -197,5 +207,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-$pdf->Output("Product_Violations".'-'.date('Y-m-d'), 'I');
+$pdf->Output("Sellers_Violated_".$product_id.'-'.date('Y-m-d'), 'I');
 // 

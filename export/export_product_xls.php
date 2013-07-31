@@ -31,9 +31,9 @@ prices.catalog_product_flat_1.name
 order by maxvio desc";
 
 	$result = mysql_query($sql)	or die("Couldn't execute query:<br>".mysql_error().'<br>'.mysql_errno());
-
+$filename="Product_Violations-".date('d-m-y').".xls";
 	header('Content-Type: application/vnd.ms-excel');	//define header info for browser
-	header('Content-Disposition: attachment; filename='.$dbTable.'-'.date('Ymd'));
+	header('Content-Disposition: attachment; filename="'.$filename.'"');
 	header('Pragma: no-cache');
 	header('Expires: 0');
 

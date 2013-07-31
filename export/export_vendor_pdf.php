@@ -1,5 +1,5 @@
 <?php 
-require_once('export/tcpdf/tcpdf.php');
+require_once('tcpdf/tcpdf.php');
 
 
 class Bshree extends TCPDF {
@@ -7,7 +7,7 @@ class Bshree extends TCPDF {
     //Page header
     public function Header() {
         // Logo
-        $image_file = 'images/Kraus-Logo-HQ.png';
+        $image_file = 'Kraus-Logo-HQ.png';
         
         // Set font
         $this->SetFont('helvetica', 'B', 15);

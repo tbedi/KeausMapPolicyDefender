@@ -1,14 +1,13 @@
-<html>
-<body>
  <?php
 include('db.php');
 $product_id = $_REQUEST['product_id'];
-$dbTable="";
-	$sql = "SELECT  distinct w.`name` as vendor ,
+$dbTable = "";
+
+$sql = "SELECT  distinct w.`name` as vendor ,
     format(r.violation_amount,2) as violation_amount,
     format( r.vendor_price,2) as vendor_price,
-    format(r.map_price,2) as map_price,
-    FROM crawl_results  r
+    format(r.map_price,2) as map_price
+        FROM crawl_results  r
     INNER JOIN website w
     ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p
@@ -48,5 +47,3 @@ w.excluded = 0
 	}
 	echo('</table>');
 ?>
-</body>
-</html>
