@@ -1,7 +1,8 @@
 <?php
-$limit = 10;
+$limit = 15;
 
-if (isset($_GET['limit'])) {
+//$_SESSION['limit'] = $limit;
+if (isset($_GET['limit'])  && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
 	$limit=$_GET['limit'];
 } 
 
@@ -13,7 +14,7 @@ if (isset($_REQUEST['product_id'])) {
 
  /*where*/
 $where = "";
-if (isset($_GET['action']) && $_GET['action'] == 'searchfirst' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
     $where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
@@ -56,39 +57,42 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
 // Get page data
-if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) && $_GET['action'] == "searchfirst")  )
+if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) && $_GET['action'] == "search")  )
  {
  $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku, 
-     catalog_product_flat_1.entity_id as product_id,
-     catalog_product_flat_1.name,  
+     catalog_product_flat_1.entity_id as product_id,website.excluded,
+     catalog_product_flat_1.name, website.name as wname, 
      crawl_results.vendor_price as vendor_price,
      cast(crawl_results.map_price as decimal(10,2)) as map_price, 
-        max(crawl_results.violation_amount) as maxvio,
-        min(crawl_results.violation_amount) as minvio,
+      cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
+cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
          count(crawl_results.product_id) as i_count
 		   FROM prices.catalog_product_flat_1 
 		   INNER JOIN prices.crawl_results ON catalog_product_flat_1.entity_id = crawl_results.product_id 
 		   INNER JOIN crawl ON crawl_results.crawl_id = crawl.id
-		   WHERE crawl_results.violation_amount>0.05 AND  crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) " . $where . "
+                   INNER JOIN website ON website.id=crawl_results.website_id 
+		   WHERE crawl_results.violation_amount>0.05 AND website.excluded=0 
+                   AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) " . $where . "
  		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
 		   ".$order_by." LIMIT $start, $limit";  
 }
 
  else {
     
-
 $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,  
-    catalog_product_flat_1.entity_id as product_id,
+    catalog_product_flat_1.entity_id as product_id,website.excluded,
     catalog_product_flat_1.name,  
     crawl_results.vendor_price as vendor_price,
     cast(crawl_results.map_price as decimal(10,2)) as map_price,
-    max(crawl_results.violation_amount) as maxvio, 
-    min(crawl_results.violation_amount) as minvio,
+  cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
+cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
     count(crawl_results.product_id) as i_count
 		   FROM prices.catalog_product_flat_1 
 		   INNER JOIN prices.crawl_results ON catalog_product_flat_1.entity_id = crawl_results.product_id 
-		   INNER JOIN crawl ON crawl_results.crawl_id = crawl.id
-		   WHERE crawl_results.violation_amount>0.05 AND  crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
+		   INNER JOIN crawl ON crawl_results.crawl_id = crawl.id 
+                    INNER JOIN website ON website.id=crawl_results.website_id  
+		   WHERE crawl_results.violation_amount>0.05 AND website.excluded=0 
+                   AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
  		   GROUP BY catalog_product_flat_1.sku, catalog_product_flat_1.name 
 		   ".$order_by." LIMIT $start, $limit";  
 }
@@ -96,6 +100,14 @@ $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,
 
 
 $page_violated_products=$db_resource->GetResultObj($sql);
+
+$_SESSION['productArray']=$page_violated_products;
+if(isset($_SESSION['productArray']))
+{
+   // print_r($_SESSION['recentArray']); 
+  
+}
+
 
 //$result = mysql_query($query1);
 
@@ -129,9 +141,6 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 include_once 'template/product_violation_tab.phtml';
 ?>
  
-<div align="left" style="display:block; " >
-  <?php include ('page2.php'); ?>
-</div>	
 
 <?php
 if ($total_pages == 1) {

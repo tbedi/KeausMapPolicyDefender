@@ -6,12 +6,17 @@ while ($row = mysql_fetch_assoc($result)) {
     $str = $row['maxd'];
 } 
 
+ 
 
-$limit = 15;
+$limit=15;
 
-if (isset($_GET['limit'])) {
+//$_SESSION['limit'] = $limit;
+if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent') {
 	$limit=$_GET['limit'];
 } 
+
+   // print_r($_SESSION['limit']);
+
 
  $targetpage="index.php";
 /*where*/
@@ -21,11 +26,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value'
     $value = strtolower($_GET['value']);
     $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
 }
-
-
 /*where*/
-
-
 
 /* sorting */
 if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="recent"  ) {  
@@ -44,7 +45,6 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 }
 
 $order_by = "order by " . $order_field . " " . $direction . " ";
-
 /* sorting */
 
 /* Pagination */
@@ -79,6 +79,7 @@ on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0
+AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) 
 and
 crawl.id = 
 (select max(crawl.id) from crawl) " . $where . " 
@@ -86,7 +87,12 @@ crawl.id =
 
 $violators_array=$db_resource->GetResultObj($sql);
 
-
+$_SESSION['recentArray']=$violators_array;
+if(isset($_SESSION['recentArray']))
+{
+   // print_r($_SESSION['recentArray']); 
+  
+}
 
 
 // Initial page num setup
@@ -117,18 +123,5 @@ include_once 'template/recent_tab.phtml';
 ?>
  
 
-
-<script language="javascript" type="text/javascript">
-
-    function popitup(url) {
-        newwindow = window.open(url, 'name', 'height=200,width=150');
-        if (window.focus) {
-            newwindow.focus()
-        }
-        return false;
-    }
-
-
-</script>
 
 

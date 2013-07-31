@@ -1,49 +1,59 @@
 <?php
 /*where*/
 $where = "";
+$limit = 15;
 
-if (isset($_GET['action']) && $_GET['action'] == 'searchv2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+//$_SESSION['limit'] = $limit;
+if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+	$limit=$_GET['limit2'];
+} 
+
+
+if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
 	$field = strtolower($_GET['field']);
 	$value = strtolower($_GET['value']);
 	$where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
 }
 /*where*/
-$sql = 
-        
-        "select distinct crawl_results.website_id,
+
+
+      $sql ="select distinct crawl_results.website_id,
 domain,
-website.name as wname,
+website.name as wname,crawl.id,
 catalog_product_flat_1.entity_id,
 catalog_product_flat_1.name as name,
 catalog_product_flat_1.sku,
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
+cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
+cast(crawl_results.map_price as decimal(10,2)) as map_price,
+cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
 website_id,
 crawl_results.website_product_url
 from crawl_results
 inner join
 website
-on prices.website.id = prices.crawl_results.website_id
+on website.id = crawl_results.website_id
+inner join crawl
+on crawl.id= crawl_results.crawl_id 
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
-website.excluded=0
-and website_id = '" .$website_id. "'
-  " . $where ;
+website.excluded=0 
+AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
+and website_id = $website_id " . $where ;
         
         
+
       
 //pagination
-$limit = 10;
 
-$violators_all_array=$db_resource->GetResultObj($sql);
-$total_pages =  count($violators_all_array);
+
+$violators_all_array=$db_resource->GetResultObj($sql); 
+$total_pages =  count($violators_all_array);  
 //pagination
 /*second grid pagination*/
-if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
-    $page = $_GET['second_grid_page']; //$page_param should have same value
+if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+    $page = $_GET['page2']; //$page_param should have same value
     $start = ($page - 1) * $limit;
 } else {
     $start = 0;
@@ -72,68 +82,60 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 
 $sql = "select distinct crawl_results.website_id,
 domain,
-website.name as wname,
+website.name as wname,crawl.id,
 catalog_product_flat_1.entity_id,
 catalog_product_flat_1.name as name,
 catalog_product_flat_1.sku,
-format(crawl_results.vendor_price,2) as vendor_price,
-format(crawl_results.map_price,2) as map_price,
-format(crawl_results.violation_amount,2) as violation_amount,
+cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
+cast(crawl_results.map_price as decimal(10,2)) as map_price,
+cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
 website_id,
 crawl_results.website_product_url
 from crawl_results
 inner join
 website
-on prices.website.id = prices.crawl_results.website_id
+on website.id = crawl_results.website_id
+inner join crawl
+on crawl.id= crawl_results.crawl_id 
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
-website.excluded=0
+website.excluded=0 
+AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
 and website_id = $website_id " . $where . " 
      ".$order_by." LIMIT $start, $limit";
 
  
 $violators_array=$db_resource->GetResultObj($sql);
+ 
 
-$sql3 = "select distinct 
-website.name as wname
-from crawl_results
-inner join
-website
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded=0
-and website_id = $website_id 
-     ".$order_by." LIMIT $start, $limit";
+$_SESSION['vendor2Array']=$violators_array;
+if(isset($_SESSION['vendor2Array']))
+{
+   // print_r($_SESSION['vendor2Array']); 
+  
+}
 
  
-$violators_array3=$db_resource->GetResultObj($sql3);
-
-
  
 // Initial page num setup
+ 
 $tab_name = 'violation-by-seller';
 $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
-$page_param = "second_grid_page"; //variable used for pagination
-$additional_params = "&website_id=" . $website_id; //addtiion params to pagination url;
-if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-    $additional_params.="&page=" . $_GET['page']; //here it should 
-}
+$page_param = "page2"; //variable used for pagination
+$additional_params = ""; //addtiion params to pagination url;
+
+
+$sql3 = "select  name as wname from   website where  id = ".$website_id ;
+
+
+$violators_array3=$db_resource->GetResultObj($sql3);
 
 include_once 'template/vendor_violation_detail.phtml';
 ?>
   
-<div align="left" style="display:block;" >
-	<?php include ('page2.php'); ?>
-</div>	
- 
-<div>
-    <?php include_once 'charts/a4.php'; ?>
-</div>
+

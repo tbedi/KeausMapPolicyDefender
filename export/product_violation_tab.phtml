@@ -7,15 +7,15 @@
         <td>
         <td>
             <div class="divt1">
-  <input  	class="product-violation-search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" id="textBoxSearch"  /> 
+  <input  	class="product-violation-search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchfirst" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" id="textBoxSearch"  /> 
             </div>
             <div class="divt22">
 
-                <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search','sku','search');" >Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="product_violation_search();" >Search</button>
             </div>
         	<div class="divt23">
 
-                    <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+                    <button href="javascript:void(0);" class="btn-search"  onclick="product_violation_show_all();" >Show all</button>
             </div>
         </td>
         <td>
@@ -32,13 +32,14 @@
             </div>
         </td>
             <td>
-            <div class="results-per-page-block" style="float:left;padding-top:6px;" >
-            	<select name="product-limit" class="results-per-page dropdown"  >                    
-            		<option <?php  echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php echo  ($limit==25) ? "selected" : "" ; ?> value="25">25</option>
-            		<option  <?php  echo  ($limit==50) ? "selected" : "" ; ?>  value="50">50</option>
-                        <option  <?php echo  ($limit==75) ? "selected" : "" ; ?> value="75">75</option>
-            		<option  <?php  echo  ($limit==100) ? "selected" : "" ; ?>  value="100">100</option>
+            <div class="results-per-page" style="float:left;padding-top:6px;" >
+            	<select name="product-limitp" class="product-per-page dropdown"  >
+                    <option value="" selected > Limit </option>
+            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
+            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
+                        <option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
+            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="100">100</option>
             	</select>
             </div>
     </td>
@@ -102,7 +103,7 @@ foreach ($page_violated_products as $product) {
 	if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
 		$product_link.="&page=" . $_GET['page'];
 	}
-	if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
+	if (isset($_GET['action']) && $_GET['action'] == "searchfirst") { //added that search  was included
 		$product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 	}  
 
@@ -132,68 +133,52 @@ foreach ($page_violated_products as $product) {
 </div>
 <script type="text/javascript">
  function exporttop(){
-	var mode = $("#exportp").val();	 
-	queryParameters['tab'] = "violation-by-product";
-	if (mode)
-		open("export/export_product_" + mode + ".php?" + $.param(queryParameters));
-}
-	
-/*Common search function*/
-  function search(name, search_field, action) {
-	  var field = search_field;
-	  var value = $(name).val();
-	  var v_id=queryParameters['website_id'];
-	  var p_id=queryParameters['product_id'];
-	  queryParameters={}; //clear parameters
-	  queryParameters['tab'] = selected_tab;
-	  
-	  if (value.length) {
-	     	queryParameters['action'] = action;
-	     	queryParameters['field'] = field;
-	     	queryParameters['value'] =  value;
-	  }
-	  if (v_id) 
-		  queryParameters['website_id']=v_id;
-	  if (p_id)
-		  queryParameters['product_id']=p_id;
-	     
-	     location.search='?'+$.param(queryParameters);  
-  }
- /*Common search function*/
- /*Show all common method*/
- function show_all() {		  
-	  location.search='?tab='+selected_tab; 
- }
- /*Show all common method*/
-  /*Limits functions*/
- $(document).ready(function() {
-	 $('.results-per-page').each(function() {	  
-		  $(this).change(function() {  
-			   check_for_search_params(); 
-				var limit=$(this).val();    			 
-		    	queryParameters['tab'] = selected_tab;
-				queryParameters['limit'] = limit;	 
-		    	location.search='?'+$.param(queryParameters);
-			}); 
- 	});
+	var mode = $("#exportp").val();
+	var url_options = window.location.search.substring(1);
 
-	$('.results-per-page2').each(function() {	  
-			  $(this).change(function() {  
-				  check_for_search_params(); 
-					var limit=$(this).val();    			 
-				    queryParameters['tab'] = selected_tab;
-					queryParameters['limit2'] = limit;	 
-				    location.search='?'+$.param(queryParameters);
-				}); 
-		});	 	
- });
- /*Limits functions*/
- /*Pagination function*/
- function switch_page(page_num, param_name){
-	 	check_for_search_params(); // to prevent search params in query
-		queryParameters['tab'] = selected_tab;
-		queryParameters[param_name] = page_num;	 
-		 location.search='?'+$.param(queryParameters);
-	}
- /*Pagination function*/
+	if (url_options.length)
+		url_options = '?' + url_options;
+
+	if (mode)
+		open("export/export_product_" + mode + ".php" + url_options);
+}
+  
+ function product_violation_search() {
+     var field = "sku";
+     var value = $(".product-violation-search").val();
+     var url_options="";
+     if (value.length) {
+         url_options += "&action=searchfirst&field=" + field + "&value=" + value;
+     }
+
+     var search_link = "index.php?tab=violation-by-product"+url_options;
+     window.open(search_link, "_self");
+ }
+ function product_violation_show_all() {
+	  var search_link = "index.php?tab=violation-by-product";
+	  window.open(search_link, "_self");
+ }
+ 
+ $('.products-per-page').change(function() {
+	var limitp=$(this).val();
+        var urlp="";
+         urlp="index.php?tab=violation-by-product";
+	queryParameters['limitp'] = limitp;
+	//location.search =url+$.param(queryParameters);	
+        location.search=urlp+$.param(queryParameters);
+});
+
+$('.product-per-page').change(function() {
+        var limitp = $(this).val();
+        var urlp = "";
+        urlp = "tab=violation-by-product&";
+        queryParameters['limitp'] = limitp;
+        location.search = urlp + $.param(queryParameters);
+   
+      
+    });
+
+
+
+
 </script>   

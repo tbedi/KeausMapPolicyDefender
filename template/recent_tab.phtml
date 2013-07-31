@@ -1,13 +1,17 @@
-<div class="tab-title" align="center">Violations as of the day ( <?php echo $str; ?>)</div>
+<div class="top-paneltab" align="center">Violations as of the day ( <?php echo $str; ?>)</div>
+ 
 <table class="table1" >
     <tr>
         <td >
             <div class="divt1">
 
-               <input  class="recent_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+               <input  class="recent_violation_search search" placeholder="Enter SKU ..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
-            <div class="divt2">
-                <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</a>
+            <div class="divt22">
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.recent_violation_search','sku','search');">Search</button>
+            </div>
+             <div class="divt22">
+                 <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
             </div>
         </td>
         <td>  
@@ -25,23 +29,24 @@
                        </div>
             
             <div class="divt2" style="float:left;width: 100px;" >
-                <a href="" id="1" class="btn-search" onclick="exportr();">Export</a>
+                <button href="" id="1" class="btn-search" onclick="exportr();">Export</button>
             </div>
         </td>
         <td>
-            <div class="results-per-page" style="float:left;padding-top:6px;" >
-            	<select name="recent-limit" class="recent-res-per-page dropdown"  >
-                    <option value="" selected > Limit </option>
-            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
-                        <option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="100">100</option>
+            <div class="results-per-page-block" style="float:left;padding-top:6px;" >
+            	<select name="recent-limit" class="results-per-page dropdown"  >                   
+            		<option <?php  echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
+            		<option  <?php echo  ($limit==25) ? "selected" : "" ; ?> value="25">25</option>
+            		<option  <?php  echo  ($limit==50) ? "selected" : "" ; ?>  value="50">50</option>
+                    <option  <?php echo  ($limit==75) ? "selected" : "" ; ?> value="75">75</option>
+            		<option  <?php  echo  ($limit==100) ? "selected" : "" ; ?>  value="100">100</option>
             	</select>
             </div>
     </td>
 </tr>
 </table>
+
+
 
 <div class="cleaner1" >
 
@@ -52,27 +57,27 @@
                     <tr> 
                         <td >SKU
                         <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >Seller
                         <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=name&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >Seller price
                         <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="vendor_price" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >MAP
                         <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >Violation amount
                         <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=violation_amount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="img/arrow_<?php echo ( $order_field=="violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="violation_amount" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                        
@@ -93,9 +98,9 @@ if(count($violators_array)==0)
 			$cell_id="vioR";
 ?>
 <tr>
-    <td ><a href="index.php?tab=violation-by-product&action=searchfirst&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+    <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
-        <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&flag=1&field=website_id&value=<?php echo $violator->website_id; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
+        <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->name; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
     	<td><?php echo "$".$violator->vendor_price; ?></td>
 	<td><?php echo "$".$violator->map_price; ?></td>
       	<td id="<?php echo $cell_id; ?>"><?php echo "$".$violator->violation_amount; ?></td>
@@ -108,7 +113,12 @@ if(count($violators_array)==0)
  <div align="left" style="display:block; " >
   <?php include ('page2.php'); ?>
 </div> 
- 
+   <div  >
+                &NonBreakingSpace;
+            </div> 
+<div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
 <div  class="chartt">
     <table>
         <tr>
@@ -129,32 +139,16 @@ if(count($violators_array)==0)
  function exportr(){
 	var mode = $("#exportr").val();
 	if (mode)
-		open("export_recent_" + mode + ".php?" + $.param(queryParameters));
+		open("export/export_recent_" + mode + ".php?" + $.param(queryParameters));
 }
-  
- function recent_violation_search() {
-     var field = "sku";
-     var value = $(".recent_violation_search").val();
-     var url_options="";
-     if (value.length) {
-         url_options += "&action=search&field=" + field + "&value=" + value;
-     }
-
-     var search_link = "index.php?tab=recent"+url_options;
-     window.open(search_link, "_self");
- }
- function product_violation_show_all() {
-	  var search_link = "index.php?tab=recent";
-	  window.open(search_link, "_self");
- }
-
-
-$('.recent-res-per-page').change(function() {
-	var limit=$(this).val();
-        var url="";
-         url="index.php?tab=recent&";
-	queryParameters['limit'] = limit;
-	location.search=url+$.param(queryParameters);
-});
+ 
+		/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
+	function check_for_search_params(){
+		if (queryParameters['tab']!=selected_tab) {			 
+			delete  queryParameters['action'];
+			delete queryParameters['field'];
+			delete queryParameters['value'];
+		}
+	}
  
 </script>   

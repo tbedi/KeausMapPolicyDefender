@@ -1,5 +1,10 @@
 <?php
-$limit = 10;
+$limit = 15;
+
+ 
+if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+	$limit=$_GET['limit'];
+} 
 $website_id=0;
 
 if (isset($_REQUEST['website_id'])) {
@@ -29,7 +34,7 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 
  /*where*/
 $where = "";
-if (isset($_GET['action']) && $_GET['action'] == 'searchfirstv' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
     $where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
@@ -54,7 +59,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
 // Get page data
-if ((isset ($_GET['flag']) && $_GET['flag'] == '1' )||(isset($_GET['action']) && $_GET['action'] == "searchfirstv"))
+if ((isset ($_GET['flag']) && $_GET['flag'] == '1' )||(isset($_GET['action']) && $_GET['action'] == "search"))
  {
 $sql = "SELECT SQL_CALC_FOUND_ROWS  
 website.name as name,
@@ -113,20 +118,24 @@ group by website.name , crawl_results.website_id
 
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
-//$result = mysql_query($query1);
 
 
 
+$_SESSION['vendorArray']=$page_violated_seller;
+if(isset($_SESSION['vendorArray']))
+{
+   // print_r($_SESSION['vendorArray']); 
+  
+}
 
 
-
-
+ 
 
 // Initial page num setup
 $sql=" SELECT FOUND_ROWS() as total;";
 $total_pages=$db_resource->GetResultObj($sql);
 $total_pages=$total_pages[0]->total;
-
+ 
 $tab_name = 'violation-by-seller';
 $prev = $page - 1;
 $next = $page + 1;
@@ -134,8 +143,8 @@ $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
 
 $page_param = "page"; //variable used for pagination
-$additional_params = ""; //addtiion params to pagination url;
-//$additional_params = "&limit=".$limit;
+//$additional_params = ""; //addtiion params to pagination url;
+$additional_params = "&limit=".$limit;
 
 if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
     $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];

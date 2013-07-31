@@ -6,16 +6,16 @@
     <tr>
         <td>
             <div class="divt1">
-                <input  class="vendor-violation-search search" placeholder="Enter Seller..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"
+                <input  class="vendor-violation-search search" placeholder="Enter Seller..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchfirstv" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"
                         id="textBoxSearch"  onkeyup="tableSearch.search(event);" /> 
             </div>
             <div class="divt22">
 
-                <button href="javascript:void(0);" class="btn-search"  onclick="search('.vendor-violation-search','name','search');" >Search</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="vendor_violation_search();" >Search</button>
             </div>
             <div class="divt22">
 
-                <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="vendor_violation_show_all();" >Show all</button>
             </div>
         </td>
         <td>
@@ -35,13 +35,14 @@
         </td>
 
         <td>
-            <div class="results-per-page-block" style="float:left;padding-top:6px;" >
-                <select name="vendor-limitv" class="results-per-page dropdown"  >
-                    <option <?php echo  ($limit==15) ? "selected" : "" ;  ?> value="15">15</option>
-                    <option  <?php echo  ($limit==25) ? "selected" : "" ;  ?> value="25">25</option>
-                    <option  <?php echo  ($limit==50) ? "selected" : "" ;  ?>  value="50">50</option>
-                    <option  <?php echo  ($limit==75) ? "selected" : "" ;  ?> value="75">75</option>
-                    <option  <?php echo  ($limit==100) ? "selected" : "" ;  ?>  value="100">100</option>
+            <div class="results-per-page" style="float:left;padding-top:6px;" >
+                <select name="vendor-limitv" class="vendor-per-page dropdown"  >
+                    <option value="" selected > Limit </option>
+                    <option <?php // echo  ($limit==10) ? "selected" : "" ;  ?> value="15">15</option>
+                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;  ?> value="25">25</option>
+                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;  ?>  value="50">50</option>
+                    <option  <?php //echo  ($limit==15) ? "selected" : "" ;  ?> value="75">75</option>
+                    <option  <?php // echo  ($limit==20) ? "selected" : "" ;  ?>  value="100">100</option>
                 </select>
             </div>
         </td>
@@ -103,7 +104,7 @@
                         if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
                             $vendor_link.="&page=" . $_GET['page'];
                         }
-                        if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
+                        if (isset($_GET['action']) && $_GET['action'] == "searchfirstv") { //added that search  was included
                             $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
                         }
                         ?>
@@ -140,5 +141,32 @@
                                 if (mode)
                                     open("export/export_vendor_" + mode + ".php" + url_options);
                             }
+
+                            function vendor_violation_search() {
+                                var field = "name";
+                                var value = $(".vendor-violation-search").val();
+                                var url_options = "";
+                                if (value.length) {
+                                    url_options += "&action=searchfirstv&field=" + field + "&value=" + value;
+                                }
+
+                                var search_link = "index.php?tab=violation-by-seller" + url_options;
+                                window.open(search_link, "_self");
+                            }
+                            function vendor_violation_show_all() {
+                                var search_link = "index.php?tab=violation-by-seller";
+                                window.open(search_link, "_self");
+                            }
+
+
+                            $('.vendor-per-page').change(function() {
+                                var limitv = $(this).val();
+                                var urlv = "";
+                                urlv = "tab=violation-by-seller&";
+                                queryParameters['limitv'] = limitv;
+                                location.search = urlv + $.param(queryParameters);
+
+
+                            });
 
 </script>   
