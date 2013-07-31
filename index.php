@@ -6,7 +6,6 @@ include_once 'db_login.php';
 /*configuration*/
 include_once 'db_class.php'; 
 $db_resource = new DB ();
-
 $title="Price Defender";
 ?>
  <?php include_once 'template/head.phtml'; ?>
