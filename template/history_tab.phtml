@@ -13,8 +13,11 @@
         });
     };
 </script>
-<div class="tab-title">Violations History</div>
-<table align="left">
+<div class="top-paneltab">Violations History</div>
+  <div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
+<table align="center">
     <tr>
     <td>
         <form action=" ?tab=violations-history&option=show_dates" method="post"> 
@@ -22,41 +25,29 @@
             From
             </div>
             <div class="divt22">
-            <input type="text" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
+            <input type="text" class="search2" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
   </div>
             <div class="divt22">  &NonBreakingSpace;</div>
         <div class="divt22">
         To
         </div>
            <div class="divt22">
-        <input type="text" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
+        <input type="text" class="search2" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
 </div>
             <div class="divt22">  &NonBreakingSpace;</div>
         <div class="divt22">
         <input type="submit" class="btn-search" name="submit" value="show" />
         </div>
         </form>
-
     </td>
 </tr>
 </table>
-
- <table>
-    <tr>
-
-        <td>
-
-            <div class=" divcc" >
-           <hr >
-                &NonBreakingSpace;
-            </div>  
-             <div class=" divcc" >
+ <div  >
                 &NonBreakingSpace;
             </div> 
-        </td>
-
-    </tr> 
-    </table>
+   <div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
 
 
 <table align="center" width="1000px"   >
@@ -187,7 +178,12 @@
 <div align="left" style="display:block; ">
     <?php include ('page2.php'); ?>
 </div>		
-
+ <div  >
+                &NonBreakingSpace;
+            </div> 
+<div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
 <div  class="chartt">
     <table>
         <tr>

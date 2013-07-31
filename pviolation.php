@@ -95,10 +95,3 @@ if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/
 include_once 'template/product_violation_detail.phtml';
 ?>
   
-<div align="left" style="display:block; " >
-	<?php include ('page2.php'); ?>
-</div>	
- 
-<div>
-    <?php include_once 'charts/a3.php'; ?>
-</div>

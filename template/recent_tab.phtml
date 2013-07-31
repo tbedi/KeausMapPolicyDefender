@@ -1,4 +1,7 @@
-<div class="tab-title" align="center">Violations as of the day ( <?php echo $str; ?>)</div>
+<div class="top-paneltab" align="center">Violations as of the day ( <?php echo $str; ?>)</div>
+<div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
 <table class="table1" >
     <tr>
         <td >
@@ -111,7 +114,12 @@ if(count($violators_array)==0)
  <div align="left" style="display:block; " >
   <?php include ('page2.php'); ?>
 </div> 
- 
+   <div  >
+                &NonBreakingSpace;
+            </div> 
+<div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
 <div  class="chartt">
     <table>
         <tr>
@@ -132,7 +140,7 @@ if(count($violators_array)==0)
  function exportr(){
 	var mode = $("#exportr").val();
 	if (mode)
-		open("export_recent_" + mode + ".php?" + $.param(queryParameters));
+		open("export/export_recent_" + mode + ".php?" + $.param(queryParameters));
 }
   
  function recent_violation_search() {

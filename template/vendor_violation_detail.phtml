@@ -1,4 +1,10 @@
-<div class="tab-title"> Products Violated By <?php echo $violators_array3[0]->wname; ?> </div>
+<div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
+<div class="top-paneltab"> Products Violated By <?php echo $violators_array3[0]->wname; ?> </div>
+<div class=" divcc" >
+                &NonBreakingSpace;
+            </div> 
 
 <table align="center"  width="1000px" >
     <tr>
@@ -111,7 +117,12 @@
 <div align="left" style="display:block;" >
     <?php include ('page2.php'); ?>
 </div>	
-
+  <div  >
+                &NonBreakingSpace;
+            </div> 
+<div class=" divcc" >
+                &NonBreakingSpace;
+            </div>  
 <div>
     <?php include_once 'charts/a4.php'; ?>
 </div>
@@ -136,7 +147,7 @@
             url_options = '?' + url_options;
 
         if (mode)
-            open("export_vendor2_" + mode + ".php" + url_options);
+            open("export/export_vendor2_" + mode + ".php" + url_options);
     }
 
     $('.vendor2-per-page').change(function() {

@@ -1,5 +1,3 @@
-
-
 <?php
 //pagination
 $tableName = "crawl_results";
@@ -10,7 +8,6 @@ $flagto=0;
 if (isset($_GET['limith'])) {
 	$limith=$_GET['limith'];
 } 
-
 
 static $to ;
 static $from;
@@ -64,10 +61,10 @@ if ( isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET[
 	$to = $_SESSION['t'];
 	$from =$_SESSION['fr'];
 } else {
-	 $to= date("d-m-Y");
-         $from= date('d-m-Y',strtotime("-1 days"));
-	$_SESSION['t'] = date("d-m-Y");
-	$_SESSION['fr'] = date('d-m-Y',strtotime("-1 days"));
+	 $to= date("Y-m-d");
+         $from= date('Y-m-d',strtotime("-1 days"));
+	$_SESSION['t'] = date("Y-m-d");
+	$_SESSION['fr'] = date('Y-m-d',strtotime("-1 days"));
 }        
 /* calender dates */
 
