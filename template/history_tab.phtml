@@ -60,7 +60,7 @@
                 <button href="javascript:void(0);" class="btn-search"  onclick="history_violation_search();">Search</button>
             </div>
             <div class="divt22">
-                <button href="javascript:void(0);" class="btn-search"  onclick="history_violation_show_all();" >Show all</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
             </div>
         </td>
 
@@ -231,24 +231,6 @@
 
     }
 
-    function history_violation_show_all() {
-        var search_link = "index.php?tab=violations-history";
-        window.open(search_link, "_self");
-    }
-
-    /*$('.history-per-page').change(function() {
-        var limith = $(this).val();
-        var urlh = "";
-        urlh = "tab=violations-history&";
-        queryParameters['limith'] = limith;
-        location.search = urlh + $.param(queryParameters);
-      // location.search=$.param(queryParameters);
-              
-     // urlh = "index.php?tab=violations-history&limith=". limith;
-      
-     // location.search= $.param(queryParameters)+urlh;
-      
-      
-    });*/
+ 
 
 </script>

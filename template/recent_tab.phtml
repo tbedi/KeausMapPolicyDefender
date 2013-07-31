@@ -11,7 +11,7 @@
                 <button href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</button>
             </div>
              <div class="divt22">
-                 <button href="javascript:void(0);" class="btn-search"  onclick="recent_violation_show_all();" >Show all</button>
+                 <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
             </div>
         </td>
         <td>  
@@ -154,12 +154,4 @@ if(count($violators_array)==0)
      window.open(search_link, "_self");
  }
 
-
-  function recent_violation_show_all() {
-        var search_link = "index.php?tab=recent";
-        window.open(search_link, "_self");
-    }
-
- 
- 
 </script>   
