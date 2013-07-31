@@ -34,7 +34,7 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 
  /*where*/
 $where = "";
-if (isset($_GET['action']) && $_GET['action'] == 'searchfirstv' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
     $where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
@@ -59,7 +59,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
 // Get page data
-if ((isset ($_GET['flag']) && $_GET['flag'] == '1' )||(isset($_GET['action']) && $_GET['action'] == "searchfirstv"))
+if ((isset ($_GET['flag']) && $_GET['flag'] == '1' )||(isset($_GET['action']) && $_GET['action'] == "search"))
  {
 $sql = "SELECT SQL_CALC_FOUND_ROWS  
 website.name as name,
@@ -129,14 +129,13 @@ if(isset($_SESSION['vendorArray']))
 }
 
 
-
-
+ 
 
 // Initial page num setup
 $sql=" SELECT FOUND_ROWS() as total;";
 $total_pages=$db_resource->GetResultObj($sql);
 $total_pages=$total_pages[0]->total;
-
+ 
 $tab_name = 'violation-by-seller';
 $prev = $page - 1;
 $next = $page + 1;

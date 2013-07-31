@@ -16,7 +16,7 @@ static $from;
 /*where*/
 
 $where = "";
-if (isset($_GET['action']) && $_GET['action'] == 'searchh' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
     $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";

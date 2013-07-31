@@ -7,7 +7,7 @@
         <td>
         <td>
             <div class="divt1">
-  <input  	class="product-violation-search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchfirst" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" id="textBoxSearch"  /> 
+  <input  	class="product-violation-search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" id="textBoxSearch"  /> 
             </div>
             <div class="divt22">
 
@@ -102,7 +102,7 @@ foreach ($page_violated_products as $product) {
 	if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
 		$product_link.="&page=" . $_GET['page'];
 	}
-	if (isset($_GET['action']) && $_GET['action'] == "searchfirst") { //added that search  was included
+	if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
 		$product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 	}  
 
@@ -146,21 +146,23 @@ foreach ($page_violated_products as $product) {
       
      queryParameters['tab'] = "violation-by-product";
      if (value.length) {
-     	queryParameters['action'] = "searchfirst";
+     	queryParameters['action'] = "search";
      	queryParameters['field'] = field;
      	queryParameters['value'] =  value;
      }
      
      location.search='?'+$.param(queryParameters);  
  }
- 
+ /*Show all common method*/
  function show_all() {		  
 	  location.search='?tab='+selected_tab; 
  }
-  
+ /*Show all common method*/
+  /*Limits functions*/
  $(document).ready(function() {
 	 $('.results-per-page').each(function() {	  
 		  $(this).change(function() {  
+			   check_for_search_params(); 
 				var limit=$(this).val();    			 
 		    	queryParameters['tab'] = selected_tab;
 				queryParameters['limit'] = limit;	 
@@ -170,6 +172,7 @@ foreach ($page_violated_products as $product) {
 
 	$('.results-per-page2').each(function() {	  
 			  $(this).change(function() {  
+				  check_for_search_params(); 
 					var limit=$(this).val();    			 
 				    queryParameters['tab'] = selected_tab;
 					queryParameters['limit2'] = limit;	 
@@ -177,10 +180,13 @@ foreach ($page_violated_products as $product) {
 				}); 
 		});	 	
  });
- 
+ /*Limits functions*/
+ /*Pagination function*/
  function switch_page(page_num, param_name){
+	 	check_for_search_params(); // to prevent search params in query
 		queryParameters['tab'] = selected_tab;
 		queryParameters[param_name] = page_num;	 
 		 location.search='?'+$.param(queryParameters);
 	}
+ /*Pagination function*/
 </script>   

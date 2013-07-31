@@ -6,7 +6,7 @@
     <tr>
         <td>
             <div class="divt1">
-                <input  class="vendor-violation-search search" placeholder="Enter Seller..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "searchfirstv" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"
+                <input  class="vendor-violation-search search" placeholder="Enter Seller..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"
                         id="textBoxSearch"  onkeyup="tableSearch.search(event);" /> 
             </div>
             <div class="divt22">
@@ -103,7 +103,7 @@
                         if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
                             $vendor_link.="&page=" . $_GET['page'];
                         }
-                        if (isset($_GET['action']) && $_GET['action'] == "searchfirstv") { //added that search  was included
+                        if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
                             $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
                         }
                         ?>
@@ -146,7 +146,7 @@
                                 var value = $(".vendor-violation-search").val();
                                 var url_options = "";
                                 if (value.length) {
-                                    url_options += "&action=searchfirstv&field=" + field + "&value=" + value;
+                                    url_options += "&action=search&field=" + field + "&value=" + value;
                                 }
 
                                 var search_link = "index.php?tab=violation-by-seller" + url_options;

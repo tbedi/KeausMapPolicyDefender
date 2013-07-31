@@ -98,9 +98,9 @@ if(count($violators_array)==0)
 			$cell_id="vioR";
 ?>
 <tr>
-    <td ><a href="index.php?tab=violation-by-product&action=searchfirst&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+    <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
-        <td ><a href="index.php?&tab=violation-by-seller&action=searchfirst1&flag=1&field=website_id&value=<?php echo $violator->website_id; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
+        <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->name; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
     	<td><?php echo "$".$violator->vendor_price; ?></td>
 	<td><?php echo "$".$violator->map_price; ?></td>
       	<td id="<?php echo $cell_id; ?>"><?php echo "$".$violator->violation_amount; ?></td>
@@ -150,8 +150,16 @@ if(count($violators_array)==0)
          url_options += "&action=search&field=" + field + "&value=" + value;
      }
 
-     var search_link = "index.php?tab=recent"+url_options;
+     var search_link = "index.php?tab="+selected_tab+url_options;
      window.open(search_link, "_self");
  }
-
+		/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
+	function check_for_search_params(){
+		if (queryParameters['tab']!=selected_tab) {			 
+			delete  queryParameters['action'];
+			delete queryParameters['field'];
+			delete queryParameters['value'];
+		}
+	}
+ 
 </script>   

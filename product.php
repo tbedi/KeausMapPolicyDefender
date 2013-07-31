@@ -14,7 +14,7 @@ if (isset($_REQUEST['product_id'])) {
 
  /*where*/
 $where = "";
-if (isset($_GET['action']) && $_GET['action'] == 'searchfirst' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
     $where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
@@ -57,7 +57,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
 // Get page data
-if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) && $_GET['action'] == "searchfirst")  )
+if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) && $_GET['action'] == "search")  )
  {
  $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku, 
      catalog_product_flat_1.entity_id as product_id,website.excluded,

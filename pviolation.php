@@ -31,8 +31,8 @@ $violators_all_array=$db_resource->GetResultObj($sql);
 $total_pages =  count($violators_all_array);
 //pagination
 /*second grid pagination*/
-if (isset($_GET['second_grid_page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
-    $page = $_GET['second_grid_page']; //$page_param should have same value
+if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+    $page = $_GET['page2']; //$page_param should have same value
     $start = ($page - 1) * $limit;
 } else {
     $start = 0;
@@ -96,9 +96,9 @@ if(isset($_SESSION['product2Array']))
 $tab_name = 'violation-by-product';
 $prev = $page - 1;
 $next = $page + 1;
-$lastpage = ceil($total_pages / $limit);
+$lastpage = ceil($total_pages / $limit);  
 $LastPagem1 = $lastpage - 1;
-$page_param = "second_grid_page"; //variable used for pagination
+$page_param = "page2"; //variable used for pagination
 $additional_params = "&product_id=" . $product_id; //addtiion params to pagination url;
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page']; //here it should 
