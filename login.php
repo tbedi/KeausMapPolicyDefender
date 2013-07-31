@@ -1,10 +1,11 @@
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<?php 
+   
     
-<?php
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-    session_start();
+     
     session_destroy();
-    unset($_COOKIE['email']);
+    if (isset($_COOKIE['email']))    		 
+    	setcookie("email","",time()-60000);
     header('Location: login.php');
     die();
 }
