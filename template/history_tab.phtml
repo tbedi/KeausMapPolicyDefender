@@ -22,15 +22,15 @@
     <td>
         <form action=" ?tab=violations-history&option=show_dates" method="post"> 
             <div class="divt22">
-            From
+                <h4 style="padding-top:8px;"> From </h4>
             </div>
             <div class="divt22">
             <input type="text" class="search2" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
   </div>
             <div class="divt22">  &NonBreakingSpace;</div>
-        <div class="divt22">
-        To
-        </div>
+       <div class="divt22">
+                <h4 style="padding-top:8px;"> To </h4>
+            </div>
            <div class="divt22">
         <input type="text" class="search2" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
 </div>
@@ -66,7 +66,7 @@
 
 
         <td> 
-            <div class="divt1">
+            <div class="divt22">
                 <select  id="exporth" name="export_to" class="dropdown" >
 
                     <option value="csv" selected  >Excel csv</option>
