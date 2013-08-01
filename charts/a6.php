@@ -1,7 +1,10 @@
 <?php
 $limit = 10;
-$sql = "select 
-sum(map_price) as Violations_amount,
+
+$sql = "select Violations_amount, DateExec
+from
+(select 
+count(*) as Violations_amount,
  crawl.date_executed as DateExec		 
 from crawl_results res
 inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
@@ -11,7 +14,11 @@ where
 violation_amount > 0.05 
 and sites.excluded = 0 
 group by crawl.date_executed
-order by crawl.date_executed desc limit 0," . $limit;
+order by crawl.date_executed desc limit 0," . $limit. " ) as yy order by DateExec";
+
+
+
+
 $result = mysql_query($sql);
 
 

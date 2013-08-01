@@ -1,7 +1,10 @@
 <?php
 $limit = 10;
 
-$sql = "select 
+$sql = "
+select Violations_amount, DateExec
+from
+(select 
 count(*) as Violations_amount,
  crawl.date_executed as DateExec		 
 from crawl_results res
@@ -12,7 +15,8 @@ where
 violation_amount > 0.05 
 and sites.excluded = 0 
 group by crawl.date_executed
-order by crawl.date_executed desc limit 0," . $limit;
+order by crawl.date_executed desc limit 0," . $limit . " ) as yy order by DateExec";
+
 $result = mysql_query($sql);
 
 
