@@ -70,17 +70,18 @@ label
     background-color: #B0D60A;
     background-image: linear-gradient(to bottom, #B5DA11, #A9D200);
     background-repeat: repeat-x;
+    border: medium none;
     border-radius: 6px 6px 6px 6px;
     box-shadow: 0 1px 2px rgba(0, 1, 1, 0.35), 0 1px 2px rgba(255, 255, 255, 0.5) inset;
-    width: 150px;
-    padding-bottom: 12px;
-    padding-top: 13px;
+    padding-bottom: 3px;
+    padding-top: 3px;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
     text-shadow: 0 -1px 0 rgba(0, 1, 1, 0.2);
     text-transform: capitalize;
     border: medium none;
     color: #FFFFFF; 
+    width: 86px;
 }
 
 label.error
@@ -105,23 +106,26 @@ label.error
 
 
 .log, .logs {
-     border: 1px solid;
+   border: 1px solid;
     margin: 10px 0px;
-    padding:15px 10px 15px 50px;
+    padding:8px;
     background-repeat: no-repeat;
     background-position: 10px center;-moz-border-radius:.5em;
-    -webkit-border-radius:.5em;
-    border-radius:.5em;
+    width: 1040px;
+/*    -webkit-border-radius:.5em;
+    border-radius:.5em;*/
 }
 .log {
     color: #D8000C;
     background-color: #FFBABA;
-    background-image: url(../images/error.png);
+    width: 1040px;
+/*    background-image: url(../images/error.png);*/
 }
 .logs {
-    color: #4F8A10;
-    background-color: #DFF2BF;
-    background-image:url(../images/tick.png);
+     color: #B0D60A;
+    background-color: #ECF5DC;
+    width: 1040px;
+/*    background-image:url(../images/tick.png);*/
 }
 
 

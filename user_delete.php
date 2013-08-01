@@ -9,13 +9,13 @@ if (!$result) {
     ?>
     <script>
         window.alert('Error...')
-        window.location.href = 'users.php';</script>
+        window.location.href = '/users.php';</script>
     <?php
 
 } else {
     ?>
     <script>
-        window.location.href = 'users.php';</script>
+        window.location.href = '/users.php';</script>
     <?php
 
 }

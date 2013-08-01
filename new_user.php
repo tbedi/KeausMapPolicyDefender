@@ -23,7 +23,7 @@
                                             <td ><?php echo $row['name']; ?></td>
                                             <td ><?php echo $row['role']; ?></td>
                                             <td ><a href="user_edit.php?user_id=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
-                                                <a href="user_delete.php?user_id=<?php echo($row['user_id']) ?>" title="Delete" onclick ="return confirm('are you sure you want to delete');" > <img src="images/icon_delete.png" /> </a> </td>
+                                                <a href="user_delete.php?user_id=<?php echo($row['user_id']) ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
                                         </tr>
                                         <?php
                                     }

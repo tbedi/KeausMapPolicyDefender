@@ -20,7 +20,7 @@ if (!$result) {
          <?php
             $_SESSION['a'] = '0';
             ?>
-        window.location.href = 'websites.php';</script>
+        window.location.href = '/websites.php';</script>
     <?php
 
 } else {
@@ -29,7 +29,7 @@ if (!$result) {
          <?php
             $_SESSION['a'] = '1';
             ?>
-        window.location.href = 'websites.php';</script>
+        window.location.href = '/websites.php';</script>
     <?php
 
 }

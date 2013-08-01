@@ -28,14 +28,14 @@ if (isset($_REQUEST["Submit"])) {
                 ?>
                 <script>
                     window.alert('Error!!!');
-                    window.location.href = 'mysettings.php';</script>
+                    window.location.href = '/mysettings.php';</script>
                 <?php
 
             } else {
                 ?>
                 <script>
                     window.alert('Username is successfully entered...');
-                    window.location.href = 'mysettings.php';</script>
+                    window.location.href = '/mysettings.php';</script>
                 <?php
 
             }
@@ -45,7 +45,7 @@ if (isset($_REQUEST["Submit"])) {
                 ?>
                 <script>
                     window.alert('Error!!!');
-                    window.location.href = 'mysettings.php';
+                    window.location.href = '/mysettings.php';
                 </script>
                 <?php
 
@@ -53,7 +53,7 @@ if (isset($_REQUEST["Submit"])) {
                 ?>
                 <script>
                     window.alert('Username and password successfully entered...');
-                    window.location.href = 'mysettings.php';
+                    window.location.href = '/mysettings.php';
                 </script>
                 <?php
 
@@ -65,7 +65,7 @@ if (isset($_REQUEST["Submit"])) {
                 ?>
                 <script>
                     window.alert('Error!!!');
-                    window.location.href = 'mysettings.php';
+                    window.location.href = '/mysettings.php';
                 </script>
                 <?php
 
@@ -73,7 +73,7 @@ if (isset($_REQUEST["Submit"])) {
                 ?>
                 <script>
                     window.alert('Username and password successfully entered...');
-                    window.location.href = 'mysettings.php';
+                    window.location.href = '/mysettings.php';
                 </script>
                 <?php
 

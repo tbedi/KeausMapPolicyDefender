@@ -38,6 +38,19 @@ $title = "Kraus Price Defender | user_edit.php";
                                         <td><input type="hidden" value="hidden"/>
                                         </td>
                                     </tr>
+                                                       <tr> 
+                                            <td align="left">
+                                                Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </td>	
+                                            <td>
+                                                <input type="text" class="input" name="password" Value=""  size="40"  style="padding:5px;"/>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
                                         <tr>
 
                                             <td align="left">
@@ -83,7 +96,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                     </tr>
                                     <tr>
                                         <td rowspan="5" colspan="5" align="center">
-                                            <div><button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<button  href="users.php" class="butl" type="reset" >Cancel</button></div>
+                                            <div><button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<input type="button" class="butl" value="Cancel" onclick="window.location.href='/users.php'"></div>
                                         </td>
                                     </tr>         
 

@@ -7,6 +7,7 @@ $pass = $_POST['password'];
 $em = $_POST['email'];
 $nm = $_POST['name'];
 $rl = $_POST['role'];
+$_SESSION['b'] = '';
 $encryppassword = md5($pass);
 // Insert data into mysql 
 $sql = "INSERT INTO admin_users(username, password, email, name, role)VALUES('$uname', '$encryppassword', '$em', '$nm', '$rl')";
@@ -16,15 +17,19 @@ $result = mysql_query($sql);
 if (!$result) {
     ?>
     <script>
-        window.alert('Error...')
-        window.location.href = 'users.php';</script>
+        <?php
+            $_SESSION['b'] = '0';
+            ?>
+        window.location.href = '/users.php';</script>
     <?php
 
 } else {
     ?>
     <script>
-        window.alert('User Created...')
-        window.location.href = 'users.php';</script>
+         <?php
+            $_SESSION['b'] = '1';
+            ?>
+        window.location.href = '/users.php';</script>
     <?php
 
 }

@@ -84,7 +84,7 @@ $title = "Kraus Price Defender | website_edit.php"; ?>
                                     </tr>
                                     <tr align="center">
                                         <td rowspan="5" colspan="5" align="center">
-                                            <div ><button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<button href="websites.php" class="butl" type="reset" >Cancel</button> </div>
+                                            <button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<input type="button" class="butl" value="Cancel" onclick="window.location.href='/websites.php'">
                                         </td>
                                     </tr>
 

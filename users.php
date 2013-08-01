@@ -11,6 +11,16 @@ if (!isset($_SESSION['username'])) {
         <?php include_once 'template/header.phtml'; ?> 
 
         <div id="wrapper" align="center" >
+            <?php
+//            print_r($_SESSION);
+        //echo $_SESSION['a'];
+        if(isset($_SESSION['a']) && $_SESSION['a'] === '1'){
+        echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">User is updated successfully</div>";}
+                 elseif(isset($_SESSION['a']) && $_SESSION['a'] === '0') {
+                     echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">User failed</div>";
+                 }
+                 unset ($_SESSION['a']); 
+                 ?>
                 <div id="tabContainer" class="main-content" align="center" >
                     
 
@@ -38,7 +48,13 @@ if (!isset($_SESSION['username'])) {
         
 <?php include_once 'template/footer.phtml'; ?>
 </body>
-</html>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+        $(document).ready(function() {
+            $('.logs').delay(2000).fadeOut();
+        });
+</script>
 
 
 
