@@ -185,6 +185,26 @@ foreach ($page_violated_products as $product) {
         
  }
  /*Show all common method*/
+ 
+ function show_all2() {           
+        if(queryParameters['action']) {
+        if (queryParameters['action']=='search2') {
+                delete  queryParameters['action'];
+                delete queryParameters['field'];
+                delete queryParameters['value'];
+        }
+ 
+        if (queryParameters['page2']) {
+                delete queryParameters['page2'];
+        }
+        queryParameters['tab'] = selected_tab;
+         location.search='?'+$.param(queryParameters);
+}
+ 
+ }
+ 
+ 
+ 
   /*Limits functions*/
  $(document).ready(function() {
 	 $('.results-per-page').each(function() {	  
