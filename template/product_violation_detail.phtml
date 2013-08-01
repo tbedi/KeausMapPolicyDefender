@@ -1,31 +1,31 @@
 
-<div class="top-paneltab"> Sellers Violated  <?php  echo $violators_array3[0]->sku; ?> </div>
+<div class="top-paneltab"> Sellers Violated  <?php echo $violators_array3[0]->sku; ?> </div>
 <div class=" divcc" >
-                &NonBreakingSpace;
-            </div> 
-<!--<h3 align="center" style="padding-top:20px;"> Sellers Violated  <?php //echo  $namep ?> </h3> -->
+    &NonBreakingSpace;
+</div> 
+<!--<h3 align="center" style="padding-top:20px;"> Sellers Violated  <?php //echo  $namep   ?> </h3> -->
 
 <table class="table1" >
     <tr>
         <td >
             <div class="divt1">
 
-<input  class="product-violation-search2 search" placeholder="Enter website..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
-</div>
-            <div class="divt22">
-                <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search2','w.`name`','search2');">Search</button>
+                <input  class="product-violation-search2 search" placeholder="Enter website..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
             </div>
-            	<div class="divt22">
+            <div class="divt22">
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search2', 'w.`name`', 'search2');">Search</button>
+            </div>
+            <div class="divt22">
 
-                    <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
             </div>
         </td>
         <td> 
             <div class="divt22">
-               
+
 
                 <select  id="exportp2" name="export_to" class="dropdown" >
-                         
+
                     <option value="csv" selected  >Excel csv</option>
                     <option value="xls" >Excel xls</option>
                     <option value="pdf" >PDF</option>
@@ -35,21 +35,21 @@
             <div class="divt22">
                 <button href="" id="1" class="btn-search" onclick="exporttop2();">Export</button>
             </div>
-    </td>
-    
-    
-     <td>
+        </td>
+
+
+        <td>
             <div class="results-per-page-block" style="float:left;padding-top:6px;" >
                 <select name="product2-limitp2" class="results-per-page2 dropdown"  >                
-                    <option <?php  echo  ($limit==15) ? "selected" : "" ;   ?> value="15">15</option>
-                    <option  <?php echo  ($limit==25) ? "selected" : "" ;   ?> value="25">25</option>
-                    <option  <?php  echo  ($limit==50) ? "selected" : "" ;   ?>  value="50">50</option>
-                    <option  <?php echo  ($limit==75) ? "selected" : "" ;   ?> value="75">75</option>
-                    <option  <?php  echo  ($limit==100) ? "selected" : "" ;   ?>  value="100">100</option>
+                    <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
+                    <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
+                    <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
+                    <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
+                    <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
                 </select>
             </div>
         </td>
-</tr>
+    </tr>
 </table>
 <!-- table part -->
 <div class="cleaner1" >
@@ -62,105 +62,100 @@
                 <tbody id="data">
                     <tr> 
                         <td >Website
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=vendor&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="vendor" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=vendor&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
                         </td>
                         <td >Vendor price
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="vendor_price" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=vendor_price&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
                         </td>
                         <td >Map
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=map_price&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
                         </td>
                         <td >Violation
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=violation_amount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
-                           		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="violation_amount" ? $direction : "asc" ); ?>_1.png" />
-                           </a>
+                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct_2&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=violation_amount&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
                         </td>
-                      
+                        <td>
+                            Screenshot
+                        </td>
                     </tr>
                     <?php
+                    foreach ($violators_array as $violator) {
 
+                        $cell_id = "vio";
+                        if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
+                            $cell_id = "vioO";
+                        else if ($violator->violation_amount >= 10)
+                            $cell_id = "vioR";
+                        ?>
+                        <tr>
+                            <td><a href="index.php?tab=violation-by-seller&action=search&field=website.id&value=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
+                            <td><?php echo "$" . $violator->vendor_price; ?></td>
+                            <td><?php echo "$" . $violator->map_price; ?></td>
+                            <td id="<?php echo $cell_id; ?>"><?php echo "$" . $violator->violation_amount; ?></td>
+                            <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">Link</a></td>
+                        </tr>				
+                    <?php } ?>
 
-                                                       
-	foreach ($violators_array as $violator) {
-		
-		$cell_id="vio";
-		if ($violator->violation_amount >= 5 && $violator->violation_amount<10 )
-			$cell_id="vioO";
-		else if ($violator->violation_amount >= 10 )
-			$cell_id="vioR";
-?>
-<tr>
-	
-    <td><a href="index.php?tab=violation-by-seller&action=search&field=website.id&value=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
-	<td><?php echo "$".$violator->vendor_price; ?></td>
-	<td><?php echo "$".$violator->map_price; ?></td>
-     
-	<td id="<?php echo $cell_id; ?>"><?php echo "$".$violator->violation_amount; ?></td>
-				
-</tr>				
-<?php } ?>
-                  
-</tbody></table> 
+                </tbody></table> 
 
 
 
-<?php
-        if (count($violators_array) == 0) {
-            ?><table class="GrayBlack" align="center">
-            <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
-         <?php
-        } ?>
-            
-            </td>  
-</tr>       
+            <?php
+            if (count($violators_array) == 0) {
+                ?><table class="GrayBlack" align="center">
+                    <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+            <?php }
+            ?>
+
+        </td>  
+    </tr>       
 </table> 
 <div align="left" style="display:block; " >
-	<?php include ('page2.php'); ?>
+    <?php include ('page2.php'); ?>
 </div>	
-   <div  >
-                &NonBreakingSpace;
-            </div> 
+<div  >
+    &NonBreakingSpace;
+</div> 
 <div class=" divcc" >
-                &NonBreakingSpace;
-            </div> 
+    &NonBreakingSpace;
+</div> 
 <div>
     <?php include_once 'charts/a3.php'; ?>
 </div>
 
 <script type="text/javascript">
-function product_violation_search2() {
-    
-
-        product_violation_search();
-	var field = "w.`name`";
-	var value = $(".product-violation-search2").val();
+                    function product_violation_search2() {
                      
-	var search_url_additional_params = "&product_id=<?php echo $product_id;  ?>";
+                        var field = "w.`name`";
+                        var value = $(".product-violation-search2").val();
 
-	//var search_link = "/index.php?action=search2&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
-        var search_link = "index.php?tab=violation-by-product"+"&action=search2&field=" + field + "&value=" + value + search_url_additional_params;
-	window.open(search_link, "_self");
-		//tableSearch.runSearch();
-}
-                                           
-function exporttop2(){
-	var mode = $("#exportp2").val();
-	var url_options= window.location.search.substring(1);
-                                
-	if (url_options.length)
-		url_options='?'+url_options;
-       
-                        		
-	if (mode)                                    
-		open("export/export_product2_" + mode + ".php"+url_options);
-}
+                        var search_url_additional_params = "&product_id=<?php echo $product_id; ?>";
 
- 
+                        //var search_link = "/index.php?action=search2&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
+                        var search_link = "index.php?tab=violation-by-product" + "&action=search2&field=" + field + "&value=" + value + search_url_additional_params;
+                        window.open(search_link, "_self");
+                        //tableSearch.runSearch();
+                    }
+
+                    function exporttop2() {
+                        var mode = $("#exportp2").val();
+                        var url_options = window.location.search.substring(1);
+
+                        if (url_options.length)
+                            url_options = '?' + url_options;
+
+
+                        if (mode)
+                            open("export/export_product2_" + mode + ".php" + url_options);
+                    }
+
+
 
 </script>
