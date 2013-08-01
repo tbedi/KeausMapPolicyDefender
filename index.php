@@ -1,17 +1,20 @@
  <?php 
-// if(!isset($email))
-// {
-//     $_SESSION['error_code'] == err1;
-//     header("Location: login.php");
-// }
+ 
 /*configuration*/
 setlocale(LC_MONETARY, 'en_US');
 include_once 'db.php';
 include_once 'db_login.php';
+
+/*Login check*/
+if (!isset($_SESSION['username']))
+	header('Location: login.php');
+
 /*configuration*/
 include_once 'db_class.php'; 
 $db_resource = new DB ();
 $title="Price Defender";
+
+
 ?>
  <?php include_once 'template/head.phtml'; ?>
     <body id="home" >
