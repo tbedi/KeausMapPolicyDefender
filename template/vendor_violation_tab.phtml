@@ -61,8 +61,6 @@
             <table class="GrayBlack" align="center">
                 <tbody id="data">
                     <tr> 
-
-
                         <td>
                             Seller
                             <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vvendor&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=name&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
