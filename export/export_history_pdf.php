@@ -137,7 +137,7 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          <td style="width:220px">Seller</td>    
          <td style="width:75px">Vendor Price</td>    
          <td style="width:75px">MAP Price</td>    
-         <td style="width:75px">Violation_amount</td>    
+         <td style="width:75px">Violation Amount</td>    
      </tr>
          
          </table>

@@ -6,7 +6,7 @@ session_start();
 $violators_array=$_SESSION['product2Array'];
 if(isset($_SESSION['product2Array']))
 {
-       print_r($violators_array);
+       //print_r($violators_array);
 }
 class Bshree extends TCPDF {
 

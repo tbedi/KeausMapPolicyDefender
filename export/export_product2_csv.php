@@ -1,7 +1,7 @@
 <?php
 
 
-$product_id = $_REQUEST['product_id'];
+$sku=$_REQUEST['sku'];
 session_start();
 $violators_array=$_SESSION['product2Array'];
 
@@ -13,7 +13,7 @@ if(isset($_SESSION['product2Array']))
 
 
 
-$filename="Vendors_Violated-".$product_id."-".date('d-m-y').".csv";
+$filename="Vendors_Violated-".$sku."-".date('d-m-y').".csv";
 
 
 header("Content-type: text/csv");
