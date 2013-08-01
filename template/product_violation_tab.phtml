@@ -47,9 +47,7 @@
 </table>
 <div class="cleaner1" >
 </div>
-<table align="center">
-    <tr>
-        <td>
+
             <table class="GrayBlack" align="center">
                 <tbody id="data">
                     <tr> 
@@ -89,12 +87,7 @@
 
 <?php
 
-if(count($page_violated_products)==0)
-{  ?>
-                    <tr align="center"><td>No Records Found  </td> </tr>
-                    
-                    <?php
-}
+
 
 foreach ($page_violated_products as $product) { 
 
@@ -118,9 +111,17 @@ foreach ($page_violated_products as $product) {
 <?php } ?>
 
 
-</table>	
-</td> </tr>       
+     
 </tbody></table> 
+
+<?php
+        if (count($page_violated_products) == 0) {
+            ?><table class="GrayBlack" align="center">
+            <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+         <?php
+        } ?>
+
+
 <div align="left" style="display:block; " >
   <?php include ('page2.php'); ?>
 </div>	

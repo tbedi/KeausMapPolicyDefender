@@ -82,13 +82,7 @@
                         </td>
                        
                     </tr>
-<?php       
-if(count($violators_array)==0)
-{  ?>
-                    <tr align="center"><td> No Records Found  </td> </tr>
-                    
-                    <?php
-}
+<?php
 	foreach ($violators_array as $violator) {
 		
 		$cell_id="vio";
@@ -109,6 +103,13 @@ if(count($violators_array)==0)
 <?php } ?>
                   
 </tbody></table> 
+
+<?php
+        if (count($violators_array) == 0) {
+            ?><table class="GrayBlack" align="center">
+            <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+         <?php
+        } ?>
 
  <div align="left" style="display:block; " >
   <?php include ('page2.php'); ?>

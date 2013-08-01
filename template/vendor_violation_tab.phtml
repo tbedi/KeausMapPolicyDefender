@@ -91,12 +91,7 @@
                     </tr>
 
                     <?php
-                    if (count($page_violated_seller) == 0) {
-                        ?>
-                        <tr align="center"><td> No Records Found  </td> </tr>
-
-                        <?php
-                    }
+                
                     foreach ($page_violated_seller as $vendor) {
 
                         $vendor_link = "?tab=violation-by-seller&website_id=" . $vendor->website_id . "&wname=" . $vendor->name;
@@ -118,6 +113,12 @@
                     <?php } ?>
 
             </table>	
+            <?php
+        if (count($page_violated_seller) == 0) {
+            ?><table class="GrayBlack" align="center">
+            <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+         <?php
+        } ?>
         </td> </tr>       
 </tbody></table> 
 <div align="left" style="display:block; " >

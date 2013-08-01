@@ -83,12 +83,7 @@
 
                     </tr>
                     <?php
-                    if (count($violators_array) == 0) {
-                        ?>
-                        <tr align="center"><td> No Records Found  </td> </tr>
-
-                        <?php
-                    }
+                 
 
                     foreach ($violators_array as $violator) {
 
@@ -110,7 +105,12 @@
                     <?php } ?>
 
                 </tbody></table> 
-
+<?php
+        if (count($violators_array) == 0) {
+            ?><table class="GrayBlack" align="center">
+            <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+         <?php
+        } ?>
         </td>  
     </tr>       
 </table> 
