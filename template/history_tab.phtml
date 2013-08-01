@@ -161,8 +161,9 @@
                 $cell_id = "vioR";
             ?>
             <tr>
-                <td><?php echo $violator->sku; ?></td>
-                <td><?php echo $violator->wname; ?></td>
+                 <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+
+        <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->wname; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->wname; ?></a></td>
                 <td><?php echo "$" . $violator->vendor_price; ?></td>
                 <td><?php echo "$" . $violator->map_price; ?></td>
                 <td id="<?php echo $cell_id; ?>"><?php echo "$" . $violator->violation_amount; ?></td>

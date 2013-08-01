@@ -75,7 +75,7 @@ else {
 
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
-    catalog_product_flat_1.sku as sku,
+    catalog_product_flat_1.sku as sku, crawl_results.website_id,
     date_format(crawl.date_executed,'%d-%m-%Y %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,
 website.name as wname, 
@@ -97,13 +97,7 @@ crawl_results.violation_amount>0.05 " . $where . "
 and website.excluded=0 
 " . $order_by . " LIMIT $start, $limit ";
 
-
-
 $violators_array = $db_resource->GetResultObj($sql);
-
-
-
-
 
 $_SESSION['historyArray'] = $violators_array;
 if (isset($_SESSION['historyArray'])) {
