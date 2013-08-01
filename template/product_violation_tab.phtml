@@ -146,8 +146,14 @@ foreach ($page_violated_products as $product) {
 }
 	
 /*Common search function*/
-  function search(name, search_field, action) {
-	  var field = search_field;
+  function search(name, search_field, action,e) {
+	if(!e){ e=null;}
+            var keycode;
+            if (window.event) { keycode = window.event.keyCode; }
+            else if (e) { keycode = e.which; }
+            else { return false; }
+           
+        var field = search_field;
 	  var value = $(name).val();
 	  var v_id=queryParameters['website_id'];
 	  var p_id=queryParameters['product_id'];
@@ -163,10 +169,15 @@ foreach ($page_violated_products as $product) {
 		  queryParameters['website_id']=v_id;
 	  if (p_id)
 		  queryParameters['product_id']=p_id;
-	     
-	     location.search='?'+$.param(queryParameters);  
+	     	     location.search='?'+$.param(queryParameters);  
+            
+            
   }
  /*Common search function*/
+ 
+
+ 
+ 
  /*Show all common method*/
  function show_all() {		  
 	location.search='?tab='+selected_tab ;

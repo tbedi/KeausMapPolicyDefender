@@ -81,7 +81,7 @@ cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
     
 $sql=    "SELECT SQL_CALC_FOUND_ROWS  catalog_product_flat_1.sku,  
     catalog_product_flat_1.entity_id as product_id,website.excluded,
-    catalog_product_flat_1.name,  
+    catalog_product_flat_1.name,   crawl_results.website_product_url,
     crawl_results.vendor_price as vendor_price,
     cast(crawl_results.map_price as decimal(10,2)) as map_price,
   cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
