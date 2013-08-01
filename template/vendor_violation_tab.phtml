@@ -7,9 +7,9 @@
         <td>
             <div class="divt1">
                 <input  class="vendor-violation-search search" placeholder="Enter Seller..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"
-                        id="textBoxSearch"  onkeyup="tableSearch.search(event);" /> 
+                        id="textBoxSearch"   /> 
             </div>
-            <div class="divt22">
+            <div class="divt22 search-btn-container">
 
                 <button href="javascript:void(0);" class="btn-search"  onclick="search('.vendor-violation-search','name','search');" >Search</button>
             </div>

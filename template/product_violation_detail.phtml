@@ -12,7 +12,7 @@
 
                 <input  class="product-violation-search2 search" placeholder="Enter website..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
             </div>
-            <div class="divt22">
+            <div class="divt22 search-btn-container">
                 <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search2', 'w.`name`', 'search2');">Search</button>
             </div>
             <div class="divt22">
@@ -132,18 +132,7 @@
 
 <script type="text/javascript">
     
-                    function product_violation_search2() {
-                     
-                        var field = "w.`name`";
-                        var value = $(".product-violation-search2").val();
-
-                        var search_url_additional_params = "&product_id=<?php echo $product_id; ?>";
-
-                        //var search_link = "/index.php?action=search2&field=" + field + "&value=" + value +"&tab=violation-by-product"+ search_url_additional_params;
-                        var search_link = "index.php?tab=violation-by-product" + "&action=search2&field=" + field + "&value=" + value + search_url_additional_params;
-                        window.open(search_link, "_self");
-                        //tableSearch.runSearch();
-                    }
+    
 
                     function exporttop2() {
                         var mode = $("#exportp2").val();

@@ -9,8 +9,8 @@
 
                <input  class="recent_violation_search search" placeholder="Enter SKU ..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
-            <div class="divt22">
-                <button href="javascript:void(0);" class="btn-search" onkeyup="search13(event)"  onclick="search('.recent_violation_search','sku','search');">Search</button>
+            <div class="divt22 search-btn-container">
+                <button href="javascript:void(0);" class="btn-search"   onclick="search('.recent_violation_search','sku','search');">Search</button>
             </div>
              <div class="divt22">
                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>

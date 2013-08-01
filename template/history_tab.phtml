@@ -56,7 +56,7 @@
             <div class="divt1">
                 <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    /> 
             </div>
-            <div class="divt22">
+            <div class="divt22 search-btn-container">
                 <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search','sku','search');">Search</button>
             </div>
             <div class="divt22">

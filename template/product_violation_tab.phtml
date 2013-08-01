@@ -9,7 +9,7 @@
             <div class="divt1">
   <input  	class="product-violation-search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>" id="textBoxSearch"  /> 
             </div>
-            <div class="divt22">
+            <div class="divt22 search-btn-container">
 
                 <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search','sku','search');" >Search</button>
             </div>
@@ -146,13 +146,9 @@ foreach ($page_violated_products as $product) {
 }
 	
 /*Common search function*/
-  function search(name, search_field, action,e) {
-	if(!e){ e=null;}
-            var keycode;
-            if (window.event) { keycode = window.event.keyCode; }
-            else if (e) { keycode = e.which; }
-            else { return false; }
-           
+  function search(name, search_field, action) {
+	
+        
         var field = search_field;
 	  var value = $(name).val();
 	  var v_id=queryParameters['website_id'];
@@ -226,6 +222,23 @@ foreach ($page_violated_products as $product) {
 				    location.search='?'+$.param(queryParameters);
 				}); 
 		});	 	
+	
+	/*Binding enter search*/
+	$(".recent_violation_search, .product-violation-search, .vendor-violation-search, .history_violation_search").keypress(function(e) {
+	    if(e.which == 13) {
+	        $(this).parent().parent().children('.search-btn-container').children('button').click();
+	    }
+	});	
+	/*Binding enter search*/
+	
+	/*Binding enter search 2nd grids*/
+	$(".product-violation-search2, .vendor-violation-search2").keypress(function(e) {
+	    if(e.which == 13) {
+	        $(this).parent().parent().children('.search-btn-container').children('button').click();
+	    }
+	});	
+	/*Binding enter search 2nd grids*/
+	
  });
  /*Limits functions*/
  /*Pagination function*/
