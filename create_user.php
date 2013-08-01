@@ -68,7 +68,7 @@
                         </td>
                     </tr>
                     <tr>
-                    <td rowspan="2" colspan="2" align="center"><input type="submit" class="btn-login" name="submit" value="submit" /></td>
+                    <td rowspan="2" colspan="2" align="center"><input type="submit" class="butl" name="submit" value="submit" /></td>
             </tr>
              
                 </tbody></table>

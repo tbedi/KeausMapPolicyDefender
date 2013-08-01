@@ -1,8 +1,6 @@
-<?php 
-   
-    
+<?php    
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-     
+     session_start();
     session_destroy();
     if (isset($_COOKIE['email']))    		 
     	setcookie("email","",time()-60000);

@@ -94,10 +94,10 @@ LIMIT $start, $limit";
                     <tr>
                         <td ><?php echo $row['id']; ?></td>
                         <td ><?php echo $row['name']; ?></td> 
-                        <?php echo "<td>"."<a href ="."http://www.".$row['domain']. ">" .$row['domain'] . "</a></td>";  ?> 
+                        <?php echo "<td>"."<a href ="."http://www.".$row['domain']. " target="."_blank".">" .$row['domain'] . "</a></td>";  ?> 
                         <td ><?php echo $row['date_created']; ?></td>
                         <td ><?php echo $row['excluded']; ?></td>
-                        <td ><a href="website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                        <td ><a href="/website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                     </tr>
                     <?php
