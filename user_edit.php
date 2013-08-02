@@ -43,7 +43,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                                 Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </td>	
                                             <td>
-                                                <input type="text" class="input" name="password" Value=""  size="40"  style="padding:5px;"/>
+                                                <input type="password" class="input" name="password" Value=""  size="40"  style="padding:5px;"/>
                                             </td>
                                         </tr>
                                         <tr> 
@@ -82,9 +82,15 @@ $title = "Kraus Price Defender | user_edit.php";
                                             <td align="left">
                                                 Role:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </td>
-                                            <td>
-                                                <input type="text" class="input"  name="role" value="<?php echo $row['role']; ?>" size="40"  style="padding:5px;"/>
-                                            </td>
+                                            <td align="left">
+                                                <select name="role" class="input">
+                                                    <option value="Admin" >Admin</option>
+                                                    <option value="Executive">Executive</option>
+                                                    <option value="Customer Service">Customer Service</option>
+                                                    <option value="Operations">Operations</option>
+                                                    </select>
+                                                </td>
+                                        
                                         </tr>
                                     <input type="hidden" name="user_id" value=" <?php echo $row['user_id']; ?> " style="padding:5px;"/>      
                                     <tr><td>&nbsp;</td>
@@ -96,7 +102,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                     </tr>
                                     <tr>
                                         <td rowspan="5" colspan="5" align="center">
-                                            <div><button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<input type="button" class="butl" value="Cancel" onclick="window.location.href='/users.php'"></div>
+                                            <div><button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" >Update</button> &nbsp;<input type="button" class="butl" value="Cancel" onclick="window.location.href='/users.php'"></div>
                                         </td>
                                     </tr>         
 

@@ -25,7 +25,7 @@ if (!$result) {
         <?php
             $_SESSION['a'] = '0';
             ?>
-        window.location.href = '/user_test.php';</script>
+        window.location.href = '/users.php';</script>
     <?php
 
 } else {

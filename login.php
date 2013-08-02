@@ -86,9 +86,9 @@ $title = "Kraus Price Defender | Login";
     <?php
 
         if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' ) {
-        echo " <div class=" . "log" . " style=" . "color:#f40f0f" . " align=" . "left" . ">" . "<p font color=" . "red" . ">Please Register..</div>";
+        echo " <div class=" . "log" . "  align=" . "left" . ">Please register..</div>";
        } elseif ($_session['a']=== '1') {
-       echo " <div class=" . "log" . " style=" . "color:#f40f0f" . " align=" . "left" . " >Wrong password!!,Please login again with correct password</div>";
+       echo " <div class=" . "log" . "  align=" . "left" . " >Please enter correct password</div>";
        }
         ?>
         <div  class="main-content" align="center" >
