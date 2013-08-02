@@ -1,4 +1,6 @@
 <?php
+include_once 'db_login.php';
+include_once 'db.php';
 $title = "Kraus Price Defender | websites1.php";
 ////pagination
 $tableName = "website";
@@ -21,32 +23,34 @@ if (isset($_GET['page'])) {
     $start = 0;
     $page = 1;
 }
+
 ?>
+<form action="websites.php" method="POST">
 <table class="table1" >
     <tr>
         <td >
             <div class="divt1">
 
-               <input  class="recent_violation_search search" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action'])&& $_GET['action'] == 'search') echo $_GET['value'];  ?>"  id="textBoxSearch"    /> 
+               <input  class="recent_violation_search search" name="websearch" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action'])&& $_GET['action'] == 'search') echo $_GET['value'];  ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt2">
-                <a href="javascript:void(0);" class="btn-search"  onclick="recent_violation_search();">Search</a>
+                <input  class="btn-search" type="submit" value="Search">
             </div>
         </td>
         <td>
             <div class="results-per-page" style="float:left;padding-top:6px;" >
             	<select name="recent-limit" class="recent-res-per-page dropdown"  >
-                    <option value="" selected > Limit </option>
-            		<option <?php // echo  ($limit==10) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
-                        <option  <?php //echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
-            		<option  <?php // echo  ($limit==20) ? "selected" : "" ; ?>  value="100">100</option>
+<!--                    <option value="" > Limit </option>-->
+                    <option <?php //  echo  ($limit==10) ? "selected" : "" ; ?> value="15" selected>15</option>
+            		<option  <?php // echo  ($limit==15) ? "selected" : "" ; ?> value="25">25</option>
+            		<option  <?php //  echo  ($limit==20) ? "selected" : "" ; ?>  value="50">50</option>
+                        <option  <?php // echo  ($limit==15) ? "selected" : "" ; ?> value="75">75</option>
             	</select>
             </div>
     </td>  
     </tr>
 </table>
+</form>
 <div class="cleaner1" >
 
 </div>
@@ -64,7 +68,48 @@ if (isset($_GET['page'])) {
                 <td>Edit</td>
             </tr>
  <?php
-            // Get page data
+           
+ if(isset($_POST['websearch'])){
+     $var1 = $_POST['websearch'];
+     $var2 = $_POST['recent-limit'];
+     $sql = "SELECT * from website where name like '%"."$var1"."%' LIMIT $start, $var2" ;
+     $result = mysql_query($sql);
+     if ($page == 0) {
+                $page = 1;
+            }
+            $prev = $page - 1;
+            $next = $page + 1;
+            $lastpage = ceil($total_pages / $limit);
+            $LastPagem1 = $lastpage - 1;
+
+
+            $paginate = '';
+            
+            if ($lastpage > 1) {
+    while ($row = mysql_fetch_array($result)) {
+                    ?>
+
+                    <tr>
+                        <td ><?php echo $row['id']; ?></td>
+                        <td ><?php echo $row['name']; ?></td> 
+                        <?php echo "<td>"."<a href ="."http://www.".$row['domain']. " target="."_blank".">" .$row['domain'] . "</a></td>";  ?> 
+                        <td ><?php echo $row['date_created']; ?></td>
+                        <td ><?php echo $row['excluded']; ?></td>
+                        <td ><a href="/website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+
+                    </tr>
+                    <?php     
+
+     
+ }}
+ 
+ }
+
+                 elseif(!isset($_POST['websearch']))
+                  
+                        {
+ 
+ 
 $query1 = "SELECT
 website.id,
 website.name,
@@ -87,6 +132,7 @@ LIMIT $start, $limit";
 
 
             $paginate = '';
+            
             if ($lastpage > 1) {
                 while ($row = mysql_fetch_array($result)) {
                     ?>
@@ -101,8 +147,10 @@ LIMIT $start, $limit";
 
                     </tr>
                     <?php
-                }
-            }
+             }
+             }
+            
+                    }
             ?>
         </tbody>
     </table>
@@ -182,10 +230,11 @@ LIMIT $start, $limit";
     //echo $total_pages . ' Results';
     // pagination
     echo $paginate;
+    
     ?>
 
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
  function recent_violation_search() {
      var field = "domain";
      var value = $(".recent_violation_search").val();
@@ -194,11 +243,11 @@ LIMIT $start, $limit";
          url_options += "&action=search&field=" + field + "&value=" + value;
      }
 
-      var search_link = "websites.php?tab=recent"+url_options;
+      var search_link = "websites.php"+url_options;
      window.open(search_link, "_self");
  }
  function product_violation_show_all() {
-	  var search_link = "websites.php?tab=recent";
+	  var search_link = "websites.php";
 	  window.open(search_link, "_self");
  }
  $('.recent-res-per-page').change(function() {
@@ -208,11 +257,8 @@ LIMIT $start, $limit";
 	queryParameters['limit'] = limit;
 	location.search=url+$.param(queryParameters);
 });
-</script>
+</script>-->
 
 <div class="cleaner1" >
 
 </div>
-
-
-

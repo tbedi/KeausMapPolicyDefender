@@ -12,6 +12,7 @@ $title = "Kraus Price Defender | website_edit.php"; ?>
                 <div id="tabscontent" align="center">
 
                     <div class="tabpage recent" id="tabpage_1">
+                       <div class="formlog1" >
                         <form id="test" action="update_website.php" method="POST"> 
 
                             <?php
@@ -21,12 +22,12 @@ $title = "Kraus Price Defender | website_edit.php"; ?>
                             $sql2 = "select * from website where id = '$id'";
                             $qry = mysql_query($sql2);
                             $row = mysql_fetch_array($qry);
-                            ?>
+                            ?> 
                             <table align="center">
                                 <tbody>
                                     <tr> 
                                         <td>
-                                            Website Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                             Website Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>	
                                         <td>
                                             <input type="text" name="name" class="input"  size="40" Value="<?php echo $row['name']; ?>" style="padding:5px;"/>
@@ -38,29 +39,14 @@ $title = "Kraus Price Defender | website_edit.php"; ?>
                                         </td>
                                     </tr>
                                     <tr>
-
                                         <td>
-                                            Website Link:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </td>
-                                        <td>
-                                            <input type="text" name="domain" class="input"  size="40" value="<?php echo $row['domain']; ?>" style="padding:5px;"/>
+                                            <input type="hidden" name="domain" class="input"  size="40" value="<?php echo $row['domain']; ?>" style="padding:5px;"/>
                                         </td></tr>
-                                    <tr> 
-                                        <td>&nbsp;</td>	
-                                        <td><input type="hidden" value="hidden"/>
-                                        </td>
-                                    </tr>
+                                   
                                     <tr>
+                                        
                                         <td>
-                                            Date Created:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </td>
-                                        <td>
-                                            <input type="text" name="date_created" class="input" size="40" value="<?php echo $row['date_created']; ?>" style="padding:5px;"/>
-                                        </td>
-                                    </tr>
-                                    <tr> 
-                                        <td>&nbsp;</td>	
-                                        <td><input type="hidden" value="hidden"/>
+                                            <input type="hidden" name="date_created" class="input" size="40" value="<?php echo $row['date_created']; ?>" style="padding:5px;"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -92,6 +78,8 @@ $title = "Kraus Price Defender | website_edit.php"; ?>
                         </form>
 
 
+                    
+                    </div>
                     </div>
                 </div>
             </div>

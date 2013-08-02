@@ -77,6 +77,41 @@ if (isset($_REQUEST["Submit"])) {
         {
             document.getElementById("username_label").innerHTML = '';
         }
+        if (formName.newpassword.value == "")
+        {
+            document.getElementById("newpassword_label").innerHTML = 'Please Enter New Password';
+            formName.newpassword.focus();
+            return false;
+        }
+        else
+        {
+            document.getElementById("newpassword_label").innerHTML = '';
+        }
+
+
+        if (formName.cpassword.value == "")
+        {
+            document.getElementById("cpassword_label").innerHTML = 'Enter ConfirmPassword';
+            formName.cpassword.focus();
+            return false;
+        }
+        else
+        {
+            document.getElementById("cpassword_label").innerHTML = '';
+        }
+
+
+        if (formName.newpassword.value != formName.cpassword.value)
+        {
+            document.getElementById("cpassword_label").innerHTML = 'Passwords Missmatch';
+            formName.cpassword.focus()
+            return false;
+        }
+        else
+        {
+            document.getElementById("cpassword_label").innerHTML = '';
+        }
+
     }
 </script>
 
@@ -119,7 +154,7 @@ if (isset($_REQUEST["Submit"])) {
 </form>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-        $(document).ready(function() {
-            $('.logs').delay(2000).fadeOut();
-        });
+    $(document).ready(function() {
+        $('.logs').delay(2000).fadeOut();
+    });
 </script>
