@@ -90,12 +90,13 @@
                 
                     foreach ($page_violated_seller as $vendor) {
 
-                        $vendor_link = "?tab=violation-by-seller&website_id=" . $vendor->website_id . "&wname=" . $vendor->name;
+                     //   $vendor_link = "?tab=violation-by-seller&website_id=" . $vendor->website_id . "&wname=" . $vendor->name;
+                         $vendor_link = "?tab=violation-by-seller&name=" . $vendor->name ;
                         if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
                             $vendor_link.="&page=" . $_GET['page'];
                         }
                         if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
-                            $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+                            $vendor_link.="&action=" . $_GET['action'] . "&field=name&value=" . $_GET['value'];
                         }
                         ?>
 
