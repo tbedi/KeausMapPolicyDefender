@@ -105,19 +105,17 @@ if(isset($_SESSION['vendorArray']))
 
  
 
-// Initial page num setup
+/*Pagination*/
 $sql=" SELECT FOUND_ROWS() as total;";
 $total_pages=$db_resource->GetResultObj($sql);
 $total_pages=$total_pages[0]->total;
  
 $tab_name = 'violation-by-seller';
-$prev = $page - 1;
-$next = $page + 1;
-$lastpage = ceil($total_pages / $limit);
-$LastPagem1 = $lastpage - 1;
-
 $page_param = "page"; //variable used for pagination
-//$additional_params = ""; //addtiion params to pagination url;
+$pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
+/*Pagination*/
+
+/*For sorting using*/
 $additional_params = "&limit=".$limit;
 
 if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
@@ -129,7 +127,7 @@ if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for we
 if (isset($_GET['action']) && $_GET['action']) { // search 
     $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
 }
- 
+/*For sorting using*/
 
 include_once 'template/vendor_violation_tab.phtml';
 ?>

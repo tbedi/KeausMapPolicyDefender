@@ -11,9 +11,11 @@ if (!isset($_SESSION['username']))
 
 /*configuration*/
 include_once 'db_class.php'; 
+include_once 'pagination_class.php';
+
 $db_resource = new DB ();
 $title="Price Defender";
-
+$pagination= new Pagination();
 
 ?>
  <?php include_once 'template/head.phtml'; ?>

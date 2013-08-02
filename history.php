@@ -105,34 +105,31 @@ if (isset($_SESSION['historyArray'])) {
 }
 ?>
 <script type="text/javascript">
-
-//document.getElementById(inputFieldfrom).value= <?php $from; ?>
-//document.getElementById(inputFieldto).value= <?php $to; ?>
     document.getElementById(inputFieldfrom).setAttribute(value, <?php $from; ?>);
-//document.getElementById(inputFieldto).setAttribute(value, <?php $from; ?> );
-
+ 	/*Jquery alernative*/
+ 	//$("#inputFieldfrom").val('<?php $from; ?>');
+ 	//but it will work only after document is rendered. in your case 2 ways: place it into template after input with this id or 
+ 	// put inside document.ready jquery event 
 </script>
 <?php
-// Initial page num setup
+/*Pagination*/
+
 $sql1 = " SELECT FOUND_ROWS() as total;";
 $total_pages = $db_resource->GetResultObj($sql1);
 $total_pages = $total_pages[0]->total;
 
 $tab_name = 'violations-history';
-$prev = $page - 1;
-$next = $page + 1;
-$lastpage = ceil($total_pages / $limit);
-$LastPagem1 = $lastpage - 1;
-
 $page_param = "page"; //variable used for pagination
+$pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
+/*Pagination*/
+
+/*For sorting using*/
 $additional_params = "&limit=" . $limit;  //addtiion params to pagination url;
-
-
 
 if (isset($_GET['action']) && $_GET['action']) { // search 
     $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 }
-
+/*For sorting using*/
 
 include_once 'template/history_tab.phtml';
 ?>

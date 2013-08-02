@@ -92,17 +92,18 @@ if(isset($_SESSION['product2Array']))
 }
 
  
-// Initial page num setup
+/*Pagination*/
 $tab_name = 'violation-by-product';
-$prev = $page - 1;
-$next = $page + 1;
-$lastpage = ceil($total_pages / $limit);  
-$LastPagem1 = $lastpage - 1;
 $page_param = "page2"; //variable used for pagination
+$pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
+/*Pagination*/
+
+/*For sorting using*/
 $additional_params = "&product_id=" . $product_id; //addtiion params to pagination url;
 if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
     $additional_params.="&page=" . $_GET['page']; //here it should 
 }
+/*For sorting using*/
 
 include_once 'template/product_violation_detail.phtml';
 ?>

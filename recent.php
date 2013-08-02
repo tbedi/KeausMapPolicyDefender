@@ -95,29 +95,24 @@ if(isset($_SESSION['recentArray']))
 }
 
 
-// Initial page num setup
+/*Pagination*/
 $sql1=" SELECT FOUND_ROWS() as total;";
 $total_pages=$db_resource->GetResultObj($sql1);
 $total_pages=$total_pages[0]->total;
-
 $tab_name = 'recent';
-$prev = $page - 1;
-$next = $page + 1;
-$lastpage = ceil($total_pages / $limit);
-$LastPagem1 = $lastpage - 1;
-
 $page_param = "page"; //variable used for pagination
-$additional_params = "&limit=".$limit; //addtiion params to pagination url;
+$pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
+/*Pagination*/
 
-
-/*
+/*For sorting using*/
+$additional_params = "&limit=".$limit; //addtiion params to sorting;
 if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
     $additional_params.="&product_id=" . $_GET['product_id'];
-}*/
+} 
 if (isset($_GET['action']) && $_GET['action']) { // search 
     $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 }
- 
+/*For sorting using*/
 
 include_once 'template/recent_tab.phtml';
 ?>

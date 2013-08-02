@@ -119,16 +119,15 @@ if(isset($_SESSION['vendor2Array']))
 
  
  
-// Initial page num setup
- 
+/*Pagination*/
 $tab_name = 'violation-by-seller';
-$prev = $page - 1;
-$next = $page + 1;
-$lastpage = ceil($total_pages / $limit);
-$LastPagem1 = $lastpage - 1;
 $page_param = "page2"; //variable used for pagination
-$additional_params = ""; //addtiion params to pagination url;
+$pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
+/*Pagination*/
 
+/*For sorting using*/
+$additional_params = ""; //addtiion params to pagination url;
+/*For sorting using*/
 
 $sql3 = "select  name as wname from   website where  id = ".$website_id ;
 
