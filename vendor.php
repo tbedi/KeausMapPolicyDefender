@@ -46,7 +46,6 @@ if ($website_id) {
 /*where*/
 
 
-
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
     $page = mysql_escape_string($_GET['page']);

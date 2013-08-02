@@ -91,7 +91,8 @@
                             $cell_id = "vioR";
                         ?>
                         <tr>
-                            <td><a href="index.php?tab=violation-by-seller&action=search&field=website.id&value=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
+                              <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->vendor; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
+
                             <td><?php echo "$" . $violator->vendor_price; ?></td>
                             <td><?php echo "$" . $violator->map_price; ?></td>
                             <td id="<?php echo $cell_id; ?>"><?php echo "$" . $violator->violation_amount; ?></td>
