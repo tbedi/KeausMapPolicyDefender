@@ -15,7 +15,7 @@
 </script>
 <div class="top-paneltab">Violations History</div>
 <div class=" divcc" >
-    &NonBreakingSpace;
+    
 </div> 
 <table align="center">
     <tr>
@@ -27,14 +27,14 @@
                 <div class="divt22">
                     <input type="text" class="search2" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
                 </div>
-                <div class="divt22">  &NonBreakingSpace;</div>
+                <div class="divt22"> <div class="divtsp"></div> </div>
                 <div class="divt22">
                     <h4 style="padding-top:10px;"> To </h4>
                 </div>
                 <div class="divt22">
                     <input type="text" class="search2" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
                 </div>
-                <div class="divt22">  &NonBreakingSpace;</div>
+                <div class="divt22">  <div class="divtsp"></div></div>
                 <div class="divt22">
                     <input type="submit" class="btn-search" name="submit" value="show" />
                 </div>
@@ -42,13 +42,8 @@
         </td>
     </tr>
 </table>
-<div  >
-    &NonBreakingSpace;
-</div> 
-<div class=" divcc" >
-    &NonBreakingSpace;
-</div> 
-
+<div class="divtsp"></div>
+<div class="divtsp"></div>
 
 <table class="table1" >
     <tr>
@@ -187,11 +182,8 @@ if (count($violators_array) == 0) {
 <div align="left" style="display:block; ">
     <?php include ('page2.php'); ?>
 </div>		
-<div  >
-    &NonBreakingSpace;
-</div> 
+<div class="divtsp"></div>
 <div class=" divcc" >
-    &NonBreakingSpace;
 </div> 
 <div  class="chartt">
     <table>
