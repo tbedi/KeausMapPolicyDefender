@@ -1,5 +1,5 @@
 <?php
- $web_name = $_REQUEST['wname'];
+$vviolationTitle=$_SESSION['vviolationTitle'];
 session_start();
 $violators_array=$_SESSION['vendor2Array'];
 if(isset($_SESSION['vendor2Array']))
@@ -8,10 +8,9 @@ if(isset($_SESSION['vendor2Array']))
 }
 
 	header('Content-Type: application/vnd.ms-excel');	
-	header('Content-Disposition: attachment; filename='."Products_Violated_by_".$web_name.'-'.date('d-m-y'));
+	header('Content-Disposition: attachment; filename='."Products_Violated_by_".$_SESSION['vviolationTitle'].'-'.date('d-m-y'));
 	header('Pragma: no-cache');
 	header('Expires: 0');
-
 	echo '<table border=1><tr>';
 	echo '<td>SKU </td>'  ;
         echo '<td>Vendor Price </td>';    

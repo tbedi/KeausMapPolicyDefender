@@ -1,12 +1,14 @@
 <?php 
 require_once('/tcpdf/tcpdf.php');
-
- $web_name = $_REQUEST['wname'];
 session_start();
+
+$vviolationTitle=$_SESSION['vviolationTitle'];
+
+
 $violators_array=$_SESSION['vendor2Array'];
 if(isset($_SESSION['vendor2Array']))
 {
-      // print_r($violators_array);
+     //  print_r($violators_array);
 }
 class Bshree extends TCPDF {
 
@@ -14,17 +16,17 @@ class Bshree extends TCPDF {
     public function Header() {
         // Logo
         $image_file = 'Kraus-Logo-HQ.png';
-        
+       
         // Set font
         $this->SetFont('helvetica', 'B', 15);
         // Title
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
            
- $web_name = $_REQUEST['wname'];
+ 
                $html .= '
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                    Products violated by '.$web_name.'
+                    Products violated by '.$_SESSION['vviolationTitle'].'
                 ';
             }
 
@@ -177,5 +179,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-        $pdf->Output("Products_Violated_by_".$web_name.'-'.date('Y-m-d'), 'I');
+        $pdf->Output("Products_Violated_by_".$_SESSION['vviolationTitle'].'-'.date('Y-m-d'), 'I');
 // 

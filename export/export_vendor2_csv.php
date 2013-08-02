@@ -1,13 +1,14 @@
 <?php
 session_start();
+$vviolationTitle=$_SESSION['vviolationTitle'];
 $violators_array=$_SESSION['vendor2Array'];
 if(isset($_SESSION['vendor2Array']))
 {
       // print_r($violators_array);
 }
- $web_name = $_REQUEST['wname'];
 
-$filename="Products_Violated_By-".$web_name."-".date('d-m-y').".csv";
+
+$filename="Products_Violated_By-".$_SESSION['vviolationTitle']."-".date('d-m-y').".csv";
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
