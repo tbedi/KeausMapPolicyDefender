@@ -123,18 +123,4 @@
 <div>
     <?php include_once 'charts/a4.php'; ?>
 </div>
-
-<script type="text/javascript">
-    function exporttov2() {
-        var mode = $("#exportv2").val();
-        var url_options = window.location.search.substring(1);
-
-        if (url_options.length)
-            url_options = '?' + url_options;
-
-        if (mode)
-            open("export/export_vendor2_" + mode + ".php" + url_options);
-    }
-
  
-</script>

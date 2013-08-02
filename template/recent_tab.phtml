@@ -137,34 +137,4 @@
     </table>
 </div>  
             
-            
-<script type="text/javascript">
-
- function exportr(){
-	var mode = $("#exportr").val();
-	if (mode)
-		open("export/export_recent_" + mode + ".php?" + $.param(queryParameters));
-}
- 
-		/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
-	function check_for_search_params(){
-		if (queryParameters['tab']!=selected_tab) {			 
-			delete  queryParameters['action'];
-			delete queryParameters['field'];
-			delete queryParameters['value'];
-		}
-	}
-        
-         function search13 (event) {
-              var keycode;
-            if (window.event) { keycode = window.event.keyCode; }
-            else if (event) { keycode = event.which; }
-            else { return false; }
-            if (keycode == 13) {
-               search('.recent_violation_search','sku','search');
-            }
-            else { return false; }
-        }
- 
- 
-</script>   
+   

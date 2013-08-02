@@ -105,7 +105,7 @@ if (isset($_SESSION['historyArray'])) {
 }
 ?>
 <script type="text/javascript">
-    document.getElementById(inputFieldfrom).setAttribute(value, <?php $from; ?>);
+  //  document.getElementById(inputFieldfrom).setAttribute(value, <?php $from; ?>); it showed js error
  	/*Jquery alernative*/
  	//$("#inputFieldfrom").val('<?php $from; ?>');
  	//but it will work only after document is rendered. in your case 2 ways: place it into template after input with this id or 

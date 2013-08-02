@@ -48,6 +48,7 @@ $pagination= new Pagination();
                     <div class="cleaner"></div>
                 </div> 
             </div> 
-			<?php include_once 'template/footer.phtml'; ?>        
+			<?php include_once 'template/footer.phtml'; ?> 
+			<?php include_once 'template/js.phtml'; ?>        
     </body>
 </html>
