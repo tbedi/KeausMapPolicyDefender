@@ -37,11 +37,12 @@ $where = "";
 if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
-    $where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
+    $where = "  AND  " . $field . "  LIKE '%" . mysql_real_escape_string(trim($value)) . "%'";
 }
 
 if ($website_id) {
- $where = "  AND  website_id  = '" . $website_id . "'"; ;
+    $website_id=mysql_real_escape_string($website_id); 
+ $where = "  AND  website_id  = " ." $website_id ". ""; ;
 }
 /*where*/
 
@@ -93,7 +94,7 @@ group by website.name , crawl_results.website_id
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
 
-
+echo $sql;
 
 $_SESSION['vendorArray']=$page_violated_seller;
 if(isset($_SESSION['vendorArray']))
