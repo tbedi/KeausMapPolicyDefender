@@ -90,11 +90,6 @@ group by website.name , crawl_results.website_id
 ".$order_by." LIMIT $start, $limit";
 
 
-
- 
- 
-
-
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
 
