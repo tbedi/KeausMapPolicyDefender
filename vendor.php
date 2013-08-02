@@ -59,8 +59,14 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by
 
 
 // Get page data
-if ((isset ($_GET['flag']) && $_GET['flag'] == '1' )||(isset($_GET['action']) && $_GET['action'] == "search"))
+if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) && $_GET['action'] == "search")  )
  {
+    
+ } 
+ else
+ {
+ $where="";
+ }
 $sql = "SELECT SQL_CALC_FOUND_ROWS  
 website.name as name,
 crawl_results.website_id as website_id,
@@ -85,36 +91,10 @@ group by website.name , crawl_results.website_id
 ".$order_by." LIMIT $start, $limit";
 
 
- }
+
  
  
- else {
-     
 
-$sql = "SELECT SQL_CALC_FOUND_ROWS  
-website.name as name,
-crawl_results.website_id as website_id,
-cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
-cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
-count(crawl_results.website_id) as wi_count
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-
-where crawl_results.violation_amount>0.05 
-and
-website.excluded=0
-and
-crawl.id = 
-(select max(crawl.id) from crawl)
-group by website.name , crawl_results.website_id
-".$order_by." LIMIT $start, $limit";
-
-}
 
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
