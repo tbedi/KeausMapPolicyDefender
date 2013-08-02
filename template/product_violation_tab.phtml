@@ -52,14 +52,14 @@
                     <tr> 
                         <td>
                             SKU 
-                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct&grid=vproduct&dir=<?php echo ($direction=="asc" ? "desc" : "asc")?>&sort=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                            <a onclick="sort_grid('sku','<?php echo ($direction=="asc" ? "desc" : "asc")?>','vproduct');" href="javascript:void(0);" >
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>	
 
                         <td>
                             MAP
-                            <a href="index.php?tab=<?php echo $tab_name; ?>&grid=vproduct&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                            <a  onclick="sort_grid('map_price','<?php echo ($direction=="asc" ? "desc" : "asc")?>','vproduct');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
@@ -259,7 +259,18 @@ foreach ($page_violated_products as $product) {
 	 	check_for_search_params(); // to prevent search params in query
 		queryParameters['tab'] = selected_tab;
 		queryParameters[param_name] = page_num;	 
-		 location.search='?'+$.param(queryParameters);
+		location.search='?'+$.param(queryParameters);
 	}
  /*Pagination function*/
+
+ /*Global sorting links*/
+function sort_grid(field,direction, grid){
+	check_for_search_params(); // to prevent search params from different tab in query
+	queryParameters['tab'] = selected_tab;
+	queryParameters['grid'] = grid;
+	queryParameters['dir'] = direction;
+	queryParameters['sort'] = field;
+	location.search='?'+$.param(queryParameters);
+}
+ /*Global sorting links*/
 </script>   
