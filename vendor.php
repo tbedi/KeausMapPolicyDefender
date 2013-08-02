@@ -5,10 +5,10 @@ $limit = 15;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') {
 	$limit=$_GET['limit'];
 } 
-$name=0;
+$website_id=0;
 
-if (isset($_REQUEST['name'])) {
-	$name = $_REQUEST['name'];
+if (isset($_REQUEST['website_id'])) {
+	$website_id = $_REQUEST['website_id'];
 }
 
 
@@ -40,8 +40,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value'
     $where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
 }
 
-if ($name) {
- $where = "  AND  website.name  = '" . $name . "'"; ;
+if ($website_id) {
+ $where = "  AND  website_id  = '" . $website_id . "'"; ;
 }
 /*where*/
 
@@ -149,11 +149,11 @@ $additional_params = "&limit=".$limit;
 if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
     $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];
 }
-if (isset($_GET['name']) && $_GET['name']) { //adding support for website
-    $additional_params.="&name=" . $_GET['name'];
+if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for website
+    $additional_params.="&website_id=" . $_GET['website_id'];
 }
 if (isset($_GET['action']) && $_GET['action']) { // search 
-    $additional_params.="&action=" . $_GET['action'] . "&field=name&value=" . $_GET['value'];
+    $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
 }
  
 
@@ -167,7 +167,7 @@ if ($total_pages == 1) {
 	$website_id = $page_violated_seller[0]->website_id;
 }
 
-if ($name && isset($_GET['tab']) && $_GET['tab'] == "violation-by-seller") {
+if ($website_id && isset($_GET['tab']) && $_GET['tab'] == "violation-by-seller") {
     include_once 'vviolation.php';
 }
 ?>

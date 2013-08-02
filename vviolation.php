@@ -40,7 +40,7 @@ where crawl_results.violation_amount>0.05
 and
 website.excluded=0 
 AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
-and website.name= $name " . $where ;
+and website_id = $website_id " . $where ;
         
         
 
@@ -103,7 +103,7 @@ where crawl_results.violation_amount>0.05
 and
 website.excluded=0 
 AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
-and " . $where . " 
+and website_id = $website_id " . $where . " 
      ".$order_by." LIMIT $start, $limit";
 
  
@@ -130,13 +130,10 @@ $page_param = "page2"; //variable used for pagination
 $additional_params = ""; //addtiion params to pagination url;
 
 
-$sql3 = "select  name as wname from   website where  id = ".$name ;
+$sql3 = "select  name as wname from   website where  id = ".$website_id ;
 
 
 $violators_array3=$db_resource->GetResultObj($sql3);
-$vviolationTitle=$violators_array3[0]->wname;
-$_SESSION['vviolationTitle']= $vviolationTitle;
-
 
 include_once 'template/vendor_violation_detail.phtml';
 ?>
