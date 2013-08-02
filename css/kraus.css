@@ -25,10 +25,8 @@
 	line-height: 20px;
 	margin: 0;
 	padding: 4;
-        /*background-color: #D9D9D9;*/
-         /* -webkit-appearance:none; */
-         cursor:default;
-          
+        cursor:default;
+        float:left;padding-top:6px
 }
 .btn-search {
     background-clip: padding-box;
