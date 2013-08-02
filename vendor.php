@@ -93,8 +93,7 @@ group by website.name , crawl_results.website_id
 
 $page_violated_seller=$db_resource->GetResultObj($sql);
 
-
-echo $sql;
+ 
 
 $_SESSION['vendorArray']=$page_violated_seller;
 if(isset($_SESSION['vendorArray']))
