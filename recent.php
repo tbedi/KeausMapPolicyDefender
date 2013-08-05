@@ -63,9 +63,9 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS
     catalog_product_flat_1.sku,
 website.name as name, 
 website.id as website_id,
-cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
-cast(crawl_results.map_price as decimal(10,2)) as map_price,
-cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
+crawl_results.vendor_price  as vendor_price,
+crawl_results.map_price  as map_price,
+crawl_results.violation_amount   as violation_amount,
 crawl_results.website_product_url
 from website
 inner join
@@ -117,6 +117,25 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 include_once 'template/recent_tab.phtml';
 ?>
  
+<?php
+
+function toMoney($val,$symbol='$',$decimal=2)
+{
+
+
+    $no = $val; 
+    $c = is_float($no) ? 1 : number_format($no,$decimal);
+    $d = '.';
+    $t = ',';
+    $sign = ($no < 0) ? '-' : '';
+    $i = $no=number_format(abs($no),$decimal); 
+    $j = (($j = count($i)) > 3) ? $j % 3 : 0; 
+
+   return  $symbol.$sign .($j ? substr($i,0, $j) + $t : '').preg_replace('/(\d{3})(?=\d)/',"$1" + $t,substr($i,$j)) ;
+
+}
 
 
 
+
+?>

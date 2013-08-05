@@ -27,7 +27,9 @@ $items = array();
 
 while ($row = mysql_fetch_assoc($result)) {
     $sum+=$row['violations'];
-    $item['name'] = preg_replace('/[^A-Za-z0-9\-]/', '', $row['name']);
+    $item['name'] = preg_replace('/[^A-Za-z0-9. \-]/', '', $row['name']);
+  //   $item['name'] = preg_replace("/[^a-zA-Z0-9. \-\s]/","", $row['name']);
+    
     $item['violations'] = $row['violations'];
     array_push($items, $item);
 }
