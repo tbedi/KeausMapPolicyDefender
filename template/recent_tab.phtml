@@ -7,7 +7,7 @@
         <td >
             <div class="divt1">
 
-               <input  class="recent_violation_search search" placeholder="Enter SKU ..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+               <input  class="recent_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt22 search-btn-container">
                 <button href="javascript:void(0);" class="btn-search"   onclick="search('.recent_violation_search','sku','search');">Search</button>
@@ -59,27 +59,30 @@
                 <tbody id="data">
                     <tr> 
                         <td >SKU
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=sku&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                           <a  onclick="sort_grid('sku','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >Seller
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=name&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                                      
+                             <a  onclick="sort_grid('name','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >Seller price
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=vendor_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                       
+                             <a  onclick="sort_grid('vendor_price','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="vendor_price" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >MAP
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=map_price&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                       <a  onclick="sort_grid('map_price','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="map_price" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
                         <td >Violation amount
-                        <a href="index.php?tab=<?php echo $tab_name; ?>&grid=recent&dir=<?php echo ($direction=="asc"? "desc" : "asc")?>&sort=violation_amount&<?php echo  $page_param?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'recent' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] :"" ); ?><?php echo $additional_params;?>" >
+                        
+                             <a  onclick="sort_grid('violation_amount','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="violation_amount" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>

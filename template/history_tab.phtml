@@ -15,7 +15,7 @@
 </script>
 <div class="top-paneltab">Violations History</div>
 <div class=" divcc" >
-    
+
 </div> 
 <table align="center">
     <tr>
@@ -70,7 +70,7 @@
 
                 </select>
             </div>
-              </td>
+        </td>
         <td>
             <div class="divt22">
                 <button href="" id="1" class="btn-search" onclick="exporttoh();">Export</button>
@@ -103,25 +103,28 @@
         <tr> 
             <td>
                 SKU
-                <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=sku&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+
+                <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
                 </a>
             </td>	
             <td>
                 Seller
-                <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=wname&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+
+                <a  onclick="sort_grid('wname', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "wname" ? $direction : "asc" ); ?>_1.png" />
                 </a>
             </td>	
             <td>
                 Vendor price
-                <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=vendor_price&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+
+                <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
                 </a>
             </td>
             <td>
                 MAP price
-                <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=map_price&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+                <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
                 </a>
 
@@ -129,12 +132,13 @@
             <td>
                 Violation amt
 
-                <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=violation_amount&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+                <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
                 </a>
             </td>
             <td>Date
-                <a href="index.php?tab=<?php echo $tab_name; ?>&grid=history&dir=<?php echo ($direction == "asc" ? "desc" : "asc") ?>&sort=date_executed&<?php echo $page_param ?>=<?php echo $page ?><?php echo (isset($_GET['action']) && $_GET['action'] && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ? "&action=" . $_GET['action'] . "&field=" . $_GET['field'] . "&value=" . $_GET['value'] : "" ); ?><?php echo $additional_params; ?>" >
+
+                <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
                 </a>
             </td>
@@ -163,7 +167,7 @@
                 <td><?php echo "$" . $violator->map_price; ?></td>
                 <td id="<?php echo $cell_id; ?>"><?php echo "$" . $violator->violation_amount; ?></td>
                 <td><?php echo $violator->date_executed; ?></td>
-  <td><a href="<?php echo $product->website_product_url; ?>" target="_blank">View</a></td>
+                <td><a href="<?php echo $product->website_product_url; ?>" target="_blank">View</a></td>
             </tr>				
         <?php } ?>
 
@@ -174,7 +178,7 @@
 if (count($violators_array) == 0) {
     ?><table class="GrayBlack" align="center">
         <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
-    <?php }
+<?php }
 ?>
 
 <div align="left" style="display:block; ">
@@ -197,4 +201,3 @@ if (count($violators_array) == 0) {
     </table>
 </div>
 
- 

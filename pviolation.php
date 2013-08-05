@@ -75,16 +75,18 @@ $sql = "SELECT  distinct w.`name` as vendor ,
 $violators_array=$db_resource->GetResultObj($sql);
 
 
+
+
 $sql3 = "SELECT  distinct  p.sku as sku
     FROM crawl_results  r
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05 AND w.excluded=0 AND r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)  
-    ".$order_by." LIMIT $start, $limit";
+     ";
  
 $violators_array3=$db_resource->GetResultObj($sql3);
 
-$_SESSION['product2Array']=$violators_array3;
+$_SESSION['product2Array']=$violators_array;
 if(isset($_SESSION['product2Array']))
 {
   //  print_r($_SESSION['product2Array']); 
