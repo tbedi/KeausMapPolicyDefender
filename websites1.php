@@ -9,7 +9,6 @@ $limit = 10;
 
 $where = "";
 
-
 $query = "SELECT COUNT(*) as num FROM $tableName";
 $total_pages = mysql_fetch_array(mysql_query($query));
 $total_pages = $total_pages['num'];
@@ -75,7 +74,9 @@ if (isset($_GET['page'])) {
  if(isset($_POST['websearch'])){
      $var1 = $_POST['websearch'];
      $var2 = $_POST['recent-limit'];
-     $sql = "SELECT * from website where name like '%"."$var1"."%' LIMIT $start, $var2" ;
+     $sql = "SELECT id, name, domain, date_created,
+case excluded when 0 then 'No' when 1 then 'Yes' end as excluded
+ from website where name like '%"."$var1"."%' LIMIT $start, $var2" ;
      $result = mysql_query($sql);
      if ($result && mysql_num_rows($result) <= 0){
          ?><table class="GrayBlack" align="center">
@@ -121,7 +122,7 @@ $query1 = "SELECT
 website.name,
 website.domain,
 website.date_created,
-website.excluded
+case excluded when 0 then 'No' when 1 then 'Yes' end as excluded
 from
 website
 LIMIT $start, $limit";
@@ -144,7 +145,6 @@ LIMIT $start, $limit";
                     ?>
 
                     <tr>
-<!--                        <td ><?php // echo $row['id']; ?></td>-->
                         <td ><?php echo $row['name']; ?></td> 
                         <?php echo "<td>"."<a href ="."http://www.".$row['domain']. " target="."_blank".">" .$row['domain'] . "</a></td>";  ?> 
                         <td ><?php echo $row['date_created']; ?></td>
@@ -237,32 +237,6 @@ LIMIT $start, $limit";
     echo $paginate;
     
     ?>
-
-
-<!--<script type="text/javascript">
- function recent_violation_search() {
-     var field = "domain";
-     var value = $(".recent_violation_search").val();
-     var url_options="";
-     if (value.length) {
-         url_options += "&action=search&field=" + field + "&value=" + value;
-     }
-
-      var search_link = "websites.php"+url_options;
-     window.open(search_link, "_self");
- }
- function product_violation_show_all() {
-	  var search_link = "websites.php";
-	  window.open(search_link, "_self");
- }
- $('.recent-res-per-page').change(function() {
-	var limit=$(this).val();
-        var url="";
-         url="websites.php?tab=recent";
-	queryParameters['limit'] = limit;
-	location.search=url+$.param(queryParameters);
-});
-</script>-->
 
 <div class="cleaner1" >
 

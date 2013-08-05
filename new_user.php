@@ -5,7 +5,7 @@ $title = "Kraus Price Defender | usernew.php";
             ////pagination
 $tableName = "admin_users";
 $targetpage = "users.php";
-$limit = 4;
+$limit = 5;
 
 $where = "";
 
@@ -25,15 +25,16 @@ if (isset($_GET['page'])) {
 }
 
 ?>
+<form action="users.php" method="POST">
 <table class="table1" >
     <tr>
         <td >
             <div class="divt1">
 
-               <input  class="recent_violation_search search" placeholder="Enter name ..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+               <input  class="recent_violation_search search" placeholder="Enter name ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt22 search-btn-container">
-                <button href="javascript:void(0);" class="btn-search"   onclick="search('.recent_violation_search','sku','search');">Search</button>
+                <input  class="btn-search" type="submit" value="Search">
             </div>
              <div class="divt22">
                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
@@ -41,6 +42,7 @@ if (isset($_GET['page'])) {
         </td>
 </tr>
 </table>
+    </form>
 <div class="cleaner1" ></div>
 <table class="GrayBlack" align="center">
     <tbody id="data">
@@ -51,9 +53,48 @@ if (isset($_GET['page'])) {
             <td>Role</td>
             <td>Edit</td>
         </tr>
-
-
         <?php
+           
+ if(isset($_POST['websearch'])){
+     $var1 = $_POST['websearch'];
+     $sql = "SELECT * from admin_users where name like '%"."$var1"."%' LIMIT $start, $limit" ;
+     $result = mysql_query($sql);
+     if ($result && mysql_num_rows($result) <= 0){
+         ?><table class="GrayBlack" align="center">
+     <tr align="center"><td width="500"> No Records Found  </td> </tr></table><?php } ?>
+    <?php
+     if ($page == 0) {
+                $page = 1;
+            }
+            $prev = $page - 1;
+            $next = $page + 1;
+            $lastpage = ceil($total_pages / $limit);
+            $LastPagem1 = $lastpage - 1;
+
+
+            $paginate = '';
+            
+            if ($lastpage > 1) {
+    while ($row = mysql_fetch_array($result)) {
+                    ?>
+    <tr>                                     
+                <td ><?php echo $row['username']; ?></td>
+                <td ><?php echo $row['email']; ?></td>
+                <td ><?php echo $row['name']; ?></td>
+                <td ><?php echo $row['role']; ?></td>
+                <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
+                    <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
+            </tr>
+             <?php     
+
+     
+ }}
+ 
+ }
+
+                 elseif(!isset($_POST['websearch']))
+                  
+                        {
         $query1 = "SELECT * from admin_users LIMIT $start, $limit";
         $result = mysql_query($query1);
         // Initial page num setup
@@ -71,7 +112,6 @@ if (isset($_GET['page'])) {
             if ($lastpage > 1) {
                 while ($row = mysql_fetch_array($result)) {
                     ?>
-
             <tr>                                     
                 <td ><?php echo $row['username']; ?></td>
                 <td ><?php echo $row['email']; ?></td>
@@ -80,8 +120,11 @@ if (isset($_GET['page'])) {
                 <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
+
+            
             <?php
                 }
+            }
         }
         ?>
             </tbody>
