@@ -77,6 +77,17 @@ $js_data_string = implode($chart_rows, ",");
             series: [{
                     type: 'pie',
                     name: 'Violation by Products',
+                    
+                       point: {
+                        events: {
+                          click: function(e) {
+                             this.slice();                                                   
+                             location.href = "/index.php?tab=violation-by-product&action=search&field=sku&value="+ this.name;                        
+                             e.preventDefault();
+                          }
+                       }
+                     },
+                    
                     data: [
                      <?php echo $js_data_string; ?>
                     ]
