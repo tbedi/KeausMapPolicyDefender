@@ -11,9 +11,10 @@ $title = "Kraus Price Defender | user_edit.php";
                 <div class="top-panel">Edit User</div>
                 <div id="tabscontent" align="center">
                     <div class="tabpage recent" id="tabpage_1">
+                        <div class="formlog1" >
                         <form id="test" action="update_user.php" method="POST"> 
                             <?php
-                            $uid = $_GET['user_id'];
+                         $uid = $_GET['userid'];
                             include "db.php";
                             $sql2 = "select * from admin_users where user_id = '$uid'";
                             $qry = mysql_query($sql2);
@@ -110,6 +111,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                 </table>
                             </div>
                         </form>
+                    </div>
                     </div>
                 </div>
             </div>

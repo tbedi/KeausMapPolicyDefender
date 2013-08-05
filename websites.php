@@ -15,7 +15,7 @@ else {
         if(isset($_SESSION['a']) && $_SESSION['a'] === '1'){
         echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">Website is updated successfully</div>";}
                  elseif(isset($_SESSION['a']) && $_SESSION['a'] === '0') {
-                 echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">User failed</div>";
+                 echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">website failed</div>";
                  }
                  unset ($_SESSION['a']);
                  ?>

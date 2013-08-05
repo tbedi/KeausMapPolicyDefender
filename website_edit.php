@@ -16,10 +16,10 @@ $title = "Kraus Price Defender | website_edit.php"; ?>
                         <form id="test" action="update_website.php" method="POST"> 
 
                             <?php
-                            $id = $_GET['id'];
+                            $name = $_GET['name'];
                             include "db.php";
 
-                            $sql2 = "select * from website where id = '$id'";
+                            $sql2 = "select * from website where name = '$name'";
                             $qry = mysql_query($sql2);
                             $row = mysql_fetch_array($qry);
                             ?> 

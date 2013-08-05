@@ -12,6 +12,7 @@ $rl = $_POST['role'];
 $_SESSION['b'] = '';
 $encryppassword = md5($pass);
 // Insert data into mysql 
+
 $sql = "INSERT INTO admin_users(username, password, email, name, role)VALUES('$uname', '$encryppassword', '$em', '$nm', '$rl')";
 $db_resource->ExecSql($sql);
 $result = mysql_query($sql);// if successfully insert data into database, displays message "Successful". 

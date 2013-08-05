@@ -88,7 +88,7 @@ crawl.id =
 $violators_array=$db_resource->GetResultObj($sql);
 
 $_SESSION['recentArray']=$violators_array;
-if(isset($_SESSION['recentArray']))
+if(isset($_SESSION['recentArray']))      
 {
    // print_r($_SESSION['recentArray']); 
   

@@ -38,7 +38,7 @@ if (isset($_REQUEST["Submit"])) {
                 window.location.href = '/mysettings.php';</script>
             <?php
         }
-    } elseif (isset($user) && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
+    } elseif (isset($user) && trim($user) != '' && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
         $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");
         $_SESSION['adminupd'] = '2';
         if (!$sql) {
@@ -59,6 +59,27 @@ if (isset($_REQUEST["Submit"])) {
             <?php
         }
     }
+    elseif (isset($user) && trim($_REQUEST['username']) === '' && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
+        $sql = mysql_query("UPDATE admin_users SET password='$new_pass' WHERE email='$email'");
+        $_SESSION['adminupd'] = '3';
+        if (!$sql) {
+            ?>
+            <script>
+            <?php
+            $_SESSION['a'] = '0';
+            ?>
+                window.location.href = '/mysettings.php';</script>
+            <?php
+        } else {
+            ?>
+            <script>
+            <?php
+            $_SESSION['a'] = '1';
+            ?>
+                window.location.href = '/mysettings.php';</script>
+            <?php
+        }
+    }  
 }
 ?>
 <script language="javascript" type="text/javascript">
@@ -67,38 +88,38 @@ if (isset($_REQUEST["Submit"])) {
 
         var formName = document.frm;
 
-        if (formName.username.value == "")
-        {
-            document.getElementById("username_label").innerHTML = 'Please Enter username';
-            formName.username.focus();
-            return false;
-        }
-        else
-        {
-            document.getElementById("username_label").innerHTML = '';
-        }
-        if (formName.newpassword.value == "")
-        {
-            document.getElementById("newpassword_label").innerHTML = 'Please Enter New Password';
-            formName.newpassword.focus();
-            return false;
-        }
-        else
-        {
-            document.getElementById("newpassword_label").innerHTML = '';
-        }
+//        if (formName.username.value == "")
+//        {
+//            document.getElementById("username_label").innerHTML = 'Please Enter username';
+//            formName.username.focus();
+//            return false;
+//        }
+//        else
+//        {
+//            document.getElementById("username_label").innerHTML = '';
+//        }
+//        if (formName.newpassword.value == "")
+//        {
+//            document.getElementById("newpassword_label").innerHTML = 'Please Enter New Password';
+//            formName.newpassword.focus();
+//            return false;
+//        }
+//        else
+//        {
+//            document.getElementById("newpassword_label").innerHTML = '';
+//        }
 
 
-        if (formName.cpassword.value == "")
-        {
-            document.getElementById("cpassword_label").innerHTML = 'Enter ConfirmPassword';
-            formName.cpassword.focus();
-            return false;
-        }
-        else
-        {
-            document.getElementById("cpassword_label").innerHTML = '';
-        }
+//        if (formName.cpassword.value == "")
+//        {
+//            document.getElementById("cpassword_label").innerHTML = 'Enter ConfirmPassword';
+//            formName.cpassword.focus();
+//            return false;
+//        }
+//        else
+//        {
+//            document.getElementById("cpassword_label").innerHTML = '';
+//        }
 
 
         if (formName.newpassword.value != formName.cpassword.value)
@@ -115,7 +136,7 @@ if (isset($_REQUEST["Submit"])) {
     }
 </script>
 
-
+<div class="formlog1" >
 <form action="mysettings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
     <div align="center" style="font-size: 150%;">
         <table>
@@ -152,6 +173,7 @@ if (isset($_REQUEST["Submit"])) {
 
     </div>
 </form>
+</div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
