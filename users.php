@@ -26,6 +26,10 @@ if (!isset($_SESSION['username'])) {
                 echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">User failed</div>";
             }
             unset($_SESSION['b']);
+            if (isset($_SESSION['userdata']) && $_SESSION['userdata'] === '1') {
+                echo " <div class=" . "log" . "  align=" . "left" . ">Email is already registered..</div>";
+            }
+            unset($_SESSION['userdata']);
             ?>
 
             <div id="tabContainer" class="main-content" align="center" >

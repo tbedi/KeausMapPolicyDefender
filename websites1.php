@@ -1,4 +1,4 @@
-<?php
+ <?php
 include_once 'db_login.php';
 include_once 'db.php';
 $title = "Kraus Price Defender | websites1.php";
@@ -28,16 +28,19 @@ if (isset($_GET['page'])) {
 <form action="websites.php" method="POST">
 <table class="table1" >
     <tr>
-        <td >
+        <td width="285" >
             <div class="divt1">
 
                <input  class="recent_violation_search search" name="websearch" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action'])&& $_GET['action'] == 'search') echo $_GET['value'];  ?>"  id="textBoxSearch"    /> 
 </div>
-            <div class="divt2">
+            <div class="divt22 search-btn-container">
                 <input  class="btn-search" type="submit" value="Search">
             </div>
-        </td>
-        <td>
+            <div class="divt22">
+                 <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+            </div>
+      </td>
+        <td width="115">
             <div class="results-per-page" style="float:left;padding-top:6px;" >
             	<select name="recent-limit" class="recent-res-per-page dropdown"  >
 <!--                    <option value="" > Limit </option>-->
@@ -60,7 +63,7 @@ if (isset($_GET['page'])) {
     <table class="GrayBlack" align="center">
         <tbody id="data">
             <tr>
-                <td>S.no</td>
+<!--                <td>S.no</td>-->
                 <td>Website Name</td>
                 <td>Website Link</td>
                 <td>Data Created</td>
@@ -74,6 +77,10 @@ if (isset($_GET['page'])) {
      $var2 = $_POST['recent-limit'];
      $sql = "SELECT * from website where name like '%"."$var1"."%' LIMIT $start, $var2" ;
      $result = mysql_query($sql);
+     if ($result && mysql_num_rows($result) <= 0){
+         ?><table class="GrayBlack" align="center">
+     <tr align="center"><td width="500"> No Records Found  </td> </tr></table><?php } ?>
+        <?php
      if ($page == 0) {
                 $page = 1;
             }
@@ -90,12 +97,12 @@ if (isset($_GET['page'])) {
                     ?>
 
                     <tr>
-                        <td ><?php echo $row['id']; ?></td>
+<!--                        <td ><?php // echo $row['id']; ?></td>-->
                         <td ><?php echo $row['name']; ?></td> 
                         <?php echo "<td>"."<a href ="."http://www.".$row['domain']. " target="."_blank".">" .$row['domain'] . "</a></td>";  ?> 
                         <td ><?php echo $row['date_created']; ?></td>
                         <td ><?php echo $row['excluded']; ?></td>
-                        <td ><a href="/website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                        <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                     </tr>
                     <?php     
@@ -111,7 +118,6 @@ if (isset($_GET['page'])) {
  
  
 $query1 = "SELECT
-website.id,
 website.name,
 website.domain,
 website.date_created,
@@ -138,12 +144,12 @@ LIMIT $start, $limit";
                     ?>
 
                     <tr>
-                        <td ><?php echo $row['id']; ?></td>
+<!--                        <td ><?php // echo $row['id']; ?></td>-->
                         <td ><?php echo $row['name']; ?></td> 
                         <?php echo "<td>"."<a href ="."http://www.".$row['domain']. " target="."_blank".">" .$row['domain'] . "</a></td>";  ?> 
                         <td ><?php echo $row['date_created']; ?></td>
                         <td ><?php echo $row['excluded']; ?></td>
-                        <td ><a href="/website_edit.php?id=<?php echo($row['id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                        <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                     </tr>
                     <?php
@@ -215,6 +221,7 @@ LIMIT $start, $limit";
             }
         }
     }
+    
 
     // Next
     if ($page < $counter - 1) {
@@ -224,8 +231,6 @@ LIMIT $start, $limit";
     }
 
     $paginate.= "</div>";
-
-
 
     //echo $total_pages . ' Results';
     // pagination

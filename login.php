@@ -96,25 +96,69 @@ $title = "Kraus Price Defender | Login";
                 <div class="top-panel">
                    Login
                 </div>
-                <div id="tabscontent" align="center">  
-                <form name="form" action="login.php" method="post"  >
+                <div id="tabscontent" align="center"> 
+                    
+                                           <div class="formlog1" >
+                        <form name="form" action="login.php" method="post"  >
+                            <table align="center">
+                                <tbody>
+                                    <tr> 
+                                        <td>
+                                             Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </td>	
+                                        <td>
+                                            <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /> 
+                                        </td>
+                                    </tr>
+                                    <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
 
-                    <ul>
+                                        <td>
+                                            Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                          <input type='password' name='password' id='password'  class="input" maxlength="50" required />
+                                          
+                                        </td>
+                                    </tr>
+                                    <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
+                                    <tr><td>&nbsp;</td><td><input type="checkbox" name="rememberme" align="center"/>&nbsp;&nbsp;Remember Me</td></tr>
+                                    <tr> 
+                                        <td>&nbsp;</td>	
+                                        <td><input type="hidden" value="hidden"/>
+                                        </td>
+                                    </tr>
+                                    <tr align="center">
+                                        <td rowspan="5" colspan="5" align="center">
+                                            <input class="btn-login" type="submit" name="login" value="Login"  />
+                                        </td>
+                                    </tr>
 
-                        <li>
-                            Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                            <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /><br />
-                        </li>
-                        <li>
-                            Password:&nbsp;&nbsp;&nbsp;
-                            <input type='password' name='password' id='password' class="input" maxlength="50" required /><br/><br/>
-                            <input type="checkbox" name="rememberme" />&nbsp;&nbsp;Remember Me
-                        </li>
-                        <li>
-                            <input class="btn-login" type="submit" name="login" value="Login"  />
-                        </li>
-                    </ul>
-                </form>
+                                </tbody></table>  
+                        </form>
+
+
+                    
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+
                 </div>
             </div>
         </div>
