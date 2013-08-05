@@ -132,7 +132,16 @@ $additional_params = ""; //addtiion params to pagination url;
 $sql3 = "select  name as wname from   website where  id = ".$website_id ;
 
 
+
 $violators_array3=$db_resource->GetResultObj($sql3);
+
+
+$_SESSION['vviolationTitle']=$violators_array3[0]->wname;
+if(isset($_SESSION['vviolationTitle']))
+{
+  //  print_r($_SESSION['vendor2Array3']); 
+  
+}
 
 include_once 'template/vendor_violation_detail.phtml';
 ?>

@@ -84,7 +84,7 @@ $sql3 = "SELECT  distinct  p.sku as sku
  
 $violators_array3=$db_resource->GetResultObj($sql3);
 
-$_SESSION['product2Array']=$violators_array;
+$_SESSION['product2Array']=$violators_array3;
 if(isset($_SESSION['product2Array']))
 {
   //  print_r($_SESSION['product2Array']); 

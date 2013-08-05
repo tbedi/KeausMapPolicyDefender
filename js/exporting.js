@@ -1,11 +1,20 @@
-/*
- Highcharts JS v3.0.2 (2013-06-05)
- Exporting module
-
- (c) 2010-2013 Torstein Hønsi
-
- License: www.highcharts.com/license
-*/
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to customerservice@kraususa.com so we can send you a copy immediately.
+ *
+ * @author Bhagyashri Jangam
+ * @copyright   Copyright (c) 2013 Kraus USA. (http://www.kraususa.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * Created: Aug 2, 2013
+ *
+ */
 (function(e){var y=e.Chart,v=e.addEvent,B=e.removeEvent,m=e.createElement,j=e.discardElement,t=e.css,k=e.merge,r=e.each,p=e.extend,C=Math.max,i=document,z=window,D=e.isTouchDevice,E=e.Renderer.prototype.symbols,s=e.getOptions(),w;p(s.lang,{printChart:"Print chart",downloadPNG:"Download PNG image",downloadJPEG:"Download JPEG image",downloadPDF:"Download PDF document",downloadSVG:"Download SVG vector image",contextButtonTitle:"Chart context menu"});s.navigation={menuStyle:{border:"1px solid #A0A0A0",
 background:"#FFFFFF",padding:"5px 0"},menuItemStyle:{padding:"0 10px",background:"none",color:"#303030",fontSize:D?"14px":"11px"},menuItemHoverStyle:{background:"#4572A5",color:"#FFFFFF"},buttonOptions:{symbolFill:"#E0E0E0",symbolSize:14,symbolStroke:"#666",symbolStrokeWidth:3,symbolX:12.5,symbolY:10.5,align:"right",buttonSpacing:3,height:22,theme:{fill:"white",stroke:"none"},verticalAlign:"top",width:24}};s.exporting={type:"image/png",url:"http://export.highcharts.com/",buttons:{contextButton:{symbol:"menu",
 _titleKey:"contextButtonTitle",menuItems:[{textKey:"printChart",onclick:function(){this.print()}},{separator:!0},{textKey:"downloadPNG",onclick:function(){this.exportChart()}},{textKey:"downloadJPEG",onclick:function(){this.exportChart({type:"image/jpeg"})}},{textKey:"downloadPDF",onclick:function(){this.exportChart({type:"application/pdf"})}},{textKey:"downloadSVG",onclick:function(){this.exportChart({type:"image/svg+xml"})}}]}}};e.post=function(a,b){var c,d;d=m("form",{method:"post",action:a,enctype:"multipart/form-data"},

@@ -26,11 +26,11 @@ if(isset($_SESSION['historyArray']))
 	 
 	$output = "<tr>";
 
-          $output .=  "<td>" . $violators_array->sku . "</td>";
+          $output .=  "<td>". $violators_array->sku . "</td>";
           $output .=  "<td>". $violators_array->wname ."</td>";
-          $output .=  "<td>". "$ ".  $violators_array->vendor_price ."</td>";
-          $output .=  "<td>". "$ ".  $violators_array->map_price ."</td>";
-          $output .=  "<td>". "$ ".$violators_array->violation_amount ."</td>";   
+          $output .=  "<td>". $violators_array->vendor_price ."</td>";
+          $output .=  "<td>". $violators_array->map_price ."</td>";
+          $output .=  "<td>". $violators_array->violation_amount ."</td>";   
             
     
            print(trim($output))."</tr>\t\n";

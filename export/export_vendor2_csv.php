@@ -1,6 +1,7 @@
 <?php
 session_start();
 $vviolationTitle=$_SESSION['vviolationTitle'];
+ 
 $violators_array=$_SESSION['vendor2Array'];
 if(isset($_SESSION['vendor2Array']))
 {
