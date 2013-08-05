@@ -1,10 +1,10 @@
 <?php
 include_once 'db_login.php';
 include_once 'db.php';
-$title = "Kraus Price Defender | usernew.php"; 
-////pagination
+$title = "Kraus Price Defender | usernew.php";
+            ////pagination
 $tableName = "admin_users";
-$targetpage = "new_user.php";
+$targetpage = "users.php";
 $limit = 4;
 
 $where = "";
@@ -39,20 +39,6 @@ if (isset($_GET['page'])) {
                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
             </div>
         </td>
-        <td>  
-            
-              </td>
-        <td>
-            <div class="results-per-page-block"  >
-            	<select name="recent-limit" class="results-per-page dropdown"  >                   
-            		<option <?php //  echo  ($limit==15) ? "selected" : "" ; ?> value="15">15</option>
-            		<option  <?php // echo  ($limit==25) ? "selected" : "" ; ?> value="25">25</option>
-            		<option  <?php //  echo  ($limit==50) ? "selected" : "" ; ?>  value="50">50</option>
-                    <option  <?php // echo  ($limit==75) ? "selected" : "" ; ?> value="75">75</option>
-            		<option  <?php //  echo  ($limit==100) ? "selected" : "" ; ?>  value="100">100</option>
-            	</select>
-            </div>
-    </td>
 </tr>
 </table>
 <div class="cleaner1" ></div>
@@ -177,5 +163,6 @@ if (isset($_GET['page'])) {
     echo $paginate;
     
     ?>
+
 
     

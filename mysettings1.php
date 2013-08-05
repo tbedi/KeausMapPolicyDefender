@@ -87,44 +87,9 @@ if (isset($_REQUEST["Submit"])) {
     {
 
         var formName = document.frm;
-
-//        if (formName.username.value == "")
-//        {
-//            document.getElementById("username_label").innerHTML = 'Please Enter username';
-//            formName.username.focus();
-//            return false;
-//        }
-//        else
-//        {
-//            document.getElementById("username_label").innerHTML = '';
-//        }
-//        if (formName.newpassword.value == "")
-//        {
-//            document.getElementById("newpassword_label").innerHTML = 'Please Enter New Password';
-//            formName.newpassword.focus();
-//            return false;
-//        }
-//        else
-//        {
-//            document.getElementById("newpassword_label").innerHTML = '';
-//        }
-
-
-//        if (formName.cpassword.value == "")
-//        {
-//            document.getElementById("cpassword_label").innerHTML = 'Enter ConfirmPassword';
-//            formName.cpassword.focus();
-//            return false;
-//        }
-//        else
-//        {
-//            document.getElementById("cpassword_label").innerHTML = '';
-//        }
-
-
         if (formName.newpassword.value != formName.cpassword.value)
         {
-            document.getElementById("cpassword_label").innerHTML = 'Passwords Missmatch';
+            document.getElementById("cpassword_label").innerHTML = '*Passwords Missmatch';
             formName.cpassword.focus()
             return false;
         }

@@ -3,6 +3,10 @@
 	font-size: 13px;
         padding: 5px;
 }
+#cpassword_label { 
+     display: block; float: right; color: red; padding-right: 6px;
+} 
+
  #tabscontent1 {
      font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
 	font-size: 13px;

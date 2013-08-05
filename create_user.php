@@ -6,7 +6,7 @@
 
         if (formName.newpassword.value == "")
         {
-            document.getElementById("newpassword_label").innerHTML = 'Please Enter New Password';
+            document.getElementById("newpassword_label").innerHTML = '*Please Enter New Password';
             formName.newpassword.focus();
             return false;
         }
@@ -18,7 +18,7 @@
 
         if (formName.cpassword.value == "")
         {
-            document.getElementById("cpassword_label").innerHTML = 'Enter ConfirmPassword';
+            document.getElementById("cpassword_label").innerHTML = '*Enter ConfirmPassword';
             formName.cpassword.focus();
             return false;
         }
@@ -30,7 +30,7 @@
 
         if (formName.newpassword.value != formName.cpassword.value)
         {
-            document.getElementById("cpassword_label").innerHTML = 'Passwords Missmatch';
+            document.getElementById("cpassword_label").innerHTML = '*Passwords Missmatch';
             formName.cpassword.focus()
             return false;
         }
