@@ -23,9 +23,9 @@ website.name as wname,crawl.id,
 catalog_product_flat_1.entity_id,
 catalog_product_flat_1.name as name,
 catalog_product_flat_1.sku,
-cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
-cast(crawl_results.map_price as decimal(10,2)) as map_price,
-cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
+crawl_results.vendor_price  ,
+crawl_results.map_price ,
+crawl_results.violation_amount ,
 website_id,
 crawl_results.website_product_url
 from crawl_results

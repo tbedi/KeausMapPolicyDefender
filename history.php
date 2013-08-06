@@ -79,9 +79,9 @@ else {
     date_format(crawl.date_executed,'%d-%m-%Y %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,
 website.name as wname, 
-cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
-cast(crawl_results.map_price as decimal(10,2)) as map_price,
-cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
+crawl_results.vendor_price ,
+crawl_results.map_price ,
+crawl_results.violation_amount ,
 crawl_results.website_product_url
 from website
 inner join

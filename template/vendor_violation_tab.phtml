@@ -108,8 +108,8 @@
 
                             <td><a href="<?php echo $vendor_link; ?>"> <?php echo $vendor->name; ?> </a></td>
                             <td><?php echo $vendor->wi_count; ?></td>
-                            <td><?php echo "$" . $vendor->maxvio; ?></td>
-                            <td><?php echo "$" . $vendor->minvio; ?></td>
+                            <td><?php echo toMoney( $vendor->maxvio); ?></td>
+                            <td><?php echo toMoney( $vendor->minvio); ?></td>
                         </tr>
                     <?php } ?>
 

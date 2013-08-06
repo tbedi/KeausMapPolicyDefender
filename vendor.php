@@ -70,8 +70,8 @@ if ((isset ($_GET['flag']) && $_GET['flag'] == '1') || (isset($_GET['action']) &
 $sql = "SELECT SQL_CALC_FOUND_ROWS  
 website.name as name,
 crawl_results.website_id as website_id,
-cast(max(crawl_results.violation_amount) as decimal(10,2)) as maxvio,
-cast(min(crawl_results.violation_amount) as decimal(10,2)) as minvio,
+max(crawl_results.violation_amount)  as maxvio,
+min(crawl_results.violation_amount)  as minvio,
 count(crawl_results.website_id) as wi_count
 from website
 inner join
