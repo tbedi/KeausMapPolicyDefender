@@ -5,6 +5,10 @@ if(!isset($_SESSION['username'])){
     header('Location: login.php');
 }
 else {
+    if(isset($_REQUEST['col']))
+    $_SESSION['col'] = $_REQUEST['col'];
+    elseif(!isset($_REQUEST['col']))
+        $_SESSION['col'] = 'name';
 ?>
     <?php include_once 'template/head.phtml'; ?>
 <body id="websites-page" >
