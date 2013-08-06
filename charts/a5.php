@@ -1,5 +1,8 @@
 <?php
- $limit=15;
+if(isset($_REQUEST['limit'])){
+$limit=$_REQUEST['limit'];
+}
+else $limit=15;
 $from=$_SESSION['fr'];
 $to=$_SESSION['t'];
 $sql = "
