@@ -1,6 +1,7 @@
 <?php
-$limit = 10;
-
+ $limit=15;
+$from=$_SESSION['fr'];
+$to=$_SESSION['t'];
 $sql = "
 select Violations_amount, DateExec
 from
@@ -14,6 +15,7 @@ inner join crawl on crawl.id = res.crawl_id
 where
 violation_amount > 0.05 
 and sites.excluded = 0 
+and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
 group by crawl.date_executed
 order by crawl.date_executed desc limit 0," . $limit . " ) as yy order by DateExec";
 

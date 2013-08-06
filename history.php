@@ -6,7 +6,7 @@ $limit = 15;
 $flagfrom = 0;
 $flagto = 0;
 
-//$_SESSION['limit'] = $limit;
+$_SESSION['limit'] = $limit;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $limit = $_GET['limit'];
 }
