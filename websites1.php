@@ -6,6 +6,54 @@ $title = "Kraus Price Defender | websites1.php";
 $tableName = "website";
 $targetpage = "websites.php";
 $limit = 10;
+$page_name="websites.php"; 
+////// starting of drop down to select number of records per page /////
+
+@$limit=$_GET['limit']; // Read the limit value from query string. 
+if(strlen($limit) > 0 and !is_numeric($limit)){
+echo "Data Error";
+exit;
+}
+// If there is a selection or value of limit then the list box should show that value , so we have to lock that options //
+// Based on the value of limit we will assign selected value to the respective option//
+switch($limit)
+{
+case 40:
+$select40="selected";
+$select10="";
+$select25="";
+break;
+
+case 25:
+$select25="selected";
+$select10="";
+$select40="";
+break;
+
+default:
+$select10="selected";
+$select25="";
+$select40="";
+break;
+
+}
+
+echo "<form method=get action=$page_name>
+    <table class="."table1"." align="."right".">
+<div class="."results-per-page"." style="."float:right;padding-top:5px;"." ><select name=limit class="."searchlog"." >
+<option value=10 $select10>10 Records</option>
+<option value=25 $select25>25 Records</option>
+<option value=40 $select40>40 Records</option>
+</select>
+<input type=submit value=GO class="."btn-search"."></div></table></form>";
+$eu = (0); 
+
+if(!$limit > 0 ){ // if limit value is not available then let us use a default value
+$limit = 10;    // No of records to be shown per page by default.
+}                             
+$this1 = $eu + $limit; 
+$back = $eu - $limit; 
+$next = $eu + $limit; 
 
 $where = "";
 $column = $_SESSION['col'];
@@ -40,14 +88,15 @@ if (isset($_GET['page'])) {
                 </div>
             </td>
             <td width="20">
-                <div class="results-per-page" style="float:left;padding-top:6px;" >
-                    <select name="recent-limit" class="recent-res-per-page dropdown" onclick="" >
-                        <option <?php echo ($limit == 10) ? "selected" : ""; ?> value="10" selected>10</option>
-                        <option  <?php echo ($limit == 15) ? "selected" : ""; ?> value="25">25</option>
-                        <option  <?php echo ($limit == 20) ? "selected" : ""; ?>  value="50">50</option>
-                        <option  <?php echo ($limit == 15) ? "selected" : ""; ?> value="75">75</option>
-                    </select>
-                </div>
+               <?php // echo "<form method=get action=$page_name>
+    
+//                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."searchlog"." >
+//                <option value=10 $select10>10 Records</option>
+//                <option value=25 $select25>25 Records</option>
+//                <option value=50 $select50>50 Records</option>
+//                </select>
+//                <input type=submit value=GO class="."btn-search"."></div></form>";
+               ?>
             </td>  
         </tr>
     </table>
@@ -89,8 +138,7 @@ if (isset($_GET['page'])) {
     <?php
     if (isset($_POST['websearch'])) {
         $var1 = $_POST['websearch'];
-        $var2 = $_POST['recent-limit'];
-        $sql = "SELECT id, name, domain, date_created, case excluded when 0 then 'No' when 1 then 'Yes' end as excluded from website where name like '%" . "$var1" . "%' LIMIT $start, $var2";
+        $sql = "SELECT id, name, domain, date_created, case excluded when 0 then 'No' when 1 then 'Yes' end as excluded from website where name like '%" . "$var1" . "%' LIMIT $start, $limit";
 
         $result = mysql_query($sql);
         if ($result && mysql_num_rows($result) <= 0) {
