@@ -8,6 +8,7 @@ $targetpage = "users.php";
 $limit = 5;
 
 $where = "";
+
 $column = $_SESSION['col'];
 $desc = $_SESSION['dir'];
 
@@ -80,7 +81,7 @@ $page = 1;
     <?php
     if(isset($_POST['websearch'])){
     $var1 = $_POST['websearch'];
-    $sql = "SELECT * from admin_users where name like '%"."$var1"."%' LIMIT $start, $limit";
+    $sql = "SELECT * from admin_users where name like '%"."$var1"."%' order by $column $desc LIMIT $start, $limit";
     $result = mysql_query($sql);
     if ($result && mysql_num_rows($result) <= 0){
     ?><table class="GrayBlack" align="center">
@@ -110,7 +111,7 @@ $page = 1;
     }
     }
     }
-    elseif(!isset($_POST['websearch']))
+    elseif(!isset($_POST['websearch'])){
     $query1 = "SELECT * from admin_users order by $column $desc LIMIT $start, $limit";
     $result = mysql_query($query1);
     // Initial page num setup
@@ -137,7 +138,7 @@ $page = 1;
             <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
     </tr>
 <?php
-}
+    }
 }
 }
 ?>
