@@ -5,8 +5,8 @@
 //else $limit=15;
 $from=$_SESSION['frc'];
 $to=$_SESSION['tc'];
-echo "from ".$from;
-echo "to ".$to;
+//echo "from ".$from;
+//echo "to ".$to;
 $sql = "
 select Violations_amount, DateExec
 from
