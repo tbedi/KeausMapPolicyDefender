@@ -1,10 +1,12 @@
 <?php
-if(isset($_REQUEST['limit'])){
-$limit=$_REQUEST['limit'];
-}
-else $limit=15;
-$from=$_SESSION['fr'];
-$to=$_SESSION['t'];
+//if(isset($_REQUEST['limit'])){
+//$limit=$_REQUEST['limit'];
+//}
+//else $limit=15;
+$from=$_SESSION['frc'];
+$to=$_SESSION['tc'];
+echo "from ".$from;
+echo "to ".$to;
 $sql = "
 select Violations_amount, DateExec
 from
@@ -20,8 +22,9 @@ violation_amount > 0.05
 and sites.excluded = 0 
 and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
 group by crawl.date_executed
-order by crawl.date_executed desc limit 0," . $limit . " ) as yy order by DateExec";
+order by crawl.date_executed desc ) as yy order by DateExec";
 
+//order by crawl.date_executed desc limit 0," . $limit. " ) as yy order by DateExec";
 $result = mysql_query($sql);
 
 
