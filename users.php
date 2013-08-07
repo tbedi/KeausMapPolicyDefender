@@ -6,6 +6,16 @@ $title = "Kraus Price Defender | users.php";
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 } else {
+    if(isset($_REQUEST['col']) & isset($_REQUEST['dir']))
+    {
+    $_SESSION['col'] = $_REQUEST['col'];
+    $_SESSION['dir'] = $_REQUEST['dir'] === 'asc' ? 'desc' : 'asc';
+    }
+    elseif(!isset($_REQUEST['col']) && !isset($_REQUEST['dir']))
+    {
+        $_SESSION['col'] = 'username';
+     $_SESSION['dir'] = 'asc';
+    }
     ?>
         <?php include_once 'template/head.phtml'; ?>
     <body id="login-page" >
@@ -31,18 +41,13 @@ if (!isset($_SESSION['username'])) {
             }
             unset($_SESSION['userdata']);
             ?>
-
             <div id="tabContainer" class="main-content" align="center" >
-
-
                 <div id="tabs" align="center">
                     <ul>
                         <li id="tabHeader_1" class="recent">Edit/Delete user</li>
                         <li id="tabHeader_2" class="violation-by-product" >Create New User</li>
                     </ul>
                 </div>
-
-
                 <div id="tabscontent" align="center">
 
                     <div class="tabpage recent" id="tabpage_1">
@@ -54,7 +59,6 @@ if (!isset($_SESSION['username'])) {
                         } ?>
                     </div></div>
             </div>
-
             <div class="cleaner"></div>
         </div>
     </div>

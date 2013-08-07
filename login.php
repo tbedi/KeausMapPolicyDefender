@@ -19,7 +19,6 @@ if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { //optimize code
     $email = (isset($_COOKIE['email']) ? $_COOKIE['email'] : $_SESSION['email'] );
     $sql = "select * from admin_users where email='$email'";
     $products = $db_resource->GetResultObj($sql);
-    //print_r($products);
     if (count($products) > 0) {
 
         $us = $products[0]->username;
@@ -32,9 +31,7 @@ if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { //optimize code
     exit();
 }
 
-
 /* Cookie check */
-
 if (isset($_POST['login'])) {
     //getdata
     $email = $_POST['email'];
@@ -94,17 +91,17 @@ $title = "Kraus Price Defender | Login";
         <div  class="main-content" align="center" >
             <div style="margin:0px;   padding:0px" align="center"> 
                 <div class="top-panel">
-                   Login
+                    Login
                 </div>
                 <div id="tabscontent" align="center"> 
-                    
-                                           <div class="formlog1" >
+
+                    <div class="formlog1" >
                         <form name="form" action="login.php" method="post"  >
                             <table align="center">
                                 <tbody>
                                     <tr> 
                                         <td>
-                                             Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>	
                                         <td>
                                             <input type="text" name="email" class="input" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" placeholder="abd_d@example.com" required /> 
@@ -121,8 +118,8 @@ $title = "Kraus Price Defender | Login";
                                             Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td>
-                                          <input type='password' name='password' id='password'  class="input" maxlength="50" required />
-                                          
+                                            <input type='password' name='password' id='password'  class="input" maxlength="50" required />
+
                                         </td>
                                     </tr>
                                     <tr> 
@@ -146,19 +143,8 @@ $title = "Kraus Price Defender | Login";
                         </form>
 
 
-                    
-                    </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
 
+                    </div>
                 </div>
             </div>
         </div>

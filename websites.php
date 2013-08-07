@@ -5,13 +5,22 @@ if(!isset($_SESSION['username'])){
     header('Location: login.php');
 }
 else {
-?>
+    if(isset($_REQUEST['col']) & isset($_REQUEST['dir']))
+    {
+    $_SESSION['col'] = $_REQUEST['col'];
+    $_SESSION['dir'] = $_REQUEST['dir'] === 'asc' ? 'desc' : 'asc';
+    }
+    elseif(!isset($_REQUEST['col']) && !isset($_REQUEST['dir']))
+    {
+        $_SESSION['col'] = 'name';
+     $_SESSION['dir'] = 'asc';
+    }
+     ?>
     <?php include_once 'template/head.phtml'; ?>
 <body id="websites-page" >
 <?php include_once 'template/header.phtml'; ?>    
     <div id="wrapper" align="center" >
         <?php
-        //echo $_SESSION['a'];
         if(isset($_SESSION['a']) && $_SESSION['a'] === '1'){
         echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">Website is updated successfully</div>";}
                  elseif(isset($_SESSION['a']) && $_SESSION['a'] === '0') {
@@ -25,18 +34,12 @@ else {
              <div id="tabscontent" align="center">  
              <?php include_once 'websites1.php'; } ?>
             </div>
-
-
             <div class="cleaner"></div>
-
         </div>
         </div>
     </div>
-        
     <?php include_once 'template/footer.phtml'; ?> 
-
 </body>
-
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
         $(document).ready(function() {

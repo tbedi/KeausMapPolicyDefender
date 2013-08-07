@@ -1,4 +1,5 @@
 <?php
+
 $title = "Kraus Price Defender | user_delete.php";
 include 'db.php';
 include_once 'db_login.php';
@@ -16,7 +17,7 @@ if (!$result) {
 } else {
     ?>
     <script>
-        window.location.href = '/users.php';</script>
+            window.location.href = '/users.php';</script>
     <?php
 
 }
