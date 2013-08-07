@@ -8,7 +8,8 @@ $targetpage = "users.php";
 $limit = 5;
 
 $where = "";
-
+$column = $_SESSION['col'];
+$desc = $_SESSION['dir'];
 
 $query = "SELECT COUNT(*) as num FROM $tableName";
 $total_pages = mysql_fetch_array(mysql_query($query));
@@ -47,10 +48,22 @@ if (isset($_GET['page'])) {
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr>
-            <td>Username</td>
-            <td>Email</td>
-            <td>Name</td>
-            <td>Role</td>
+            <td>Username<a href="users.php?col=username&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
+            <td>Email<a href="users.php?col=username&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
+            <td>Name<a href="users.php?col=username&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
+            <td>Role<a href="users.php?col=username&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
             <td>Edit</td>
         </tr>
         <?php
@@ -95,7 +108,7 @@ if (isset($_GET['page'])) {
                  elseif(!isset($_POST['websearch']))
                   
                         {
-        $query1 = "SELECT * from admin_users LIMIT $start, $limit";
+        $query1 = "SELECT * from admin_users order by $column $desc LIMIT $start, $limit";
         $result = mysql_query($query1);
         // Initial page num setup
             if ($page == 0) {

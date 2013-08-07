@@ -5,11 +5,17 @@ if(!isset($_SESSION['username'])){
     header('Location: login.php');
 }
 else {
-    if(isset($_REQUEST['col']))
+    if(isset($_REQUEST['col']) & isset($_REQUEST['dir']))
+    {
     $_SESSION['col'] = $_REQUEST['col'];
-    elseif(!isset($_REQUEST['col']))
+    $_SESSION['dir'] = $_REQUEST['dir'] === 'asc' ? 'desc' : 'asc';
+    }
+    elseif(!isset($_REQUEST['col']) && !isset($_REQUEST['dir']))
+    {
         $_SESSION['col'] = 'name';
-?>
+     $_SESSION['dir'] = 'asc';
+    }
+     ?>
     <?php include_once 'template/head.phtml'; ?>
 <body id="websites-page" >
 <?php include_once 'template/header.phtml'; ?>    

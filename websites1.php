@@ -8,7 +8,8 @@ $targetpage = "websites.php";
 $limit = 10;
 
 $where = "";
-$column=$_SESSION['col'];
+$column = $_SESSION['col'];
+$desc = $_SESSION['dir'];
 $query = "SELECT COUNT(*) as num FROM $tableName";
 $total_pages = mysql_fetch_array(mysql_query($query));
 $total_pages = $total_pages['num'];
@@ -35,7 +36,7 @@ if (isset($_GET['page'])) {
                     <input  class="btn-search" type="submit" value="Search">
                 </div>
                 <div class="divt22">
-                    <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
                 </div>
             </td>
             <td width="20">
@@ -51,194 +52,186 @@ if (isset($_GET['page'])) {
         </tr>
     </table>
 </form>
-<div class="cleaner1" >
-
-</div>
-
-
-
+<div class="cleaner1" ></div>
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr>
-            <td>Website Name
-                <a href="websites.php?col=name"><img  style="float:right;" width="22" src="images/arrow_asc_1.png" /></a></td>
-            <td>Website Link<a href="websites.php?col=domain"><img  style="float:right;" width="22" src="images/arrow_asc_1.png" /></a></td>
-            <td>Data Created<a href="websites.php?col=date_created"><img  style="float:right;" width="22" src="images/arrow_asc_1.png" /></a></td>
-            <td>Excluded<a href="websites.php?col=excluded"><img  style="float:right;" width="22" src="images/arrow_asc_1.png" /></a></td>
+            <td>Website Name<a href="websites.php?col=name&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
+            <td>Website Link<a href="websites.php?col=domain&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
+            <td>Data Created<a href="websites.php?col=date_created&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
+            <td>Excluded<a href="websites.php?col=excluded&dir=<?php echo $desc;?>"><?php if($desc==='desc')
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
+                    elseif($desc==='asc') {
+                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
             <td>Edit</td>
         </tr>
         <?php
         if (isset($_POST['websearch'])) {
             $var1 = $_POST['websearch'];
             $var2 = $_POST['recent-limit'];
-            $sql = "SELECT id, name, domain, date_created,
-case excluded when 0 then 'No' when 1 then 'Yes' end as excluded
- from website where name like '%" . "$var1" . "%' LIMIT $start, $var2";
-            
+            $sql = "SELECT id, name, domain, date_created, case excluded when 0 then 'No' when 1 then 'Yes' end as excluded from website where name like '%" . "$var1" . "%' LIMIT $start, $var2";
+
             $result = mysql_query($sql);
             if ($result && mysql_num_rows($result) <= 0) {
                 ?><table class="GrayBlack" align="center">
                 <tr align="center"><td width="500"> No Records Found  </td> </tr></table><?php } ?>
-            <?php
-            if ($page == 0) {
-                $page = 1;
-            }
-            $prev = $page - 1;
-            $next = $page + 1;
-            $lastpage = ceil($total_pages / $limit);
-            $LastPagem1 = $lastpage - 1;
+        <?php
+        if ($page == 0) {
+            $page = 1;
+        }
+        $prev = $page - 1;
+        $next = $page + 1;
+        $lastpage = ceil($total_pages / $limit);
+        $LastPagem1 = $lastpage - 1;
 
 
-            $paginate = '';
+        $paginate = '';
 
-            if ($lastpage > 1) {
-                while ($row = mysql_fetch_array($result)) {
-                    ?>
+        if ($lastpage > 1) {
+            while ($row = mysql_fetch_array($result)) {
+                ?>
 
                 <tr>
-            <!--                        <td ><?php // echo $row['id'];  ?></td>-->
                     <td ><?php echo $row['name']; ?></td> 
-            <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
+                    <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td ><?php echo $row['date_created']; ?></td>
                     <td ><?php echo $row['excluded']; ?></td>
                     <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
-            <?php
+                <?php
+            }
         }
-    }
-} elseif (!isset($_POST['websearch'])) {
-
-
-    $query1 = "SELECT
+    } 
+ elseif (!isset($_POST['websearch'])) 
+ {
+$query1 = "SELECT
 website.name,
 website.domain,
 website.date_created,
 case excluded when 0 then 'No' when 1 then 'Yes' end as excluded
 from
 website
-order by $column
+order by $column $desc
 LIMIT $start, $limit";
-    $result = mysql_query($query1);
+        $result = mysql_query($query1);
 
-    // Initial page num setup
-    if ($page == 0) {
-        $page = 1;
-    }
-    $prev = $page - 1;
-    $next = $page + 1;
-    $lastpage = ceil($total_pages / $limit);
-    $LastPagem1 = $lastpage - 1;
+        // Initial page num setup
+        if ($page == 0) {
+            $page = 1;
+        }
+        $prev = $page - 1;
+        $next = $page + 1;
+        $lastpage = ceil($total_pages / $limit);
+        $LastPagem1 = $lastpage - 1;
 
 
-    $paginate = '';
+        $paginate = '';
 
-    if ($lastpage > 1) {
-        while ($row = mysql_fetch_array($result)) {
-            ?>
+        if ($lastpage > 1) {
+            while ($row = mysql_fetch_array($result)) {
+                ?>
 
                 <tr>
                     <td ><?php echo $row['name']; ?></td> 
-                <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
+                    <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td ><?php echo $row['date_created']; ?></td>
                     <td ><?php echo $row['excluded']; ?></td>
                     <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
-            <?php
+                <?php
+            }
         }
     }
-}
-?>
+    ?>
 </tbody>
 </table>
-    <?php
-    $paginate .= "<div class='paginate' align='left' >";
-    // Previous
-    if ($page > 1) {
-        $paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
-    } else {
-        $paginate.= "<span class='disabled'>previous</span>";
+<?php
+$paginate .= "<div class='paginate' align='left' >";
+// Previous
+if ($page > 1) {
+    $paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
+} else {
+    $paginate.= "<span class='disabled'>previous</span>";
+}
+// Pages
+if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
+    for ($counter = 1; $counter <= $lastpage; $counter++) {
+        if ($counter == $page) {
+            $paginate.= "<span class='current'>$counter</span>";
+        } else {
+            $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
+        }
     }
-    // Pages
-    if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
-        for ($counter = 1; $counter <= $lastpage; $counter++) {
+} elseif ($lastpage > 5 + ($stages * 2)) { // Enough pages to hide a few?
+    // Beginning only hide later pages
+    if ($page < 1 + ($stages * 2)) {
+        for ($counter = 1; $counter < 4 + ($stages * 2); $counter++) {
             if ($counter == $page) {
                 $paginate.= "<span class='current'>$counter</span>";
             } else {
                 $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
             }
         }
-    } elseif ($lastpage > 5 + ($stages * 2)) { // Enough pages to hide a few?
-        // Beginning only hide later pages
-        if ($page < 1 + ($stages * 2)) {
-            for ($counter = 1; $counter < 4 + ($stages * 2); $counter++) {
-                if ($counter == $page) {
-                    $paginate.= "<span class='current'>$counter</span>";
-                } else {
-                    $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
-                }
+        $paginate.= "...";
+        $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
+        $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
+    }
+    // Middle hide some front and some back
+    elseif ($lastpage - ($stages * 2) > $page && $page > ($stages * 2)) {
+        $paginate.= "<a href='$targetpage?page=1'>1</a>";
+        $paginate.= "<a href='$targetpage?page=2'>2</a>";
+        $paginate.= "...";
+        for ($counter = $page - $stages; $counter <= $page + $stages; $counter++) {
+            if ($counter == $page) {
+                $paginate.= "<span class='current'>$counter</span>";
+            } else {
+                $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
             }
-            $paginate.= "...";
-            $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
-            $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
         }
-        // Middle hide some front and some back
-        elseif ($lastpage - ($stages * 2) > $page && $page > ($stages * 2)) {
-            $paginate.= "<a href='$targetpage?page=1'>1</a>";
-            $paginate.= "<a href='$targetpage?page=2'>2</a>";
-            $paginate.= "...";
-            for ($counter = $page - $stages; $counter <= $page + $stages; $counter++) {
-                if ($counter == $page) {
-                    $paginate.= "<span class='current'>$counter</span>";
-                } else {
-                    $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
-                }
-            }
-            $paginate.= "...";
-            $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
-            $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
-        }
-        // End only hide early pages
-        else {
-            $paginate.= "<a href='$targetpage?page=1'>1</a>";
-            $paginate.= "<a href='$targetpage?page=2'>2</a>";
-            $paginate.= "...";
-            for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++) {
-                if ($counter == $page) {
-                    $paginate.= "<span class='current'>$counter</span>";
-                } else {
-                    $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
-                }
+        $paginate.= "...";
+        $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
+        $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
+    }
+    // End only hide early pages
+    else {
+        $paginate.= "<a href='$targetpage?page=1'>1</a>";
+        $paginate.= "<a href='$targetpage?page=2'>2</a>";
+        $paginate.= "...";
+        for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++) {
+            if ($counter == $page) {
+                $paginate.= "<span class='current'>$counter</span>";
+            } else {
+                $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
             }
         }
     }
+}
 
 
-    // Next
-    if ($page < $counter - 1) {
-        $paginate.= "<a href='$targetpage?page=$next'>next</a>";
-    } else {
-        $paginate.= "<span class='disabled'>next</span>";
-    }
+// Next
+if ($page < $counter - 1) {
+    $paginate.= "<a href='$targetpage?page=$next'>next</a>";
+} else {
+    $paginate.= "<span class='disabled'>next</span>";
+}
 
-    $paginate.= "</div>";
+$paginate.= "</div>";
 
-    //echo $total_pages . ' Results';
-    // pagination
-    echo $paginate;
-    ?>
-
-<script type="text/javascript">
-                     /*Global sorting links*/
-                     function sort_grid(field, direction, grid) {
-                         check_for_search_params(); // to prevent search params from different tab in query
-                         queryParameters['grid'] = grid;
-                         queryParameters['dir'] = direction;
-                         queryParameters['sort'] = field;
-                         location.search = '?' + $.param(queryParameters);
-                     }
-</script>
+//echo $total_pages . ' Results';
+// pagination
+echo $paginate;
+?>
 
 <div class="cleaner1" >
 

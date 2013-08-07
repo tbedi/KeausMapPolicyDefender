@@ -97,7 +97,6 @@ if (isset($_REQUEST["Submit"])) {
         {
             document.getElementById("cpassword_label").innerHTML = '';
         }
-
     }
 </script>
 
@@ -124,11 +123,11 @@ if (isset($_REQUEST["Submit"])) {
 
             <tr>
                 <td>Confirm Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td ><input type="password" name="cpassword" class="input" id="cpassword" size="40" autocomplete="off" style="padding:5px;"/>&nbsp; <label id="cpassword_label" ></label></td>
+                <td ><input type="password" name="cpassword" class="input" id="cpassword" size="40" autocomplete="off" style="padding:5px;"/><label id="cpassword_label" ></label></td>
             </tr>
 
-            <tr><td>&nbsp;</td>
-                <td><input type="hidden" name="" value="" /></td></tr>
+<!--            <tr>
+                <td><input type="hidden" name="" value="" /></td></tr>-->
             <tr>
                 <td colspan="2" align="center"><input type="submit" class="butl"  name="Submit" value="Update" /></td>
 
