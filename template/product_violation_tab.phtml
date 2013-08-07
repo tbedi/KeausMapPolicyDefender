@@ -106,7 +106,7 @@ foreach ($page_violated_products as $product) {
                     
 <tr>
 	<td><a href="<?php echo $product_link; ?>"><?php echo $product->sku ;?></a></td>
-	<td><?php toMoney($product->map_price) ;?></td>
+	<td><?php echo toMoney($product->map_price) ;?></td>
 	<td><?php echo $product->i_count ;?></td>
 	<td><?php echo  toMoney($product->maxvio) ;?></td>
 	<td><?php echo  toMoney($product->minvio) ;?></td>
