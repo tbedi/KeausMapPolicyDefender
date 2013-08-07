@@ -20,7 +20,7 @@ header('Content-Disposition: attachment; filename="'.$filename.'"');
 
 /* columns */
 $arr_columns = array(
-    'Product',
+   
     'SKU',
     'Seller',
     'Vendor Price',
@@ -34,7 +34,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ) {
     //print_r($row);die();
-$arr_data_row = array($violators_array->pname,$violators_array->sku,$violators_array->wname,$violators_array->vendor_price,$violators_array->map_price,$violators_array->violation_amount) ;
+$arr_data_row = array($violators_array->sku,$violators_array->wname,$violators_array->vendor_price,$violators_array->map_price,$violators_array->violation_amount) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } 
