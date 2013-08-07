@@ -38,14 +38,14 @@ break;
 
 }
 
-echo "<form method=get action=$page_name>
-    <table class="."table1"." align="."right".">
-<div class="."results-per-page"." style="."float:right;padding-top:5px;"." ><select name=limit class="."searchlog"." >
-<option value=10 $select10>10 Records</option>
-<option value=25 $select25>25 Records</option>
-<option value=40 $select40>40 Records</option>
-</select>
-<input type=submit value=GO class="."btn-search"."></div></table></form>";
+//echo "<form method=get action=$page_name>
+//    
+//<div class="."results-per-page"." style="."float:right;padding-top:5px;"." ><select name=limit class="."searchlog"." >
+//<option value=10 $select10>10 Records</option>
+//<option value=25 $select25>25 Records</option>
+//<option value=40 $select40>40 Records</option>
+//</select>
+//<input type=submit value=GO class="."btn-search"."></div></form>";
 $eu = (0); 
 
 if(!$limit > 0 ){ // if limit value is not available then let us use a default value
@@ -73,7 +73,7 @@ if (isset($_GET['page'])) {
 }
 ?>
 <form action="websites.php" method="POST">
-    <table class="table1" >
+    <table class="table1">
         <tr>
             <td width="285" >
                 <div class="divt1">
@@ -87,20 +87,22 @@ if (isset($_GET['page'])) {
                     <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
                 </div>
             </td>
+            </form>
+
             <td width="20">
-               <?php // echo "<form method=get action=$page_name>
+               <?php echo "<form method=get action=$page_name>
     
-//                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."searchlog"." >
-//                <option value=10 $select10>10 Records</option>
-//                <option value=25 $select25>25 Records</option>
-//                <option value=50 $select50>50 Records</option>
-//                </select>
-//                <input type=submit value=GO class="."btn-search"."></div></form>";
+               <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."searchlog"." >
+               <option value=10". $select10.">10 Records</option>
+                <option value=25". $select25.">25 Records</option>
+                <option value=40". $select40.">40 Records</option>
+               </select>
+               <input type=submit value=GO class="."btn-search"."></div></form>";
                ?>
             </td>  
         </tr>
     </table>
-</form>
+
 <div class="cleaner1" ></div>
 <table class="GrayBlack" align="center">
     <tbody id="data">
@@ -137,6 +139,7 @@ if (isset($_GET['page'])) {
         </tr>
     <?php
     if (isset($_POST['websearch'])) {
+        
         $var1 = $_POST['websearch'];
         $sql = "SELECT id, name, domain, date_created, case excluded when 0 then 'No' when 1 then 'Yes' end as excluded from website where name like '%" . "$var1" . "%' LIMIT $start, $limit";
 
