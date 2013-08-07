@@ -24,6 +24,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
      $('#chart-a4').highcharts({
          chart: {
              type: 'column',
+            zoomType: 'y',
             margin: [ 50, 50, 160, 150]
          },
          title: {
@@ -37,7 +38,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
                 rotation: -45,
                  align: 'right',
                  style: {
-                     fontSize: '13px',
+                     fontSize: '12px',
                      fontFamily: 'Verdana, sans-serif'
                  }
              }
@@ -46,7 +47,13 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
              min: 0,
              title: {
                  text: 'Violation amount'
-             }
+             },
+              labels: {
+    formatter: function() {
+
+    return '$' + Highcharts.numberFormat(this.value / 1, 0);
+    }
+    }
          },
          legend: {
              enabled: false
@@ -72,9 +79,9 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
                  color: '#FFFFFF',
                  align: 'right',
                  x: 4,
-                 y: 10,
+                 y: 5,
                  style: {
-                     fontSize: '13px',
+                     fontSize: '12px',
                      fontFamily: 'Verdana, sans-serif'
                  }
              }
