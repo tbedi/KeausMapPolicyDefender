@@ -91,7 +91,7 @@ $pdf->setFontSubsetting(true);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('times', '', 14, '', true);
+$pdf->SetFont('times', '', 12, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
@@ -100,26 +100,7 @@ $pdf->AddPage();
 // set text shadow effect
 $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 /* Example adding for products*/
-include_once 'db.php';
-$limit=10;
-  
 
-$where = "";
-
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
-	$field = strtolower($_GET['field']);
-	$value = strtolower($_GET['value']);
-	$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
-}
-
-
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
-	$page = mysql_escape_string($_GET['page']);
-	$start = ($page - 1) * $limit;
-} else {
-	$start = 0;
-	$page = 1;
-}
 
  
   $html=<<<EOD

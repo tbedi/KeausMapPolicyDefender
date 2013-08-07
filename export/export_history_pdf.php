@@ -88,7 +88,7 @@ $pdf->setFontSubsetting(true);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('times', '', 14, '', true);
+$pdf->SetFont('times', '', 12, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
@@ -110,13 +110,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab'])
 }*/
 
 
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-	$page = mysql_escape_string($_GET['page']);
-	$start = ($page - 1) * $limit;
-} else {
-	$start = 0;
-	$page = 1;
-}
+
 
  $html=<<<EOD
 
@@ -133,8 +127,8 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          <table class="border1"> 
     <tr>
         
-         <td style="width:240px">SKU </td>    
-         <td style="width:220px">Seller</td>    
+         <td style="width:210px">SKU </td>    
+         <td style="width:190px">Seller</td>    
          <td style="width:75px">Vendor Price</td>    
          <td style="width:75px">MAP Price</td>    
          <td style="width:75px">Violation Amount</td>    
@@ -148,8 +142,8 @@ foreach ($violators_array as $violators_array ) {
 	 
 	<tr>
             
-            <td style="width:240px">{$violators_array->sku}</td>
-            <td style="width:220px">{$violators_array->wname}</td>
+            <td style="width:210px">{$violators_array->sku}</td>
+            <td style="width:190px">{$violators_array->wname}</td>
             <td style="width:75px"> $ {$violators_array->vendor_price}</td>
             <td style="width:75px"> $ {$violators_array->map_price}</td>
             <td style="width:75px"> $ {$violators_array->violation_amount}</td>

@@ -102,26 +102,7 @@ $pdf->AddPage();
 // set text shadow effect
 $pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
 /* Example adding for products */
-include_once 'db.php';
-$limit = 10;
 
-
-$where = "";
-
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
-    $field = strtolower($_GET['field']);
-    $value = strtolower($_GET['value']);
-    $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
-}
-
-
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
-    $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limit;
-} else {
-    $start = 0;
-    $page = 1;
-}
 
 
 $html = <<<EOD
