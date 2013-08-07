@@ -52,6 +52,12 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
 }
 /* Pagination */
 
+
+
+
+$sql3 = "SELECT min(date_format(crawl.date_executed,'%Y-%m-%d')) as mindate from crawl";
+ $violators_array3=$db_resource->GetResultObj($sql3);
+$mindate=$violators_array3[0]->mindate;
 /* calender dates */
 
 if (isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
@@ -59,16 +65,17 @@ if (isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET['
     $from = $_POST["from"];
     $_SESSION['t'] = $_POST["to"];
     $_SESSION['fr'] = $_POST["from"];
+     $_SESSION['tc'] = $_POST["to"];
+    $_SESSION['frc'] = $_POST["from"];
 }
- if (isset($_SESSION['t']) && isset($_SESSION['fr']) ) {
-	$to = $_SESSION['t'];
-	$from =$_SESSION['fr'];
-} 
+ 
 else {
     $to= date("Y-m-d");
          $from= date('Y-m-d',strtotime("-1 days"));
 	$_SESSION['t'] = date("Y-m-d");
 	$_SESSION['fr'] = date('Y-m-d',strtotime("-1 days"));
+        $_SESSION['tc'] = date("Y-m-d");
+	$_SESSION['frc'] = $mindate;
 }
 /* calender dates */
 
