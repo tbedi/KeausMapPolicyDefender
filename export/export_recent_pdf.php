@@ -1,5 +1,7 @@
 <?php
-require_once('/tcpdf/tcpdf.php');
+require_once('./tcpdf/tcpdf.php');
+
+//require_once('export/tcpdf/tcpdf.php');
 static $str=0;
 session_start();
 $violators_array=$_SESSION['recentArray'];
