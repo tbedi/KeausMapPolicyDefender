@@ -24,7 +24,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
      $('#chart-a4').highcharts({
          chart: {
              type: 'column',
-            zoomType: 'y',
+            zoomType: 'xy',
             margin: [ 50, 50, 160, 150]
          },
          title: {

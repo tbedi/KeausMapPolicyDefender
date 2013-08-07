@@ -52,7 +52,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 renderTo: 'a5',
                 defaultSeriesType: 'line',
                 margin: [50, 50, 100, 80],
-                zoomType: 'y'
+                zoomType: 'xy'
             },
             title: {
                 text: 'Violation Trend By Incidents ',
