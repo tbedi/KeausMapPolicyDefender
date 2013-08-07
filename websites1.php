@@ -36,7 +36,7 @@ if (isset($_GET['page'])) {
                     <input  class="btn-search" type="submit" value="Search">
                 </div>
                 <div class="divt22">
-                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+                    <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
                 </div>
             </td>
             <td width="20">
@@ -56,33 +56,45 @@ if (isset($_GET['page'])) {
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr>
-            <td>Website Name<a href="websites.php?col=name&dir=<?php echo $desc;?>"><?php if($desc==='desc')
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
-                    elseif($desc==='asc') {
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
-            <td>Website Link<a href="websites.php?col=domain&dir=<?php echo $desc;?>"><?php if($desc==='desc')
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
-                    elseif($desc==='asc') {
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
-            <td>Data Created<a href="websites.php?col=date_created&dir=<?php echo $desc;?>"><?php if($desc==='desc')
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
-                    elseif($desc==='asc') {
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
-            <td>Excluded<a href="websites.php?col=excluded&dir=<?php echo $desc;?>"><?php if($desc==='desc')
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_desc_1.png"." />";
-                    elseif($desc==='asc') {
-                    echo "<img  style="."float:right;"." width="."22"." src="."images/arrow_asc_1.png"." />";} ?></a></td>
+            <td>Website Name<a href="websites.php?col=name&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
+            <td>Website Link<a href="websites.php?col=domain&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
+            <td>Data Created<a href="websites.php?col=date_created&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
+            <td>Excluded<a href="websites.php?col=excluded&dir=<?php echo $desc; ?>"><?php
+        if ($desc === 'desc')
+            echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+        elseif ($desc === 'asc') {
+            echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+        }
+        ?></a></td>
             <td>Edit</td>
         </tr>
-        <?php
-        if (isset($_POST['websearch'])) {
-            $var1 = $_POST['websearch'];
-            $var2 = $_POST['recent-limit'];
-            $sql = "SELECT id, name, domain, date_created, case excluded when 0 then 'No' when 1 then 'Yes' end as excluded from website where name like '%" . "$var1" . "%' LIMIT $start, $var2";
+    <?php
+    if (isset($_POST['websearch'])) {
+        $var1 = $_POST['websearch'];
+        $var2 = $_POST['recent-limit'];
+        $sql = "SELECT id, name, domain, date_created, case excluded when 0 then 'No' when 1 then 'Yes' end as excluded from website where name like '%" . "$var1" . "%' LIMIT $start, $var2";
 
-            $result = mysql_query($sql);
-            if ($result && mysql_num_rows($result) <= 0) {
-                ?><table class="GrayBlack" align="center">
+        $result = mysql_query($sql);
+        if ($result && mysql_num_rows($result) <= 0) {
+            ?><table class="GrayBlack" align="center">
                 <tr align="center"><td width="500"> No Records Found  </td> </tr></table><?php } ?>
         <?php
         if ($page == 0) {
@@ -102,7 +114,7 @@ if (isset($_GET['page'])) {
 
                 <tr>
                     <td ><?php echo $row['name']; ?></td> 
-                    <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
+                <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td ><?php echo $row['date_created']; ?></td>
                     <td ><?php echo $row['excluded']; ?></td>
                     <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
@@ -111,10 +123,8 @@ if (isset($_GET['page'])) {
                 <?php
             }
         }
-    } 
- elseif (!isset($_POST['websearch'])) 
- {
-$query1 = "SELECT
+    } elseif (!isset($_POST['websearch'])) {
+        $query1 = "SELECT
 website.name,
 website.domain,
 website.date_created,
@@ -143,17 +153,17 @@ LIMIT $start, $limit";
 
                 <tr>
                     <td ><?php echo $row['name']; ?></td> 
-                    <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
+                <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td ><?php echo $row['date_created']; ?></td>
                     <td ><?php echo $row['excluded']; ?></td>
                     <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
-                <?php
-            }
+            <?php
         }
     }
-    ?>
+}
+?>
 </tbody>
 </table>
 <?php
@@ -217,22 +227,16 @@ if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
         }
     }
 }
-
-
 // Next
 if ($page < $counter - 1) {
     $paginate.= "<a href='$targetpage?page=$next'>next</a>";
 } else {
     $paginate.= "<span class='disabled'>next</span>";
 }
-
 $paginate.= "</div>";
 
 //echo $total_pages . ' Results';
 // pagination
 echo $paginate;
 ?>
-
-<div class="cleaner1" >
-
-</div>
+<div class="cleaner1" ></div>

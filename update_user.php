@@ -12,30 +12,27 @@ $nm = $_POST['name'];
 $rl = $_POST['role'];
 $_SESSION['a'] = '';
 $encryppassword = md5($pas);
- if (trim($pas) === '') {
- $result = mysql_query("UPDATE admin_users SET username='$un', email='$em', name='$nm', role='$rl' WHERE user_id='$id'");
- }
- elseif (trim($pas) != '') {
- $result = mysql_query("UPDATE admin_users SET username='$un',password='$encryppassword', email='$em', name='$nm', role='$rl' WHERE user_id='$id'") or die(mysql_error());
- }
+if (trim($pas) === '') {
+    $result = mysql_query("UPDATE admin_users SET username='$un', email='$em', name='$nm', role='$rl' WHERE user_id='$id'");
+} elseif (trim($pas) != '') {
+    $result = mysql_query("UPDATE admin_users SET username='$un',password='$encryppassword', email='$em', name='$nm', role='$rl' WHERE user_id='$id'") or die(mysql_error());
+}
 
 if (!$result) {
     ?>
     <script>
-        <?php
-            $_SESSION['a'] = '0';
-            ?>
+    <?php
+    $_SESSION['a'] = '0';
+    ?>
         window.location.href = '/users.php';</script>
     <?php
-
 } else {
     ?>
     <script>
-        <?php
-            $_SESSION['a'] = '1';
-            ?>
+    <?php
+    $_SESSION['a'] = '1';
+    ?>
         window.location.href = '/users.php';</script>
     <?php
-
 }
 ?>

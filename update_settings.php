@@ -1,6 +1,4 @@
 <?php
-/*What is it????*/
-
 $title = "Kraus Price Defender | update_settings.php";
 include_once 'db_login.php';
 include_once 'db_class.php';
@@ -13,7 +11,6 @@ $us = $products[0]->username;
 if (count($products) > 0) {
     $us = $products[0]->username;
 }
-
 if (isset($_REQUEST["Submit"])) {
     $email = $_SESSION['email'];
     $user = $_REQUEST['username'];
@@ -61,23 +58,23 @@ if (isset($_REQUEST["Submit"])) {
         }
     } elseif ($_SESSION['role'] == '') {
         $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
-             if (!$sql) {
-                ?>
-                <script>
-                    window.alert('Error!!!');
-                    window.location.href = '/mysettings.php';
-                </script>
-                <?php
+        if (!$sql) {
+            ?>
+            <script>
+                window.alert('Error!!!');
+                window.location.href = '/mysettings.php';
+            </script>
+            <?php
 
-            } else {
-                ?>
-                <script>
-                    window.alert('Username and password successfully entered...');
-                    window.location.href = '/mysettings.php';
-                </script>
-                <?php
+        } else {
+            ?>
+            <script>
+                window.alert('Username and password successfully entered...');
+                window.location.href = '/mysettings.php';
+            </script>
+            <?php
 
-            }
+        }
     }
 }
 include_once 'template/mysettings1.phtml';

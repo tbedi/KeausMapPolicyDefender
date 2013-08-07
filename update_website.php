@@ -9,33 +9,28 @@ $dom = $_POST['domain'];
 $dc = $_POST['date_created'];
 $ex = $_POST['excluded'];
 $_SESSION['a'] = '';
-
-
-
 $result = mysql_query("UPDATE website SET name='$name', domain='$dom', date_created='$dc', excluded='$ex' WHERE id=$id") or die(mysql_error());
 // if successfully update data, displays message "Successful".
 if (!$result) {
     ?>
     <script>
-         <?php
-            $_SESSION['a'] = '0';
-            ?>
+    <?php
+    $_SESSION['a'] = '0';
+    ?>
         window.location.href = '/websites.php';</script>
     <?php
-
 } else {
     ?>
     <script>
-         <?php
-            $_SESSION['a'] = '1';
-            ?>
+    <?php
+    $_SESSION['a'] = '1';
+    ?>
         window.location.href = '/websites.php';</script>
     <?php
-
 }
 ?>
 <script type="text/javascript">
-        $(document).ready(function() {
-            $('#logs').delay(2000).fadeOut();
-        });
+    $(document).ready(function() {
+        $('#logs').delay(2000).fadeOut();
+    });
 </script>

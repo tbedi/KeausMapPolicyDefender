@@ -41,18 +41,13 @@ if (!isset($_SESSION['username'])) {
             }
             unset($_SESSION['userdata']);
             ?>
-
             <div id="tabContainer" class="main-content" align="center" >
-
-
                 <div id="tabs" align="center">
                     <ul>
                         <li id="tabHeader_1" class="recent">Edit/Delete user</li>
                         <li id="tabHeader_2" class="violation-by-product" >Create New User</li>
                     </ul>
                 </div>
-
-
                 <div id="tabscontent" align="center">
 
                     <div class="tabpage recent" id="tabpage_1">
@@ -64,7 +59,6 @@ if (!isset($_SESSION['username'])) {
                         } ?>
                     </div></div>
             </div>
-
             <div class="cleaner"></div>
         </div>
     </div>

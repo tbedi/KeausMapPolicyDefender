@@ -20,7 +20,6 @@ if (isset($_REQUEST["Submit"])) {
     if (isset($user) && trim($_REQUEST['cpassword']) === '' && trim($_REQUEST['newpassword']) === '') {
         $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
         $_SESSION['adminupd'] = '1';
-
         if (!$sql) {
             ?>
             <script>
@@ -58,8 +57,7 @@ if (isset($_REQUEST["Submit"])) {
                 window.location.href = '/mysettings.php';</script>
             <?php
         }
-    }
-    elseif (isset($user) && trim($_REQUEST['username']) === '' && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
+    } elseif (isset($user) && trim($_REQUEST['username']) === '' && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
         $sql = mysql_query("UPDATE admin_users SET password='$new_pass' WHERE email='$email'");
         $_SESSION['adminupd'] = '3';
         if (!$sql) {
@@ -79,7 +77,7 @@ if (isset($_REQUEST["Submit"])) {
                 window.location.href = '/mysettings.php';</script>
             <?php
         }
-    }  
+    }
 }
 ?>
 <script language="javascript" type="text/javascript">
@@ -99,44 +97,35 @@ if (isset($_REQUEST["Submit"])) {
         }
     }
 </script>
-
 <div class="formlog1" >
-<form action="mysettings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
-    <div align="center" style="font-size: 150%;">
-        <table>
-            <tr>
-                <td colspan="2" align="center"></td>
-            </tr>
-            <tr> 
-                <td align="left">
-                    Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>	
-                <td>
-                    <input type="text" class="input" name="username" id="username"  size="40" value="<?php echo $us; ?>" autocomplete="off" style="padding:5px;"/>&nbsp; <label id="username_label" ></label>
-                </td>
-            </tr>
-
-            <tr>
-                <td>New Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td ><input type="password"  name="newpassword" class="input" id="newpassword" size="40" autocomplete="off" style="padding:5px;" />&nbsp; <label id= "newpassword_label" ></label></td>
-            </tr>
-
-            <tr>
-                <td>Confirm Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td ><input type="password" name="cpassword" class="input" id="cpassword" size="40" autocomplete="off" style="padding:5px;"/><label id="cpassword_label" ></label></td>
-            </tr>
-
-<!--            <tr>
-                <td><input type="hidden" name="" value="" /></td></tr>-->
-            <tr>
-                <td colspan="2" align="center"><input type="submit" class="butl"  name="Submit" value="Update" /></td>
-
-            </tr>
-
-        </table>
-
-    </div>
-</form>
+    <form action="mysettings.php" method="post" name="frm" id="frm" onSubmit="return validate();">
+        <div align="center" style="font-size: 150%;">
+            <table>
+                <tr>
+                    <td colspan="2" align="center"></td>
+                </tr>
+                <tr> 
+                    <td align="left">
+                        Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>	
+                    <td>
+                        <input type="text" class="input" name="username" id="username"  size="40" value="<?php echo $us; ?>" autocomplete="off" style="padding:5px;"/>&nbsp; <label id="username_label" ></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>New Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td ><input type="password"  name="newpassword" class="input" id="newpassword" size="40" autocomplete="off" style="padding:5px;" />&nbsp; <label id= "newpassword_label" ></label></td>
+                </tr>
+                <tr>
+                    <td>Confirm Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td ><input type="password" name="cpassword" class="input" id="cpassword" size="40" autocomplete="off" style="padding:5px;"/><label id="cpassword_label" ></label></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" class="butl"  name="Submit" value="Update" /></td>
+                </tr>
+            </table>
+        </div>
+    </form>
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
