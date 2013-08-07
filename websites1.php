@@ -90,14 +90,15 @@ if (isset($_GET['page'])) {
             </form>
 
             <td width="20">
-               <?php echo "<form method=get action=$page_name>
+               <?php
+                echo "<form method=get action=$page_name>
     
-               <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."searchlog"." >
-               <option value=10". $select10.">10 Records</option>
-                <option value=25". $select25.">25 Records</option>
-                <option value=40". $select40.">40 Records</option>
-               </select>
-               <input type=submit value=GO class="."btn-search"."></div></form>";
+                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit onchange="."form.submit()".">
+               <option value=10 $select10>10 Records</option>
+               <option value=25 $select25>25 Records</option>
+               <option value=40 $select40>40 Records</option>
+              </select>
+               <input type=hidden value=hidden class="."btn-search"."></div></form>"; 
                ?>
             </td>  
         </tr>
