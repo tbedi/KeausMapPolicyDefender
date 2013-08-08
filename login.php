@@ -1,16 +1,16 @@
-<?php    
-if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-     session_start();
-    session_destroy();
-    if (isset($_COOKIE['email']))    		 
-    	setcookie("email","",time()-60000);
-    header('Location: login.php');
-    die();
-}
+<?php
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
-
+if (isset($_GET['action']) && $_GET['action'] == 'logout')
+{
+    session_start();
+    session_destroy();
+    if (isset($_COOKIE['email']))    		 
+    setcookie("email","",time()-60000);
+    header('Location: login.php');
+    die();
+}
 $_session['a'] = '0';
 $_SESSION['role'] = '';
 
@@ -32,29 +32,34 @@ if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { //optimize code
 }
 
 /* Cookie check */
-if (isset($_POST['login'])) {
+if (isset($_POST['login']))
+    {
     //getdata
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if ($email && $password) {
+    if ($email && $password) 
+        {
         $sql = "select * from admin_users where email='$email'";
         $products = $db_resource->GetResultObj($sql);
-        if (count($products) > 0) {
-
-            $us = $products[0]->username;
-            $pass = $products[0]->password;
-            $role = $products[0]->role;
+        if (count($products) > 0)
+        {
+          $us = $products[0]->username;
+          $pass = $products[0]->password;
+          $role = $products[0]->role;
         }
-        if (count($products) > 0) {
+        if (count($products) > 0)
+            {
             $db_password = $pass;
             if (md5($password) === $db_password)
                 $loginok = TRUE;
-            else {
+            else
+            {
                 $_SESSION['role'] = '';
                 $loginok = FALSE;
             }
-            if ($loginok == TRUE) {
+            if ($loginok == TRUE)
+            {
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
                 if ($_POST['rememberme'] == "on")
@@ -64,27 +69,23 @@ if (isset($_POST['login'])) {
                 exit();
             }
             else {
-
                 $_session['a'] = '1';
+                  }
             }
         }
     }
-}
-
 $title = "Kraus Price Defender | Login";
 ?>
 <?php include_once 'template/head.phtml'; ?>
-
 <body id="login-page">
-
-    <?php include_once 'template/header.phtml'; ?>  
-    <div id="wrapper" align="center">
-
-    <?php
-
-        if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' ) {
-        echo " <div class=" . "log" . "  align=" . "left" . ">Please register..</div>";
-       } elseif ($_session['a']=== '1') {
+<?php include_once 'template/header.phtml'; ?>  
+<div id="wrapper" align="center">
+<?php
+if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' )
+    {
+     echo " <div class=" . "log" . "  align=" . "left" . ">Please register..</div>";
+    } elseif ($_session['a']=== '1')
+       {
        echo " <div class=" . "log" . "  align=" . "left" . " >Please enter correct password</div>";
        }
         ?>
@@ -141,16 +142,11 @@ $title = "Kraus Price Defender | Login";
 
                                 </tbody></table>  
                         </form>
-
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <?php include_once 'template/footer.phtml'; ?>        
-
+<?php include_once 'template/footer.phtml'; ?>        
 </body>
 </html>

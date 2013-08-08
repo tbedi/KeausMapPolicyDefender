@@ -1,12 +1,12 @@
 <?php
 include_once 'db_login.php';
 include_once 'db.php';
-$title = "Kraus Price Defender | websites1.php";
+$title = "Kraus Price Defender | Dealers1.php";
 ////pagination
 $tableName = "website";
-$targetpage = "websites.php";
+$targetpage = "Dealers.php";
 $limit = 10;
-$page_name="websites.php"; 
+$page_name="Dealers.php"; 
 ////// starting of drop down to select number of records per page /////
 
 @$limit=$_GET['limit']; // Read the limit value from query string. 
@@ -35,9 +35,7 @@ $select10="selected";
 $select25="";
 $select40="";
 break;
-
 }
-
 //echo "<form method=get action=$page_name>
 //    
 //<div class="."results-per-page"." style="."float:right;padding-top:5px;"." ><select name=limit class="."searchlog"." >
@@ -72,7 +70,7 @@ if (isset($_GET['page'])) {
     $page = 1;
 }
 ?>
-<form action="websites.php" method="POST">
+<form action="Dealers.php" method="POST">
     <table class="table1">
         <tr>
             <td width="285" >
@@ -92,12 +90,11 @@ if (isset($_GET['page'])) {
             <td width="20">
                <?php
                 echo "<form method=get action=$page_name>
-    
-                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit onchange="."form.submit()".">
+                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."dropdown"." onchange="."form.submit()".">
                <option value=10 $select10>10 Records</option>
                <option value=25 $select25>25 Records</option>
                <option value=40 $select40>40 Records</option>
-              </select>
+               </select>
                <input type=hidden value=hidden class="."btn-search"."></div></form>"; 
                ?>
             </td>  
@@ -108,28 +105,28 @@ if (isset($_GET['page'])) {
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr>
-            <td>Website Name<a href="websites.php?col=name&dir=<?php echo $desc; ?>"><?php
+            <td>Dealers Name<a href="/Dealers.php?col=name&dir=<?php echo $desc; ?>"><?php
                     if ($desc === 'desc')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
                     elseif ($desc === 'asc') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-            <td>Website Link<a href="websites.php?col=domain&dir=<?php echo $desc; ?>"><?php
+            <td>Dealers Link<a href="/Dealers.php?col=domain&dir=<?php echo $desc; ?>"><?php
                     if ($desc === 'desc')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
                     elseif ($desc === 'asc') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-            <td>Data Created<a href="websites.php?col=date_created&dir=<?php echo $desc; ?>"><?php
+            <td>Data Created<a href="/Dealers.php?col=date_created&dir=<?php echo $desc; ?>"><?php
                     if ($desc === 'desc')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
                     elseif ($desc === 'asc') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-            <td>Excluded<a href="websites.php?col=excluded&dir=<?php echo $desc; ?>"><?php
+            <td>Excluded<a href="/Dealers.php?col=excluded&dir=<?php echo $desc; ?>"><?php
         if ($desc === 'desc')
             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
         elseif ($desc === 'asc') {
@@ -169,7 +166,7 @@ if (isset($_GET['page'])) {
                 <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td ><?php echo $row['date_created']; ?></td>
                     <td ><?php echo $row['excluded']; ?></td>
-                    <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td ><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
                 <?php
@@ -205,11 +202,10 @@ LIMIT $start, $limit";
 
                 <tr>
                     <td ><?php echo $row['name']; ?></td> 
-                <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
+                    <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td ><?php echo $row['date_created']; ?></td>
                     <td ><?php echo $row['excluded']; ?></td>
-                    <td ><a href="/website_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
-
+                    <td ><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
                 </tr>
             <?php
         }
