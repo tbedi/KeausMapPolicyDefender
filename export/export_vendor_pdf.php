@@ -21,7 +21,7 @@ class Bshree extends TCPDF {
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
             $html .= '
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                    Vendor Violations
+                    Dealers Violations
                 ';
             }
 
@@ -112,7 +112,7 @@ table.border{background:#e0eaee;margin:1px auto;padding:8px;}
          <table class="border1"> 
     <tr>
     
-         <td style="width:280px">Seller </td>    
+         <td style="width:280px">Dealers </td>    
          <td style="width:95px">Violation Count</td>    
          <td style="width:95px">Max Violation</td>    
          <td style="width:95px">Min Violation</td>    
@@ -152,5 +152,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-$pdf->Output("Seller_Violations".'-'.date('Y-m-d'), 'I');
+$pdf->Output("Dealers_Violations".'-'.date('Y-m-d'), 'I');
 // 

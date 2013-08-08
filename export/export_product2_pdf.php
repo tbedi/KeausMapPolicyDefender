@@ -26,7 +26,7 @@ public $html;
                 $sku = $_REQUEST['sku'];
                $html .= '
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                    Vendors Violated by '.$sku.'
+                    Dealers Violated by '.$sku.'
                 ';            
             }
 
@@ -126,8 +126,8 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
       <table class="border1"> 
     <tr>
    
-         <td style="width:250px">Seller </td>    
-         <td style="width:85px">Vendor Price</td>    
+         <td style="width:250px">Dealers </td>    
+         <td style="width:85px">Dealers Price</td>    
          <td style="width:85px">Map Price</td>    
          <td style="width:85px">Violation Amount</td>    
         </tr>  
@@ -162,5 +162,5 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-$pdf->Output("Sellers_Violated_".$product_id.'-'.date('Y-m-d'), 'I');
+$pdf->Output("Dealers_Violated_".$product_id.'-'.date('Y-m-d'), 'I');
 // 

@@ -1,5 +1,5 @@
 <?php
-
+include_once '../toMoney.php';
 session_start();
 $violators_array=$_SESSION['vendorArray'];
 if(isset($_SESSION['vendorArray']))
@@ -8,7 +8,7 @@ if(isset($_SESSION['vendorArray']))
 }
 
 
-$filename="Vendor_Violations-".date('d-m-y').".csv";
+$filename="Dealers_Violations-".date('d-m-y').".csv";
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
@@ -17,7 +17,7 @@ header('Content-Disposition: attachment; filename="'.$filename.'"');
 
 /* columns */
 $arr_columns = array(
-    'Seller',
+    'Dealers',
     'Violation Count',
     'Max Violation Amount',
     'Min Violation Amount'
@@ -27,7 +27,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ) {
     //print_r($row);die();
-$arr_data_row = array($violators_array->name,$violators_array->wi_count,$violators_array->maxvio,$violators_array->minvio);
+$arr_data_row = array($violators_array->name,$violators_array->wi_count,toMoney($violators_array->maxvio),toMoney($violators_array->minvio));
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

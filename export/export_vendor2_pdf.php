@@ -25,7 +25,7 @@ class Bshree extends TCPDF {
            $web_name = $_REQUEST['wname'];
  
                $html .= '
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                   &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
                     Products violated by '.$_SESSION['vviolationTitle'].'
                 ';
             }
@@ -122,7 +122,7 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
           <table class="border1"> 
     <tr>
          <td style="width:260px">SKU </td>  
-         <td style="width:95px">Vendor Price</td>    
+         <td style="width:95px">Dealers Price</td>    
          <td style="width:95px">Map Price</td>    
          <td style="width:95px">Violation Amount</td>    
     </tr>    

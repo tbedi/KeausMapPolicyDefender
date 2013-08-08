@@ -120,8 +120,8 @@ table.border{background:#e0eaee;margin:1px auto;padding:8px; }
    <table class="border1"> 
      <tr>
         <td style="width:200px">SKU </td>  
-         <td style="width:200px">Seller </td>    
-         <td style="width:70px">Vendor Price</td>    
+         <td style="width:200px">Dealers </td>    
+         <td style="width:70px">Dealers Price</td>    
          <td style="width:70px">Map Price</td>    
          <td style="width:80px">Violation Amount</td>    
       </tr>

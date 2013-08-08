@@ -1,5 +1,5 @@
 <?php
-
+include_once '../toMoney.php';
 $sku = $_REQUEST['sku'];
 session_start();
 $violators_array = $_SESSION['product2Array'];
@@ -9,13 +9,13 @@ if (isset($_SESSION['product2Array'])) {
 
 
 header('Content-Type: application/vnd.ms-excel'); //define header info for browser    
-header('Content-Disposition: attachment; filename=' . "Sellers_Violated_" . $sku . "_" . date('d-m-y'));
+header('Content-Disposition: attachment; filename=' . "Dealers_Violated_" . $sku . "_" . date('d-m-y'));
 header('Pragma: no-cache');
 header('Expires: 0');
 
 echo '<table border=1><tr>';
-echo '<td>Seller </td>';
-echo '<td>Vendor Price </td>';
+echo '<td>Dealers </td>';
+echo '<td>Dealers Price </td>';
 echo '<td>Map Price </td>';
 echo '<td>Violation Amount </td>';
 
@@ -27,9 +27,9 @@ foreach ($violators_array as $violators_array) {
     $output = "<tr>";
 
     $output .= "<td>" . $violators_array->vendor . "</td>";
-    $output .= "<td>" . $violators_array->vendor_price . "</td>";
-    $output .= "<td>" . $violators_array->map_price . "</td>";
-    $output .= "<td>" . $violators_array->violation_amount . "</td>";
+    $output .= "<td>" . toMoney($violators_array->vendor_price) . "</td>";
+    $output .= "<td>" . toMoney($violators_array->map_price) . "</td>";
+    $output .= "<td>" . toMoney($violators_array->violation_amount) . "</td>";
 
 
     print(trim($output)) . "</tr>\t\n";

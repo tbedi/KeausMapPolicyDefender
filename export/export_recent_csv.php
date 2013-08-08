@@ -1,5 +1,6 @@
 <?php
-$limit=15;
+
+include_once '../toMoney.php';
 session_start();
 $violators_array=$_SESSION['recentArray'];
 //if(isset($_SESSION['recentArray']))
@@ -20,8 +21,8 @@ header('Content-Disposition: attachment; filename="'.$filename.'"');
 /* columns */
 $arr_columns = array(
     'SKU',
-    'Seller Name',
-    'Seller Price',
+    'Dealers Name',
+    'Dealers Price',
     'Map Price',
     'Violation Amount'
   
@@ -30,7 +31,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ) {
     //print_r($row);die();
-$arr_data_row = array($violators_array->sku,$violators_array->name,$violators_array->vendor_price,$violators_array->map_price,$violators_array->violation_amount) ;
+$arr_data_row = array($violators_array->sku,$violators_array->name,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount)) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } 

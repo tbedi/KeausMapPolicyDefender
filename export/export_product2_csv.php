@@ -1,6 +1,6 @@
 <?php
 
-
+include_once '../toMoney.php';
 $sku=$_REQUEST['sku'];
 session_start();
 $violators_array=$_SESSION['product2Array'];
@@ -13,7 +13,7 @@ if(isset($_SESSION['product2Array']))
 
 
 
-$filename="Vendors_Violated-".$sku."-".date('d-m-y').".csv";
+$filename="Dealers_Violated-".$sku."-".date('d-m-y').".csv";
 
 
 header("Content-type: text/csv");
@@ -24,8 +24,8 @@ header('Content-Disposition: attachment; filename="'.$filename.'"');
 
 /* columns */
 $arr_columns = array(
-    'Website',
-    'Seller Price',
+    'Dealers',
+    'Dealers Price',
     'MAP',
     'Violation'
     
@@ -35,7 +35,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ){
     //print_r($row);die();
-$arr_data_row = array($violators_array->vendor,$violators_array->vendor_price,$violators_array->map_price,$violators_array->violation_amount);
+$arr_data_row = array($violators_array->vendor,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount));
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

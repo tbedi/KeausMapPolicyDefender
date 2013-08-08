@@ -1,5 +1,6 @@
 
  <?php
+ include_once '../toMoney.php';
 session_start();
 $violators_array=$_SESSION['historyArray'];
 if(isset($_SESSION['historyArray']))
@@ -14,8 +15,8 @@ if(isset($_SESSION['historyArray']))
 
 	echo '<table border=1><tr>';
 	echo '<td>SKU </td>'  ;
-       echo '<td>Seller </td>';    
-        echo '<td>Vendor Price </td>';    
+       echo '<td>Dealers </td>';    
+        echo '<td>Dealers Price </td>';    
         echo '<td>Map Price </td>';    
         echo '<td>Violation Amount </td>';   
                       
@@ -28,9 +29,9 @@ if(isset($_SESSION['historyArray']))
 
           $output .=  "<td>". $violators_array->sku . "</td>";
           $output .=  "<td>". $violators_array->wname ."</td>";
-          $output .=  "<td>". $violators_array->vendor_price ."</td>";
-          $output .=  "<td>". $violators_array->map_price ."</td>";
-          $output .=  "<td>". $violators_array->violation_amount ."</td>";   
+          $output .=  "<td>". toMoney($violators_array->vendor_price) ."</td>";
+          $output .=  "<td>". toMoney($violators_array->map_price) ."</td>";
+          $output .=  "<td>". toMoney($violators_array->violation_amount) ."</td>";   
             
     
            print(trim($output))."</tr>\t\n";
