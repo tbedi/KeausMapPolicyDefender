@@ -24,7 +24,7 @@ $db_resource->ExecSql($sql);
 if (!$sql) {
     $_SESSION['b'] = '0';
     ?>
-    <script>window.location.href = '/users.php';</script>
+    <script>window.location.href = '/users.php?tab=create_user';</script>
     <?php
 
 } else {$_SESSION['b'] = '1';
@@ -38,7 +38,7 @@ elseif(count($userdata) != 0)
 {
      $_SESSION['userdata'] = '1';
      ?>
-    <script>window.location.href = '/users.php';</script>
+    <script>window.location.href = '/users.php?tab=create_user';</script>
     <?php
 }
 ?>
