@@ -1,5 +1,5 @@
 <?php 
-require_once('/tcpdf/tcpdf.php');
+require_once('./tcpdf/tcpdf.php');
 session_start();
 
 $violators_array=$_SESSION['productArray'];
