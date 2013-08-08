@@ -8,7 +8,7 @@ $to=$_SESSION['tc'];
 $sql = "select Violations_amount, DateExec
 from
 (select 
-count(*) as Violations_amount,
+sum(map_price) as Violations_amount,
  crawl.date_executed as DateExec		 
 from crawl_results res
 inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
