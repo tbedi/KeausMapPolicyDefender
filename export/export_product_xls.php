@@ -1,6 +1,5 @@
-
 <?php
-
+include_once '../toMoney.php';
 session_start();
 $violators_array = $_SESSION['productArray'];
 if (isset($_SESSION['productArray'])) {
@@ -31,10 +30,10 @@ foreach ($violators_array as $violators_array) {
     $output = "<tr>";
 
     $output .= "<td>" . $violators_array->sku . "</td>";
-    $output .= "<td>" . $violators_array->map_price . "</td>";
+    $output .= "<td>" . toMoney($violators_array->map_price) . "</td>";
     $output .= "<td>" . $violators_array->i_count . "</td>";
-    $output .= "<td>" . $violators_array->maxvio . "</td>";
-    $output .= "<td>" . $violators_array->minvio . "</td>";
+    $output .= "<td>" . toMoney($violators_array->maxvio) . "</td>";
+    $output .= "<td>" . toMoney($violators_array->minvio) . "</td>";
 
 
     print(trim($output)) . "</tr>\t\n";

@@ -28,7 +28,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
             margin: [ 50, 50, 160, 150]
          },
          title: {
-             text: 'Violation by Vendor'
+             text: 'Violation by Dealers'
          },
          xAxis: {
              categories: [

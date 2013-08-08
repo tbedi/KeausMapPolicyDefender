@@ -1,5 +1,5 @@
 <?php
-
+include_once '../toMoney.php';
 session_start();
 $violators_array=$_SESSION['productArray'];
 if(isset($_SESSION['productArray']))
@@ -32,7 +32,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ){
     //print_r($row);die();
-$arr_data_row = array($violators_array->sku,$violators_array->map_price,$violators_array->i_count,$violators_array->maxvio,$violators_array->minvio) ;
+$arr_data_row = array($violators_array->sku,toMoney($violators_array->map_price),$violators_array->i_count,toMoney($violators_array->maxvio),toMoney($violators_array->minvio)) ;
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

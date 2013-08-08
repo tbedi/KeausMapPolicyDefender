@@ -57,7 +57,7 @@ $js_data_string = implode($chart_rows, ",");
                 margin: [2, 2, 5, 5]
             },
             title: {
-                text: 'Price violation by Seller'
+                text: 'Price violation by Dealers'
             },
             tooltip: {
                 formatter: function() {
@@ -80,7 +80,7 @@ $js_data_string = implode($chart_rows, ",");
             },
             series: [{
                     type: 'pie',
-                    name: 'Price violation by Seller',
+                    name: 'Price violation by Dealers',
                     point: {
                         events: {
                           click: function(e) {

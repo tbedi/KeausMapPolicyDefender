@@ -63,13 +63,13 @@
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
-                        <td >Seller
+                        <td >Dealers
                                       
                              <a  onclick="sort_grid('name','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="name" ? $direction : "asc" ); ?>_1.png" />
                            </a>
                         </td>
-                        <td >Seller price
+                        <td >Dealers price
                        
                              <a  onclick="sort_grid('vendor_price','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="vendor_price" ? $direction : "asc" ); ?>_1.png" />
@@ -101,7 +101,7 @@
 			$cell_id="vioR";
 ?>
 <tr>
-    <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+    <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
         <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->name; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
     	<td><?php echo toMoney($violator->vendor_price); ?></td>
