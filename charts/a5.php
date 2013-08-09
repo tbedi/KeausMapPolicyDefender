@@ -5,8 +5,18 @@
 //else $limit=15;
 $from=$_SESSION['frc'];
 $to=$_SESSION['tc'];
+
 //echo "from ".$from;
 //echo "to ".$to;
+if (isset($_REQUEST['value']))
+{
+    $sku=$_REQUEST['value'];
+    $condition_sku=" and sku like '".$sku."' ";
+}
+else
+{
+    $condition_sku="";
+}
 $sql = "
 select Violations_amount, DateExec
 from
@@ -19,7 +29,7 @@ inner join website sites on sites.id = res.website_id
 inner join crawl on crawl.id = res.crawl_id
 where
 violation_amount > 0.05 
-and sites.excluded = 0 
+and sites.excluded = 0  ". $condition_sku. " 
 and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
 group by crawl.date_executed
 order by crawl.date_executed desc ) as yy order by DateExec";
@@ -55,7 +65,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 zoomType: 'xy'
             },
             title: {
-                text: 'Violation Trend By Incidents ',
+                text: 'Violation Count By SKU',
                 x: -20 //center
             },
             xAxis: {

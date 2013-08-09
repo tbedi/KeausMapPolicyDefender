@@ -79,6 +79,15 @@ else {
 }
 /* calender dates */
 
+if (isset($_REQUEST['value']))
+{
+    $sku=$_REQUEST['value'];
+    $condition_sku=" and sku like '".$sku."' ";
+}
+else
+{
+    $condition_sku="";
+}
 
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
@@ -99,7 +108,7 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
-and
+ ".$condition_sku." and 
 crawl_results.violation_amount>0.05 " . $where . " 
 and website.excluded=0 
 " . $order_by . " LIMIT $start, $limit ";

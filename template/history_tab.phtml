@@ -18,8 +18,15 @@
 
 <table align="left">
     <tr>
-        <td>
-            <form action=" ?tab=violations-history&option=show_dates" method="post"> 
+        <td> <?php if(isset($_REQUEST['action']) and isset($_REQUEST['value']))
+        {
+            $urls="?tab=violations-history&option=show_dates&value=".$_REQUEST['value'];
+        }
+ else {
+     $urls="?tab=violations-history&option=show_dates";
+ }
+?>
+            <form action="<?php echo $urls ?>" method="post"> 
                 <div class="divt22">
                     <div style="padding-top:18px;"> From </div>
                 </div>
@@ -158,7 +165,7 @@
                 $cell_id = "vioR";
             ?>
             <tr>
-                <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+                <td ><a href="index.php?tab=violations-history&action=search&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
                 <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->wname; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->wname; ?></a></td>
                 <td><?php echo toMoney($violator->vendor_price); ?></td>
                 <td><?php echo toMoney($violator->map_price); ?></td>
@@ -168,19 +175,19 @@
             </tr>				
         <?php } ?>
 
-    </tbody></table> 
+    </tbody></table>  <?php
+if (count($violators_array) == 0) {
+    ?><table class="GrayBlack" align="center">
+        <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+<?php }
+?>   
     <div class="cleaner" style="padding-top: 15px; ">
 
 </div>
    <div  align="left"  >
     <?php echo $pagination_html; ?>
 </div> 
-        <?php
-if (count($violators_array) == 0) {
-    ?><table class="GrayBlack" align="center">
-        <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
-<?php }
-?>   
+       
            
     </div>
         <div style="float: right;width:50%;">
