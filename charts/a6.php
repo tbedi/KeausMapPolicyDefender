@@ -6,13 +6,16 @@
 $from=$_SESSION['frc'];
 $to=$_SESSION['tc'];
 
-if (isset($_REQUEST['website_id']))
+if (isset($_REQUEST['website_id']) and $_REQUEST['field']='name' )
 {
     $wname=$_REQUEST['website_id'];
+    
+    $name=$_REQUEST['wname'];
     $condition=" and website_id =".$wname." ";
 }
 else
 {
+    $name="";
     $condition="";
 }
 
@@ -41,7 +44,7 @@ order by crawl.date_executed desc ) as yy order by DateExec";
 $result = mysql_query($sql);
 
 
-echo $sql;
+//echo $sql;
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
 while ($row = mysql_fetch_assoc($result)) {
@@ -73,7 +76,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 zoomType: 'xy'
             },
             title: {
-                text: 'Violation Count By Dealer <?php echo $wname ?>',
+                text: 'Violation Count By Dealer <?php echo $name ?>',
                 x: -20 //center
             },
             xAxis: {

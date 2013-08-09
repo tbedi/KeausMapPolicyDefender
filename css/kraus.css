@@ -9,6 +9,17 @@
     height: 32px;
 	
 }
+.searchh {
+    
+     padding:6px;
+    border:1px solid #C9C9C9;
+    margin:4px;
+    width:150px;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+    height: 32px;
+	
+}
 .search2 {
     
      padding:9px;

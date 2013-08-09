@@ -8,13 +8,14 @@ $to=$_SESSION['tc'];
 
 //echo "from ".$from;
 //echo "to ".$to;
-if (isset($_REQUEST['value']))
+if (isset($_REQUEST['value']) and $_REQUEST['field']='sku')
 {
     $sku=$_REQUEST['value'];
     $condition=" and sku like '".$sku."' ";
 }
 else
 {
+    $sku="";
     $condition="";
 }
 $sql = "
