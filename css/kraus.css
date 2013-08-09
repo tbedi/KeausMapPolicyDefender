@@ -44,6 +44,7 @@
     text-transform: capitalize;
     border: medium none;
     color: #000;
+    margin:2px;
     
     }
     
@@ -153,6 +154,7 @@
 
 .chartt {
 	padding-top:25px;
+	float:right;
 }
 /*Common styles*/
 @font-face {
@@ -183,7 +185,7 @@
 	border-top: 5px solid #A9D014;
 	color: #646464;
 	height: 92px;
-	max-width: 1070px;
+	/*max-width: 1280px;*/
 	position: absolute;
 	top: 0;
 	width: 100%;
@@ -204,11 +206,11 @@
 	float: none !important;
 	margin-left: auto !important;
 	margin-right: auto !important;
-	width: 1070px;
+	/*width: 1280px;*/
 }
 
 #wrapper {
-	width: 1070px;
+	width: 98%;
 	margin: auto;
 	background: none repeat scroll 0 0 #F6F6F6 !important;
 	padding: 160px 0 40px;
@@ -254,7 +256,7 @@
 /*Header*/
 /* Content*/
 .main-content {
-    width:1060px;
+    width:  99%;
     padding:0px;
     background: none repeat scroll 0 0 #FFFFFF;
     border-radius: 10px 10px 10px 10px;

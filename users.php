@@ -54,7 +54,7 @@ if (!isset($_SESSION['username'])) {
                         <?php include_once 'new_user.php'; ?>
                     </div>
                     <div id="tabscontent1" align="center">
-                        <div class="tabpage violation-by-product" id="tabpage_2">
+                        <div class="tabpage create_user" id="tabpage_2">
                             <?php include_once 'create_user.php';
                         } ?>
                     </div></div>
@@ -66,12 +66,7 @@ if (!isset($_SESSION['username'])) {
 <?php include_once 'template/footer.phtml'; ?>
 </body>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.logs').delay(2000).fadeOut();
-    });
-</script>
+
 
 
 

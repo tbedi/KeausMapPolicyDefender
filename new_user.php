@@ -5,7 +5,47 @@ $title = "Kraus Price Defender | usernew.php";
             ////pagination
 $tableName = "admin_users";
 $targetpage = "users.php";
-$limit = 4;
+
+$page_name="users.php"; 
+////// starting of drop down to select number of records per page /////
+
+@$limit=$_GET['limit']; // Read the limit value from query string. 
+if(strlen($limit) > 0 and !is_numeric($limit)){
+echo "Data Error";
+exit;
+}
+// If there is a selection or value of limit then the list box should show that value , so we have to lock that options //
+// Based on the value of limit we will assign selected value to the respective option//
+switch($limit)
+{
+case 30:
+$select30="selected";
+$select15="";
+$select20="";
+break;
+
+case 20:
+$select20="selected";
+$select15="";
+$select30="";
+break;
+
+default:
+$select15="selected";
+$select20="";
+$select30="";
+break;
+}
+$eu = (0); 
+
+if(!$limit){ // if limit value is not available then let us use a default value
+$limit = 15;    // No of records to be shown per page by default.
+}      
+
+
+$this1 = $eu + $limit; 
+$back = $eu - $limit; 
+$next = $eu + $limit; 
 
 $where = "";
 $column = $_SESSION['col'];
@@ -24,7 +64,6 @@ if (isset($_GET['page'])) {
     $start = 0;
     $page = 1;
 }
-
 ?>
 <form action="users.php" method="POST">
 <table class="table1" >
@@ -41,17 +80,53 @@ if (isset($_GET['page'])) {
                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
             </div>
         </td>
+          </form>
+        <td width="20">
+               <?php
+                echo "<form method=get action=$page_name>
+                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."dropdown"." onchange="."form.submit()".">
+               <option value=15 $select15>15 Records</option>
+               <option value=20 $select20>20 Records</option>
+               <option value=30 $select30>30 Records</option>
+               </select>
+               <input type=hidden value=hidden class="."btn-search"."></div></form>"; 
+               ?>
+            </td>  
 </tr>
 </table>
-    </form>
+  
 <div class="cleaner1" ></div>
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr>
-            <td>Username</td>
-            <td>Email</td>
-            <td>Name</td>
-            <td>Role</td>
+            <td>Username<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
+            <td>Email<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
+            <td>Name<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
+            <td>Role<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
             <td>Edit</td>
         </tr>
         <?php
@@ -96,7 +171,7 @@ if (isset($_GET['page'])) {
                  elseif(!isset($_POST['websearch']))
                   
                         {
-        $query1 = "SELECT * from admin_users LIMIT $start, $limit";
+        $query1 = "SELECT * from admin_users order by $column $desc LIMIT $start, $limit";
         $result = mysql_query($query1);
         // Initial page num setup
             if ($page == 0) {

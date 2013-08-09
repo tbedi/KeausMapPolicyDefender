@@ -18,7 +18,7 @@
 <div class=" divcc" >
 
 </div> 
-<table align="center">
+<table align="left">
     <tr>
         <td>
             <form action=" ?tab=violations-history&option=show_dates" method="post"> 
@@ -46,7 +46,7 @@
 <div class="divtsp"></div>
 <div class="divtsp"></div>
 
-<table class="table1" >
+<table class="table1" align="left" >
     <tr>
         <td>
             <div class="divt1">
@@ -98,8 +98,8 @@
 
 </div>
 <br/>
-
-<table class="GrayBlack" align="center">
+<div> 
+<table class="GrayBlack" align="left">
     <tbody id="data">
         <tr> 
             <td>
@@ -178,7 +178,7 @@ if (count($violators_array) == 0) {
         <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
 <?php }
 ?>
-
+</div>
 <div align="left" style="display:block; ">
     <?php echo $pagination_html; ?>
 </div>		
