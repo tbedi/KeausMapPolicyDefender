@@ -9,7 +9,7 @@ $to=$_SESSION['tc'];
 if (isset($_REQUEST['website_id']))
 {
     $wname=$_REQUEST['website_id'];
-    $condition=" and website_id like '".$wname."' ";
+    $condition=" and website_id =".$wname." ";
 }
 else
 {

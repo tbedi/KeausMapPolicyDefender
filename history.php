@@ -19,7 +19,10 @@ $where = "";
 if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
-    $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
+    if(isset($_REQUEST['field']) and $_REQUEST['field']=='sku')
+    { $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";}
+    else if(isset($_REQUEST['field']) and $_REQUEST['field']=='name')
+    {  $where = "  AND  website." . $field . "  LIKE '%" . $value . "%'";}
 }
 /* where */
 
@@ -88,10 +91,10 @@ else
 {
     $condition_sku="";
 }
-if (isset($_REQUEST['website_id']) and isset($_REQUEST['field']) and $_REQUEST['field']=='name' )
+if (isset($_REQUEST['website_id'])and isset($_REQUEST['name']) and isset($_REQUEST['field']) and $_REQUEST['field']=='name' )
 {
     $wname=$_REQUEST['value'];
-    $condition_wname=" and website_id like '".$wname."' ";
+    $condition_wname=" and name like '".$wname."' ";
 }
 else
 {
@@ -103,7 +106,7 @@ else
     catalog_product_flat_1.sku as sku, crawl_results.website_id,
     date_format(crawl.date_executed,'%Y-%m-%d %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,
-website.name as wname, 
+website.name as name, 
 crawl_results.vendor_price ,
 crawl_results.map_price ,
 crawl_results.violation_amount ,
