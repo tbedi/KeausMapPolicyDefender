@@ -65,7 +65,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 zoomType: 'xy'
             },
             title: {
-                text: 'Violation Count By SKU',
+                text: 'Violation Count By SKU <?php echo $sku ?>',
                 x: -20 //center
             },
             xAxis: {
