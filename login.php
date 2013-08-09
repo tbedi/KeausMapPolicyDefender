@@ -4,18 +4,30 @@ include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 if (isset($_GET['action']) && $_GET['action'] == 'logout')
 {
-    session_start();
-    session_destroy();
-    if (isset($_COOKIE['email']))    		 
-    setcookie("email","",time()-60000);
-    header('Location: login.php');
-    die();
+session_start();
+
+$current_date = date('Y/m/d');
+$sql1 = mysql_query("UPDATE admin_users SET last_login = '$current_date' WHERE username='$us'");
+if(!$sql1){
+echo 'error';
 }
+
+
+
+session_destroy();
+if (isset($_COOKIE['email']))
+setcookie("email","",time()-60000);
+header('Location: login.php');
+
+die();
+}
+
+
 $_session['a'] = '0';
 $_SESSION['role'] = '';
 
 /* Cookie check */
-if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { //optimize code
+if (isset($_COOKIE['email']) || isset($_SESSION['email'])) { 
     $email = (isset($_COOKIE['email']) ? $_COOKIE['email'] : $_SESSION['email'] );
     $sql = "select * from admin_users where email='$email'";
     $products = $db_resource->GetResultObj($sql);
@@ -62,6 +74,7 @@ if (isset($_POST['login']))
             {
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
+//                $_SESSION['last_login'] = $products['last_login'];
                 if ($_POST['rememberme'] == "on")
                     setcookie("email", $email, time() + 7200);
                 $_SESSION['email'] = $email;

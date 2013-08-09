@@ -50,6 +50,7 @@ $next = $eu + $limit;
 $where = "";
 $column = $_SESSION['col'];
 $desc = $_SESSION['dir'];
+$dt = date('Y/m/d');
 
 $query = "SELECT COUNT(*) as num FROM $tableName";
 $total_pages = mysql_fetch_array(mysql_query($query));
@@ -127,6 +128,13 @@ if (isset($_GET['page'])) {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
+            <td>Last Login Date<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
             <td>Edit</td>
         </tr>
         <?php
@@ -152,12 +160,14 @@ if (isset($_GET['page'])) {
             
             if ($lastpage > 1) {
     while ($row = mysql_fetch_array($result)) {
+        $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
     <tr>                                     
                 <td ><?php echo $row['username']; ?></td>
                 <td ><?php echo $row['email']; ?></td>
                 <td ><?php echo $row['name']; ?></td>
                 <td ><?php echo $row['role']; ?></td>
+                <td ><?php echo $row['last_login']; ?></td>
                 <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
@@ -187,12 +197,14 @@ if (isset($_GET['page'])) {
             
             if ($lastpage > 1) {
                 while ($row = mysql_fetch_array($result)) {
+                     $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
             <tr>                                     
                 <td ><?php echo $row['username']; ?></td>
                 <td ><?php echo $row['email']; ?></td>
                 <td ><?php echo $row['name']; ?></td>
                 <td ><?php echo $row['role']; ?></td>
+                <td ><?php echo $row['last_login']; ?></td>
                 <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>

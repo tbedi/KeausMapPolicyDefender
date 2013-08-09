@@ -93,6 +93,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                                 </td>
 
                                             </tr>
+                                            
                                         <input type="hidden" name="user_id" value=" <?php echo $row['user_id']; ?> " style="padding:5px;"/>      
                                         <tr><td>&nbsp;</td>
                                             <td><input type="hidden" name="" value="" /></td></tr> 
