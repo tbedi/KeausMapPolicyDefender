@@ -11,11 +11,11 @@ $to=$_SESSION['tc'];
 if (isset($_REQUEST['value']))
 {
     $sku=$_REQUEST['value'];
-    $condition_sku=" and sku like '".$sku."' ";
+    $condition=" and sku like '".$sku."' ";
 }
 else
 {
-    $condition_sku="";
+    $condition="";
 }
 $sql = "
 select Violations_amount, DateExec
@@ -29,7 +29,7 @@ inner join website sites on sites.id = res.website_id
 inner join crawl on crawl.id = res.crawl_id
 where
 violation_amount > 0.05 
-and sites.excluded = 0  ". $condition_sku. " 
+and sites.excluded = 0  ". $condition. " 
 and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
 group by crawl.date_executed
 order by crawl.date_executed desc ) as yy order by DateExec";

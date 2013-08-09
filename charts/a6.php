@@ -5,10 +5,22 @@
 //else $limit=15;
 $from=$_SESSION['frc'];
 $to=$_SESSION['tc'];
+
+if (isset($_REQUEST['website_id']))
+{
+    $wname=$_REQUEST['website_id'];
+    $condition=" and website_id like '".$wname."' ";
+}
+else
+{
+    $condition="";
+}
+
+
 $sql = "select Violations_amount, DateExec
 from
 (select 
-sum(map_price) as Violations_amount,
+count(*) as Violations_amount,
  crawl.date_executed as DateExec		 
 from crawl_results res
 inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
@@ -16,7 +28,7 @@ inner join website sites on sites.id = res.website_id
 inner join crawl on crawl.id = res.crawl_id
 where
 violation_amount > 0.05 
-and sites.excluded = 0 
+and sites.excluded = 0 ". $condition. " 
 and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
 group by crawl.date_executed
 order by crawl.date_executed desc ) as yy order by DateExec";
@@ -29,7 +41,7 @@ order by crawl.date_executed desc ) as yy order by DateExec";
 $result = mysql_query($sql);
 
 
-
+echo $sql;
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
 while ($row = mysql_fetch_assoc($result)) {
@@ -61,7 +73,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 zoomType: 'xy'
             },
             title: {
-                text: 'Violation Trend By Amount',
+                text: 'Violation Count By Dealer',
                 x: -20 //center
             },
             xAxis: {
@@ -92,7 +104,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 labels: {
                     formatter: function() {
                     
-                        return '$' + Highcharts.numberFormat(this.value / 1, 0) ;                
+                        return '' + Highcharts.numberFormat(this.value / 1, 0) ;                
     }
                 },
             
@@ -112,7 +124,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 y: 100,
             },
             series: [{
-                    name: 'Violation Amount',
+                    name: 'Violations Count',
                     data: [<?php echo $js_data_string_amounts; ?>]
                 }]
         });

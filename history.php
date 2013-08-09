@@ -78,8 +78,8 @@ else {
 	$_SESSION['frc'] = $mindate;
 }
 /* calender dates */
-
-if (isset($_REQUEST['value']))
+//new changes
+if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku')
 {
     $sku=$_REQUEST['value'];
     $condition_sku=" and sku like '".$sku."' ";
@@ -88,7 +88,16 @@ else
 {
     $condition_sku="";
 }
-
+if (isset($_REQUEST['website_id']) and isset($_REQUEST['field']) and $_REQUEST['field']=='name' )
+{
+    $wname=$_REQUEST['value'];
+    $condition_wname=" and website_id like '".$wname."' ";
+}
+else
+{
+    $condition_wname="";
+}
+//new changes
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku, crawl_results.website_id,
@@ -108,7 +117,7 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
- ".$condition_sku." and 
+ ".$condition_wname." ".$condition_sku." and
 crawl_results.violation_amount>0.05 " . $where . " 
 and website.excluded=0 
 " . $order_by . " LIMIT $start, $limit ";
