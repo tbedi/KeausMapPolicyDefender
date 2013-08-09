@@ -44,17 +44,17 @@ if (!isset($_SESSION['username'])) {
             <div id="tabContainer" class="main-content" align="center" >
                 <div id="tabs" align="center">
                     <ul>
-                        <li id="tabHeader_1" class="recent">Edit/Delete user</li>
-                        <li id="tabHeader_2" class="violation-by-product" >Create New User</li>
+                        <li id="tabHeader_1" class="dashboard">Edit/Delete user</li>
+                        <li id="tabHeader_2" class="recent" >Create New User</li>
                     </ul>
                 </div>
                 <div id="tabscontent" align="center">
 
-                    <div class="tabpage recent" id="tabpage_1">
+                    <div class="tabpage dashboard" id="tabpage_1">
                         <?php include_once 'new_user.php'; ?>
                     </div>
-                    <div id="tabscontent1" align="center">
-                        <div class="tabpage create_user" id="tabpage_2">
+<!--                    <div id="tabscontent1" align="center">-->
+                        <div class="tabpage recent" id="tabpage_2">
                             <?php include_once 'create_user.php';
                         } ?>
                     </div></div>

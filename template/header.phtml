@@ -6,15 +6,18 @@ $db_resource = new DB ();
 //$em = $_SESSION['email'];
 
 $em = (isset($_SESSION['email']) ? $_SESSION['email'] : "");
-$fetch = "select username from admin_users where email='$em'";
+$fetch = "select username,last_login  from admin_users where email='$em'";
 $products = $db_resource->GetResultObj($fetch);
 
 if (count($products) > 0) {
     $us = $products[0]->username;
+    $llog = $products[0]->last_login;
 }
 
 if (isset($_SESSION ['username'])) {
     $user_info = "Welcome " . $us . ",<a href=\"login.php?action=logout\"> Logout</a>";
+    echo "<br>";
+    $log_info = "Last Logged in: " . $llog;
 } else {
     $user_info = "Welcome Guest! <a href=\"login.php\"> Sign In!</a>";
 }
@@ -54,7 +57,13 @@ if (isset($_SESSION ['username'])) {
 
             <div class="user-container container" >
                 <div class="img-part"><img src="images/agent.png" width="28" height="24" /></div> 
-                <div class="text-part">  <?php echo $user_info; ?> </div> 
+                <div class="text-part">  <?php echo $user_info;
+                if(isset($llog))
+                {
+                echo "<br>";
+                echo $log_info;
+                }
+                ?> </div> 
             </div>
         </div>
     </div>
