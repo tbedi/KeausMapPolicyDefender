@@ -14,10 +14,8 @@
         });
     };
 </script>
-<div class="top-paneltab">Violation History</div>
-<div class=" divcc" >
 
-</div> 
+
 <table align="left">
     <tr>
         <td>
@@ -97,8 +95,9 @@
 <div class="cleaner" style="padding-top: 15px; ">
 
 </div>
-<br/>
-<div> 
+
+    <div>
+       <div style="clear:  left; float: left; width:50%"> 
 <table class="GrayBlack" align="left">
     <tbody id="data">
         <tr> 
@@ -170,32 +169,47 @@
         <?php } ?>
 
     </tbody></table> 
+    <div class="cleaner" style="padding-top: 15px; ">
 
-
-<?php
+</div>
+   <div  align="left"  >
+    <?php echo $pagination_html; ?>
+</div> 
+        <?php
 if (count($violators_array) == 0) {
     ?><table class="GrayBlack" align="center">
         <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
 <?php }
-?>
-</div>
-<div align="left" style="display:block; ">
-    <?php echo $pagination_html; ?>
-</div>		
-<div class="divtsp"></div>
-<div class=" divcc" >
-</div> 
-<div  class="chartt">
-    <table>
-        <tr>
-            <td>
+?>   
+           
+    </div>
+        <div style="float: right;width:50%;">
+        <table>
+            <tr><td>
+                    <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
+  border-bottom: 1px solid #A6CF00;"> 
                 <?php include_once 'charts/a5.php'; ?>
-            </td>
-            <td>
+        </div>
+                </td>
+            </tr>
+            <tr><td>
+                    <div style="float: left; padding-top:  50px;"> 
                 <?php include_once 'charts/a6.php'; ?>
-            </td>
-        </tr>
-
-    </table>
+           
 </div>
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+</div>
+<!--<br/>-->
+
+		
+<!--<div class="divtsp"></div>-->
+ 
+<!--<div  class="chartt">-->
+    
+
+<!--    </div>-->
 
