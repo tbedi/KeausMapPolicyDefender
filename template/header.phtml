@@ -15,9 +15,10 @@ if (count($products) > 0) {
 }
 
 if (isset($_SESSION ['username'])) {
+    
     $user_info = "Welcome " . $us . ",<a href=\"login.php?action=logout\"> Logout</a>";
     echo "<br>";
-    $log_info = "Last Logged in: " . $llog;
+    $log_info = "Last Logged in: " . $_SESSION['last_login'];
 } else {
     $user_info = "Welcome Guest! <a href=\"login.php\"> Sign In!</a>";
 }

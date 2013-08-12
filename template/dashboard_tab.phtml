@@ -1,9 +1,7 @@
-<table align="center"  cellpadding="5" cellspacing="10">
-<tr> 
+<div class="row">
+ <div name="Product Violations" class="cell" >
+<h2><bold> Product Violations</bold></h2>
 
-<td>
-<h2><strong> Product Violations</strong></h2>
-<div name="Product Violations" >
 <table class="Dash">
  <tr> 
   <td width="250">
@@ -11,7 +9,7 @@
    </td>	
    
   <td width="200">
-  <strong>Price</strong>
+  <bold>Price</bold>
    </td>
   
   </tr>					
@@ -46,10 +44,12 @@ $result=mysql_query($sql);
 		 echo "</table>"; 
  ?>
  </td>
+ </div>
 
- <td> 
-<h2><strong> Vendor Violations</strong></h2>
-<div name="Vendor Violations" > 
+ <td>
+<div name="Vendor Violations" class="cell"> 
+<h2><bold> Vendor Violations</bold></h2>
+
 <table class="Dash" >
  <tr >
  <td >
@@ -64,13 +64,16 @@ $result=mysql_query($sql);
    <td >
   <strong>Difference</strong>
    </td>
+   <td >
+  <strong>KPI</strong>
+   </td>
   
   </tr>
  <?php
 include('db.php');
 
 $sql1="SELECT
-website.name name, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, tab1.countprev - count(crawl_results.website_id) diff
+website.name name, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, count(crawl_results.website_id)-tab1.countprev diff
 from website
 inner join
 crawl_results
@@ -88,7 +91,7 @@ crawl_results
 on website.id = crawl_results.website_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-and crawl_results.crawl_id = (select max(id)-1 from crawl)
+and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl))
 group by website.name
 ) as tab1 on tab1.name = website.name
 group by website.name limit 10
@@ -100,7 +103,14 @@ group by website.name limit 10
        { 
        echo "<tr>";
        echo "<td>";
-	    echo "<a href=".">".$row['name']."</td>"."<td>".$row['countcurrent']."</td>"."<td>".$row['countprev']."</td>"."<td>".$row['diff']."</td>"."</tr>";
+       if($row['diff'] == 0)
+           $x = "<img style=" . "float:center;" . " width=" . "15" . " src="."images/zminbgbk.gif"." />";
+       elseif($row['diff'] < 0)
+           $x = "<img style=" . "float:center;" . " width=" . "22" . " src="."images/arrow_desc_1.png"." />";
+       elseif($row['diff'] > 0)
+           $x = "<img style=" . "float:center;" . " width=" . "22" . " src="."images/arrow_asc_1.png"." />";
+       
+	    echo "<a href=".">".$row['name']."</td>"."<td>".$row['countcurrent']."</td>"."<td>".$row['countprev']."</td>"."<td>".$row['diff']."</td>"."<td>".$x."</td>"."</tr>";
        echo "</td>";
        echo "</tr>";  
        } 
@@ -108,12 +118,12 @@ group by website.name limit 10
        
  ?>	
 
-  </td>
-  </tr>
-<tr>
-  <td >
- <h2><strong>Top Violations Product</strong></h2> 
-<div  name="Vendor Violations" >  
+</div>
+     </div>
+<div class="row">
+    <div  name="Vendor Violations" class="cell" >
+ <h2><bold>Top Violations Product</bold></h2> 
+  
 <table class="Dash">
      <tr>
 <td width="250">
@@ -159,14 +169,14 @@ $result2=mysql_query($sql2);
 
 </div>
 </td>
-         
-<td ><h2><strong>Top Violation Vendor</strong></h2>
-<div  name="Vendor Violations" > 
+ <div  name="Vendor Violations" class="cell">         
+<td ><h2><bold>Top Violation Vendor</bold></h2>
+
   <table class="Dash">
     <tr>
   
   <td width="250">
-  <strong>SKU</strong>
+  <bold>SKU</bold>
    </td>
   <td width="200">
   <strong>Violation Amount</strong>
@@ -211,7 +221,4 @@ limit 10";
  ?>
 
 </div>
- 
-</td> 
-</tr>
-</table>
+</div>

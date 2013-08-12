@@ -157,4 +157,12 @@ border-width:0px 0px 1px 0px;
 border-width:0px 0px 1px 1px;
 }
 
+.row {
+    display:table-row;
+}
+.cell {
+    display:table-cell;
+/*    width:25%;*/
+}
+
     
