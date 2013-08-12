@@ -71,7 +71,7 @@ if (isset($_GET['page'])) {
 }
 ?>
 <form action="Dealers.php" method="POST">
-    <table class="table1">
+    <table class="table1" align="left">
         <tr>
             <td width="285" >
                 <div class="divt1">
@@ -162,11 +162,11 @@ if (isset($_GET['page'])) {
                 ?>
 
                 <tr>
-                    <td ><?php echo $row['name']; ?></td> 
-                <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
-                    <td ><?php echo $row['date_created']; ?></td>
-                    <td ><?php echo $row['excluded']; ?></td>
-                    <td ><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td width="400"><?php echo $row['name']; ?></td> 
+                <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
+                    <td width="250"><?php echo $row['date_created']; ?></td>
+                    <td width="250"><?php echo $row['excluded']; ?></td>
+                    <td width="250"><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
                 <?php
@@ -201,11 +201,11 @@ LIMIT $start, $limit";
                 ?>
 
                 <tr>
-                    <td ><?php echo $row['name']; ?></td> 
-                    <?php echo "<td>" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
-                    <td ><?php echo $row['date_created']; ?></td>
-                    <td ><?php echo $row['excluded']; ?></td>
-                    <td ><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td width="400"><?php echo $row['name']; ?></td> 
+                    <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
+                    <td width="250"><?php echo $row['date_created']; ?></td>
+                    <td width="250"><?php echo $row['excluded']; ?></td>
+                    <td width="250"><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
                 </tr>
             <?php
         }

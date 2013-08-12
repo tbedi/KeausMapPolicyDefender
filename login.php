@@ -1,28 +1,18 @@
 <?php
+date_default_timezone_set('America/New_York');
+include_once 'db.php';
 include_once 'db_login.php';
 include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 if (isset($_GET['action']) && $_GET['action'] == 'logout')
 {
 session_start();
-
-$current_date = date('Y/m/d');
-$sql1 = mysql_query("UPDATE admin_users SET last_login = '$current_date' WHERE username='$us'");
-if(!$sql1){
-echo 'error';
-}
-
-
-
 session_destroy();
 if (isset($_COOKIE['email']))
 setcookie("email","",time()-60000);
 header('Location: login.php');
-
 die();
 }
-
-
 $_session['a'] = '0';
 $_SESSION['role'] = '';
 
@@ -35,10 +25,12 @@ if (isset($_COOKIE['email']) || isset($_SESSION['email'])) {
 
         $us = $products[0]->username;
         $role = $products[0]->role;
+        
     }
     $_SESSION['username'] = $us;
     $_SESSION['role'] = $role;
     $_SESSION['email'] = $email;
+    
     header("Location: index.php");
     exit();
 }
@@ -59,6 +51,9 @@ if (isset($_POST['login']))
           $us = $products[0]->username;
           $pass = $products[0]->password;
           $role = $products[0]->role;
+          $user_id = $products[0]->user_id;
+          $last_log = $products[0]->last_login;
+          $_SESSION['us_id'] = $user_id;
         }
         if (count($products) > 0)
             {
@@ -74,7 +69,15 @@ if (isset($_POST['login']))
             {
                 $_SESSION['username'] = $us;
                 $_SESSION['role'] = $role;
-//                $_SESSION['last_login'] = $products['last_login'];
+                $_SESSION['last_login'] = $last_log;
+                $_SESSION['curent_login'] = date('Y-m-d H:i:s');
+                $user_id = $_SESSION['us_id'];
+                $current_date = $_SESSION['curent_login'];
+                $sql1 = mysql_query("UPDATE admin_users SET last_login = '$current_date' WHERE user_id = '$user_id'");
+                if(!$sql1)
+                    {
+                    echo 'error';
+                    }
                 if ($_POST['rememberme'] == "on")
                     setcookie("email", $email, time() + 7200);
                 $_SESSION['email'] = $email;
