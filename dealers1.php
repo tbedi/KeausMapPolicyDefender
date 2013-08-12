@@ -36,14 +36,6 @@ $select25="";
 $select40="";
 break;
 }
-//echo "<form method=get action=$page_name>
-//    
-//<div class="."results-per-page"." style="."float:right;padding-top:5px;"." ><select name=limit class="."searchlog"." >
-//<option value=10 $select10>10 Records</option>
-//<option value=25 $select25>25 Records</option>
-//<option value=40 $select40>40 Records</option>
-//</select>
-//<input type=submit value=GO class="."btn-search"."></div></form>";
 $eu = (0); 
 
 if(!$limit > 0 ){ // if limit value is not available then let us use a default value
@@ -73,7 +65,7 @@ if (isset($_GET['page'])) {
 <form action="dealers.php" method="POST">
     <table class="table1" align="left">
         <tr>
-            <td width="285" >
+            <td>
                 <div class="divt1">
 
                     <input  class="recent_violation_search search" name="websearch" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == 'search') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
@@ -203,7 +195,7 @@ LIMIT $start, $limit";
                 <tr>
                     <td width="400"><?php echo $row['name']; ?></td> 
                     <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
-                    <td width="250"><?php echo $row['date_created']; ?></td>
+                    <td width="300"><?php echo $row['date_created']; ?></td>
                     <td width="250"><?php echo $row['excluded']; ?></td>
                     <td width="250"><a href="/dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
                 </tr>
