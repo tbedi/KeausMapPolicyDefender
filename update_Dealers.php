@@ -1,5 +1,5 @@
 <?php
-$title = "Kraus Price Defender | update_Dealers.php";
+$title = "Kraus Price Defender | update_dealers.php";
 include('db.php');
 session_start();
 $_SESSION['role'] === 'Admin';
@@ -17,7 +17,7 @@ if (!$result) {
     <?php
     $_SESSION['a'] = '0';
     ?>
-        window.location.href = '/Dealers.php';</script>
+        window.location.href = '/dealers.php';</script>
     <?php
 } else {
     ?>
@@ -25,7 +25,7 @@ if (!$result) {
     <?php
     $_SESSION['a'] = '1';
     ?>
-        window.location.href = '/Dealers.php';</script>
+        window.location.href = '/dealers.php';</script>
     <?php
 }
 ?>

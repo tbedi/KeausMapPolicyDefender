@@ -2,7 +2,7 @@
 $title = "Kraus Price Defender | Dealer_edit.php";
 ?>
 <?php include_once 'template/head.phtml'; ?>
-<body id="Dealers_page" >
+<body id="dealers_page" >
 <?php include_once 'template/header.phtml'; ?>
     <div id="wrapper" align="center" >  
         <div class="main-content" align="center" >
@@ -12,7 +12,7 @@ $title = "Kraus Price Defender | Dealer_edit.php";
 
                     <div class="tabpage recent" id="tabpage_1">
                         <div class="formlog1" >
-                            <form id="test" action="update_Dealers.php" method="POST"> 
+                            <form id="test" action="update_dealers.php" method="POST"> 
                                 <?php
                                 $name = $_GET['name'];
                                 include "db.php";
@@ -68,7 +68,7 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                                         </tr>
                                         <tr align="center">
                                             <td rowspan="5" colspan="5" align="center">
-                                                <button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<input type="button" class="butl" value="Cancel" onclick="window.location.href = '/Dealers.php'">
+                                                <button  href="javascript:()" onclick="document.getElementById('test').submit();" class="butl" title="Saving" rel="1" > submit</button> &nbsp;<input type="button" class="butl" value="Cancel" onclick="window.location.href = '/dealers.php'">
                                             </td>
                                         </tr>
 

@@ -1,22 +1,16 @@
 <div class="row">
- <div name="Product Violations" class="cell" >
-<h2><bold> Product Violations</bold></h2>
+    <div class="cell" >
+        <h2>Product Violations</h2>
 
-<table class="Dash">
- <tr> 
-  <td width="250">
-  <strong>SKU ID</strong>
-   </td>	
-   
-  <td width="200">
-  <bold>Price</bold>
-   </td>
-  
-  </tr>					
-<?php
-include('db.php');
-       
-$sql="SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
+        <table class="Dash">
+            <tr> 
+                <td width="250"><b>SKU ID</b></td>	
+                <td width="200"><b>Price</b></td>
+            </tr>					
+            <?php
+            include('db.php');
+
+            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
 FROM
 prices.catalog_product_flat_1
 inner join
@@ -28,51 +22,49 @@ crawl_results.crawl_id = crawl.id
 where crawl_results.violation_amount>0.5
  and 
 crawl.id = 
-(select max(crawl.id) from crawl) limit 10 ";
-$result=mysql_query($sql);
-      
-  
-        while($row = mysql_fetch_array($result)) 
-       
-	   { 
-	        echo "<tr>";
-            echo "<td>";
-               echo  $row['sku']. "<td>" ."<a href=".">".$row['price']."</a><br>"; 
-             echo "</td>";
-             echo "</tr>"; 
-	   }
-		 echo "</table>"; 
- ?>
- </td>
- </div>
+(select max(crawl.id) from crawl) limit 12 ";
+            $result = mysql_query($sql);
 
- <td>
-<div name="Vendor Violations" class="cell"> 
-<h2><bold> Vendor Violations</bold></h2>
 
-<table class="Dash" >
- <tr >
- <td >
-  <strong>Dealers Name</strong>
-   </td>	
-   <td >
-  <strong>current Count</strong>
-   </td>
-   <td >
-  <strong>Previous Count</strong>
-   </td>
-   <td >
-  <strong>Difference</strong>
-   </td>
-   <td >
-  <strong>KPI</strong>
-   </td>
-  
-  </tr>
- <?php
+            while ($row = mysql_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>";
+                echo $row['sku'] . "<td>" . "<a href=" . ">" . $row['price'] . "</a><br>";
+                echo "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            ?>
+            </td>
+    </div>
+    <!--    <div class="clear"></div>-->
+
+    <div class="cell"> 
+        <h2>Vendor Violations</h2>
+
+        <table class="Dash" >
+            <tr >
+                <td >
+                    <b>Dealers Name</b>
+                </td>	
+                <td >
+                    <b>current Count</b>
+                </td>
+                <td >
+                    <b>Previous Count</b>
+                </td>
+                <td >
+                    <b>Difference</b>
+                </td>
+                <td >
+                    <b>KPI</b>
+                </td>
+
+            </tr>
+<?php
 include('db.php');
 
-$sql1="SELECT
+$sql1 = "SELECT
 website.name name, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, count(crawl_results.website_id)-tab1.countprev diff
 from website
 inner join
@@ -96,50 +88,48 @@ group by website.name
 ) as tab1 on tab1.name = website.name
 group by website.name limit 10
 ";
-   
-       
-	    $result1=mysql_query($sql1);
-        while($row = mysql_fetch_array($result1)) 
-       { 
-       echo "<tr>";
-       echo "<td>";
-       if($row['diff'] == 0)
-           $x = "<img style=" . "float:center;" . " width=" . "15" . " src="."images/zminbgbk.gif"." />";
-       elseif($row['diff'] < 0)
-           $x = "<img style=" . "float:center;" . " width=" . "22" . " src="."images/arrow_desc_1.png"." />";
-       elseif($row['diff'] > 0)
-           $x = "<img style=" . "float:center;" . " width=" . "22" . " src="."images/arrow_asc_1.png"." />";
-       
-	    echo "<a href=".">".$row['name']."</td>"."<td>".$row['countcurrent']."</td>"."<td>".$row['countprev']."</td>"."<td>".$row['diff']."</td>"."<td>".$x."</td>"."</tr>";
-       echo "</td>";
-       echo "</tr>";  
-       } 
-         echo "</table>";
-       
- ?>	
 
+
+$result1 = mysql_query($sql1);
+while ($row = mysql_fetch_array($result1)) {
+    echo "<tr>";
+    echo "<td>";
+    if ($row['diff'] == 0)
+        $x = "<img style=" . "float:center;" . " width=" . "15" . " src=" . "images/zminbgbk.gif" . " />";
+    elseif ($row['diff'] < 0)
+        $x = "<img style=" . "float:center;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+    elseif ($row['diff'] > 0)
+        $x = "<img style=" . "float:center;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+
+    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . $x . "</td>" . "</tr>";
+    echo "</td>";
+    echo "</tr>";
+}
+echo "</table>";
+?>	
+
+    </div>
 </div>
-     </div>
 <div class="row">
-    <div  name="Vendor Violations" class="cell" >
- <h2><bold>Top Violations Product</bold></h2> 
-  
-<table class="Dash">
-     <tr>
-<td width="250">
-  <strong>SKU</strong>
-   </td>	
-   
-  <td width="200">
-  <strong>Violation Count</strong>
-   </td>
-  
-  </tr>
+    <div class="cell" >
+        <h2>Top Violations Product</h2> 
+
+        <table class="Dash">
+            <tr>
+                <td width="250">
+                    <b>SKU</b>
+                </td>	
+
+                <td width="200">
+                    <b>Violation Count</b>
+                </td>
+
+            </tr>
 
 <?php
 include('db.php');
 
-$sql2="select 
+$sql2 = "select 
 catalog_product_flat_1.sku,
 count(crawl_results.product_id) as i_count
 from
@@ -153,40 +143,38 @@ on crawl.id = crawl_results.crawl_id
 and crawl_results.crawl_id = (select max(id) from crawl)
 group by crawl_results.product_id
 order by count(crawl_results.product_id) desc limit 10";
-$result2=mysql_query($sql2);
+$result2 = mysql_query($sql2);
 
 
-        while($row = mysql_fetch_array($result2)) 
-       { 
-       
-         echo "<tr>";
-       echo "<td>";
-      echo "<a href=".">".$row['sku']."</td>"."<td>".$row['i_count']."</td>"."</tr>";   
-	  
-       }
-        echo "</table>";    
- ?>
+while ($row = mysql_fetch_array($result2)) {
 
-</div>
+    echo "<tr>";
+    echo "<td>";
+    echo "<a href=" . ">" . $row['sku'] . "</td>" . "<td>" . $row['i_count'] . "</td>" . "</tr>";
+}
+echo "</table>";
+?>
+
+    </div>
 </td>
- <div  name="Vendor Violations" class="cell">         
-<td ><h2><bold>Top Violation Vendor</bold></h2>
+<div class="cell">         
+    <td ><h2>Top Violation Vendor</h2>
 
-  <table class="Dash">
-    <tr>
-  
-  <td width="250">
-  <bold>SKU</bold>
-   </td>
-  <td width="200">
-  <strong>Violation Amount</strong>
-   </td>
-  
-  </tr>
+        <table class="Dash">
+            <tr>
+
+                <td width="250">
+                    <b>SKU</b>
+                </td>
+                <td width="200">
+                    <b>Violation Amount</b>
+                </td>
+
+            </tr>
 <?php
 include('db.php');
 
-$sql3="SELECT
+$sql3 = "SELECT
 catalog_product_flat_1.sku,
 crawl_results.violation_amount as violation_amount
 from website
@@ -206,19 +194,15 @@ and
 crawl.id =
 (select max(crawl.id) from crawl) order by violation_amount desc
 limit 10";
- $result3=mysql_query($sql3);
- 
-        while($row = mysql_fetch_array($result3)) 
-       { 
-         echo "<tr>";
-		 echo "<td>";
-      echo "<a href=".">".$row['sku']."</td>"."<td>$".$row['violation_amount']."</td>"."</tr>";
-		 
-     	 // echo  "<td>"."<a href=topViolationVendors.php?website_id=".$row['website_id'].">".$row['name']."</td><td>".$row['wi_count']."</td></a><br>";
-       } 
-         echo "</table>";
-      // mysql_close($con); 
- ?>
+$result3 = mysql_query($sql3);
+
+while ($row = mysql_fetch_array($result3)) {
+    echo "<tr>";
+    echo "<td>";
+    echo "<a href=" . ">" . $row['sku'] . "</td>" . "<td>$" . $row['violation_amount'] . "</td>" . "</tr>";
+}
+echo "</table>";
+?>
 
 </div>
 </div>

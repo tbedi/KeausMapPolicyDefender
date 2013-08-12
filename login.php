@@ -7,20 +7,12 @@ $db_resource = new DB (); // we created database resourse object which contains 
 if (isset($_GET['action']) && $_GET['action'] == 'logout')
 {
 session_start();
-
-//$sql1 = mysql_query("UPDATE admin_users SET last_login = '$current_date' WHERE user_id = '$user_id'");
-//if(!$sql1){
-//echo 'error';
-//}
 session_destroy();
 if (isset($_COOKIE['email']))
 setcookie("email","",time()-60000);
 header('Location: login.php');
-
 die();
 }
-
-
 $_session['a'] = '0';
 $_SESSION['role'] = '';
 
@@ -148,11 +140,11 @@ if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' )
                                         </td>
                                     </tr>
                                     <tr> 
-                                        <td>&nbsp;</td>	
+                                        <td>&nbsp;</td>
                                         <td><input type="hidden" value="hidden"/>
                                         </td>
                                     </tr>
-                                    <tr><td>&nbsp;</td><td><input type="checkbox" name="rememberme" align="center"/>&nbsp;&nbsp;Remember Me</td></tr>
+                                    <tr><td>&nbsp;</td><td><input type="checkbox" name="rememberme" align="center" />&nbsp;&nbsp;Remember Me</td></tr>
                                     <tr> 
                                         <td>&nbsp;</td>	
                                         <td><input type="hidden" value="hidden"/>

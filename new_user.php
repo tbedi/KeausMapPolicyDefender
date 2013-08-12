@@ -67,9 +67,9 @@ if (isset($_GET['page'])) {
 }
 ?>
 <form action="users.php" method="POST">
-<table class="table1" >
+<table class="table1" align="left">
     <tr>
-        <td >
+        <td>
             <div class="divt1">
 
                <input  class="recent_violation_search search" placeholder="Enter name ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
@@ -164,12 +164,12 @@ if (isset($_GET['page'])) {
         $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
     <tr>                                     
-                <td ><?php echo $row['username']; ?></td>
-                <td ><?php echo $row['email']; ?></td>
-                <td ><?php echo $row['name']; ?></td>
-                <td ><?php echo $row['role']; ?></td>
-                <td ><?php echo $row['last_login']; ?></td>
-                <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
+                <td width="250"><?php echo $row['username']; ?></td>
+                <td width="400"><?php echo $row['email']; ?></td>
+                <td width="250"><?php echo $row['name']; ?></td>
+                <td width="250"><?php echo $row['role']; ?></td>
+                <td width="250"><?php echo $row['last_login']; ?></td>
+                <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
              <?php     
@@ -201,12 +201,12 @@ if (isset($_GET['page'])) {
                      $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
             <tr>                                     
-                <td ><?php echo $row['username']; ?></td>
-                <td ><?php echo $row['email']; ?></td>
-                <td ><?php echo $row['name']; ?></td>
-                <td ><?php echo $row['role']; ?></td>
-                <td ><?php echo $row['last_login']; ?></td>
-                <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
+                <td width="250"><?php echo $row['username']; ?></td>
+                <td width="400"><?php echo $row['email']; ?></td>
+                <td width="250"><?php echo $row['name']; ?></td>
+                <td width="250"><?php echo $row['role']; ?></td>
+                <td width="250"><?php echo $row['last_login']; ?></td>
+                <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
 
