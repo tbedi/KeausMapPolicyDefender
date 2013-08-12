@@ -4,8 +4,8 @@
 
         <table class="Dash">
             <tr> 
-                <td width="250"><b>SKU ID</b></td>	
-                <td width="200"><b>Price</b></td>
+                <td width="250">SKU ID</td>	
+                <td width="200">Price</td>
             </tr>					
             <?php
             include('db.php');
@@ -22,7 +22,7 @@ crawl_results.crawl_id = crawl.id
 where crawl_results.violation_amount>0.5
  and 
 crawl.id = 
-(select max(crawl.id) from crawl) limit 12 ";
+(select max(crawl.id) from crawl) limit 10 ";
             $result = mysql_query($sql);
 
 
@@ -44,21 +44,11 @@ crawl.id =
 
         <table class="Dash" >
             <tr >
-                <td >
-                    <b>Dealers Name</b>
-                </td>	
-                <td >
-                    <b>current Count</b>
-                </td>
-                <td >
-                    <b>Previous Count</b>
-                </td>
-                <td >
-                    <b>Difference</b>
-                </td>
-                <td >
-                    <b>KPI</b>
-                </td>
+                <td >Dealers Name</td>	
+                <td >current Count</td>
+                <td >Previous Count</td>
+                <td >Difference</td>
+                <td >AOP</td>
 
             </tr>
 <?php
@@ -75,7 +65,7 @@ on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = (select max(id) from crawl)
 inner join
 (
-SELECT  
+SELECT
 website.name name, count(crawl_results.website_id) countprev
 from website
 inner join
@@ -86,22 +76,20 @@ on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl))
 group by website.name
 ) as tab1 on tab1.name = website.name
-group by website.name limit 10
+group by website.name
+order by countcurrent desc limit 10
 ";
-
-
 $result1 = mysql_query($sql1);
 while ($row = mysql_fetch_array($result1)) {
+    $avg = ($row['countcurrent']+$row['countprev'])/2;
+    $jj = ($row['diff']/$avg)*100;
     echo "<tr>";
     echo "<td>";
-    if ($row['diff'] == 0)
-        $x = "<img style=" . "float:center;" . " width=" . "15" . " src=" . "images/zminbgbk.gif" . " />";
-    elseif ($row['diff'] < 0)
-        $x = "<img style=" . "float:center;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-    elseif ($row['diff'] > 0)
-        $x = "<img style=" . "float:center;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+    if($row['diff']<0) $x = "red";
+    elseif ($row['diff']==0) $x = "black";
+    elseif ($row['diff']>0) $x = "green";
 
-    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . $x . "</td>" . "</tr>";
+    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . "<font color="."$x".">".round($jj, 2)."%"."</font> ". "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
@@ -117,11 +105,11 @@ echo "</table>";
         <table class="Dash">
             <tr>
                 <td width="250">
-                    <b>SKU</b>
+                   SKU
                 </td>	
 
                 <td width="200">
-                    <b>Violation Count</b>
+                    Violation Count
                 </td>
 
             </tr>
@@ -163,12 +151,8 @@ echo "</table>";
         <table class="Dash">
             <tr>
 
-                <td width="250">
-                    <b>SKU</b>
-                </td>
-                <td width="200">
-                    <b>Violation Amount</b>
-                </td>
+                <td width="250">SKU</td>
+                <td width="200">Violation Amount</td>
 
             </tr>
 <?php
