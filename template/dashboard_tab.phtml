@@ -82,14 +82,14 @@ order by countcurrent desc limit 10
 $result1 = mysql_query($sql1);
 while ($row = mysql_fetch_array($result1)) {
     $avg = ($row['countcurrent']+$row['countprev'])/2;
-    $jj = ($row['diff']/$avg)*100;
+    $percent = ($row['diff']/$avg)*100;
     echo "<tr>";
     echo "<td>";
     if($row['diff']<0) $x = "red";
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
 
-    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . "<font color="."$x".">".round($jj, 2)."%"."</font> ". "</td>" . "</tr>";
+    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . "<font color="."$x".">".round($percent, 2)."%"."</font> ". "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
