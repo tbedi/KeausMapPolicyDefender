@@ -1,11 +1,17 @@
+<div class="cleaner1" >
 
+</div><div class="cleaner1" >
+
+</div>
+ <div style="clear:  left; float: left; width:50%"> 
 <div class="top-paneltab"> Dealers Violated  <?php echo $violators_array3[0]->sku; ?> </div>
-<div class=" divcc" ></div> 
-<!--<h3 align="center" style="padding-top:20px;"> Sellers Violated  <?php //echo  $namep    ?> </h3> -->
+<div class="cleaner1" >
 
-<table class="table1" >
-    <tr>
-        <td >
+</div>
+
+<!--<h3 align="center" style="padding-top:20px;"> Sellers Violated  <?php //echo  $namep     ?> </h3> -->
+
+
             <?php if (count($violators_array) > 3 * 15) : //more 3x default limit?>
                 <div class="divt1">
 
@@ -19,8 +25,7 @@
                     <button href="javascript:void(0);" class="btn-search"  onclick="show_all2();" >Show all</button>
                 </div>
             <?php endif; ?>
-        </td>
-        <td> 
+     
             <div class="divt22">
 
 
@@ -35,10 +40,10 @@
             <div class="divt22">
                 <button href="" id="1" class="btn-search" onclick="exporttop2();">Export</button>
             </div>
-        </td>
+      
 
 
-        <td>
+      
             <div class="results-per-page-block" style="float:left;padding-top:6px;" >
                 <select name="product2-limitp2" class="results-per-page2 dropdown"  >                
                     <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
@@ -48,40 +53,41 @@
                     <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
                 </select>
             </div>
-        </td>
-    </tr>
-</table>
+        
 <!-- table part -->
 <div class="cleaner1" >
 
 </div>
-<table align="center">
-    <tr>
-        <td>
-            <table class="GrayBlack" align="center">
+ </div>
+<div>
+ <div style="clear:  left; float: left; width:50%"> 
+      <table align="center">
+            <tr>
+                <td>
+     <table class="GrayBlack" align="center" style="width: 830px;">
                 <tbody id="data">
                     <tr> 
                         <td >Dealers
-                          
+
                             <a  onclick="sort_grid('vendor', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                             </a>
                         </td>
                         <td >Dealers price
-                        
-                             <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
+
+                            <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
                             </a>
                         </td>
                         <td >Map
-                           
+
                             <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
                             </a>
                         </td>
                         <td >Violation
-                            
-                            
+
+
                             <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
                             </a>
@@ -101,7 +107,7 @@
                             <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->vendor; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->vendor; ?></a></td>
                             <td><?php echo toMoney($violator->vendor_price); ?></td>
                             <td><?php echo toMoney($violator->map_price); ?></td>
-                            <td id="<?php echo $cell_id; ?>"><?php echo toMoney( $violator->violation_amount); ?></td>
+                            <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
 
                         </tr>				
                     <?php } ?>
@@ -116,15 +122,17 @@
                     <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
             <?php }
             ?>
-
-        </td>  
-    </tr>       
-</table> 
-<div align="left" style="display:block; " >
-    <?php echo $pagination_html; ?>
-</div>	
-<div class="divtsp"></div>
-<div class=" divcc" ></div> 
-<div>
-    <?php include_once 'charts/a3.php'; ?>
+                    
+                     </td>  
+            </tr>       
+        </table> 
+            <div align="left" style="display:block; " >
+                <?php echo $pagination_html; ?>
+            </div>	
+ </div>
+    <div style="float: right;width:50%;">
+            <div>
+                <?php include_once 'charts/a3.php'; ?>
+            </div>
+        </div>
 </div>

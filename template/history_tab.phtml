@@ -15,7 +15,8 @@
     };
 </script>
 
-
+<div>
+    <div style="clear:  left; float: left; width:50%"> 
 <table align="left">
     <tr>
         <td> <?php
@@ -102,13 +103,18 @@
     </tr>
 </table>
 <div class="cleaner" style="padding-top: 15px; ">
-
+  
 </div>
+<div style="align:right; width: 700px; padding-left: 324px; ">
+ <img src="../images/message.png" /></div>
 
-<div>
-    <div style="clear:  left; float: left; width:50%"> 
         <table class="GrayBlack" align="left">
+           
+                     
+                        
+              
             <tbody id="data">
+               
                 <tr> 
                     <td>
                         SKU
@@ -228,17 +234,36 @@ if (count($violators_array) == 0) {
     <div style="float: right;width:50%;">
         <table>
             <tr><td>
+                    <?php
+                     if(isset($_REQUEST['website_id']))
+                    {
+                    ?>
                     <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
-                         border-bottom: 1px solid #A6CF00;"> 
-<?php include_once 'charts/a5.php'; ?>
+                         border-bottom: 1px solid #A6CF00; display: none"> 
+                      <?php include_once 'charts/a5.php'; ?>
                     </div>
+                     <?php } else { ?>
+                    <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
+                         border-bottom: 1px solid #A6CF00; "> 
+                      <?php include_once 'charts/a5.php'; ?>
+                    </div>
+                     <?php } ?>
                 </td>
             </tr>
             <tr><td>
-                    <div style="float: left; padding-top:  50px;"> 
-<?php include_once 'charts/a6.php'; ?>
-
+                     
+                     <?php
+                    if(isset($_REQUEST['product_id']))
+                    {
+                    ?>
+                    <div style="float: left; padding-top:  50px; display: none"> 
+                    <?php include_once 'charts/a6.php'; ?>
                     </div>
+                    <?php } else { ?>
+                    <div style="float: left; padding-top:  50px; "> 
+                    <?php include_once 'charts/a6.php'; ?>
+                    </div>
+                    <?php } ?>
                 </td>
             </tr>
 

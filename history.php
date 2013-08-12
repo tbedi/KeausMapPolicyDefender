@@ -180,7 +180,7 @@ and website.excluded=0
 " . $order_by . " LIMIT $start, $limit ";
 
 $violators_array = $db_resource->GetResultObj($sql);
-echo $sql;
+
 
 
 $_SESSION['historyArray'] = $violators_array;
