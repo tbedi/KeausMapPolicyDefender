@@ -159,6 +159,7 @@ if (isset($_GET['page'])) {
             $paginate = '';
             
             if ($lastpage > 1) {
+                
     while ($row = mysql_fetch_array($result)) {
         $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
