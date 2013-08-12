@@ -133,11 +133,11 @@
      		        $(this).parent().parent().children('.search-btn-container').children('button').click();
      		    }
      		});
-                $(".history-search2").keypress(function(e) {
-     		    if(e.which == 13) {
-     		        $(this).parent().parent().children('.search-btn-container1').children('button').click();
-     		    }
-     		});	
+//                $(".history-search2").keypress(function(e) {
+//     		    if(e.which == 13) {
+//     		        $(this).parent().parent().children('.search-btn-container1').children('button').click();
+//     		    }
+//     		});	
      		/*Binding enter search 2nd grids*/
      		
      	 });
@@ -217,7 +217,14 @@
                 open("export/export_history_" + mode + ".php?" + $.param(queryParameters));
             //open("export_history_" + mode + ".php" + url_options);
 
-        }        
+        } 
+        
+        function checkTextField(field) {
+    if (field.value == '') {
+      var $searchsku=1;
+    }
+}
 /*history*/
+
         
 </script>
