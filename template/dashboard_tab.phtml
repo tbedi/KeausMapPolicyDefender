@@ -89,7 +89,7 @@ while ($row = mysql_fetch_array($result1)) {
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
 
-    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . "<font color="."$x".">".round($jj, 2)."</font> ". "</td>" . "</tr>";
+    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . "<font color="."$x".">".round($jj, 2)."%"."</font> ". "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
