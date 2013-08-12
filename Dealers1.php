@@ -3,10 +3,10 @@ include_once 'db_login.php';
 include_once 'db.php';
 $title = "Kraus Price Defender | dealers1.php";
 ////pagination
-$tableName = "/website";
-$targetpage = "/dealers.php";
+$tableName = "website";
+$targetpage = "dealers.php";
 $limit = 10;
-$page_name="/dealers.php"; 
+$page_name="dealers.php"; 
 ////// starting of drop down to select number of records per page /////
 
 @$limit=$_GET['limit']; // Read the limit value from query string. 
