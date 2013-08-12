@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="cell" >
+    <div class="cell" class="input">
         <h2>Product Violations</h2>
 
         <table class="Dash">
@@ -47,8 +47,7 @@ crawl.id =
                 <td >Dealers Name</td>	
                 <td >current Count</td>
                 <td >Previous Count</td>
-                <td >Difference</td>
-                <td >AOP</td>
+                <td >%</td>
 
             </tr>
 <?php
@@ -88,8 +87,8 @@ while ($row = mysql_fetch_array($result1)) {
     if($row['diff']<0) $x = "red";
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
-
-    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent'] . "</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . $row['diff'] . "</td>" . "<td>" . "<font color="."$x".">".round($percent, 2)."%"."</font> ". "</td>" . "</tr>";
+//. "<td>" . $row['diff'] . "</td>" 
+    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(". $row['diff']. ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".round($percent, 2)."%"."</font> ". "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
