@@ -14,7 +14,6 @@ if (isset($_REQUEST['product_id'])) {
     $product_id = $_REQUEST['product_id'];
 }
 
-
 /* where */
 //$wherep = "";
 //if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
@@ -61,7 +60,7 @@ if (isset($_REQUEST['website_id'])) {
 
 
 $_SESSION['limit'] = $limit;
-if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
     $limit = $_GET['limit'];
 }
 
@@ -136,7 +135,7 @@ else {
 }
 /* calender dates */
 //new changes
-if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku')
+if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku' and !isset($_POST['info']))
 {
     $sku=$_REQUEST['value'];
     $condition_sku=" and sku like '".$sku."' ";
@@ -145,7 +144,7 @@ else
 {
     $condition_sku="";
 }
-if (isset($_REQUEST['website_id'])and isset($_REQUEST['name']) and isset($_REQUEST['field']) and $_REQUEST['field']=='name' )
+if (isset($_REQUEST['website_id'])and isset($_REQUEST['name']) and isset($_REQUEST['field']) and $_REQUEST['field']=='name' and !isset($_POST['info']))
 {
     $wname=$_REQUEST['value'];
     $condition_wname=" and website.name like '".$wname."' ";
@@ -155,6 +154,14 @@ else
     $condition_wname="";
 }
 //new changes
+
+if (isset($_POST['info']) && $_POST['info']=='on')
+{
+   $limitcon=""; 
+}
+ else {
+   $limitcon=" LIMIT " . $start ." , ". $limit;
+}
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku, crawl_results.website_id,
@@ -177,7 +184,7 @@ where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )
  ".$condition_wname." ".$condition_sku." and
 crawl_results.violation_amount>0.05   
 and website.excluded=0 
-" . $order_by . " LIMIT $start, $limit ";
+" . $order_by . "$limitcon " ;
 
 $violators_array = $db_resource->GetResultObj($sql);
 

@@ -28,7 +28,7 @@ if(isset($_SESSION['historyArray']))
 	$output = "<tr>";
 
           $output .=  "<td>". $violators_array->sku . "</td>";
-          $output .=  "<td>". $violators_array->wname ."</td>";
+          $output .=  "<td>". $violators_array->name ."</td>";
           $output .=  "<td>". toMoney($violators_array->vendor_price) ."</td>";
           $output .=  "<td>". toMoney($violators_array->map_price) ."</td>";
           $output .=  "<td>". toMoney($violators_array->violation_amount) ."</td>";   

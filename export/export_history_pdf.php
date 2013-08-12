@@ -143,7 +143,7 @@ foreach ($violators_array as $violators_array ) {
 	<tr>
             
             <td style="width:210px">{$violators_array->sku}</td>
-            <td style="width:190px">{$violators_array->wname}</td>
+            <td style="width:190px">{$violators_array->name}</td>
             <td style="width:75px"> $ {$violators_array->vendor_price}</td>
             <td style="width:75px"> $ {$violators_array->map_price}</td>
             <td style="width:75px"> $ {$violators_array->violation_amount}</td>

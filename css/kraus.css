@@ -25,7 +25,7 @@
      padding:9px;
     border:1px solid #C9C9C9;
     margin:4px;
-    width:150px;
+    width:120px;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
     height: 32px;
@@ -107,10 +107,13 @@
 	padding-right: 20px;
 	padding-left: 20px;
 	float: left;
-        
-     /*  padding-top: 5px;
-       padding-bottom: 5px;
-       align: center; */
+          
+}
+.divt2222 {
+	padding-right: 3px;
+	padding-left: 3px;
+	float: left;
+          
 }
 
 .divt23 {

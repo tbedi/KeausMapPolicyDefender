@@ -15,106 +15,106 @@
     };
 </script>
 
-<div>
+<div style="height: 100%; width: 100%;">
     <div style="clear:  left; float: left; width:50%"> 
-<table align="left">
-    <tr>
-        <td> <?php
-            if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
-                $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
-            } else {
-                $urls = "?tab=violations-history&option=show_dates";
+
+
+        <?php
+        if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
+            $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
+        } else {
+            $urls = "?tab=violations-history&option=show_dates";
+        }
+        ?>
+        <form action="<?php echo $urls ?>" method="post"> 
+            <div class="divt2222">
+                <div style="padding-top:15px;"> From </div>
+            </div>
+            <div class="divt2222">
+                <input type="text" class="search2" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
+            </div>
+            <div class="divt2222"> <div class="divtsp"></div> </div>
+            <div class="divt2222">
+                <div style="padding-top:15px;"> To </div>
+            </div>
+            <div class="divt2222">
+                <input type="text" class="search2" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
+            </div>
+            <div class="divt2222">  <div class="divtsp"></div></div>
+            <div class="divt2222">
+                <input type="submit" class="btn-search" name="submit" value="show" />
+            </div>
+        </form>
+        <div class="divt2222">
+            <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+        </div>
+        <div class="divt2222" >
+            <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "/></a>
+            <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "/></a>
+            <a target="_blank" href="./export/export_history_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "/></a>
+       </div>
+            <div  >
+            <?php
+             $sub ;
+            $info='off';
+           if(isset($_POST['submitted']) && isset($_POST['info'])){
+            $sub = $_POST['submitted'];
+            $info = $_POST['info'];
+            if ($sub) {
+                if ($info == 'on') {
+                    echo ' on!';
+                } else {
+                    echo ' OFF!';
+                }
             }
+           }
             ?>
-            <form action="<?php echo $urls ?>" method="post"> 
-                <div class="divt22">
-                    <div style="padding-top:18px;"> From </div>
-                </div>
-                <div class="divt22">
-                    <input type="text" class="search2" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
-                </div>
-                <div class="divt22"> <div class="divtsp"></div> </div>
-                <div class="divt22">
-                    <div style="padding-top:18px;"> To </div>
-                </div>
-                <div class="divt22">
-                    <input type="text" class="search2" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
-                </div>
-                <div class="divt22">  <div class="divtsp"></div></div>
-                <div class="divt22">
-                    <input type="submit" class="btn-search" name="submit" value="show" />
-                </div>
+
+           <form method="post" action="index.php?tab=violations-history">
+                <input type="checkbox" name="info" value="on" onchange="this.form.submit()" <?php echo $info == 'on' ? 'checked="checked" ' : ''; ?> /> Export All
+                <input type="hidden" name="submitted" value="1" />
             </form>
-        </td>
-    </tr>
-</table>
-<div class="divtsp"></div>
-<div class="divtsp"></div>
-
-<table class="table1" align="left" >
-    <tr>
-        <td>
-            <div class="divt1">
-<!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];  ?>" id="textBoxSearch"    /> -->
-            </div>
-            <div class="divt22 search-btn-container">
-                <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search', 'sku', 'search');">Search SKU</button>
-            </div>
-            <div class="divt22 search-btn-container1">
-                <button href="javascript:void(0);" class="btn-search"   onclick="search('.history_violation_search', 'name', 'search');">Search Dealer</button>
-            </div>
-            <div class="divt22">
-                <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
-            </div>
-        </td>
+       
+        </div>
 
 
-        <td> 
-            <div class="divt22">
-                <select  id="exporth" name="export_to" class="dropdown" >
+        <div class="divtsp"></div>
+        <div class="divtsp"></div>
 
-                    <option value="csv" selected  >Excel csv</option>
-                    <option value="xls" >Excel xls</option>
-                    <option value="pdf" >PDF</option>
+        <div class="divt1">
+<!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];     ?>" id="textBoxSearch"    /> -->
+        </div>
+        <div class="divt22 search-btn-container">
+            <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search', 'sku', 'search');">Search SKU</button>
+        </div>
+        <div class="divt22 search-btn-container1">
+            <button href="javascript:void(0);" class="btn-search"   onclick="search('.history_violation_search', 'name', 'search');">Search Dealer</button>
+        </div>
 
-                </select>
-            </div>
-        </td>
-        <td>
-            <div class="divt22">
-                <button href="" id="1" class="btn-search" onclick="exporttoh();">Export</button>
-            </div>
-        </td>
+        <div class="results-per-page-block" >
+            <select name="recent-limit" class="results-per-page dropdown"  >
 
+                <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
+                <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
+                <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
+                <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
+                <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
+            </select>
+        </div>
 
-        <td>
-            <div class="results-per-page-block" >
-                <select name="recent-limit" class="results-per-page dropdown"  >
+        <div class="cleaner" style="padding-top: 15px; ">
 
-                    <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
-                    <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
-                    <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
-                    <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
-                    <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
-                </select>
-            </div>
-        </td>
-
-    </tr>
-</table>
-<div class="cleaner" style="padding-top: 15px; ">
-  
-</div>
-<div style="align:right; width: 700px; padding-left: 324px; ">
- <img src="../images/message.png" /></div>
+        </div>
+        <div style="align:right; width: 700px; padding-left: 250px; ">
+            <img src="./images/message.png" /></div>
 
         <table class="GrayBlack" align="left">
-           
-                     
-                        
-              
+
+
+
+
             <tbody id="data">
-               
+
                 <tr> 
                     <td>
                         SKU
@@ -186,7 +186,7 @@
 
 
 
-                    $vendor_link = "?tab=violations-history&website_id=" . $vendor->website_id . "&wname=" . $vendor->name. "&action=search&field=name&value=" . $vendor->name;
+                    $vendor_link = "?tab=violations-history&website_id=" . $vendor->website_id . "&wname=" . $vendor->name . "&action=search&field=name&value=" . $vendor->name;
                     if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
                         $vendor_link.="&page=" . $_GET['page'];
                     }
@@ -204,9 +204,9 @@
                         $cell_id = "vioR";
                     ?>
                     <tr>
-    <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id?>"&sku="<?php //violator->sku ?>&action=search&field=sku&value=<?php // echo $violator->sku; ?>"><?php //echo $violator->sku; ?></a></td>-->
+    <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id   ?>"&sku="<?php //violator->sku    ?>&action=search&field=sku&value=<?php // echo $violator->sku;    ?>"><?php //echo $violator->sku;    ?></a></td>-->
                         <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku; ?></a></td>
-<!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php// echo $violator->name; ?>&website_id=<?php// echo $violator->website_id; ?>&wname=<?php//echo $violator->name; ?>"><?php// echo $violator->name; ?></a></td>-->
+    <!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php // echo $violator->name;    ?>&website_id=<?php // echo $violator->website_id;    ?>&wname=<?php //echo $violator->name;    ?>"><?php // echo $violator->name;    ?></a></td>-->
                         <td><a href="<?php echo $vendor_link; ?>"><?php echo $violator->name; ?></a></td>
                         <td><?php echo toMoney($violator->vendor_price); ?></td>
                         <td><?php echo toMoney($violator->map_price); ?></td>
@@ -214,11 +214,11 @@
                         <td><?php echo $violator->date_executed; ?></td>
                         <td><a href="<?php echo $product->website_product_url; ?>" target="_blank">View</a></td>
                     </tr>				
-<?php } ?>
+                <?php } ?>
 
             </tbody></table>  <?php
-if (count($violators_array) == 0) {
-    ?><table class="GrayBlack" align="left">
+        if (count($violators_array) == 0) {
+            ?><table class="GrayBlack" align="left">
                 <tr align="center"><td width="754" hight="30"> No Records Found  </td> </tr></table>
         <?php }
         ?>   
@@ -226,43 +226,41 @@ if (count($violators_array) == 0) {
 
         </div>
         <div  align="left"  >
-<?php echo $pagination_html; ?>
+            <?php echo $pagination_html; ?>
         </div> 
 
 
     </div>
-    <div style="float: right;width:50%;">
+    <div >
         <table>
             <tr><td>
                     <?php
-                     if(isset($_REQUEST['website_id']))
-                    {
-                    ?>
-                    <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
-                         border-bottom: 1px solid #A6CF00; display: none"> 
-                      <?php include_once 'charts/a5.php'; ?>
-                    </div>
-                     <?php } else { ?>
-                    <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
-                         border-bottom: 1px solid #A6CF00; "> 
-                      <?php include_once 'charts/a5.php'; ?>
-                    </div>
-                     <?php } ?>
+                    if (isset($_REQUEST['website_id'])) {
+                        ?>
+                        <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
+                             border-bottom: 1px solid #A6CF00; display: none"> 
+                             <?php include_once 'charts/a5.php'; ?>
+                        </div>
+                    <?php } else { ?>
+                        <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
+                             border-bottom: 1px solid #A6CF00; "> 
+                             <?php include_once 'charts/a5.php'; ?>
+                        </div>
+                    <?php } ?>
                 </td>
             </tr>
             <tr><td>
-                     
-                     <?php
-                    if(isset($_REQUEST['product_id']))
-                    {
-                    ?>
-                    <div style="float: left; padding-top:  50px; display: none"> 
-                    <?php include_once 'charts/a6.php'; ?>
-                    </div>
+
+                    <?php
+                    if (isset($_REQUEST['product_id'])) {
+                        ?>
+                        <div style="float: left; padding-top:  50px; display: none"> 
+                            <?php include_once 'charts/a6.php'; ?>
+                        </div>
                     <?php } else { ?>
-                    <div style="float: left; padding-top:  50px; "> 
-                    <?php include_once 'charts/a6.php'; ?>
-                    </div>
+                        <div style="float: left; padding-top:  50px; "> 
+                            <?php include_once 'charts/a6.php'; ?>
+                        </div>
                     <?php } ?>
                 </td>
             </tr>
