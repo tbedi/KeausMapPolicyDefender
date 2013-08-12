@@ -115,7 +115,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
             tooltip: {
                 formatter: function() {
                     return '<b>' + Highcharts.dateFormat('%a %d %b %Y', this.x) + '</b><br/>' +
-                            'Total Price Violation: ' + Currency('$', this.y);
+                           'Price Violations: ' +  this.y;
                 }
             },
             legend: {
