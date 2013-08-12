@@ -39,7 +39,6 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0 
-AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
 and website_id = $website_id " . $where ;
         
         
@@ -102,7 +101,6 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0 
-AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
 and website_id = $website_id " . $where . " 
      ".$order_by." LIMIT $start, $limit";
 

@@ -42,7 +42,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value'
 
 if ($website_id) {
     $website_id=mysql_real_escape_string($website_id); 
- $where = "  AND  website_id  = " ." $website_id ". ""; ;
+ $where = "  AND  website_id  = " ." $website_id ". ""; 
 }
 /*where*/
 

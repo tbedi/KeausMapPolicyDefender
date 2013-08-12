@@ -24,7 +24,6 @@
             } else {
                 $urls = "?tab=violations-history&option=show_dates";
             }
-         
             ?>
             <form action="<?php echo $urls ?>" method="post"> 
                 <div class="divt22">
@@ -55,13 +54,13 @@
     <tr>
         <td>
             <div class="divt1">
-<!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    /> -->
+<!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];  ?>" id="textBoxSearch"    /> -->
             </div>
             <div class="divt22 search-btn-container">
                 <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search', 'sku', 'search');">Search SKU</button>
             </div>
             <div class="divt22 search-btn-container1">
-                <button href="javascript:void(0);" class="btn-search"   onclick="search('.history-search2', 'name', 'search2');">Search Dealer</button>
+                <button href="javascript:void(0);" class="btn-search"   onclick="search('.history_violation_search', 'name', 'search');">Search Dealer</button>
             </div>
             <div class="divt22">
                 <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
@@ -118,8 +117,8 @@
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
                         </a>
                         <p>
-                            <input class="history_violation_search searchh" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php  if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    />
-                            
+                            <input class="history_violation_search searchh" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"    />
+
                         </p>
                     </td>	
                     <td>
@@ -128,10 +127,10 @@
                         <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
                         </a>
-                        
-                         <p>
-                            <input class="history-search2 searchh" placeholder="Enter Dealer..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search2" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch2"    /> 
-                            
+
+                        <p>
+                            <input class="history_violation_search searchh" placeholder="Enter Dealer..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch2"    /> 
+
                         </p>
                     </td>	
                     <td>
@@ -167,33 +166,42 @@
                 </tr>
 
 
-<?php
+                <?php
+                foreach ($violators_array as $violator) {
+
+                    $product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku . "&action=search&field=sku&value=" . $violator->sku;
+                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+                        $product_link.="&page=" . $_GET['page'];
+                    }
+                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
+                        $product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
+                    }
 
 
-foreach ($violators_array as $violator) { 
 
-	$product_link = "?tab=violations-history&product_id=" .$violator->product_id."&sku=".$violator->sku."&action=search&field=sku&value=".$violator->sku;
-	if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-		$product_link.="&page=" . $_GET['page'];
-	}
-	if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
-		$product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
-	} 
 
-}
+                    $vendor_link = "?tab=violations-history&website_id=" . $vendor->website_id . "&wname=" . $vendor->name. "&action=search&field=name&value=" . $vendor->name;
+                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+                        $vendor_link.="&page=" . $_GET['page'];
+                    }
+                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
+                        $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+                    }
+                }
 
-foreach ($violators_array as $violator) {
+                foreach ($violators_array as $violator) {
 
-    $cell_id = "vio";
-    if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
-        $cell_id = "vioO";
-    else if ($violator->violation_amount >= 10)
-        $cell_id = "vioR";
-    ?>
+                    $cell_id = "vio";
+                    if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
+                        $cell_id = "vioO";
+                    else if ($violator->violation_amount >= 10)
+                        $cell_id = "vioR";
+                    ?>
                     <tr>
-<!--                        <td ><a href=?tab=violations-history&product_id="<?php// $violator->product_id?>"&sku="<?php //violator->sku ?>&action=search&field=sku&value=<?php// echo $violator->sku; ?>"><?php //echo $violator->sku; ?></a></td>-->
-                      <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku ;?></a></td>
-                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php echo $violator->name; ?>&website_id=<?php echo $violator->website_id; ?>&wname=<?php echo $violator->name; ?>"><?php echo $violator->name; ?></a></td>
+    <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id?>"&sku="<?php //violator->sku ?>&action=search&field=sku&value=<?php // echo $violator->sku; ?>"><?php //echo $violator->sku; ?></a></td>-->
+                        <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku; ?></a></td>
+<!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php// echo $violator->name; ?>&website_id=<?php// echo $violator->website_id; ?>&wname=<?php//echo $violator->name; ?>"><?php// echo $violator->name; ?></a></td>-->
+                        <td><a href="<?php echo $vendor_link; ?>"><?php echo $violator->name; ?></a></td>
                         <td><?php echo toMoney($violator->vendor_price); ?></td>
                         <td><?php echo toMoney($violator->map_price); ?></td>
                         <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
@@ -206,8 +214,8 @@ foreach ($violators_array as $violator) {
 if (count($violators_array) == 0) {
     ?><table class="GrayBlack" align="left">
                 <tr align="center"><td width="754" hight="30"> No Records Found  </td> </tr></table>
-            <?php }
-            ?>   
+        <?php }
+        ?>   
         <div class="cleaner" style="padding-top: 15px; ">
 
         </div>

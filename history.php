@@ -6,7 +6,7 @@ $limit = 15;
 $flagfrom = 0;
 $flagto = 0;
 
-//
+// Product
 $product_id = 0;
 
 
@@ -16,24 +16,47 @@ if (isset($_REQUEST['product_id'])) {
 
 
 /* where */
-$wherep = "";
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-    $field = strtolower($_GET['field']);
-    $value = strtolower($_GET['value']);
-    $wherep = "  AND  " . $field . "  LIKE '%" . $value . "%'";
-}
-
-if ($product_id) {
-    $wherep= "  AND  entity_id  = '" . $product_id . "'";
-    ;
-}
+//$wherep = "";
+//if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+//    $field = strtolower($_GET['field']);
+//    $value = strtolower($_GET['value']);
+//    $wherep = "  AND  " . $field . "  LIKE '%" . $value . "%'";
+//}
+//
+//if ($product_id) {
+//    $wherep= "  AND  entity_id  = '" . $product_id . "'";
+//    
+//}
 /* where */
 
 
+//Product
+
+//vendor
+
+$website_id=0;
+
+if (isset($_REQUEST['website_id'])) {
+	$website_id = $_REQUEST['website_id'];
+}
 
 
-
+ /*where*/
+//$wherev = "";
+//if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+//     $field = strtolower($_GET['field']);
+//    $value = strtolower($_GET['value']);
+//    $wherev = "  AND  website." . $field . "  LIKE '%" . mysql_real_escape_string(trim($value)) . "%'";
+//}
 //
+//if ($website_id) {
+//    $website_id=mysql_real_escape_string($website_id); 
+// $wherev = "  AND  website_id  = " ." $website_id ". ""; 
+//}
+/*where*/
+
+
+//vendor
 
 
 
@@ -47,14 +70,14 @@ static $from;
 /* where */
 
 $where = "";
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-    $field = strtolower($_GET['field']);
-    $value = strtolower($_GET['value']);
-    if(isset($_REQUEST['field']) and $_REQUEST['field']=='sku')
-    { $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";}
-    else if(isset($_REQUEST['field']) and $_REQUEST['field']=='name')
-    {  $where = "  AND  website." . $field . "  LIKE '%" . $value . "%'";}
-}
+//if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+//    $field = strtolower($_GET['field']);
+//    $value = strtolower($_GET['value']);
+//    if(isset($_REQUEST['field']) and $_REQUEST['field']=='sku')
+//    { $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";}
+//    else if(isset($_REQUEST['field']) and $_REQUEST['field']=='name')
+//    {  $where = "  AND  website." . $field . " = " . $value . "";}
+//}
 /* where */
 
 
@@ -125,7 +148,7 @@ else
 if (isset($_REQUEST['website_id'])and isset($_REQUEST['name']) and isset($_REQUEST['field']) and $_REQUEST['field']=='name' )
 {
     $wname=$_REQUEST['value'];
-    $condition_wname=" and name like '".$wname."' ";
+    $condition_wname=" and website.name like '".$wname."' ";
 }
 else
 {
@@ -137,7 +160,7 @@ else
     catalog_product_flat_1.sku as sku, crawl_results.website_id,
     date_format(crawl.date_executed,'%Y-%m-%d %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id,
-website.name as name, 
+website.name , 
 crawl_results.vendor_price ,
 crawl_results.map_price ,
 crawl_results.violation_amount ,
@@ -152,11 +175,13 @@ inner join crawl
 on crawl.id=crawl_results.crawl_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
  ".$condition_wname." ".$condition_sku." and
-crawl_results.violation_amount>0.05 " . $where . "  " . $wherep . "  
+crawl_results.violation_amount>0.05   
 and website.excluded=0 
 " . $order_by . " LIMIT $start, $limit ";
 
 $violators_array = $db_resource->GetResultObj($sql);
+echo $sql;
+
 
 $_SESSION['historyArray'] = $violators_array;
 if (isset($_SESSION['historyArray'])) {
@@ -198,8 +223,13 @@ include_once 'template/history_tab.phtml';
 //    $product_id = $page_violated_products[0]->product_id;
 //}
 
-if ( isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
+if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
     include_once 'pviolation.php';
+}
+
+
+if ($website_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
+    include_once 'vviolation.php';
 }
 //include_once 'template/product_violation_detail.phtml';
 
