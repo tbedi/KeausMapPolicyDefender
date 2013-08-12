@@ -6,6 +6,37 @@ $limit = 15;
 $flagfrom = 0;
 $flagto = 0;
 
+//
+$product_id = 0;
+
+
+if (isset($_REQUEST['product_id'])) {
+    $product_id = $_REQUEST['product_id'];
+}
+
+
+/* where */
+$wherep = "";
+if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+    $field = strtolower($_GET['field']);
+    $value = strtolower($_GET['value']);
+    $wherep = "  AND  " . $field . "  LIKE '%" . $value . "%'";
+}
+
+if ($product_id) {
+    $wherep= "  AND  entity_id  = '" . $product_id . "'";
+    ;
+}
+/* where */
+
+
+
+
+
+//
+
+
+
 $_SESSION['limit'] = $limit;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $limit = $_GET['limit'];
@@ -105,7 +136,7 @@ else
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku, crawl_results.website_id,
     date_format(crawl.date_executed,'%Y-%m-%d %H:%i:%s') as date_executed,
-catalog_product_flat_1.name as pname,
+catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id,
 website.name as name, 
 crawl_results.vendor_price ,
 crawl_results.map_price ,
@@ -121,7 +152,7 @@ inner join crawl
 on crawl.id=crawl_results.crawl_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
  ".$condition_wname." ".$condition_sku." and
-crawl_results.violation_amount>0.05 " . $where . " 
+crawl_results.violation_amount>0.05 " . $where . "  " . $wherep . "  
 and website.excluded=0 
 " . $order_by . " LIMIT $start, $limit ";
 
@@ -162,3 +193,14 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 include_once 'template/history_tab.phtml';
 ?>
 
+<?php
+//if ($total_pages == 1) {
+//    $product_id = $page_violated_products[0]->product_id;
+//}
+
+if ( isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
+    include_once 'pviolation.php';
+}
+//include_once 'template/product_violation_detail.phtml';
+
+?>

@@ -126,11 +126,11 @@ include_once 'template/product_violation_tab.phtml';
 
 <?php
 
-if ($total_pages == 1) {
-    $product_id = $page_violated_products[0]->product_id;
-}
-
-if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violation-by-product") {
-    include_once 'pviolation.php';
-}
+//if ($total_pages == 1) {
+//    $product_id = $page_violated_products[0]->product_id;
+//}
+//
+//if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violation-by-product") {
+//    include_once 'pviolation.php';
+//}
 ?>

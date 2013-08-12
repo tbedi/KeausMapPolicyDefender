@@ -18,7 +18,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     FROM crawl_results  r
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
-    WHERE r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)  AND r.violation_amount>0.05 AND w.excluded=0 " . $where ;
+    WHERE  r.violation_amount>0.05 AND w.excluded=0 " . $where ;
 //pagination
 $limit = 15;
 //$_SESSION['limitp2'] = $limit;
@@ -69,7 +69,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     FROM crawl_results  r
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
-    WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05 AND r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) and w.excluded=0  " . $where . " 
+    WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05  and w.excluded=0  " . $where . " 
     ".$order_by." LIMIT $start, $limit";
  
 $violators_array=$db_resource->GetResultObj($sql);
@@ -81,7 +81,7 @@ $sql3 = "SELECT  distinct  p.sku as sku
     FROM crawl_results  r
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
-    WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05 AND w.excluded=0 AND r.crawl_id= (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)  
+    WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05 AND w.excluded=0   
      ";
  
 $violators_array3=$db_resource->GetResultObj($sql3);
