@@ -1,12 +1,12 @@
 <?php
 include_once 'db_login.php';
 include_once 'db.php';
-$title = "Kraus Price Defender | Dealers1.php";
+$title = "Kraus Price Defender | dealers1.php";
 ////pagination
-$tableName = "website";
-$targetpage = "Dealers.php";
+$tableName = "/website";
+$targetpage = "/dealers.php";
 $limit = 10;
-$page_name="Dealers.php"; 
+$page_name="/dealers.php"; 
 ////// starting of drop down to select number of records per page /////
 
 @$limit=$_GET['limit']; // Read the limit value from query string. 
@@ -70,7 +70,7 @@ if (isset($_GET['page'])) {
     $page = 1;
 }
 ?>
-<form action="Dealers.php" method="POST">
+<form action="dealers.php" method="POST">
     <table class="table1" align="left">
         <tr>
             <td width="285" >
@@ -105,28 +105,28 @@ if (isset($_GET['page'])) {
 <table class="GrayBlack" align="center">
     <tbody id="data">
         <tr>
-            <td>Dealers Name<a href="/Dealers.php?col=name&dir=<?php echo $desc; ?>"><?php
+            <td>Dealers Name<a href="/dealers.php?col=name&dir=<?php echo $desc; ?>"><?php
                     if ($desc === 'desc')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
                     elseif ($desc === 'asc') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-            <td>Dealers Link<a href="/Dealers.php?col=domain&dir=<?php echo $desc; ?>"><?php
+            <td>Dealers Link<a href="/dealers.php?col=domain&dir=<?php echo $desc; ?>"><?php
                     if ($desc === 'desc')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
                     elseif ($desc === 'asc') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-            <td>Data Created<a href="/Dealers.php?col=date_created&dir=<?php echo $desc; ?>"><?php
+            <td>Data Created<a href="/dealers.php?col=date_created&dir=<?php echo $desc; ?>"><?php
                     if ($desc === 'desc')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
                     elseif ($desc === 'asc') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-            <td>Excluded<a href="/Dealers.php?col=excluded&dir=<?php echo $desc; ?>"><?php
+            <td>Excluded<a href="/dealers.php?col=excluded&dir=<?php echo $desc; ?>"><?php
         if ($desc === 'desc')
             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
         elseif ($desc === 'asc') {
@@ -166,7 +166,7 @@ if (isset($_GET['page'])) {
                 <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td width="250"><?php echo $row['date_created']; ?></td>
                     <td width="250"><?php echo $row['excluded']; ?></td>
-                    <td width="250"><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td width="250"><a href="/dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
                 <?php
@@ -205,7 +205,7 @@ LIMIT $start, $limit";
                     <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td width="250"><?php echo $row['date_created']; ?></td>
                     <td width="250"><?php echo $row['excluded']; ?></td>
-                    <td width="250"><a href="/Dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td width="250"><a href="/dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
                 </tr>
             <?php
         }

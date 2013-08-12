@@ -140,11 +140,11 @@ if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' )
                                         </td>
                                     </tr>
                                     <tr> 
-                                        <td>&nbsp;</td>	
+                                        <td>&nbsp;</td>
                                         <td><input type="hidden" value="hidden"/>
                                         </td>
                                     </tr>
-                                    <tr><td>&nbsp;</td><td><input type="checkbox" name="rememberme" align="center"/>&nbsp;&nbsp;Remember Me</td></tr>
+                                    <tr><td>&nbsp;</td><td><input type="checkbox" name="rememberme" align="center" />&nbsp;&nbsp;Remember Me</td></tr>
                                     <tr> 
                                         <td>&nbsp;</td>	
                                         <td><input type="hidden" value="hidden"/>

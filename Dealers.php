@@ -32,7 +32,7 @@ else {
             <div class="top-panel">Dealers</div>
         <div style="margin:0px;   padding:0px" align="center">
              <div id="tabscontent" align="center">  
-             <?php include_once 'Dealers1.php'; } ?>
+             <?php include_once 'dealers1.php'; } ?>
             </div>
             <div class="cleaner"></div>
         </div>
