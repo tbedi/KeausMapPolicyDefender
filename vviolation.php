@@ -18,22 +18,18 @@ if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value
 
 
       $sql ="select distinct crawl_results.website_id,
-domain,
-website.name as wname,crawl.id,
+website.name as wname,
 catalog_product_flat_1.entity_id,
-catalog_product_flat_1.name as name,
-catalog_product_flat_1.sku,
-crawl_results.vendor_price  ,
-crawl_results.map_price ,
-crawl_results.violation_amount ,
-website_id,
-crawl_results.website_product_url
+ catalog_product_flat_1.name as name,
+ catalog_product_flat_1.sku, 
+crawl_results.vendor_price ,
+ crawl_results.map_price ,
+ crawl_results.violation_amount ,
+crawl_results.website_product_url 
 from crawl_results
 inner join
 website
 on website.id = crawl_results.website_id
-inner join crawl
-on crawl.id= crawl_results.crawl_id 
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
@@ -45,7 +41,6 @@ and website_id = $website_id " . $where ;
 
       
 //pagination
-
 
 $violators_all_array=$db_resource->GetResultObj($sql); 
 $total_pages =  count($violators_all_array);  
@@ -80,22 +75,18 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
 $sql = "select distinct crawl_results.website_id,
-domain,
-website.name as wname,crawl.id,
+website.name as wname,
 catalog_product_flat_1.entity_id,
-catalog_product_flat_1.name as name,
-catalog_product_flat_1.sku,
-cast(crawl_results.vendor_price as decimal(10,2)) as vendor_price,
-cast(crawl_results.map_price as decimal(10,2)) as map_price,
-cast(crawl_results.violation_amount as decimal(10,2)) as violation_amount,
-website_id,
-crawl_results.website_product_url
+ catalog_product_flat_1.name as name,
+ catalog_product_flat_1.sku, 
+crawl_results.vendor_price ,
+ crawl_results.map_price ,
+ crawl_results.violation_amount ,
+crawl_results.website_product_url 
 from crawl_results
 inner join
 website
 on website.id = crawl_results.website_id
-inner join crawl
-on crawl.id= crawl_results.crawl_id 
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 

@@ -54,7 +54,7 @@
             <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "/></a>
             <a target="_blank" href="./export/export_history_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "/></a>
         </div>
-        <div  >
+        <div>
             <?php
             $sub;
             $info = 'off';
@@ -88,7 +88,7 @@
         <div class="divt22 search-btn-container">
 
 
-            <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search',<?php $searchfield ?>, 'search');">Search SKU</button>
+            <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search'.','<?php $searchfield ?>','.'search');">Search SKU</button>
         </div>
         <!--        <div class="divt22 search-btn-container1">
                     <button href="javascript:void(0);" class="btn-search"   onclick="search('.history_violation_search', 'name', 'search');">Search Dealer</button>
@@ -129,7 +129,7 @@
                             <input class="history_violation_search searchh" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"   />
                             <script type="text/javascript">
                             if (document.getElementById('textBoxSearch').value == '') {
-                                   <?php  $searchfield="name";?>
+                                   <?php  $searchfield="website_id";?>
                              
                                 }
                             </script>
@@ -186,9 +186,12 @@
 
 
                 <?php
+              
                 foreach ($violators_array as $violator) {
-
-                    $product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku . "&action=search&field=sku&value=" . $violator->sku;
+                    
+                    
+                     //$product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku . "&action=search&field=sku&value=" . $violator->sku;
+                    $product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku  ;
                     if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
                         $product_link.="&page=" . $_GET['page'];
                     }
@@ -198,17 +201,17 @@
 
 
 
-
-                    $vendor_link = "?tab=violations-history&website_id=" . $vendor->website_id . "&wname=" . $vendor->name . "&action=search&field=name&value=" . $vendor->name;
+                     //  $vendor_link = "?tab=violations-history&website_id=" . $vendor->website_id . "&wname=" . $vendor->name . "&action=search&field=website_id&value=" . $vendor->website_id;
+                    $vendor_link = "?tab=violations-history&website_id=" . $violator->website_id . "&wname=" . $violator->name ;
                     if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
                         $vendor_link.="&page=" . $_GET['page'];
                     }
                     if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
                         $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
                     }
-                }
-
-                foreach ($violators_array as $violator) {
+                    
+                    
+                    
 
                     $cell_id = "vio";
                     if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)

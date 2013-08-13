@@ -5,7 +5,7 @@ $targetpage = "index.php";
 $limit = 15;
 $flagfrom = 0;
 $flagto = 0;
-
+$additional_params;
 // Product
 $product_id = 0;
 
@@ -135,6 +135,33 @@ else {
 }
 /* calender dates */
 //new changes
+/*For sorting using*/
+$additional_params = "&limit=".$limit;
+if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+    $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];
+}
+
+if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for website
+    $additional_params.="&website_id=" . $_GET['website_id'];
+}
+if (isset($_GET['action']) && $_GET['action']) { // search 
+    $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+}
+
+if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+    $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];
+}
+if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
+    $additional_params.="&product_id=" . $_GET['product_id'];
+}
+if (isset($_GET['action']) && $_GET['action']) { // search 
+    $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
+}
+/* For sorting using */
+
+
+
+
 if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku' and !isset($_POST['info']))
 {
     $sku=$_REQUEST['value'];
@@ -144,10 +171,21 @@ else
 {
     $condition_sku="";
 }
-if (isset($_REQUEST['website_id'])and isset($_REQUEST['name']) and isset($_REQUEST['field']) and $_REQUEST['field']=='name' and !isset($_POST['info']))
-{
-    $wname=$_REQUEST['value'];
-    $condition_wname=" and website.name like '".$wname."' ";
+//if (isset($_REQUEST['website_id'])and isset($_REQUEST['wname']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' and !isset($_POST['info']))
+if (  isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' and !isset($_POST['info']))
+{    
+    $field = strtolower($_GET['field']);
+    $value = strtolower($_GET['value']);
+    $condition_wname = "  AND  " . $field . "  LIKE '%" . mysql_real_escape_string(trim($value)) . "%'";
+    
+  //  $wname=$_REQUEST['value'];
+   // $condition_wname=" and website.name like '".$wname."' ";
+    if ($website_id) {
+    $website_id=mysql_real_escape_string($website_id); 
+    $condition_wname = "  AND  website_id  = " ." $website_id ". ""; 
+}
+    
+    
 }
 else
 {
