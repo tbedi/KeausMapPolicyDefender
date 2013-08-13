@@ -98,4 +98,4 @@ $js_data_string = implode($chart_rows, ",");
     });
 </script>
 
-<div id="chart-a2" style="width: 560px; height: 340px; margin: 0 auto"></div>
+<div id="chart-a2" style="width: 680px; height: 340px; margin: 0 auto"></div>

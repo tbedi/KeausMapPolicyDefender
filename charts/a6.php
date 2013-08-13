@@ -138,4 +138,4 @@ if (!$result) {
     echo mysql_error();
 }
 ?>
-<div id="chart-a6" style="min-width: 700px; height: 400px; margin: 0 auto"></div>
+<div id="chart-a6" style="min-width: 530px; height: 350px; margin: 0 auto"></div>

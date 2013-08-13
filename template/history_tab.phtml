@@ -16,7 +16,7 @@
 </script>
 
 <div style="height: 100%; width: 100%;">
-    <div style="clear:  left; float: left; width:50%"> 
+    <div style="clear:  left; float: left; width:60%; "> 
 
 
         <?php
@@ -87,9 +87,9 @@
 
         </div>
 
+        <div class="divtsp"></div>
+        <div class="divtsp"></div>
 
-        <div class="divtsp"></div>
-        <div class="divtsp"></div>
 
         <div class="divt1">
 <!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];      ?>" id="textBoxSearch"    /> -->
@@ -120,7 +120,7 @@
         <div >
             <img src="./images/message.png" ></div>
 
-        <table class="GrayBlack" align="left">
+        <table class="GrayBlack" align="left" style="width: 100%;">
 
 
 
@@ -250,26 +250,24 @@
         <div class="cleaner" style="padding-top: 15px; ">
 
         </div>
-        <div  align="left" style="padding-bottom: 100px;" >
+        <div  align="left" style="padding-bottom: 80px;" >
             
             <?php echo $pagination_html; ?>
         </div> 
 
 
     </div>
-    <div >
+    <div style="height: 100%;float: right; width: 39%;" >
         <table>
             <tr><td>
                     <?php
                     if (isset($_REQUEST['website_id'])) {
                         ?>
-                        <div style="clear:left; padding-top: 200px; color:#B0D60A;
-                             border-bottom: 1px solid #A6CF00; display: none"> 
+                        <div style="clear:left; padding-top: 80px; padding-left: 6px;  display: none"> 
                              <?php include_once 'charts/a5.php'; ?>
                         </div>
                     <?php } else { ?>
-                        <div style="clear:left; padding-top: 100px; color:#B0D60A;
-                             border-bottom: 1px solid #A6CF00; "> 
+                        <div style="clear:left; padding-top: 50px;padding-left: 6px; "> 
                              <?php include_once 'charts/a5.php'; ?>
                         </div>
                     <?php } ?>
@@ -280,11 +278,11 @@
                     <?php
                     if (isset($_REQUEST['product_id'])) {
                         ?>
-                        <div style="float: left; padding-top:  50px; display: none"> 
+                        <div style="float: left; padding-top:  50px; padding-left: 6px;display: none"> 
                             <?php include_once 'charts/a6.php'; ?>
                         </div>
                     <?php } else { ?>
-                        <div style="float: left; padding-top:  100px; "> 
+                        <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
                             <?php include_once 'charts/a6.php'; ?>
                         </div>
                     <?php } ?>

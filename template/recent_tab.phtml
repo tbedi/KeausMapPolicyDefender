@@ -1,7 +1,7 @@
 <div class="top-paneltab" align="center">Violations as of the day ( <?php echo $str; ?>)</div>
- <div class=" divcc" >
-               
-            </div> 
+ <div style="height: 100%; width: 100%;">
+    <div style="clear:  left; float: left; width:50%"> 
+        
 <table class="table1" >
     <tr>
         <td >
@@ -57,7 +57,7 @@
 <!--<div style="align:right; width: 700px; padding-left: 324px; ">
  <img src="../images/message.png" /></div>-->
 
-            <table class="GrayBlack" align="left">
+<table class="GrayBlack" align="left" style="width: 700px;">
                 <tbody id="data">
                     <tr> 
                         <td >SKU
@@ -122,24 +122,35 @@
             <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
          <?php
         } ?>
+<div class="cleaner" style="padding-top: 15px; ">
 
- <div align="left" style="display:block; " >
+        </div>
+ <div align="left" style="display:block; padding-top: 20px; " >
   <?php echo $pagination_html; ?>
 </div> 
-  <div class="divtsp"></div>
-<div class=" divcc" ></div> 
-<div  class="chartt">
+
+    </div>
+     
+     
+
+<div  >
     <table>
         <tr>
             <td>
+                <div style="clear:left; padding-top: 50px;  "> 
                 <?php include_once 'charts/a1.php'; ?>
+                    </div>
             </td>
+        </tr>
+        <tr>
             <td>
+                <div style="float: left; padding-top:  50px; "> 
                 <?php include_once 'charts/a2.php'; ?>
+                     </div>
             </td>
         </tr>
 
     </table>
 </div>  
             
-   
+ </div>
