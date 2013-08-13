@@ -135,29 +135,7 @@ else {
 }
 /* calender dates */
 //new changes
-/*For sorting using*/
-$additional_params = "&limit=".$limit;
-if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
-    $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];
-}
 
-if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for website
-    $additional_params.="&website_id=" . $_GET['website_id'];
-}
-if (isset($_GET['action']) && $_GET['action']) { // search 
-    $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
-}
-
-if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
-    $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];
-}
-if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
-    $additional_params.="&product_id=" . $_GET['product_id'];
-}
-if (isset($_GET['action']) && $_GET['action']) { // search 
-    $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
-}
-/* For sorting using */
 
 
 
@@ -252,12 +230,35 @@ $page_param = "page"; //variable used for pagination
 $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
 /*Pagination*/
 
-/*For sorting using*/
-$additional_params = "&limit=" . $limit;  //addtiion params to pagination url;
 
-if (isset($_GET['action']) && $_GET['action']) { // search 
+
+
+
+
+/*For sorting using*/
+$additional_params = "&limit=".$limit;
+if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pagination for second grid/table
+    $additional_params.="&second_grid_page=" . $_GET['second_grid_page'];
+}
+
+if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for website
+    $additional_params.="&website_id=" . $_GET['website_id'];
+}
+if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { // search w
+    $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+}
+
+
+if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
+    $additional_params.="&product_id=" . $_GET['product_id'];
+}
+if (isset($_GET['action']) && $_GET['action']  && isset($_GET['product_id'])) { // search s
     $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 }
+/* For sorting using */
+
+
+
 /*For sorting using*/
 
 include_once 'template/history_tab.phtml';
