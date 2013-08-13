@@ -111,7 +111,6 @@ if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' )
                     Login
                 </div>
                 <div id="tabscontent" align="center"> 
-
                     <div class="formlog1" >
                         <form name="form" action="login.php" method="post"  >
                             <table align="center">
@@ -130,13 +129,11 @@ if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' )
                                         </td>
                                     </tr>
                                     <tr>
-
                                         <td>
                                             Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td>
                                             <input type='password' name='password' id='password'  class="input" maxlength="50" required />
-
                                         </td>
                                     </tr>
                                     <tr> 
@@ -155,7 +152,6 @@ if (count($products) === 0 && isset($_POST['email']) && $_session['a']=== '0' )
                                             <input class="btn-login" type="submit" name="login" value="Login"  />
                                         </td>
                                     </tr>
-
                                 </tbody></table>  
                         </form>
                     </div>
