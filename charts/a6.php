@@ -39,7 +39,7 @@ order by crawl.date_executed desc ) as yy order by DateExec";
 //order by crawl.date_executed desc limit 0," . $limit. " ) as yy order by DateExec";
 
 
-
+//echo $sql;
 
 $result = mysql_query($sql);
 

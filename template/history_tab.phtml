@@ -21,11 +21,20 @@
 
         <?php
         $searchfield;
+        $urls = "?tab=violations-history&option=show_dates";
         if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
+            
             $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
-        } else {
-            $urls = "?tab=violations-history&option=show_dates";
         }
+         if (isset($_REQUEST['sku']) ){
+                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; ;       
+        }
+        if (isset($_REQUEST['website_id']) ){
+                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];       
+        }
+//        else {
+//            $urls = "?tab=violations-history&option=show_dates";
+//        }
         ?>
         <form action="<?php echo $urls ?>" method="post"> 
             <div class="divt2222">
@@ -109,7 +118,7 @@
 
         </div>
         <div >
-            <img src="./images/message.png" /></div>
+            <img src="./images/message.png" ></div>
 
         <table class="GrayBlack" align="left">
 
@@ -241,7 +250,8 @@
         <div class="cleaner" style="padding-top: 15px; ">
 
         </div>
-        <div  align="left"  >
+        <div  align="left" style="padding-bottom: 100px;" >
+            
             <?php echo $pagination_html; ?>
         </div> 
 
@@ -253,12 +263,12 @@
                     <?php
                     if (isset($_REQUEST['website_id'])) {
                         ?>
-                        <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
+                        <div style="clear:left; padding-top: 200px; color:#B0D60A;
                              border-bottom: 1px solid #A6CF00; display: none"> 
                              <?php include_once 'charts/a5.php'; ?>
                         </div>
                     <?php } else { ?>
-                        <div style="clear:left;padding-bottom: 50px; color:#B0D60A;
+                        <div style="clear:left; padding-top: 100px; color:#B0D60A;
                              border-bottom: 1px solid #A6CF00; "> 
                              <?php include_once 'charts/a5.php'; ?>
                         </div>
@@ -274,7 +284,7 @@
                             <?php include_once 'charts/a6.php'; ?>
                         </div>
                     <?php } else { ?>
-                        <div style="float: left; padding-top:  50px; "> 
+                        <div style="float: left; padding-top:  100px; "> 
                             <?php include_once 'charts/a6.php'; ?>
                         </div>
                     <?php } ?>

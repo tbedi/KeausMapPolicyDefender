@@ -1,7 +1,12 @@
 <?php 
 require_once('./tcpdf/tcpdf.php');
  $product_id = $_REQUEST['product_id'];
+ $sku="";
+if(isset($_REQUEST['sku']))
+{
 $sku=$_REQUEST['sku'];
+}
+
 session_start();
 $violators_array=$_SESSION['product2Array'];
 if(isset($_SESSION['product2Array']))

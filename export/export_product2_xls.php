@@ -1,6 +1,10 @@
 <?php
 include_once '../toMoney.php';
-$sku = $_REQUEST['sku'];
+$sku="";
+if(isset($_REQUEST['sku']))
+{
+$sku=$_REQUEST['sku'];
+}
 session_start();
 $violators_array = $_SESSION['product2Array'];
 if (isset($_SESSION['product2Array'])) {
