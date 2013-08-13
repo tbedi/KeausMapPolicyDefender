@@ -128,13 +128,13 @@ if (isset($_GET['page'])) {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-            <td>Last Login Date<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
-                    }
-                    ?></a></td>
+<!--            <td>Last Login Date<a href="/users.php?col=username&dir=<?php // echo $desc; ?>"><?php
+//                    if ($desc === 'desc')
+//                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+//                    elseif ($desc === 'asc') {
+//                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+//                    }
+                    ?></a></td>-->
             <td>Edit</td>
         </tr>
         <?php
@@ -164,11 +164,11 @@ if (isset($_GET['page'])) {
         $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
     <tr>                                     
-                <td width="250"><?php echo $row['username']; ?></td>
+                <td width="290"><?php echo $row['username']; ?></td>
                 <td width="400"><?php echo $row['email']; ?></td>
                 <td width="250"><?php echo $row['name']; ?></td>
                 <td width="250"><?php echo $row['role']; ?></td>
-                <td width="250"><?php echo $row['last_login']; ?></td>
+<!--                <td width="250"><?php // echo $row['last_login']; ?></td>-->
                 <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
@@ -201,11 +201,11 @@ if (isset($_GET['page'])) {
                      $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
             <tr>                                     
-                <td width="250"><?php echo $row['username']; ?></td>
+                <td width="290"><?php echo $row['username']; ?></td>
                 <td width="400"><?php echo $row['email']; ?></td>
                 <td width="250"><?php echo $row['name']; ?></td>
                 <td width="250"><?php echo $row['role']; ?></td>
-                <td width="250"><?php echo $row['last_login']; ?></td>
+<!--                <td width="250"><?php // echo $row['last_login']; ?></td>-->
                 <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
