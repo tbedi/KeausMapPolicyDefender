@@ -1,6 +1,6 @@
 <div class="row">
     <div class="cell" class="input">
-        <h2>Product Violations</h2>
+        <div class="dashhead"> Product Violations</div>
 
         <table class="Dash">
             <tr> 
@@ -39,8 +39,8 @@ crawl.id =
     </div>
     <!--    <div class="clear"></div>-->
 
-    <div class="cell"> 
-        <h2>Vendor Violations</h2>
+    <div class="cell" class="input"> 
+       <div class="dashhead">Vendor Violations</div>
 
         <table class="Dash" >
             <tr >
@@ -87,32 +87,24 @@ while ($row = mysql_fetch_array($result1)) {
     if($row['diff']<0) $x = "red";
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
-//. "<td>" . $row['diff'] . "</td>" 
-    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(". $row['diff']. ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".round($percent, 2)."%"."</font> ". "</td>" . "</tr>";
+    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(" . "<font color="."$x".">". $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".round($percent, 2)."%"."</font> ". "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
 echo "</table>";
 ?>	
-
-    </div>
+</div>
 </div>
 <div class="row">
-    <div class="cell" >
-        <h2>Top Violations Product</h2> 
+    <div class="cell" class="input">
+       <div class="dashhead">Top Violations Product</div>
 
         <table class="Dash">
             <tr>
-                <td width="250">
-                   SKU
-                </td>	
+                <td width="250">SKU</td>	
 
-                <td width="200">
-                    Violation Count
-                </td>
-
+                <td width="200"> Violation Count</td>
             </tr>
-
 <?php
 include('db.php');
 
@@ -144,14 +136,14 @@ echo "</table>";
 
     </div>
 </td>
-<div class="cell">         
-    <td ><h2>Top Violation Vendor</h2>
+<div class="cell" class="input">         
+    <td ><div class="dashhead">Top Violations Vendor</div>
 
         <table class="Dash">
             <tr>
 
                 <td width="250">SKU</td>
-                <td width="200">Violation Amount</td>
+                <td width="212">Violation Amount</td>
 
             </tr>
 <?php

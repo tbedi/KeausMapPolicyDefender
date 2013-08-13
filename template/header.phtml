@@ -3,7 +3,6 @@ include_once 'db_login.php';
 include_once 'db_class.php';
 include_once './toMoney.php';
 $db_resource = new DB ();
-//$em = $_SESSION['email'];
 
 $em = (isset($_SESSION['email']) ? $_SESSION['email'] : "");
 $fetch = "select username,last_login  from admin_users where email='$em'";
@@ -18,8 +17,12 @@ if (isset($_SESSION ['username'])) {
     
     $user_info = "Welcome " . $us . ",<a href=\"login.php?action=logout\"> Logout</a>";
     echo "<br>";
-
-    $log_info = "Last Logged in: " . date('m-d-Y', strtotime($_SESSION['last_login']));
+if($_SESSION['last_login'] == '0000-00-00 00:00:00'){
+$log_info = "Last Logged in: New User";}
+else
+{
+ $log_info = "Last Logged in: " . date('jS M , g:i a', strtotime($_SESSION['last_login']));  
+}  
 } else {
     $user_info = "Welcome Guest! <a href=\"login.php\"> Sign In!</a>";
 }

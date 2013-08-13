@@ -162,15 +162,21 @@ border-width:0px 0px 1px 1px;
     float: left;
     font: bold;
 }
-
-/*.clear {
-    clear: both;
-}*/
-
 .cell {
     display:table-cell;
     padding: 0 5px 5px 5px;
     font: bold;
 }
+ 
+/*heading of dashboard blocks*/
+
+.dashhead{
+    color: #646464;
+	text-decoration: none;
+	font-size: 22px;
+	line-height: 1.3;
+	text-transform: uppercase;
+	font-family: freightsans_prolight, Helvetica, Arial, sans-serif;
+    }
 
     
