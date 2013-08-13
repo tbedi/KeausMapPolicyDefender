@@ -35,6 +35,7 @@
 //        else {
 //            $urls = "?tab=violations-history&option=show_dates";
 //        }
+    //   echo $urls;
         ?>
         <form action="<?php echo $urls ?>" method="post"> 
             <div class="divt2222">
@@ -63,6 +64,16 @@
             <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "/></a>
             <a target="_blank" href="./export/export_history_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "/></a>
         </div>
+         <div class="results-per-page-block" >
+            <select name="recent-limit" class="results-per-page dropdown"  >
+
+                <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
+                <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
+                <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
+                <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
+                <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
+            </select>
+        </div>
         <div>
             <?php
             $sub;
@@ -86,7 +97,7 @@
             </form>
 
         </div>
-
+        
         <div class="divtsp"></div>
         <div class="divtsp"></div>
 
@@ -97,22 +108,13 @@
         <div class="divt22 search-btn-container">
 
 
-            <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search'.','<?php $searchfield ?>','.'search');">Search SKU</button>
+            <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search'.','<?php $searchfield ?>','.'search');">Search</button>
         </div>
         <!--        <div class="divt22 search-btn-container1">
                     <button href="javascript:void(0);" class="btn-search"   onclick="search('.history_violation_search', 'name', 'search');">Search Dealer</button>
                 </div>-->
 
-        <div class="results-per-page-block" >
-            <select name="recent-limit" class="results-per-page dropdown"  >
-
-                <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
-                <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
-                <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
-                <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
-                <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
-            </select>
-        </div>
+        
 
         <div class="cleaner" style="padding-top: 15px; ">
 
