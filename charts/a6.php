@@ -6,7 +6,7 @@
 $from=$_SESSION['frc'];
 $to=$_SESSION['tc'];
 
-if (isset($_REQUEST['website_id']) and $_REQUEST['field']='name' )
+if (isset($_REQUEST['website_id']) )
 {
     $wname=$_REQUEST['website_id'];
     
