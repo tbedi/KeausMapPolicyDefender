@@ -2,7 +2,7 @@
 /*where*/
 $where = "";
 
-if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$field = strtolower($_GET['field']);
 	$value = strtolower($_GET['value']);
 	$where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
@@ -22,7 +22,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
 //pagination
 $limit = 15;
 //$_SESSION['limitp2'] = $limit;
-if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violation-by-product' ) {
+if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 	$limit=$_GET['limit2'];
 } 
 
@@ -31,7 +31,7 @@ $violators_all_array=$db_resource->GetResultObj($sql);
 $total_pages =  count($violators_all_array);
 //pagination
 /*second grid pagination*/
-if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') {
+if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $page = $_GET['page2']; //$page_param should have same value
     $start = ($page - 1) * $limit;
 } else {
@@ -95,7 +95,7 @@ if(isset($_SESSION['product2Array']))
 
  
 /*Pagination*/
-$tab_name = 'violation-by-product';
+$tab_name = 'violations-history';
 $page_param = "page2"; //variable used for pagination
 $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
 /*Pagination*/
