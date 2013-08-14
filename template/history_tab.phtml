@@ -15,7 +15,7 @@
     };
 </script>
 
-<div style="height: 100%; width: 100%;">
+<div style="height: 100%; width: 100%;" >
     <div style="clear:  left; float: left; width:60%; "> 
 
 
@@ -104,11 +104,12 @@
 
         <div class="divt1">
 <!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];      ?>" id="textBoxSearch"    /> -->
+              <input class="searchh" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);" onclick="tableSearch.init();"  />
         </div>
         <div class="divt22 search-btn-container">
 
-
-            <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search'.','<?php $searchfield ?>','.'search');">Search</button>
+             <button href="javascript:void(0);" class="btn-search"  onclick="tableSearch.runSearch();">Search</button>
+<!--            <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search',$searchfield,'search');">Search</button>-->
         </div>
         <!--        <div class="divt22 search-btn-container1">
                     <button href="javascript:void(0);" class="btn-search"   onclick="search('.history_violation_search', 'name', 'search');">Search Dealer</button>
@@ -119,14 +120,9 @@
         <div class="cleaner" style="padding-top: 15px; ">
 
         </div>
-        <div >
-            <img src="./images/message.png" ></div>
+      
 
         <table class="GrayBlack" align="left" style="width: 100%;">
-
-
-
-
             <tbody id="data">
 
                 <tr> 
@@ -137,15 +133,15 @@
                         <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
                         </a>
-                        <p>
-                            <input class="history_violation_search searchh" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch"   />
-                            <script type="text/javascript">
+                        
+                        
+<!--                            <script type="text/javascript">
                             if (document.getElementById('textBoxSearch').value == '') {
-                                   <?php  $searchfield="website_id";?>
+                                   var  $searchfield="website_id";
                              
                                 }
-                            </script>
-                        </p>
+                            </script>-->
+                        
                     </td>	
                     <td>
                         Dealers
@@ -155,13 +151,13 @@
                         </a>
 
                         <p>
-                            <input class="history_violation_search searchh" placeholder="Enter Dealer..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch2"    /> 
-                               <script type="text/javascript">
+<!--                            <input class="history_violation_search searchh" placeholder="Enter Dealer..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch" onkeyup="tableSearch.search(event);"   /> -->
+<!--                               <script type="text/javascript">
                             if (document.getElementById('textBoxSearch2').value == '') {
-                                   <?php  $searchfield="sku";?>
+                                    $searchfield="sku";
                              
                                 }
-                            </script>
+                            </script>-->
                         </p>
                     </td>	
                     <td>
@@ -232,6 +228,7 @@
                         $cell_id = "vioR";
                     ?>
                     <tr>
+                        
     <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id    ?>"&sku="<?php //violator->sku     ?>&action=search&field=sku&value=<?php // echo $violator->sku;     ?>"><?php //echo $violator->sku;     ?></a></td>-->
                         <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku; ?></a></td>
     <!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php // echo $violator->name;     ?>&website_id=<?php // echo $violator->website_id;     ?>&wname=<?php //echo $violator->name;     ?>"><?php // echo $violator->name;     ?></a></td>-->
@@ -246,7 +243,7 @@
 
             </tbody></table>  <?php
         if (count($violators_array) == 0) {
-            ?><table class="GrayBlack" align="left">
+            ?><table class="GrayBlack" align="left;">
                 <tr align="center"><td width="754" hight="30"> No Records Found  </td> </tr></table>
         <?php }
         ?>   
@@ -261,6 +258,9 @@
 
     </div>
     <div style="height: 100%;float: right; width: 39%;" >
+        
+        <div style="float: right">
+            <img src="./images/message.png" ></div>
         <table>
             <tr><td>
                     <?php

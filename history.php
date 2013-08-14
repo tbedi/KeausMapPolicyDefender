@@ -6,6 +6,7 @@ $limit = 15;
 $flagfrom = 0;
 $flagto = 0;
 $additional_params;
+$searchfield;
 // Product
 $product_id = 0;
 

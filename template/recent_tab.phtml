@@ -40,8 +40,12 @@
  <img src="../images/message.png" /></div>-->
 
 <table class="GrayBlack" align="left" style="width: 700px;">
-                <tbody id="data">
+<!--                <tbody id="data">-->
+                    <tbody >
                     <tr> 
+                        <td>
+                           <input type="checkbox" id="selectall"/>
+                        </td>
                         <td >SKU
                            <a  onclick="sort_grid('sku','<?php echo ($direction=="asc" ? "desc" : "asc")?>','recent');" href="javascript:void(0);">
                            		<img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field=="sku" ? $direction : "asc" ); ?>_1.png" />
@@ -77,7 +81,7 @@
                     </tr>
 <?php
 	foreach ($violators_array as $violator) {
-		
+		$i=0;
 		$cell_id="vio";
 		if ($violator->violation_amount >= 5 && $violator->violation_amount<10 )
 			$cell_id="vioO";
@@ -85,6 +89,11 @@
 			$cell_id="vioR";
 ?>
 <tr>
+    <td>
+
+       <input type="checkbox" class="case" name="case" value="<?php $violator->sku; ?>" /> 
+        
+    </td>
     <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
         <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->name; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
@@ -94,7 +103,7 @@
          <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
 				
 </tr>				
-<?php } ?>
+<?php $i=$i+1; } ?>
                   
 </tbody></table> 
 
@@ -116,6 +125,8 @@
      
 
 <div  >
+     <div style="float: right">
+            <img src="./images/message.png" ></div>
     <table>
         <tr>
             <td>

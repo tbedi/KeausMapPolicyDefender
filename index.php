@@ -19,7 +19,7 @@ $pagination= new Pagination();
 
 ?>
  <?php include_once 'template/head.phtml'; ?>
-    <body id="home" >
+    <body id="home">
        <?php include_once 'template/header.phtml'; ?>       
             <div id="wrapper" align="center" >
                 <div id="tabContainer" class="main-content" align="center" >
