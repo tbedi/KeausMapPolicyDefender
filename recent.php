@@ -1,4 +1,5 @@
 <?php
+$limitrcon;
 $sql = "select max(DATE_FORMAT(crawl.date_executed, '%d %b %Y')) as maxd
 from crawl;";
 $result = mysql_query($sql);
@@ -11,9 +12,14 @@ while ($row = mysql_fetch_assoc($result)) {
 $limit=15;
 
 //$_SESSION['limit'] = $limit;
-if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent') {
+if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent' ) {
 	$limit=$_GET['limit'];
+       $limitrcon = "  LIMIT $start, $limit ";
 } 
+if (!isset($_POST['allCheck']))
+{
+    $limitrcon="";
+}
 
    // print_r($_SESSION['limit']);
 
@@ -61,7 +67,7 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
 // Get page data
 $sql = "SELECT SQL_CALC_FOUND_ROWS 
     catalog_product_flat_1.sku,
-website.name as name, 
+website.name as name, crawl_results.id as id,
 website.id as website_id,
 crawl_results.vendor_price  as vendor_price,
 crawl_results.map_price  as map_price,
@@ -83,7 +89,7 @@ AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1)
 and
 crawl.id = 
 (select max(crawl.id) from crawl) " . $where . " 
-" . $order_by . " LIMIT $start, $limit";
+" . $order_by . " $limitrcon";
 
 $violators_array=$db_resource->GetResultObj($sql);
 
