@@ -18,10 +18,10 @@ if (isset($_SESSION ['username'])) {
     $user_info = "Welcome " . $us . ",<a href=\"login.php?action=logout\"> Logout</a>";
     echo "<br>";
 if($_SESSION['last_login'] == '0000-00-00 00:00:00'){
-$log_info = "Last Logged in: New User";}
+$log_info = "Last Login: New User";}
 else
 {
- $log_info = "Last Logged in: " . date('jS M , g:i a', strtotime($_SESSION['last_login']));  
+ $log_info = "Last Login: " . date('jS M , g:i a', strtotime($_SESSION['last_login']));  
 }  
 } else {
     $user_info = "Welcome Guest! <a href=\"login.php\"> Sign In!</a>";
