@@ -1,60 +1,21 @@
 <div class="row">
-    <div class="cell" class="input">
-        <div class="dashhead"> Product Violations</div>
-
-        <table class="Dash">
-            <tr> 
-                <td width="250">SKU ID</td>	
-                <td width="200">Price</td>
-            </tr>					
-            <?php
-            include('db.php');
-
-            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.5
- and 
-crawl.id = 
-(select max(crawl.id) from crawl) limit 10 ";
-            $result = mysql_query($sql);
-
-
-            while ($row = mysql_fetch_array($result)) {
-                echo "<tr>";
-                echo "<td>";
-                echo $row['sku'] . "<td>" . "<a href=" . ">" . $row['price'] . "</a><br>";
-                echo "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-            ?>
-            </td>
-    </div>
-    <!--    <div class="clear"></div>-->
-
     <div class="cell" class="input"> 
-       <div class="dashhead">Vendor Violations</div>
+       <div class="dashhead">Top Violations by Dealer</div>
 
         <table class="Dash" >
             <tr >
-                <td >Dealers Name</td>	
-                <td >current Count</td>
-                <td >Previous Count</td>
+                <td >Dealer</td>	
+                <td >curr Count</td>
+                <td >Prev Count</td>
                 <td >%</td>
+                <td >Total violated</td>
 
             </tr>
 <?php
 include('db.php');
 
 $sql1 = "SELECT
-website.name name, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, count(crawl_results.website_id)-tab1.countprev diff
+website.name name, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, count(crawl_results.website_id)-tab1.countprev diff, count(crawl_results.website_id)+tab1.countprev countsum
 from website
 inner join
 crawl_results
@@ -79,7 +40,21 @@ group by website.name
 order by countcurrent desc limit 10
 ";
 $result1 = mysql_query($sql1);
+
+$chart_vendor_rows = array();
+$chart_violation_amount_rows = array();
+$chart_violation_amount2_rows = array();
+
+
 while ($row = mysql_fetch_array($result1)) {
+    
+ 
+    $chart_row = strtotime($row['name']);
+    array_push($chart_vendor_rows,strtotime($row['name']));
+    array_push($chart_violation_amount_rows, $row['countcurrent']);
+    array_push($chart_violation_amount2_rows, $row['countprev']);
+
+    
     $avg = ($row['countcurrent']+$row['countprev'])/2;
     $percent = ($row['diff']/$avg)*100;
     echo "<tr>";
@@ -87,30 +62,40 @@ while ($row = mysql_fetch_array($result1)) {
     if($row['diff']<0) $x = "red";
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
-    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(" . "<font color="."$x".">". $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".round($percent, 2)."%"."</font> ". "</td>" . "</tr>";
+    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
+//print_r($chart_vendor_rows);
 echo "</table>";
+
+$js_data_string_vendors = implode($chart_vendor_rows, ",");
+$js_data_string_amounts = implode($chart_violation_amount_rows, ",");
+$js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
+//print_r($js_data_string_vendors);
 ?>	
 </div>
-</div>
-<div class="row">
+<!--</div>
+<div class="row">-->
     <div class="cell" class="input">
-       <div class="dashhead">Top Violations Product</div>
+       <div class="dashhead">Top violations by SKU</div>
 
         <table class="Dash">
             <tr>
-                <td width="250">SKU</td>	
+                <td width="200">SKU</td>	
 
-                <td width="200"> Violation Count</td>
+                <td >Curr Count</td>
+                <td >Prev Count</td>
+                <td >Total</td>
             </tr>
 <?php
 include('db.php');
 
 $sql2 = "select 
 catalog_product_flat_1.sku,
-count(crawl_results.product_id) as i_count
+count(crawl_results.product_id) as currentcount,
+tab1.prevcount, count(crawl_results.product_id)-tab1.prevcount diff,
+count(crawl_results.product_id)+tab1.prevcount countsum
 from
 crawl_results
 inner join
@@ -120,8 +105,24 @@ inner join
 crawl
 on crawl.id = crawl_results.crawl_id
 and crawl_results.crawl_id = (select max(id) from crawl)
+left join
+(
+select 
+catalog_product_flat_1.sku sku1,
+count(crawl_results.product_id) as prevcount
+from
+crawl_results
+inner join
+catalog_product_flat_1
+on crawl_results.product_id = catalog_product_flat_1.entity_id
+inner join
+crawl
+on crawl.id = crawl_results.crawl_id
+and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl))
 group by crawl_results.product_id
-order by count(crawl_results.product_id) desc limit 10";
+) as tab1 on tab1.sku1 = catalog_product_flat_1.sku
+group by crawl_results.product_id
+order by currentcount desc limit 10";
 $result2 = mysql_query($sql2);
 
 
@@ -129,7 +130,7 @@ while ($row = mysql_fetch_array($result2)) {
 
     echo "<tr>";
     echo "<td>";
-    echo "<a href=" . ">" . $row['sku'] . "</td>" . "<td>" . $row['i_count'] . "</td>" . "</tr>";
+    echo "<a href=" . ">" . $row['sku'] . "</td>" . "<td>" . $row['currentcount']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
 }
 echo "</table>";
 ?>
@@ -142,8 +143,8 @@ echo "</table>";
         <table class="Dash">
             <tr>
 
-                <td width="250">SKU</td>
-                <td width="212">Violation Amount</td>
+                <td width="200">SKU</td>
+                <td width="200">Violation Amount</td>
 
             </tr>
 <?php
@@ -178,6 +179,71 @@ while ($row = mysql_fetch_array($result3)) {
 }
 echo "</table>";
 ?>
-
 </div>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <script>$(function () {
+        $('#container').highcharts({
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Violations by Dealers'
+            },
+//            legend: {
+//                layout: 'vertical',
+//                align: 'left',
+//                verticalAlign: 'top',
+//                x: 150,
+//                y: 100,
+//                floating: true,
+//                borderWidth: 1,
+//                backgroundColor: '#FFFFFF'
+//            },
+            xAxis: {
+                categories: [
+                    <?php echo $js_data_string_vendors; ?>
+                ],
+//                labels: {
+//                    rotation: 0,
+//                    align: 'right',
+//                    style: {
+//                        fontSize: '13px',
+//                        fontFamily: 'Arial'
+//                    },
+//                    
+//                }
+//                plotBands: [{ // visualize the weekend
+//                    from: 4.5,
+//                    to: 6.5,
+//                    color: 'rgba(68, 170, 213, .2)'
+//                }]
+            },
+            yAxis: {
+                title: {
+                    text: 'Violations'
+                }
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ' units'
+            },
+            credits: {
+                enabled: false
+            },
+//            plotOptions: {
+//                areaspline: {
+//                    fillOpacity: 0.5
+//                }
+//            },
+            series: [{
+                name: 'Current Count',
+                data: [<?php echo $js_data_string_amounts; ?>]
+           }, {
+                name: 'Previous Count',
+                data: [<?php echo $js_data2_string_amounts; ?>]
+           }]
+        });
+    });
+    </script>
+
 </div>
