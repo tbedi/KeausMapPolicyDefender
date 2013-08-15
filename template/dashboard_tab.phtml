@@ -15,7 +15,7 @@
 include('db.php');
 
 $sql1 = "SELECT
-website.name name, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, count(crawl_results.website_id)-tab1.countprev diff, count(crawl_results.website_id)+tab1.countprev countsum
+website.name name, crawl_results.website_id, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, count(crawl_results.website_id)-tab1.countprev diff, count(crawl_results.website_id)+tab1.countprev countsum
 from website
 inner join
 crawl_results
@@ -41,18 +41,7 @@ order by countcurrent desc limit 10
 ";
 $result1 = mysql_query($sql1);
 
-$chart_vendor_rows = array();
-$chart_violation_amount_rows = array();
-$chart_violation_amount2_rows = array();
-
-
 while ($row = mysql_fetch_array($result1)) {
-    
- 
-    $chart_row = strtotime($row['name']);
-    array_push($chart_vendor_rows,strtotime($row['name']));
-    array_push($chart_violation_amount_rows, $row['countcurrent']);
-    array_push($chart_violation_amount2_rows, $row['countprev']);
 
     
     $avg = ($row['countcurrent']+$row['countprev'])/2;
@@ -62,16 +51,14 @@ while ($row = mysql_fetch_array($result1)) {
     if($row['diff']<0) $x = "red";
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
-    echo "<a href=" . ">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
+    echo "<a href="."index.php?tab=violations-history&website_id=". $row['website_id'] ."&wname=".$row['name'].">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
 //print_r($chart_vendor_rows);
 echo "</table>";
 
-$js_data_string_vendors = implode($chart_vendor_rows, ",");
-$js_data_string_amounts = implode($chart_violation_amount_rows, ",");
-$js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
+
 //print_r($js_data_string_vendors);
 ?>	
 </div>
@@ -91,38 +78,15 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
 <?php
 include('db.php');
 
-$sql2 = "select 
-catalog_product_flat_1.sku,
-count(crawl_results.product_id) as currentcount,
-tab1.prevcount, count(crawl_results.product_id)-tab1.prevcount diff,
-count(crawl_results.product_id)+tab1.prevcount countsum
-from
-crawl_results
-inner join
-catalog_product_flat_1
-on crawl_results.product_id = catalog_product_flat_1.entity_id
-inner join
-crawl
-on crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = (select max(id) from crawl)
-left join
-(
-select 
-catalog_product_flat_1.sku sku1,
-count(crawl_results.product_id) as prevcount
-from
-crawl_results
-inner join
-catalog_product_flat_1
-on crawl_results.product_id = catalog_product_flat_1.entity_id
-inner join
-crawl
-on crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl))
-group by crawl_results.product_id
-) as tab1 on tab1.sku1 = catalog_product_flat_1.sku
-group by crawl_results.product_id
-order by currentcount desc limit 10";
+$sql2 = "select
+catalog_product_flat_1.sku, crawl_results.product_id, 
+count(crawl_results.product_id) as currentcount, if(tab1.prevcount is null,0,tab1.prevcount) prevcount, count(crawl_results.product_id)-if(tab1.prevcount is null,0,tab1.prevcount) diff,
+count(crawl_results.product_id)+if(tab1.prevcount is null,0,tab1.prevcount) countsum
+from crawl_results inner join catalog_product_flat_1 on crawl_results.product_id = catalog_product_flat_1.entity_id
+inner join crawl on crawl.id = crawl_results.crawl_id and crawl_results.crawl_id = (select max(id) from crawl) left join ( select
+catalog_product_flat_1.sku sku1, count(crawl_results.product_id) as prevcount from crawl_results inner join catalog_product_flat_1 on crawl_results.product_id = catalog_product_flat_1.entity_id
+inner join crawl on crawl.id = crawl_results.crawl_id and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl))
+group by crawl_results.product_id ) as tab1 on tab1.sku1 = catalog_product_flat_1.sku group by crawl_results.product_id order by currentcount desc limit 10";
 $result2 = mysql_query($sql2);
 
 
@@ -130,7 +94,10 @@ while ($row = mysql_fetch_array($result2)) {
 
     echo "<tr>";
     echo "<td>";
-    echo "<a href=" . ">" . $row['sku'] . "</td>" . "<td>" . $row['currentcount']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
+    if($row['diff']<0) $x = "red";
+    elseif ($row['diff']==0) $x = "black";
+    elseif ($row['diff']>0) $x = "green";
+    echo "<a href="."index.php?tab=violations-history&product_id=". $row['product_id'] ."&sku=". $row['sku'] .">" . $row['sku'] . "</td>" . "<td>" . $row['currentcount']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
 }
 echo "</table>";
 ?>
@@ -180,14 +147,51 @@ while ($row = mysql_fetch_array($result3)) {
 echo "</table>";
 ?>
 </div>
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<?php
+include('db.php');
+
+$sql4 = "select
+crawl.date_executed Date,
+count(distinct crawl_results.product_id) as skucount,
+count(distinct crawl_results.website_id) as dealercount
+from
+crawl_results
+inner join
+catalog_product_flat_1
+on crawl_results.product_id = catalog_product_flat_1.entity_id
+inner join
+website
+on crawl_results.website_id = website.id
+inner join
+crawl
+on crawl.id = crawl_results.crawl_id
+and date_format(crawl.date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL -7 DAY) and sysdate()
+group by date_format(crawl.date_executed, '%Y-%m-%d') limit 10
+";
+$result4 = mysql_query($sql4);
+$chart_vendor_rows = array();
+$chart_violation_amount_rows = array();
+$chart_violation_amount2_rows = array();
+while ($row = mysql_fetch_array($result4)) {
+    
+    $chart_row = strtotime($row ['Date']) * 1000;
+    array_push($chart_vendor_rows, $chart_row);
+    array_push($chart_violation_amount_rows, $row['skucount']);
+    array_push($chart_violation_amount2_rows, $row['dealercount']);
+}
+
+$js_data_string_vendors = implode($chart_vendor_rows, ",");
+$js_data_string_amounts = implode($chart_violation_amount_rows, ",");
+$js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
+?>
+<div id="container" style="min-width: 310px; height: 400px ; margin: 0 auto"></div>
     <script>$(function () {
         $('#container').highcharts({
             chart: {
-                type: 'line'
+                type: 'areaspline'
             },
             title: {
-                text: 'Violations by Dealers'
+                text: 'Violations by Dealers & Products'
             },
 //            legend: {
 //                layout: 'vertical',
@@ -203,29 +207,41 @@ echo "</table>";
                 categories: [
                     <?php echo $js_data_string_vendors; ?>
                 ],
-//                labels: {
-//                    rotation: 0,
-//                    align: 'right',
-//                    style: {
-//                        fontSize: '13px',
-//                        fontFamily: 'Arial'
-//                    },
-//                    
-//                }
-//                plotBands: [{ // visualize the weekend
-//                    from: 4.5,
-//                    to: 6.5,
-//                    color: 'rgba(68, 170, 213, .2)'
-//                }]
+                labels: {
+                    rotation: -90,
+                    align: 'right',
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Arial'
+                    },
+                    formatter: function() {
+                        return Highcharts.dateFormat('%a %d %b', this.value);
+                    },
+                }
+
             },
             yAxis: {
                 title: {
-                    text: 'Violations'
-                }
+                    text: 'Violations',
+                style: {
+                        fontSize: '13px',
+                        fontFamily: 'Arial',
+                        fontWeight: 'regular'
+                    },
+                },
+                labels: {
+                    formatter: function() {
+                    
+                        return '' + Highcharts.numberFormat(this.value / 1, 0) ;                
+    }
+                },
+            
             },
             tooltip: {
-                shared: true,
-                valueSuffix: ' units'
+                formatter: function() {
+                    return '<b>' + Highcharts.dateFormat('%a %d %b %Y', this.x) + '</b><br/>' +
+                           'Price Violations: ' +  this.y;
+                }
             },
             credits: {
                 enabled: false
@@ -236,10 +252,10 @@ echo "</table>";
 //                }
 //            },
             series: [{
-                name: 'Current Count',
+                name: 'SKU Count',
                 data: [<?php echo $js_data_string_amounts; ?>]
            }, {
-                name: 'Previous Count',
+                name: 'Dealer Count',
                 data: [<?php echo $js_data2_string_amounts; ?>]
            }]
         });

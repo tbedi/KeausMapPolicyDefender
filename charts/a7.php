@@ -1,139 +1,44 @@
-<?php
-//if(isset($_REQUEST['limit'])){
-//$limit=$_REQUEST['limit'];
-//}
-//else $limit=15;
+ <?php
+// select default
+$sortDefault = 'id';
 
-if (isset($_REQUEST['website_id']) )
-{
-    $wname=$_REQUEST['website_id'];
-    
-    $name=$_REQUEST['wname'];
-    $condition=" and website_id =".$wname." ";
-}
-else
-{
-    $name="";
-    $condition="";
-}
+// select array
+$sortColumns = array('id','lname','company','description','keywords','type_name','street_address','city','state','country','phone','email','website','contact_email','contact_name');
 
+// define sortable query ASC DESC
+$sort = (isset($_GET['sort'])) && in_array($_GET['sort'], $sortColumns) ? $_GET['sort']: $sortDefault;
+$order = (isset($_GET['order']) && strcasecmp($_GET['order'], 'DESC') == 0) ? 'DESC' : 'ASC'; 
 
-$sql = "select Violations_amount, DateExec
-from
-(select 
-count(*) as Violations_amount,
- crawl.date_executed as DateExec		 
-from crawl_results res
-inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
-inner join website sites on sites.id = res.website_id
-inner join crawl on crawl.id = res.crawl_id
-where
-violation_amount > 0.05 
-and sites.excluded = 0 ". $condition. " 
-and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
-group by crawl.date_executed
-order by crawl.date_executed desc ) as yy order by DateExec";
+$result = mysql_query("SELECT * FROM categories ORDER BY $order"); 
 
-//order by crawl.date_executed desc limit 0," . $limit. " ) as yy order by DateExec";
-
-
-//echo $sql;
-
-$result = mysql_query($sql);
-
-
-//echo $sql;
-$chart_vendor_rows = array();
-$chart_violation_amount_rows = array();
-while ($row = mysql_fetch_assoc($result)) {
-    $chart_row = strtotime($row ['DateExec']) * 1000;
-    array_push($chart_vendor_rows, $chart_row);
-    array_push($chart_violation_amount_rows, $row ['Violations_amount']);
-}
-
-
-$js_data_string_vendors = implode($chart_vendor_rows, ",");
-$js_data_string_amounts = implode($chart_violation_amount_rows, ",");
+// clickable header
 ?>
-
-
-<script type="text/javascript">
-    $(function() {
-
-        function Currency(sSymbol, vValue) {
-            aDigits = vValue.toFixed(2).split(".");
-            aDigits[0] = aDigits[0].split("").reverse().join("").replace(/(\d{3})(?=\d)/g, "$1,").split("").reverse().join("");
-            return sSymbol + aDigits.join(".");
-        }
-
-        $('#chart-a6').highcharts({
-            chart: {
-                renderTo: 'a6',
-                defaultSeriesType: 'line',
-                margin: [50, 50, 100, 80],
-                zoomType: 'xy'
-            },
-            title: {
-                text: 'Violation Count By Dealer <?php echo $name ?>',
-                x: -20 //center
-            },
-            xAxis: {
-                categories: [
-<?php echo $js_data_string_vendors; ?>
-                ],
-                labels: {
-                    rotation: -90,
-                    align: 'right',
-                    style: {
-                        fontSize: '13px',
-                        fontFamily: 'Arial'
-                    },
-                    formatter: function() {
-                        return Highcharts.dateFormat('%a %d %b', this.value);
-                    },
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Violation',
-                    style: {
-                        fontSize: '13px',
-                        fontFamily: 'Arial',
-                        fontWeight: 'regular'
-                    },
-                },
-                labels: {
-                    formatter: function() {
-                    
-                        return '' + Highcharts.numberFormat(this.value / 1, 0) ;                
-    }
-                },
-            
-            },
-            tooltip: {
-                formatter: function() {
-                    return '<b>' + Highcharts.dateFormat('%a %d %b %Y', this.x) + '</b><br/>' +
-                           'Price Violations: ' +  this.y;
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'top',
-                borderWidth: 0,
-                x: -10,
-                y: 100,
-            },
-            series: [{
-                    name: 'Violations Count',
-                    data: [<?php echo $js_data_string_amounts; ?>]
-                }]
-        });
-    });
-</script>
-<?php
-if (!$result) {
-    echo mysql_error();
+<table width='350' border='1'> 
+<tr> 
+<td><a href='?sort=id&order=" . (<?php echo $order == 'DESC' ? 'ASC' : 'DESC' ?>) . "'>id<?
+if($_GET["order"]=="ASC" && $_GET["sort"]=="id"){
+echo '<IMG id="IMG0" name="IMG0" src="images/1.png" width="8px" height="8px">'; 
 }
+if($_GET["order"]=="DESC" && $_GET["sort"]=="id"){
+echo '<IMG id="IMG0" name="IMG0" src="images/2.png" width="8px" height="8px">'; 
+}
+?></a></td> 
+<td><a href='?sort=name&order=" . (<?php echo $order == 'DESC' ? 'ASC' : 'DESC' ?>) . "'>Name<?
+if($_GET["order"]=="ASC" && $_GET["sort"]=="name"){
+echo '<IMG id="IMG0" name="IMG0" src="images/1.png" width="8px" height="8px">'; 
+}
+if($_GET["order"]=="DESC" && $_GET["sort"]=="id"){
+echo '<IMG id="IMG0" name="IMG0" src="images/2.png" width="8px" height="8px">'; 
+}
+?></a></td> 
+</tr>
+<?php
+// list records 
+while ($row = mysql_fetch_assoc($result)) { 
+echo "<tr> 
+<td>$row[CostCode]</td> 
+<td>$row[CostItem]</td> 
+</tr>"; 
+}
+echo "</table>";
 ?>
-<div id="chart-a6" style="min-width: 530px; height: 350px; margin: 0 auto"></div>
