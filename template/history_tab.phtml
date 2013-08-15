@@ -247,7 +247,7 @@
                         <td><?php echo toMoney($violator->map_price); ?></td>
                         <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
                         <td><?php echo $violator->date_executed; ?></td>
-                        <td><a href="<?php echo $product->website_product_url; ?>" target="_blank">View</a></td>
+                        <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
                     </tr>				
                 <?php } ?>
   </form>

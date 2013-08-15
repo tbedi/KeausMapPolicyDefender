@@ -27,8 +27,6 @@ $pagination= new Pagination();
                         <ul>
                         	<li id="tabHeader_1" class="dashboard">Dashboard</li>
                             <li id="tabHeader_2" class="recent">Recent violations</li>
-                            <li id="tabHeader_3" class="violation-by-product" >Violation by products</li>
-                            <li id="tabHeader_4" class="violation-by-seller" >Violation by Dealers</li>
                             <li id="tabHeader_5" class="violations-history">Violation history</li>
                         </ul>
                     </div>
