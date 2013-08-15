@@ -248,12 +248,15 @@
 //    });
 //   
 // });
+
 //
 //if(selected_tab=="recent") var fieldName='chkName';
 //else if (selected_tab=="violations-history")var fieldName='chkNameh';
     
 
- var fieldName='chkName';
+
+
+var fieldName='chkName';
 
 function selectall(){
   var i=document.frm.elements.length;
@@ -337,85 +340,5 @@ var values = $('input:checkbox:checked.group1').map(function () {
 
 //check all
 
-
-
-
-var fieldNameh='chkNameh';
-
-function selectallh(){
-  var i=document.frmh.elements.length;
-  var e=document.frmh.elements;
-  var name=new Array();
-  var value=new Array();
-  var j=0;
-  for(var k=0;k<i;k++)
-  {
-    if(e[k].name==fieldNameh)
-    {
-      if(e[k].checked==true){
-        value[j]=e[k].value;
-        j++;
-      }
-    }
-  }
-  checkSelecth();
-}
-function selectCheckh(obj)
-{
- var i=document.frmh.elements.length;
-  for(var k=0;k<i;k++)
-  {
-    if(e[k].name==fieldNameh)
-    {
-      e[k].checked=obj;
-    }
-  }
-  selectallh();
-}
-
-function selectallMeh()
-{
-  if(document.frm.allCheckh.checked==true)
-  {
-   selectCheckh(true);
- 
-  }
-  else
-  {
-    selectCheckh(false);
-  }
-}
-function checkSelecth()
-{
- var i=document.frmh.elements.length;
- var berror=true;
-  for(var k=0;k<i;k++)
-  {
-    if(e[k].name==fieldNameh)
-    {
-      if(e[k].checked==false)
-      {
-        berror=false;
-        break;
-      }
-    }
-  }
-  if(berror==false)
-  {
-    document.frmh.allCheckh.checked=false;
-  }
-  else
-  {
-    document.frmh.allCheckh.checked=true;
-    
-  }
-  this.form.submit()
-}
-
-
-
-var valuesh = $('input:checkbox:checked.grouph').map(function () {
-  return this.value;
-}).get();
         
 </script>
