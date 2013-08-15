@@ -90,12 +90,18 @@
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
                             </a>
                         </td>
+                        <?php if ($order_field=="violation_amount") {?>
                         <td >Violation amount
-
+                          
                             <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
                             </a>
                         </td>
+                        <?php } else { ?>
+                        <td onclick="" >Violation amount
+                           
+                        </td>
+                        <?php } ?>
                         <td>
                             Link
                         </td>
@@ -113,22 +119,22 @@
                         ?>
                         <tr>
                             <td>
-    <?php $checkid = $violator->id; ?>
-    <!--                            <input type="checkbox"  name="chkName"  checked="checked" onClick="selectall()" value="<?php // echo $violator->id;  ?>" /> -->
-<!--                                <form action="<?php // echo $_SERVER['PHP_SELF']; ?>" method="post">   -->
+                                <?php $checkid = $violator->id; ?>
+    <!--                            <input type="checkbox"  name="chkName"  checked="checked" onClick="selectall()" value="<?php // echo $violator->id;   ?>" /> -->
+    <!--                                <form action="<?php // echo $_SERVER['PHP_SELF'];  ?>" method="post">   -->
 
 
 
 
-                                    <input type="checkbox"  class="group1" name="chkName" onClick="selectall()" value="<?php echo $checkid; ?>"  <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?>  /> 
+                                <input type="checkbox"  class="group1" name="chkName" onClick="selectall()" value="<?php echo $checkid; ?>"  <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?>  /> 
 
 
 
-<!--                                    <input type="hidden" name="submit" value="Generate Query" />
-                                </form> -->
+    <!--                                    <input type="hidden" name="submit" value="Generate Query" />
+                                    </form> -->
 
                             </td>
-                                                        <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->product_id; ?>&sku=<?php echo $violator->sku;  ?>"><?php echo $violator->sku; ?></a></td>
+                            <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->product_id; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
                             <td ><a href="index.php?tab=violations-history&website_id=<?php echo $violator->website_id; ?>&wname=<?php echo $violator->name; ?>"><?php echo $violator->name; ?></a></td>
                             <td><?php echo toMoney($violator->vendor_price); ?></td>
                             <td><?php echo toMoney($violator->map_price); ?></td>
@@ -137,7 +143,7 @@
 
                         </tr>
 
-                        <?php }
+                    <?php }
                     ?>
                     </form>
 
@@ -154,17 +160,12 @@
 
             </div>
 
-                <?php if (!isset($_POST['allCheck'])) { ?>
+            <?php if (!isset($_POST['allCheck'])) { ?>
                 <div align="left" style="display:block; padding-top: 20px; " >
-                <?php echo $pagination_html; ?>
+                    <?php echo $pagination_html; ?>
                 </div> 
-<?php } ?>
-
-
+            <?php } ?>
     </div>
-
-
-
     <div  >
         <div style="float: right">
             <img src="./images/message.png" ></div>
@@ -172,14 +173,14 @@
             <tr>
                 <td>
                     <div style="clear:left; padding-top: 50px;  "> 
-<?php include_once 'charts/a1.php'; ?>
+                        <?php include_once 'charts/a1.php'; ?>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
                     <div style="float: left; padding-top:  50px; "> 
-<?php include_once 'charts/a2.php'; ?>
+                        <?php include_once 'charts/a2.php'; ?>
                     </div>
                 </td>
             </tr>

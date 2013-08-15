@@ -1,8 +1,3 @@
-<div class="cleaner1" >
-
-</div><div class="cleaner1" >
-
-</div>
 <div style="height: 100%;width: 100%;">
 <div style="clear:  left; float: left; width:43%"> 
 <div class="top-paneltab"> Products Violated By <?php echo $violators_array3[0]->wname; ?> </div>
@@ -101,8 +96,8 @@
                                     $cell_id = "vioR";
                                 ?>
                                 <tr>
-                                    <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
-
+                                   
+                                      <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->entity_id; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
                                     <td><?php echo toMoney($violator->vendor_price); ?></td>
                                     <td><?php echo toMoney($violator->map_price); ?></td>
                                    <!-- <td><?php //echo money_format('$%i',$violator->map_price);    ?></td> -->
