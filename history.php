@@ -199,16 +199,23 @@ else
 }
 //new changes
 
-if (isset($_POST['info']) && $_POST['info']=='on')
+if (!isset($_POST['allCheckh']))
+{       $limithcon = "  LIMIT $start, $limit ";
+}
+ else 
 {
-   $limitcon=""; 
+    $limithcon="";
 }
- else {
-   $limitcon=" LIMIT " . $start ." , ". $limit;
-}
+//if (isset($_POST['info']) && $_POST['info']=='on')
+//{
+//   $limitcon=""; 
+//}
+// else {
+//   $limitcon=" LIMIT " . $start ." , ". $limit;
+//}
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
-    catalog_product_flat_1.sku as sku, crawl_results.website_id,
+    catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id as id,
     date_format(crawl.date_executed,'%Y-%m-%d %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id,
 website.name , 
@@ -228,7 +235,7 @@ where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )
  ".$condition_wname." ".$condition_sku." and
 crawl_results.violation_amount>0.05   
 and website.excluded=0 
-" . $order_by . "$limitcon " ;
+" . $order_by . "$limithcon " ;
 
 $violators_array = $db_resource->GetResultObj($sql);
 
