@@ -105,37 +105,11 @@
         </div>
       
 
-        
-         <form name="frmh" method="post" action="index.php?tab=violations-history" autocomplete="on" >
-            <?php
-            $subh;
-            $infoh = 'off';
-            if (isset($_POST['submitallh']) && isset($_POST['allCheckh'])) {
-                $subh = $_POST['submitallh'];
-                $infoh = $_POST['allCheckh'];
-                if ($subh) {
-                    if ($infoh == 'on') {
-                        //  echo ' on!';
-                    } else {
-                        //    echo ' OFF!';
-                    }
-                }
-            }
-            ?>
         <table class="GrayBlack" align="left" style="width: 100%;">
             <tbody id="data">
 
                 <tr> 
-                   <td>
-    <!--                     <input type="checkbox" id="allCheck" name="allCheck"  onClick="selectallMe()">-->
-
-                            <input type="checkbox" name="allCheckh" value="on"   onchange="this.form.submit();
-                    selectallMeh();" <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?> /> 
-                            <input type="hidden" name="submitallh" value="1" />
-
-
-                           
-                        </td>
+                   
                     <td>
                         SKU
 
@@ -236,9 +210,8 @@
                     else if ($violator->violation_amount >= 10)
                         $cell_id = "vioR";
                     ?>
-                <tr><td>
-                          <?php $checkidh = $violator->id; ?>
-                         <input type="checkbox"  class="grouph" name="chkNameh" onClick="selectallh()" value="<?php echo $checkidh; ?>"  <?php echo $infoh == 'on' ? 'checked="checked" ' : ''; ?>  /> </td>
+                    <tr>
+                        
     <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id    ?>"&sku="<?php //violator->sku     ?>&action=search&field=sku&value=<?php // echo $violator->sku;     ?>"><?php //echo $violator->sku;     ?></a></td>-->
                         <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku; ?></a></td>
     <!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php // echo $violator->name;     ?>&website_id=<?php // echo $violator->website_id;     ?>&wname=<?php //echo $violator->name;     ?>"><?php // echo $violator->name;     ?></a></td>-->
@@ -250,7 +223,7 @@
                         <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
                     </tr>				
                 <?php } ?>
-  </form>
+
             </tbody></table>  <?php
         if (count($violators_array) == 0) {
             ?><table class="GrayBlack" align="left;">
@@ -260,12 +233,11 @@
         <div class="cleaner" style="padding-top: 15px; ">
 
         </div>
-                <?php if (!isset($_POST['allCheck'])) { ?>
         <div  align="left" style="padding-bottom: 80px;" >
             
             <?php echo $pagination_html; ?>
         </div> 
-                <?php } ?>
+
 
     </div>
     <div style="height: 100%;float: right; width: 39%;" >
