@@ -15,6 +15,33 @@ if (isset($_REQUEST['product_id'])) {
     $product_id = $_REQUEST['product_id'];
 }
 
+
+//url calendeer form
+
+        
+        $searchfield;
+        $urls = "?tab=violations-history&option=show_dates";
+        if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
+            
+            $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
+        }
+         if (isset($_REQUEST['sku']) ){
+                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; ;       
+        }
+        if (isset($_REQUEST['website_id']) ){
+                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];       
+        }
+//        else {
+//            $urls = "?tab=violations-history&option=show_dates";
+//        }
+    //   echo $urls;
+        
+
+
+
+//
+
+
 /* where */
 //$wherep = "";
 //if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {

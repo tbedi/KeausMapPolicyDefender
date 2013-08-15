@@ -1,5 +1,5 @@
 <?php
-$limitrcon;
+$limitrcon="";
 $sql = "select max(DATE_FORMAT(crawl.date_executed, '%d %b %Y')) as maxd
 from crawl;";
 $result = mysql_query($sql);
@@ -11,12 +11,26 @@ while ($row = mysql_fetch_assoc($result)) {
 
 $limit=15;
 
+
+/* Pagination */
+if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
+    $page = mysql_escape_string($_GET['page']);
+    $start = ($page - 1) * $limit;
+} else {
+    $start = 0;
+    $page = 1;
+}
+/* Pagination */
+
 //$_SESSION['limit'] = $limit;
-if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent' ) {
+if ((isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent' ) ) {
 	$limit=$_GET['limit'];
-       $limitrcon = "  LIMIT $start, $limit ";
-} 
+}
+
 if (!isset($_POST['allCheck']))
+{       $limitrcon = "  LIMIT $start, $limit ";
+}
+ else 
 {
     $limitrcon="";
 }
@@ -53,15 +67,7 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 $order_by = "order by " . $order_field . " " . $direction . " ";
 /* sorting */
 
-/* Pagination */
-if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
-    $page = mysql_escape_string($_GET['page']);
-    $start = ($page - 1) * $limit;
-} else {
-    $start = 0;
-    $page = 1;
-}
-/* Pagination */
+
 
 
 // Get page data
@@ -93,6 +99,9 @@ crawl.id =
 
 $violators_array=$db_resource->GetResultObj($sql);
 
+echo $sql;
+
+
 $_SESSION['recentArray']=$violators_array;
 if(isset($_SESSION['recentArray']))      
 {
@@ -119,6 +128,48 @@ if (isset($_GET['action']) && $_GET['action']) { // search
     $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 }
 /*For sorting using*/
+
+
+
+
+
+
+   function  func()
+        {
+            
+$sql = "SELECT SQL_CALC_FOUND_ROWS 
+    catalog_product_flat_1.sku,
+website.name as name, crawl_results.id as id,
+website.id as website_id,
+crawl_results.vendor_price  as vendor_price,
+crawl_results.map_price  as map_price,
+crawl_results.violation_amount   as violation_amount,
+crawl_results.website_product_url
+from website
+inner join
+prices.crawl_results
+on prices.website.id = prices.crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+inner join
+crawl 
+on crawl.id=crawl_results.crawl_id
+where crawl_results.violation_amount>0.05 
+and
+website.excluded=0 and crawl_results.id= $checkid 
+AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) 
+and
+crawl.id = 
+(select max(crawl.id) from crawl) " . $where . " 
+" . $order_by . " $limitrcon";     
+            
+            
+        }
+
+
+
+
+
 
 include_once 'template/recent_tab.phtml';
 ?>

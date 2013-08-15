@@ -38,18 +38,18 @@
         </div>
         <!--<div style="align:right; width: 700px; padding-left: 324px; ">
          <img src="../images/message.png" /></div>-->
-   <form name="frm" method="post" action="index.php?tab=recent" >
+        <form name="frm" method="post" action="index.php?tab=recent" autocomplete="on" >
         <?php
-            $sub;
+            $subr;
             $infor = 'off';
             if (isset($_POST['submitall']) && isset($_POST['allCheck'])) {
-                $sub = $_POST['submitall'];
+                $subr = $_POST['submitall'];
                 $infor = $_POST['allCheck'];
-                if ($sub) {
+                if ($subr) {
                     if ($infor == 'on') {
-                        echo ' on!';
+                      //  echo ' on!';
                     } else {
-                        echo ' OFF!';
+                    //    echo ' OFF!';
                     }
                 }
             }
@@ -61,7 +61,7 @@
                     <td>
 <!--                     <input type="checkbox" id="allCheck" name="allCheck"  onClick="selectallMe()">-->
                      
-                     <input type="checkbox" name="allCheck" value="on"  onClick="selectallMe()" onchange="this.form.submit()" <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?> /> 
+                     <input type="checkbox" name="allCheck" value="on"   onchange="this.form.submit(); selectallMe();" <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?> /> 
                       <input type="hidden" name="submitall" value="1" />
                      
                      
@@ -102,7 +102,8 @@
                 </tr>
                 <?php
                 foreach ($violators_array as $violator) {
-                   
+                 //  $i = 0;
+                //  $name="chkName".$i;
                     $cell_id = "vio";
                     if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
                         $cell_id = "vioO";
@@ -111,9 +112,9 @@
                     ?>
                     <tr>
                         <td>
-
-                            <input type="checkbox"  name="chkName" onClick="selectall()" value="<?php $violator->id; ?>" /> 
-
+                         <?php  $checkid=$violator->id; ?>
+<!--                            <input type="checkbox"  name="chkName"  checked="checked" onClick="selectall()" value="<?php// echo $violator->id; ?>" /> -->
+                            <input type="checkbox"  name="chkName" onClick="selectall()" value="<?php echo $checkid; ?>"  <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?>  /> 
                         </td>
                         <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
 
@@ -141,9 +142,13 @@
         <div class="cleaner" style="padding-top: 15px; ">
 
         </div>
+            
+         <?php    if (!isset($_POST['allCheck'])) {?>
         <div align="left" style="display:block; padding-top: 20px; " >
 <?php echo $pagination_html; ?>
         </div> 
+         <?php } ?>
+            
 
     </div>
 
@@ -172,3 +177,7 @@
     </div>  
 
 </div>
+<?php 
+     
+
+?>

@@ -19,24 +19,7 @@
     <div style="clear:  left; float: left; width:60%; "> 
 
 
-        <?php
-        $searchfield;
-        $urls = "?tab=violations-history&option=show_dates";
-        if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
-            
-            $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
-        }
-         if (isset($_REQUEST['sku']) ){
-                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; ;       
-        }
-        if (isset($_REQUEST['website_id']) ){
-                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];       
-        }
-//        else {
-//            $urls = "?tab=violations-history&option=show_dates";
-//        }
-    //   echo $urls;
-        ?>
+
         <form action="<?php echo $urls ?>" method="post"> 
             <div class="divt2222">
                 <div style="padding-top:15px;"> From </div>
