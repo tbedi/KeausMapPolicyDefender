@@ -39,7 +39,7 @@
         <!--<div style="align:right; width: 700px; padding-left: 324px; ">
          <img src="../images/message.png" /></div>-->
         <form name="frm" method="post" action="index.php?tab=recent" autocomplete="on" >
-        <?php
+            <?php
             $subr;
             $infor = 'off';
             if (isset($_POST['submitall']) && isset($_POST['allCheck'])) {
@@ -47,108 +47,119 @@
                 $infor = $_POST['allCheck'];
                 if ($subr) {
                     if ($infor == 'on') {
-                      //  echo ' on!';
+                        //  echo ' on!';
                     } else {
-                    //    echo ' OFF!';
+                        //    echo ' OFF!';
                     }
                 }
             }
             ?>
-        <table class="GrayBlack" align="left" style="width: 700px;">
-        <!--                <tbody id="data">-->
-            <tbody >
-                <tr> 
-                    <td>
-<!--                     <input type="checkbox" id="allCheck" name="allCheck"  onClick="selectallMe()">-->
-                     
-                     <input type="checkbox" name="allCheck" value="on"   onchange="this.form.submit(); selectallMe();" <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?> /> 
-                      <input type="hidden" name="submitall" value="1" />
-                     
-                     
-                            <!--                           <input type="checkbox" id="selectall"/>-->
-                            </td>
-                            <td >SKU
-                                <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
-                                </a>
-                            </td>
-                            <td >Dealers
-
-                                <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
-                                </a>
-                            </td>
-                            <td >Dealers price
-
-                                <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
-                                </a>
-                            </td>
-                            <td >MAP
-                                <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
-                                </a>
-                            </td>
-                            <td >Violation amount
-
-                                <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
-                                </a>
-                            </td>
-                            <td>
-                                Link
-                            </td>
-
-                </tr>
-                <?php
-                foreach ($violators_array as $violator) {
-                 //  $i = 0;
-                //  $name="chkName".$i;
-                    $cell_id = "vio";
-                    if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
-                        $cell_id = "vioO";
-                    else if ($violator->violation_amount >= 10)
-                        $cell_id = "vioR";
-                    ?>
-                    <tr>
+            <table class="GrayBlack" align="left" style="width: 700px;">
+            <!--                <tbody id="data">-->
+                <tbody >
+                    <tr> 
                         <td>
-                         <?php  $checkid=$violator->id; ?>
-<!--                            <input type="checkbox"  name="chkName"  checked="checked" onClick="selectall()" value="<?php// echo $violator->id; ?>" /> -->
-                            <input type="checkbox"  name="chkName" onClick="selectall()" value="<?php echo $checkid; ?>"  <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?>  /> 
-                        </td>
-                        <td ><a href="index.php?tab=violation-by-product&action=search&flag=1&field=sku&value=<?php echo $violator->sku; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+    <!--                     <input type="checkbox" id="allCheck" name="allCheck"  onClick="selectallMe()">-->
 
-                        <td ><a href="index.php?&tab=violation-by-seller&action=search&flag=1&field=name&value=<?php echo $violator->name; ?>&website_id=<?php echo $violator->website_id; ?>"><?php echo $violator->name; ?></a></td>
-                        <td><?php echo toMoney($violator->vendor_price); ?></td>
-                        <td><?php echo toMoney($violator->map_price); ?></td>
-                        <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
-                        <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
+                            <input type="checkbox" name="allCheck" value="on"   onchange="this.form.submit();
+                    selectallMe();" <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?> /> 
+                            <input type="hidden" name="submitall" value="1" />
+
+
+       <!--                           <input type="checkbox" id="selectall"/>-->
+                        </td>
+                        <td >SKU
+                            <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
+                        </td>
+                        <td >Dealers
+
+                            <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
+                        </td>
+                        <td >Dealers price
+
+                            <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
+                        </td>
+                        <td >MAP
+                            <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
+                        </td>
+                        <td >Violation amount
+
+                            <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
+                        </td>
+                        <td>
+                            Link
+                        </td>
 
                     </tr>
-                  
-                    <?php 
-                } ?>
-  </form>
-        
-        
-            </tbody></table> 
+                    <?php
+                    foreach ($violators_array as $violator) {
+                        //  $i = 0;
+                        //  $name="chkName".$i;
+                        $cell_id = "vio";
+                        if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
+                            $cell_id = "vioO";
+                        else if ($violator->violation_amount >= 10)
+                            $cell_id = "vioR";
+                        ?>
+                        <tr>
+                            <td>
+    <?php $checkid = $violator->id; ?>
+    <!--                            <input type="checkbox"  name="chkName"  checked="checked" onClick="selectall()" value="<?php // echo $violator->id;  ?>" /> -->
+<!--                                <form action="<?php // echo $_SERVER['PHP_SELF']; ?>" method="post">   -->
 
-        <?php
-        if (count($violators_array) == 0) {
-            ?><table class="GrayBlack" align="center">
-                <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+
+
+
+                                    <input type="checkbox"  class="group1" name="chkName" onClick="selectall()" value="<?php echo $checkid; ?>"  <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?>  /> 
+
+
+
+<!--                                    <input type="hidden" name="submit" value="Generate Query" />
+                                </form> -->
+
+                            </td>
+                                                        <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->product_id; ?>&sku=<?php echo $violator->sku;  ?>"><?php echo $violator->sku; ?></a></td>
+                            <td ><a href="index.php?tab=violations-history&website_id=<?php echo $violator->website_id; ?>&wname=<?php echo $violator->name; ?>"><?php echo $violator->name; ?></a></td>
+                            <td><?php echo toMoney($violator->vendor_price); ?></td>
+                            <td><?php echo toMoney($violator->map_price); ?></td>
+                            <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
+                            <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
+
+                        </tr>
+
+                        <?php }
+                    ?>
+                    </form>
+
+
+                </tbody></table> 
+
+            <?php
+            if (count($violators_array) == 0) {
+                ?><table class="GrayBlack" align="center">
+                    <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
             <?php }
-        ?>
-        <div class="cleaner" style="padding-top: 15px; ">
+            ?>
+            <div class="cleaner" style="padding-top: 15px; ">
 
-        </div>
-            
-         <?php    if (!isset($_POST['allCheck'])) {?>
-        <div align="left" style="display:block; padding-top: 20px; " >
-<?php echo $pagination_html; ?>
-        </div> 
-         <?php } ?>
-            
+            </div>
+
+                <?php if (!isset($_POST['allCheck'])) { ?>
+                <div align="left" style="display:block; padding-top: 20px; " >
+                <?php echo $pagination_html; ?>
+                </div> 
+<?php } ?>
+
 
     </div>
 
@@ -177,7 +188,4 @@
     </div>  
 
 </div>
-<?php 
-     
-
-?>
+<?php ?>

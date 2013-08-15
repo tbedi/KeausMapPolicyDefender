@@ -72,7 +72,7 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 
 // Get page data
 $sql = "SELECT SQL_CALC_FOUND_ROWS 
-    catalog_product_flat_1.sku,
+    catalog_product_flat_1.sku,catalog_product_flat_1.entity_id as product_id,
 website.name as name, crawl_results.id as id,
 website.id as website_id,
 crawl_results.vendor_price  as vendor_price,
@@ -99,7 +99,7 @@ crawl.id =
 
 $violators_array=$db_resource->GetResultObj($sql);
 
-echo $sql;
+
 
 
 $_SESSION['recentArray']=$violators_array;
@@ -134,37 +134,36 @@ if (isset($_GET['action']) && $_GET['action']) { // search
 
 
 
-   function  func()
-        {
-            
-$sql = "SELECT SQL_CALC_FOUND_ROWS 
-    catalog_product_flat_1.sku,
-website.name as name, crawl_results.id as id,
-website.id as website_id,
-crawl_results.vendor_price  as vendor_price,
-crawl_results.map_price  as map_price,
-crawl_results.violation_amount   as violation_amount,
-crawl_results.website_product_url
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl 
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05 
-and
-website.excluded=0 and crawl_results.id= $checkid 
-AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) 
-and
-crawl.id = 
-(select max(crawl.id) from crawl) " . $where . " 
-" . $order_by . " $limitrcon";     
-            
-            
-        }
+//if(isset($_POST['submit'])){
+//            
+//$sql = "SELECT SQL_CALC_FOUND_ROWS 
+//    catalog_product_flat_1.sku,
+//website.name as name, crawl_results.id as id,
+//website.id as website_id,
+//crawl_results.vendor_price  as vendor_price,
+//crawl_results.map_price  as map_price,
+//crawl_results.violation_amount   as violation_amount,
+//crawl_results.website_product_url
+//from website
+//inner join
+//prices.crawl_results
+//on prices.website.id = prices.crawl_results.website_id
+//inner join catalog_product_flat_1
+//on catalog_product_flat_1.entity_id=crawl_results.product_id
+//inner join
+//crawl 
+//on crawl.id=crawl_results.crawl_id
+//where crawl_results.violation_amount>0.05 
+//and
+//website.excluded=0 and crawl_results.id= $checkid 
+//AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) 
+//and
+//crawl.id = 
+//(select max(crawl.id) from crawl) " . $where . " 
+//" . $order_by . " $limitrcon";     
+//            
+//            
+//        }
 
 
 
