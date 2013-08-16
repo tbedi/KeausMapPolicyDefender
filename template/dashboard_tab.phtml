@@ -26,20 +26,21 @@ and crawl_results.crawl_id = (select max(id) from crawl)
 inner join
 (
 SELECT
-website.name name, count(crawl_results.website_id) countprev
+website.name name,count(crawl_results.website_id) countprev
 from website
 inner join
 crawl_results
 on website.id = crawl_results.website_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl))
+and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl) )
 group by website.name
-) as tab1 on tab1.name = website.name
+) as tab1 on tab1.name = website.name where crawl_results.violation_amount>0.05 and website.excluded=0 
 group by website.name
 order by countcurrent desc limit 10
 ";
 $result1 = mysql_query($sql1);
+
 
 while ($row = mysql_fetch_array($result1)) {
 
@@ -86,7 +87,7 @@ from crawl_results inner join catalog_product_flat_1 on crawl_results.product_id
 inner join crawl on crawl.id = crawl_results.crawl_id and crawl_results.crawl_id = (select max(id) from crawl) left join ( select
 catalog_product_flat_1.sku sku1, count(crawl_results.product_id) as prevcount from crawl_results inner join catalog_product_flat_1 on crawl_results.product_id = catalog_product_flat_1.entity_id
 inner join crawl on crawl.id = crawl_results.crawl_id and crawl_results.crawl_id = (select max(id) from crawl where id != (select max(id) from crawl))
-group by crawl_results.product_id ) as tab1 on tab1.sku1 = catalog_product_flat_1.sku group by crawl_results.product_id order by currentcount desc limit 10";
+group by crawl_results.product_id ) as tab1 on tab1.sku1 = catalog_product_flat_1.sku where crawl_results.violation_amount>0.05 group by crawl_results.product_id order by currentcount desc limit 10";
 $result2 = mysql_query($sql2);
 
 
