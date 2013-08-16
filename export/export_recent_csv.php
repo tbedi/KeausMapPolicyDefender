@@ -3,6 +3,7 @@
 include_once '../toMoney.php';
 session_start();
 $violators_array=$_SESSION['recentArray'];
+
 //if(isset($_SESSION['recentArray']))
 //{
       // print_r($violators_array);

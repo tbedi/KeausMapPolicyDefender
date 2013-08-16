@@ -28,19 +28,24 @@ if ((isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent' ) ) 
 	$limit=$_GET['limit'];
 }
 
-if  (!isset($_REQUEST['selectallRecent']))
+if  (!isset($_REQUEST['selectallRecent']) or $_REQUEST['selectallRecent']!=="1")
 { 
        $limitrcon = "  LIMIT $start, $limit ";
 }
  else 
+     {
+    $limitrcon="";
+}
+     
+     if  (isset($_REQUEST['selectallRecent']) and $_REQUEST['selectallRecent']=='1')
 {
     $limitrcon="";
 }
 //export selected
-if (isset($_REQUEST['listr']) and $_REQUEST['listr']!="")
+if (isset($_REQUEST['listr']) and $_REQUEST['listr']!="" and ( !isset($_REQUEST['selectallRecent']) or $_REQUEST['selectallRecent']!="1"))
 {
     $arrExportRecent= $_REQUEST['listr'];
-    echo $arrExportRecent;
+   // echo $arrExportRecent;
     $conRecentExport=" and crawl_results.id in (". $arrExportRecent. ")" ;
     
 }
@@ -111,10 +116,10 @@ crawl.id =
 " . $order_by . " $limitrcon";
 
 
-echo $sql;
+
 $violators_array=$db_resource->GetResultObj($sql);
 
-
+//echo $sql;
 
 
 $_SESSION['recentArray']=$violators_array;

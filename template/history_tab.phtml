@@ -43,9 +43,9 @@
             <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
         </div>
         <div class="divt2222" >
-            <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "/></a>
-            <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "/></a>
-            <a target="_blank" href="./export/export_history_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "/></a>
+            <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; " id="buttonClassh" /></a>
+            <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; " id="buttonClassh1" /></a>
+            <a target="_blank" href="./export/export_history_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; " id="buttonClassh2" /></a>
         </div>
          <div class="results-per-page-block" >
             <select name="recent-limit" class="results-per-page dropdown"  >
@@ -59,25 +59,25 @@
         </div>
         <div>
             <?php
-            $sub;
-            $info = 'off';
-            if (isset($_POST['submitted']) && isset($_POST['info'])) {
-                $sub = $_POST['submitted'];
-                $info = $_POST['info'];
-                if ($sub) {
-                    if ($info == 'on') {
-                        echo ' on!';
-                    } else {
-                        echo ' OFF!';
-                    }
-                }
-            }
+//            $sub;
+//            $info = 'off';
+//            if (isset($_POST['submitted']) && isset($_POST['info'])) {
+//                $sub = $_POST['submitted'];
+//                $info = $_POST['info'];
+//                if ($sub) {
+//                    if ($info == 'on') {
+//                        echo ' on!';
+//                    } else {
+//                        echo ' OFF!';
+//                    }
+//                }
+//            }
             ?>
 
-            <form method="post" action="index.php?tab=violations-history">
+<!--            <form method="post" action="index.php?tab=violations-history">
                 <input type="checkbox" name="info" value="on" onchange="this.form.submit()" <?php echo $info == 'on' ? 'checked="checked" ' : ''; ?> /> Export All
                 <input type="hidden" name="submitted" value="1" />
-            </form>
+            </form>-->
 
         </div>
         
@@ -109,7 +109,14 @@
             <tbody id="data">
 
                 <tr> 
-                   
+                   <td>
+
+                            <div id="checkboxlisth">
+                           <input type="checkbox" id="selectallh" value="1"/>
+                          </div>
+
+      
+                        </td>
                     <td>
                         SKU
 
@@ -211,6 +218,10 @@
                         $cell_id = "vioR";
                     ?>
                     <tr>
+                         <td>
+                                <?php $checkidh = $violator->id; ?>
+                                <input type="checkbox"  class="caseh" name="caseh" value="<?php echo $checkidh; ?>"    /> 
+                            </td>
                         
     <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id    ?>"&sku="<?php //violator->sku     ?>&action=search&field=sku&value=<?php // echo $violator->sku;     ?>"><?php //echo $violator->sku;     ?></a></td>-->
                         <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku; ?></a></td>

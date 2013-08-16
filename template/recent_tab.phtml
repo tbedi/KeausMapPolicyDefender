@@ -16,9 +16,10 @@
 
         <div class="divt2222" >
 <!--            <input type="button" value="Get Value Using Class" id="buttonClass"> -->
-            <a target="_blank" href="./export/export_recent_csv.php"  > <img src="./images/CSV.png" style="height:40px; width: 40px; " id="buttonClass" /></a>
-            <a target="_blank" href="./export/export_recent_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; " id="buttonClass" /></a>
-            <a target="_blank" href="./export/export_recent_xls.php"  > <img src="./images/XLS.png" style="height:40px; width: 40px; " id="buttonClass" /></a>
+            <a target="_blank" onclick="exportcsv()"> <img src="./images/CSV.png" style="height:40px; width: 40px; " id="buttonClass" /></a>
+<!--            <a target="_blank" href="javascript:void(0);" onclick="setOptions('./export/export_recent_csv.php')" > <img src="./images/CSV.png" style="height:40px; width: 40px; " id="buttonClass" /></a>-->
+            <a target="_blank" href="./export/export_recent_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; " id="buttonClass1" /></a>
+            <a target="_blank" href="./export/export_recent_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; " id="buttonClass2" /></a>
         </div>
 
         <div class="results-per-page-block"  >
@@ -31,6 +32,12 @@
             </select>
         </div>
 
+<script type="text/JavaScript">
+function exportCSV(){
+     setTimeout("window.open('./export/export_recent_csv.php')",60000);
+
+}
+</script> 
 
 
 
@@ -104,15 +111,7 @@
                         <tr>
                             <td>
                                 <?php $checkid = $violator->id; ?>
-                       
-
-
-
                                 <input type="checkbox"  class="case" name="case" value="<?php echo $checkid; ?>"    /> 
-
-
-
-
                             </td>
                             <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->product_id; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
                             <td ><a href="index.php?tab=violations-history&website_id=<?php echo $violator->website_id; ?>&wname=<?php echo $violator->name; ?>"><?php echo $violator->name; ?></a></td>

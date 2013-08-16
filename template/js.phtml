@@ -226,8 +226,8 @@
 }
 /*history*/
 
-
-//check all
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//check all recent
 $(function(){
  
     // add multiple select / deselect functionality
@@ -248,23 +248,32 @@ $(function(){
     });
    
  });
-//check all
+//check all recent
 
 
-//get sel
 
-/* if the page has been fully loaded we add two click handlers to the button */
+
+
+
+
+
+
+
+
+
+
+//get select class
+
+//recent
 $(document).ready(function () {
-    /* Get the checkboxes values based on the class attached to each check box */
-    $("#buttonClass,#buttonClass1,#buttonClass2,#buttonClass3").click(function() {
+       // $("#buttonClass").click(function() {
+         $("#buttonClass,#buttonClass1,#buttonClass2").click(function() {
         getValueUsingClass();
     });
-     
-//    /* Get the checkboxes values based on the parent div id */
-//    $("#buttonClass,#buttonClass1,#buttonClass2,#buttonClass3").click(function() {
-//        getValueUsingParentTag();
-//    });
 });
+//history
+
+
 
 
 function getValueUsingClass(){
@@ -280,34 +289,29 @@ function getValueUsingClass(){
     var selected;
     selected = chkArray.join(',') + ",";
     selected = selected.slice(0, -1);
-   
-     
-    /* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */
-    if(selected.length > 1){
+   if(selected.length > 1){
         alert("You have selected " + selected);
     }else{
-        alert("Please at least one of the checkbox");  
+        alert("Selected none");  
     }
     
     //////////
-
      
     /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
     $("#checkboxlist input:checked").each(function() {
         chkall.push($(this).val());
     });
      
-    /* we join the array separated by the comma */
+   
     var selectedall;
-    selectedall = chkall.join(',') + ",";
-    selectedall = selectedall.slice(0, -1);
-     
-    /* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */
-    if(selectedall.length > 1){
-        alert("You have selected " + selectedall);
+    selectedall = chkall;
+    if(selectedall.length >= 1){
+        alert("You have selected All" + selectedall);
     }else{
-        alert("Please at least one of the checkbox");  
+        alert("No Selected All");  
     }
+    
+   
  
  window.location = 'index.php?tab=recent&selectallRecent='+selectedall+'&listr='+selected;
  
@@ -333,125 +337,85 @@ function getValueUsingClass(){
     
     
 }
+
+
+//check all history
+$(function(){
  
-//function getValueUsingParentTag(){
-//    var chkall = [];
-//     
-//    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-//    $("#checkboxlist input:checked").each(function() {
-//        chkall.push($(this).val());
-//    });
-//     
-//    /* we join the array separated by the comma */
-//    var selectedall;
-//    selectedall = chkall.join(',') + ",";
-//     
-//    /* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */
-//    if(selectedall.length > 1){
-//        alert("You have selected " + selectedall);
-//    }else{
-//        alert("Please at least one of the checkbox");  
-//    }
-//}
+    // add multiple select / deselect functionality
+    $("#selectallh").click(function () {
+          $('.caseh').attr('checked', this.checked);
+    });
+ 
+    // if all checkbox are selected, check the selectall checkbox
+    // and viceversa
+    $(".caseh").click(function(){
+ 
+        if($(".caseh").length == $(".caseh:checked").length) {
+            $("#selectallh").attr("checked", "checked");
+        } else {
+            $("#selectallh").removeAttr("checked");
+        }
+ 
+    });
+   
+ });
+//check all history
 
 
-
-
-//get sel
-
-
-
-
-//
-//if(selected_tab=="recent") var fieldName='chkName';
-//else if (selected_tab=="violations-history")var fieldName='chkNameh';
+$(document).ready(function () {
+        $("#buttonClassh,#buttonClassh1,#buttonClassh2").click(function() {
+        getValueUsingClassh();
+    });
+});
+//checkbox history tab
+ function getValueUsingClassh(){
+    /* declare an checkbox array */
+    var chkArrayh = [];
+      var chkallh = [];
+    /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+    $(".caseh:checked").each(function() {
+        chkArrayh.push($(this).val());
+    });
+     
+    /* we join the array separated by the comma */
+    var selectedh;
+    selectedh = chkArrayh.join(',') + ",";
+    selectedh = selectedh.slice(0, -1);
+   if(selectedh.length > 1){
+        alert("You have selected " + selectedh);
+    }else{
+        alert("Selected none");  
+    }
     
+    //////////
+     
+    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+    $("#checkboxlisth input:checked").each(function() {
+        chkallh.push($(this).val());
+    });
+     
+   
+    var selectedallh= chkallh;
+  
+      if(selectedallh.length >= 1){
+        alert("You have selected All" + selectedallh);
+    }else{
+        alert("No Selected All");  
+    }
+   
+ 
+ window.location = 'index.php?tab=violations-history&selectallhistory='+selectedallh+'&listh='+selectedh;
+ 
+   
+}
 
 
 
-//var fieldName='chkName';
-//
-//function selectall(){
-//  var i=document.frm.elements.length;
-//  var e=document.frm.elements;
-//  var name=new Array();
-//  var value=new Array();
-//  var j=0;
-//  for(var k=0;k<i;k++)
-//  {
-//    if(document.frm.elements[k].name==fieldName)
-//    {
-//      if(document.frm.elements[k].checked==true){
-//        value[j]=document.frm.elements[k].value;
-//        j++;
-//      }
-//    }
-//  }
-//  checkSelect();
-//}
-//function selectCheck(obj)
-//{
-// var i=document.frm.elements.length;
-//  for(var k=0;k<i;k++)
-//  {
-//    if(document.frm.elements[k].name==fieldName)
-//    {
-//      document.frm.elements[k].checked=obj;
-//    }
-//  }
-//  selectall();
-//}
-//
-//function selectallMe()
-//{
-//  if(document.frm.allCheck.checked==true)
-//  {
-//   selectCheck(true);
-// 
-//  }
-//  else
-//  {
-//    selectCheck(false);
-//  }
-//}
-//function checkSelect()
-//{
-// var i=document.frm.elements.length;
-// var berror=true;
-//  for(var k=0;k<i;k++)
-//  {
-//    if(document.frm.elements[k].name==fieldName)
-//    {
-//      if(document.frm.elements[k].checked==false)
-//      {
-//        berror=false;
-//        break;
-//      }
-//    }
-//  }
-//  if(berror==false)
-//  {
-//    document.frm.allCheck.checked=false;
-//  }
-//  else
-//  {
-//    document.frm.allCheck.checked=true;
-//    
-//  }
-//  this.form.submit()
-//}
-//
-//
-//
-//var values = $('input:checkbox:checked.group1').map(function () {
-//  return this.value;
-//}).get();
-
-//document.write(values);
-//location.href="index.php?tab=recent&checkRvalues=" + values;
 
 
-//check all
+
+
 
         
 </script>
