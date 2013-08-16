@@ -1,5 +1,6 @@
 <?php
 $limitrcon="";
+$conRecentExport;
 $sql = "select max(DATE_FORMAT(crawl.date_executed, '%d %b %Y')) as maxd
 from crawl;";
 $result = mysql_query($sql);
@@ -27,14 +28,26 @@ if ((isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent' ) ) 
 	$limit=$_GET['limit'];
 }
 
-if (!isset($_POST['allCheck']))
-{       $limitrcon = "  LIMIT $start, $limit ";
+if  (!isset($_REQUEST['selectallRecent']))
+{ 
+       $limitrcon = "  LIMIT $start, $limit ";
 }
  else 
 {
     $limitrcon="";
 }
-
+//export selected
+if (isset($_REQUEST['listr']) and $_REQUEST['listr']!="")
+{
+    $arrExportRecent= $_REQUEST['listr'];
+    echo $arrExportRecent;
+    $conRecentExport=" and crawl_results.id in (". $arrExportRecent. ")" ;
+    
+}
+ else {
+     $conRecentExport="";
+}
+//export selected
    // print_r($_SESSION['limit']);
 
 
@@ -94,9 +107,11 @@ website.excluded=0
 AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) 
 and
 crawl.id = 
-(select max(crawl.id) from crawl) " . $where . " 
+(select max(crawl.id) from crawl) " . $where . " " . $conRecentExport . "
 " . $order_by . " $limitrcon";
 
+
+echo $sql;
 $violators_array=$db_resource->GetResultObj($sql);
 
 

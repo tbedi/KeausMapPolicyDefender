@@ -15,9 +15,10 @@
         </div>
 
         <div class="divt2222" >
-            <a target="_blank" href="./export/export_recent_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "/></a>
-            <a target="_blank" href="./export/export_recent_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "/></a>
-            <a target="_blank" href="./export/export_recent_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "/></a>
+<!--            <input type="button" value="Get Value Using Class" id="buttonClass"> -->
+            <a target="_blank" href="./export/export_recent_csv.php"  > <img src="./images/CSV.png" style="height:40px; width: 40px; " id="buttonClass" /></a>
+            <a target="_blank" href="./export/export_recent_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; " id="buttonClass" /></a>
+            <a target="_blank" href="./export/export_recent_xls.php"  > <img src="./images/XLS.png" style="height:40px; width: 40px; " id="buttonClass" /></a>
         </div>
 
         <div class="results-per-page-block"  >
@@ -38,35 +39,18 @@
         </div>
         <!--<div style="align:right; width: 700px; padding-left: 324px; ">
          <img src="../images/message.png" /></div>-->
-        <form name="frm" method="post" action="index.php?tab=recent" autocomplete="on" >
-            <?php
-            $subr;
-            $infor = 'off';
-            if (isset($_POST['submitall']) && isset($_POST['allCheck'])) {
-                $subr = $_POST['submitall'];
-                $infor = $_POST['allCheck'];
-                if ($subr) {
-                    if ($infor == 'on') {
-                        //  echo ' on!';
-                    } else {
-                        //    echo ' OFF!';
-                    }
-                }
-            }
-            ?>
+      
             <table class="GrayBlack" align="left" style="width: 700px;">
             <!--                <tbody id="data">-->
                 <tbody >
                     <tr> 
                         <td>
-    <!--                     <input type="checkbox" id="allCheck" name="allCheck"  onClick="selectallMe()">-->
 
-                            <input type="checkbox" name="allCheck" value="on"   onchange="this.form.submit();
-                    selectallMe();" <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?> /> 
-                            <input type="hidden" name="submitall" value="1" />
+                            <div id="checkboxlist">
+                           <input type="checkbox" id="selectall" value="1"/>
+                          </div>
 
-
-       <!--                           <input type="checkbox" id="selectall"/>-->
+      
                         </td>
                         <td >SKU
                             <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
@@ -120,18 +104,14 @@
                         <tr>
                             <td>
                                 <?php $checkid = $violator->id; ?>
-    <!--                            <input type="checkbox"  name="chkName"  checked="checked" onClick="selectall()" value="<?php // echo $violator->id;   ?>" /> -->
-    <!--                                <form action="<?php // echo $_SERVER['PHP_SELF'];  ?>" method="post">   -->
+                       
 
 
 
-
-                                <input type="checkbox"  class="group1" name="chkName" onClick="selectall()" value="<?php echo $checkid; ?>"  <?php echo $infor == 'on' ? 'checked="checked" ' : ''; ?>  /> 
-
+                                <input type="checkbox"  class="case" name="case" value="<?php echo $checkid; ?>"    /> 
 
 
-    <!--                                    <input type="hidden" name="submit" value="Generate Query" />
-                                    </form> -->
+
 
                             </td>
                             <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->product_id; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
@@ -149,7 +129,21 @@
 
 
                 </tbody></table> 
+<?php
+        //create object/array from json data
+//if (isset($_POST['jsonArray']))
+//{
+//$theArray = json_decode($_POST['jsonArray']);
+//
+//echo $theArray; 
+//}     
 
+
+
+        ?>
+        
+        
+        
             <?php
             if (count($violators_array) == 0) {
                 ?><table class="GrayBlack" align="center">

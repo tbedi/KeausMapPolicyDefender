@@ -228,26 +228,139 @@
 
 
 //check all
-//$(function(){
-// 
-//    // add multiple select / deselect functionality
-//    $("#selectall").click(function () {
-//          $('.case').attr('checked', this.checked);
+$(function(){
+ 
+    // add multiple select / deselect functionality
+    $("#selectall").click(function () {
+          $('.case').attr('checked', this.checked);
+    });
+ 
+    // if all checkbox are selected, check the selectall checkbox
+    // and viceversa
+    $(".case").click(function(){
+ 
+        if($(".case").length == $(".case:checked").length) {
+            $("#selectall").attr("checked", "checked");
+        } else {
+            $("#selectall").removeAttr("checked");
+        }
+ 
+    });
+   
+ });
+//check all
+
+
+//get sel
+
+/* if the page has been fully loaded we add two click handlers to the button */
+$(document).ready(function () {
+    /* Get the checkboxes values based on the class attached to each check box */
+    $("#buttonClass,#buttonClass1,#buttonClass2,#buttonClass3").click(function() {
+        getValueUsingClass();
+    });
+     
+//    /* Get the checkboxes values based on the parent div id */
+//    $("#buttonClass,#buttonClass1,#buttonClass2,#buttonClass3").click(function() {
+//        getValueUsingParentTag();
 //    });
-// 
-//    // if all checkbox are selected, check the selectall checkbox
-//    // and viceversa
-//    $(".case").click(function(){
-// 
-//        if($(".case").length == $(".case:checked").length) {
-//            $("#selectall").attr("checked", "checked");
-//        } else {
-//            $("#selectall").removeAttr("checked");
-//        }
-// 
+});
+
+
+function getValueUsingClass(){
+    /* declare an checkbox array */
+    var chkArray = [];
+      var chkall = [];
+    /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+    $(".case:checked").each(function() {
+        chkArray.push($(this).val());
+    });
+     
+    /* we join the array separated by the comma */
+    var selected;
+    selected = chkArray.join(',') + ",";
+    selected = selected.slice(0, -1);
+   
+     
+    /* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */
+    if(selected.length > 1){
+        alert("You have selected " + selected);
+    }else{
+        alert("Please at least one of the checkbox");  
+    }
+    
+    //////////
+
+     
+    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+    $("#checkboxlist input:checked").each(function() {
+        chkall.push($(this).val());
+    });
+     
+    /* we join the array separated by the comma */
+    var selectedall;
+    selectedall = chkall.join(',') + ",";
+    selectedall = selectedall.slice(0, -1);
+     
+    /* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */
+    if(selectedall.length > 1){
+        alert("You have selected " + selectedall);
+    }else{
+        alert("Please at least one of the checkbox");  
+    }
+ 
+ window.location = 'index.php?tab=recent&selectallRecent='+selectedall+'&listr='+selected;
+ 
+ 
+ 
+//        //convert array to json
+//var jsonArray = JSON.stringify(selected);
+////prepare POST data
+//var dataToPost = { 'jsonArray':jsonArray };
+//
+////send POST data to PHP and handle response
+//$.ajax({
+//  type: 'POST',
+//  url: 'index.php?tab=recent',
+//  data: dataToPost,
+//  success: function (data) {
+//    //function to handle the response
+//    var response = eval( '(' + data + ')' );
+//    //response is now an object!
+//  }
+//});
+////convert array to json
+    
+    
+}
+ 
+//function getValueUsingParentTag(){
+//    var chkall = [];
+//     
+//    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+//    $("#checkboxlist input:checked").each(function() {
+//        chkall.push($(this).val());
 //    });
-//   
-// });
+//     
+//    /* we join the array separated by the comma */
+//    var selectedall;
+//    selectedall = chkall.join(',') + ",";
+//     
+//    /* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */
+//    if(selectedall.length > 1){
+//        alert("You have selected " + selectedall);
+//    }else{
+//        alert("Please at least one of the checkbox");  
+//    }
+//}
+
+
+
+
+//get sel
+
+
+
 
 //
 //if(selected_tab=="recent") var fieldName='chkName';
@@ -256,83 +369,83 @@
 
 
 
-var fieldName='chkName';
-
-function selectall(){
-  var i=document.frm.elements.length;
-  var e=document.frm.elements;
-  var name=new Array();
-  var value=new Array();
-  var j=0;
-  for(var k=0;k<i;k++)
-  {
-    if(document.frm.elements[k].name==fieldName)
-    {
-      if(document.frm.elements[k].checked==true){
-        value[j]=document.frm.elements[k].value;
-        j++;
-      }
-    }
-  }
-  checkSelect();
-}
-function selectCheck(obj)
-{
- var i=document.frm.elements.length;
-  for(var k=0;k<i;k++)
-  {
-    if(document.frm.elements[k].name==fieldName)
-    {
-      document.frm.elements[k].checked=obj;
-    }
-  }
-  selectall();
-}
-
-function selectallMe()
-{
-  if(document.frm.allCheck.checked==true)
-  {
-   selectCheck(true);
- 
-  }
-  else
-  {
-    selectCheck(false);
-  }
-}
-function checkSelect()
-{
- var i=document.frm.elements.length;
- var berror=true;
-  for(var k=0;k<i;k++)
-  {
-    if(document.frm.elements[k].name==fieldName)
-    {
-      if(document.frm.elements[k].checked==false)
-      {
-        berror=false;
-        break;
-      }
-    }
-  }
-  if(berror==false)
-  {
-    document.frm.allCheck.checked=false;
-  }
-  else
-  {
-    document.frm.allCheck.checked=true;
-    
-  }
-  this.form.submit()
-}
-
-
-
-var values = $('input:checkbox:checked.group1').map(function () {
-  return this.value;
-}).get();
+//var fieldName='chkName';
+//
+//function selectall(){
+//  var i=document.frm.elements.length;
+//  var e=document.frm.elements;
+//  var name=new Array();
+//  var value=new Array();
+//  var j=0;
+//  for(var k=0;k<i;k++)
+//  {
+//    if(document.frm.elements[k].name==fieldName)
+//    {
+//      if(document.frm.elements[k].checked==true){
+//        value[j]=document.frm.elements[k].value;
+//        j++;
+//      }
+//    }
+//  }
+//  checkSelect();
+//}
+//function selectCheck(obj)
+//{
+// var i=document.frm.elements.length;
+//  for(var k=0;k<i;k++)
+//  {
+//    if(document.frm.elements[k].name==fieldName)
+//    {
+//      document.frm.elements[k].checked=obj;
+//    }
+//  }
+//  selectall();
+//}
+//
+//function selectallMe()
+//{
+//  if(document.frm.allCheck.checked==true)
+//  {
+//   selectCheck(true);
+// 
+//  }
+//  else
+//  {
+//    selectCheck(false);
+//  }
+//}
+//function checkSelect()
+//{
+// var i=document.frm.elements.length;
+// var berror=true;
+//  for(var k=0;k<i;k++)
+//  {
+//    if(document.frm.elements[k].name==fieldName)
+//    {
+//      if(document.frm.elements[k].checked==false)
+//      {
+//        berror=false;
+//        break;
+//      }
+//    }
+//  }
+//  if(berror==false)
+//  {
+//    document.frm.allCheck.checked=false;
+//  }
+//  else
+//  {
+//    document.frm.allCheck.checked=true;
+//    
+//  }
+//  this.form.submit()
+//}
+//
+//
+//
+//var values = $('input:checkbox:checked.group1').map(function () {
+//  return this.value;
+//}).get();
 
 //document.write(values);
 //location.href="index.php?tab=recent&checkRvalues=" + values;
