@@ -1,14 +1,14 @@
-<div class="row">
+ <div class="row">
     <div class="cell" class="input"> 
        <div class="dashhead">Top Violations by Dealer</div>
 
         <table class="Dash" >
             <tr >
-                <td >Dealer</td>	
-                <td >curr Count</td>
-                <td >Prev Count</td>
-                <td >%</td>
-                <td >Total violated</td>
+                <td>Dealer</td>	
+                <td>No. of current violations</td>
+                <td>No. of previous violations</td>
+                <td>%</td>
+                <td>Total violated</td>
 
             </tr>
 <?php
@@ -48,10 +48,10 @@ while ($row = mysql_fetch_array($result1)) {
     $percent = ($row['diff']/$avg)*100;
     echo "<tr>";
     echo "<td>";
-    if($row['diff']<0) $x = "red";
-    elseif ($row['diff']==0) $x = "black";
-    elseif ($row['diff']>0) $x = "green";
-    echo "<a href="."index.php?tab=violations-history&website_id=". $row['website_id'] ."&wname=".$row['name'].">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
+    if($row['diff']<0) $x ="red";
+    elseif ($row['diff']==0) $x ="black";
+    elseif ($row['diff']>0) $x ="green";
+    echo "<a href="."index.php?tab=violations-history&website_id=". $row['website_id'] ."&wname=".$row['name'].">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."("."<font color="."$x".">".($row['diff'] > 0 ? "+" : "").$row['diff']."</font>".")"."</td>"."<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
@@ -69,11 +69,10 @@ echo "</table>";
 
         <table class="Dash">
             <tr>
-                <td width="200">SKU</td>	
-
-                <td >Curr Count</td>
-                <td >Prev Count</td>
-                <td >Total</td>
+                <td>SKU</td>	
+                <td >No. of current violations</td>
+                <td >No. of Previous violations</td>
+                <td >Total violated</td>
             </tr>
 <?php
 include('db.php');
@@ -97,7 +96,7 @@ while ($row = mysql_fetch_array($result2)) {
     if($row['diff']<0) $x = "red";
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
-    echo "<a href="."index.php?tab=violations-history&product_id=". $row['product_id'] ."&sku=". $row['sku'] .">" . $row['sku'] . "</td>" . "<td>" . $row['currentcount']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font> " . ")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
+    echo "<a href="."index.php?tab=violations-history&product_id=". $row['product_id'] ."&sku=". $row['sku'] .">" . $row['sku'] . "</td>" . "<td>" . $row['currentcount']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font>".")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
 }
 echo "</table>";
 ?>
@@ -105,13 +104,13 @@ echo "</table>";
     </div>
 </td>
 <div class="cell" class="input">         
-    <td ><div class="dashhead">Top Violations Vendor</div>
+   <div class="dashhead">Dealer Violations</div>
 
         <table class="Dash">
             <tr>
 
-                <td width="200">SKU</td>
-                <td width="200">Violation Amount</td>
+                <td >SKU</td>
+                <td >Violation Amount</td>
 
             </tr>
 <?php
@@ -136,7 +135,7 @@ AND crawl.id = (SELECT id FROM crawl ORDER BY id DESC LIMIT 1)
 and
 crawl.id =
 (select max(crawl.id) from crawl) order by violation_amount desc
-limit 10";
+limit 8";
 $result3 = mysql_query($sql3);
 
 while ($row = mysql_fetch_array($result3)) {
@@ -147,6 +146,193 @@ while ($row = mysql_fetch_array($result3)) {
 echo "</table>";
 ?>
 </div>
+
+
+
+
+
+<div class="cell" class="input"> 
+    <div class="dashhead">Product</div>
+
+        <table class="Dash">
+            <tr> 
+                <td width="250">SKU ID</td>
+            </tr>					
+            <?php
+            include('db.php');
+
+            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
+FROM
+prices.catalog_product_flat_1
+inner join
+prices.crawl_results
+on catalog_product_flat_1.entity_id = crawl_results.product_id 
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+where crawl_results.violation_amount>0.5
+ and 
+crawl.id = 
+(select max(crawl.id) from crawl) limit 4 ";
+            $result = mysql_query($sql);
+
+
+            while ($row = mysql_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>";
+                echo $row['sku'];
+                echo "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            ?>
+            </td>
+  <div class="dashhead">Product</div>
+
+        <table class="Dash">
+            <tr> 
+                <td width="250">SKU ID</td>
+            </tr>					
+            <?php
+            include('db.php');
+
+            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
+FROM
+prices.catalog_product_flat_1
+inner join
+prices.crawl_results
+on catalog_product_flat_1.entity_id = crawl_results.product_id 
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+where crawl_results.violation_amount>0.5
+ and 
+crawl.id = 
+(select max(crawl.id) from crawl) limit 4 ";
+            $result = mysql_query($sql);
+
+
+            while ($row = mysql_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>";
+                echo $row['sku'];
+                echo "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            ?>
+            </td>
+    </div>
+<div class="cell" class="input"> 
+    <div class="dashhead">Product</div>
+
+        <table class="Dash">
+            <tr> 
+                <td width="250">SKU ID</td>
+            </tr>					
+            <?php
+            include('db.php');
+
+            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
+FROM
+prices.catalog_product_flat_1
+inner join
+prices.crawl_results
+on catalog_product_flat_1.entity_id = crawl_results.product_id 
+inner join crawl
+on
+crawl_results.crawl_id = crawl.id
+where crawl_results.violation_amount>0.5
+ and 
+crawl.id = 
+(select max(crawl.id) from crawl) limit 4 ";
+            $result = mysql_query($sql);
+
+
+            while ($row = mysql_fetch_array($result)) {
+                echo "<tr>";
+                echo "<td>";
+                echo $row['sku'];
+                echo "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+            ?>
+            </td>
+
+    <div class="dashhead">Product</div>
+
+        <table class="Dash">
+            <tr> 
+                <td width="250">SKU ID</td>	
+            </tr>					
+            <?php
+            include('db.php');
+
+            $sql = "select 
+catalog_product_flat_1.sku
+from
+crawl_results
+inner join
+crawl ON crawl.id = crawl_results.crawl_id
+inner join
+catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
+and crawl_results.crawl_id in (select 
+max(id)
+from
+crawl)
+group by crawl_results.product_id ";
+             $sqll = "select 
+catalog_product_flat_1.sku
+from
+crawl_results
+inner join
+crawl ON crawl.id = crawl_results.crawl_id
+inner join
+catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
+and crawl_results.crawl_id in (select 
+max(id)
+from
+crawl
+where
+id not in (select 
+max(id)
+from
+crawl))
+group by crawl_results.product_id ";
+            
+            
+//            $result1 = array_diff($sql, $sqll);
+            $result = mysql_query($sql);
+            $result1 = mysql_query($sqll);
+//            $row = mysql_fetch_array($result);
+//$row2 = mysql_fetch_array($result1);
+
+           $row = mysql_fetch_array($result);
+           $row2 = mysql_fetch_array($result1);
+               
+             
+           
+            while ($result2 = array_diff($row,$row2)) {
+                echo "<tr>";
+                echo "<td>";
+                echo $result2['sku'];
+                echo "</td>";
+                echo "</tr>";
+                
+            }
+             echo "</table>";
+//              print_r($result1);
+//              
+//           print_r($row);
+//           print_r($row2);
+            ?>
+            </td>
+    </div>  
+    
+    
+    
+    
 <?php
 include('db.php');
 
@@ -179,12 +365,12 @@ while ($row = mysql_fetch_array($result4)) {
     array_push($chart_violation_amount_rows, $row['skucount']);
     array_push($chart_violation_amount2_rows, $row['dealercount']);
 }
-
+//print_r($result1);
 $js_data_string_vendors = implode($chart_vendor_rows, ",");
 $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
 ?>
-<div id="container" style="min-width: 310px; height: 400px ; margin: 0 auto"></div>
+<div id="container" style="min-width: 310px; height: 400px ; margin: auto"></div>
     <script>$(function () {
         $('#container').highcharts({
             chart: {
@@ -246,11 +432,11 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
             credits: {
                 enabled: false
             },
-//            plotOptions: {
-//                areaspline: {
-//                    fillOpacity: 0.5
-//                }
-//            },
+            plotOptions: {
+                areaspline: {
+                    fillOpacity: 0.2
+                }
+            },
             series: [{
                 name: 'SKU Count',
                 data: [<?php echo $js_data_string_amounts; ?>]
