@@ -1,6 +1,6 @@
 <?php
 $limitrcon="";
-$conRecentExport;
+
 $sql = "select max(DATE_FORMAT(crawl.date_executed, '%d %b %Y')) as maxd
 from crawl;";
 $result = mysql_query($sql);

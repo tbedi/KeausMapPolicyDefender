@@ -13,6 +13,7 @@ $conHistoryExport;
 
 if (isset($_REQUEST['product_id'])) {
     $product_id = $_REQUEST['product_id'];
+    $_SESSION['product_id'] = $product_id;
 }
 
 
@@ -65,6 +66,7 @@ $website_id=0;
 
 if (isset($_REQUEST['website_id'])) {
 	$website_id = $_REQUEST['website_id'];
+         $_SESSION['website_id'] = $website_id;
 }
 
 

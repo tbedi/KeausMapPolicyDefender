@@ -7,7 +7,7 @@ if(isset($_SESSION['listr']))
  $_SESSION['listr'];
 if(isset($_SESSION['selectallRecent']))
  $_SESSION['selectallRecent'];
-echo $_SESSION['selectallRecent'];
+//echo $_SESSION['selectallRecent'];
 //data collection
 $db_resource = new DB ();
 $limit=15;

@@ -6,7 +6,7 @@ if(isset($_SESSION['listh']))
  $_SESSION['listh'];
 if(isset($_SESSION['selectallhistory']))
  $_SESSION['selectallhistory'];
-echo $_SESSION['selectallhistory'];
+//echo $_SESSION['selectallhistory'];
 
 $db_resource = new DB ();
 $limit=15;

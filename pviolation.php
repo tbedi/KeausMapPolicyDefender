@@ -1,6 +1,7 @@
 <?php
 /*where*/
 $where = "";
+$limitpcon="";
 
 if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$field = strtolower($_GET['field']);
@@ -25,7 +26,7 @@ $limit = 15;
 if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 	$limit=$_GET['limit2'];
 } 
-
+$limitpcon = "  LIMIT $start, $limit ";
 
 $violators_all_array=$db_resource->GetResultObj($sql);
 $total_pages =  count($violators_all_array);
@@ -59,8 +60,29 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
+//chk
+
+
+if (isset($_REQUEST['selectallproduct']))
+{
+     $_SESSION['selectallproduct'] = $_REQUEST['selectallproduct'];
+     //echo      $_SESSION['selectallRecent'];
+}
+
+
+if (isset($_REQUEST['listp']) ) 
+{
+    $_SESSION['listp'] = $_REQUEST['listp'];
+}
+
+
+
+//chk
+
+
+
 $sql = "SELECT  distinct w.`name` as vendor ,
-    r.violation_amount as violation_amount,
+    r.violation_amount as violation_amount,r.id as id,
     w.id as website_id,
     r.vendor_price as vendor_price,
     cast(r.map_price as decimal(10,2)) as map_price,
@@ -70,7 +92,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05  and w.excluded=0  " . $where . " 
-    ".$order_by." LIMIT $start, $limit";
+   " . $order_by . " $limitpcon";
  
 $violators_array=$db_resource->GetResultObj($sql);
 
