@@ -70,7 +70,7 @@ echo "</table>";
     <div class="cell" class="input">
        <div class="dashhead">Top violations by SKU</div>
 
-        <table class="Dash">
+        <table class="Dash" >
             <tr>
                 <td width="100">SKU</td>	
                 <td >No. of current violations</td>
@@ -110,9 +110,9 @@ echo "</table>";
     </div>
 </td>
 <div class="cell" class="input">         
-   <div class="dashhead">Vio. Amount by SKU</div>
+   <div class="dashhead">Violation Amt by SKU</div>
 
-        <table class="Dash">
+        <table class="Dash" width="250">
             <tr>
 
                 <td width="150">SKU</td>
@@ -160,12 +160,12 @@ echo "</table>";
 
 
 
-<div class="cell" class="input"> 
-    <div class="dashhead">SKU</div>
+<div class="cell" class="input" style="height:200px;width:210px;" > 
+    <div class="dashhead" style="visibility:hidden" >SKU</div>
 
         <table class="Dash">
             <tr> 
-                <td width="250">SKU</td>
+                <td width="250">Stopped Violations SKU</td>
             </tr>					
             <?php
             include('db.php');
@@ -215,7 +215,7 @@ group by crawl_results.product_id ";
                     echo "<tr align="."center".">"."<td>No New SKU Violated</td>"."</tr>";
              else{
              forEach($result2 as $key => $value) {
-                 if($i>3) break;
+                 if($i>2) break;
                 else {
                 echo "<tr>";
                 echo "<td>";
@@ -231,11 +231,11 @@ group by crawl_results.product_id ";
              echo "</table>";
             ?>
             </td>
-  <div class="dashhead">SKU</div>
+  <div class="dashhead" style="visibility:hidden" >SKU</div>
 
         <table class="Dash">
             <tr> 
-                <td width="250">SKU</td>
+                <td width="250">Started Violations SKU</td>
             </tr>					
             <?php
             include('db.php');
@@ -289,7 +289,7 @@ group by crawl_results.product_id ";
 
              $i = 0;
              forEach($result2 as $key => $value) {
-                 if($i>3) break;
+                 if($i>2) break;
                 else {
                 echo "<tr>";
                 echo "<td>";
@@ -306,11 +306,11 @@ group by crawl_results.product_id ";
             </td>
     </div>
 <div class="cell" class="input"> 
-    <div class="dashhead">Dealer</div>
+    <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
         <table class="Dash">
             <tr> 
-                <td width="250">Dealer</td>
+                <td width="250">Stopped Violations Dealer</td>
             </tr>					
             <?php
             include('db.php');
@@ -357,7 +357,7 @@ group by website.name ";
                     echo "<tr align="."center".">"."<td>No New Dealers Violated</td>"."</tr>";
              else{
              forEach($result2 as $key => $value) {
-                 if($i>3) break;
+                 if($i>2) break;
                 else {
                 echo "<tr>";
                 echo "<td>";
@@ -374,11 +374,11 @@ group by website.name ";
             ?>
             </td>
 
-    <div class="dashhead">Dealer</div>
+    <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
         <table class="Dash">
             <tr> 
-                <td width="250">Dealer</td>	
+                <td width="250">Started Violations Dealer</td>	
             </tr>					
             <?php
             include('db.php');
@@ -411,16 +411,11 @@ from
 where id !=(select max(id) from crawl))
 group by website.name";
             
-            
-//            $result1 = array_diff($sql, $sqll);
             $result = mysql_query($sql);
             $result1 = mysql_query($sqll);
             $array=array();
             $array2=array();
             $result2 = array();
-//            $row = mysql_fetch_array($result);
-//$row2 = mysql_fetch_array($result1);
-
            while($row = mysql_fetch_array($result))
            {
                    
@@ -434,11 +429,9 @@ group by website.name";
            };
                
              $result2 = array_diff($array,$array2);
-          //print_r($result2);
              $i = 0;
              if(count($result2) == 0)
                     echo "<tr align="."center".">"."<td>No New Dealers Violated</td>"."</tr>";
-//                     echo 'No Dealers Found';
                  else {  
              forEach($result2 as $key => $value) {
                  if($i>3) break;
@@ -451,28 +444,8 @@ group by website.name";
                 $i++;
                 }
              }
-                
-                 
-     // Would output "subkey" in the example array
-                
-
-}
-             
-             //print_r(array_slice($result2, 0, 1080));
-//             $i = 0;
-//            while ($i<5) {
-//                echo "<tr>";
-//                echo "<td>";
-//                echo $result2[$i];
-//                echo "</td>";
-//                echo "</tr>";
-//                $i++;
-//            }
+           }
              echo "</table>";
-//              print_r($result1);
-//              
-//           print_r($row);
-//           print_r($row2);
             ?>
             </td>
     </div>  
@@ -526,22 +499,12 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
             title: {
                 text: 'Violations by Dealers & Products'
             },
-//            legend: {
-//                layout: 'vertical',
-//                align: 'left',
-//                verticalAlign: 'top',
-//                x: 150,
-//                y: 100,
-//                floating: true,
-//                borderWidth: 1,
-//                backgroundColor: '#FFFFFF'
-//            },
             xAxis: {
                 categories: [
                     <?php echo $js_data_string_vendors; ?>
                 ],
                 labels: {
-                    rotation: -90,
+                    rotation: -50,
                     align: 'right',
                     style: {
                         fontSize: '13px',
@@ -576,9 +539,9 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
                            'Violation Count: ' +  this.y;
                 }
             },
-            credits: {
-                enabled: false
-            },
+//            credits: {
+//                enabled: false
+//            },
             plotOptions: {
                 areaspline: {
                     fillOpacity: 0.2

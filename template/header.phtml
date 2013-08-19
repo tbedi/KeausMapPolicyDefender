@@ -15,7 +15,7 @@ if (count($products) > 0) {
 
 if (isset($_SESSION ['username'])) {
     
-    $user_info = "Welcome " . $us . ",<a href=\"login.php?action=logout\"> Logout</a>";
+    $user_info = "Welcome, " . $us . "<a href=\"login.php?action=logout\">"." | "."<font color="."red".">"." Logout"."</font>"."</a>";
     echo "<br>";
 if($_SESSION['last_login'] == '0000-00-00 00:00:00'){
 $log_info = "Last Login: New User";}
