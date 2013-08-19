@@ -59,7 +59,26 @@
     
     }
     
-   
+   .btn-search3 {
+    background-clip: padding-box;
+    background-color:#ededed;
+    background-image: linear-gradient (to bottom, #B5DA11, #A9D200);
+    background-repeat: repeat-x;
+    border-radius: 3px 3px 3px 3px;
+    hight:14px;
+    width: 145px;
+    padding:6px;
+    cursor: pointer;
+    font-size: 19px;
+     font-family: freightsans_prolight, Helvetica, Arial, sans-serif;
+     text-transform: capitalize;
+    text-transform: capitalize;
+    border: medium none;
+    color: #000;
+    margin:2px;
+    
+    }
+    
     
     
     
