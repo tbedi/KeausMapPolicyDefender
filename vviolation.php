@@ -2,11 +2,25 @@
 /*where*/
 $where = "";
 $limit = 15;
-
+$limitvcon="";
 //$_SESSION['limit'] = $limit;
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];
 } 
+$limitvcon = "  LIMIT $start, $limit ";
+
+
+if (isset($_REQUEST['selectallvendor']))
+{
+     $_SESSION['selectallvendor'] = $_REQUEST['selectallvendor'];
+     //echo      $_SESSION['selectallvendor'];
+}
+
+
+if (isset($_REQUEST['listv']) ) 
+{
+    $_SESSION['listv'] = $_REQUEST['listv'];
+}
 
 
 if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
@@ -18,7 +32,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value
 
 
       $sql ="select distinct crawl_results.website_id,
-website.name as wname,
+website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
  catalog_product_flat_1.name as name,
  catalog_product_flat_1.sku, 
@@ -35,7 +49,7 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
 website.excluded=0 
-and website_id = $website_id " . $where ;
+and website_id = $website_id " . $where . "  " .$limitvcon;
         
         
 
@@ -75,7 +89,7 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
 $sql = "select distinct crawl_results.website_id,
-website.name as wname,
+website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
  catalog_product_flat_1.name as name,
  catalog_product_flat_1.sku, 
@@ -91,9 +105,9 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.violation_amount>0.05 
 and
-website.excluded=0 
+website.excluded=0 AND crawl_results.crawl_id=" . $last_crawl['id'] ."
 and website_id = $website_id " . $where . " 
-     ".$order_by." LIMIT $start, $limit";
+     ".$order_by." " .$limitvcon; 
 
  
 $violators_array=$db_resource->GetResultObj($sql);

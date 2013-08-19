@@ -1,13 +1,107 @@
 <?php
-session_start();
+
 include_once '../toMoney.php';
+include_once './db_class.php';
+include_once './db.php';
+session_start();
+
 $vviolationTitle=$_SESSION['vviolationTitle'];
- 
-$violators_array=$_SESSION['vendor2Array'];
-if(isset($_SESSION['vendor2Array']))
-{
-      // print_r($violators_array);
+
+if(isset($_SESSION['vviolationTitle']))
+$_SESSION['vviolationTitle'];
+
+if(isset($_SESSION['listv']))
+ $_SESSION['listv'];
+if(isset($_SESSION['selectallvendor']))
+ $_SESSION['selectallvendor'];
+
+if (isset($_SESSION['website_id'])) {
+    $web_id = $_SESSION['website_id'];
 }
+$db_resource = new DB ();
+$limit=15;
+$start=0;
+$limitvcon="";
+
+if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
+	$limit=$_GET['limit2'];
+} 
+if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
+{ 
+       $limitvcon = "  LIMIT $start, $limit ";
+}
+
+ 
+if (isset( $_SESSION['listv']) and  $_SESSION['listv']!="")
+{
+    $arrExportVendor=  $_SESSION['listv'];
+    
+    // print_r($arrExportRecent);
+    $conVendorExport=" and crawl_results.id in (". $arrExportVendor. ")" ;
+    
+}
+ else {
+     $conVendorExport="";
+}
+     if  (isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']=='1')
+{
+    $limitvcon="";
+      $conVendorExport="";
+}
+
+/* sorting */
+if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vvendor_2"  ) {
+	$direction =$_GET['dir'];
+	$order_field =$_GET['sort'];
+	$_SESSION['sort_vvendor_2_dir']=$_GET['dir'];
+	$_SESSION['sort_vvendor_2_field']=$_GET['sort'];
+} else if (isset($_SESSION['sort_vvendor_2_field']) && isset($_SESSION['sort_vvendor_2_dir']) ) {
+	$direction = $_SESSION['sort_vvendor_2_dir'];
+	$order_field =$_SESSION['sort_vvendor_2_field'];
+} else {
+	$direction = "desc";
+	$order_field = "violation_amount";
+	$_SESSION['sort_vvendor_2_dir'] = "desc";
+	$_SESSION['sort_vvendor_2_field'] = "violation_amount";
+}
+ 
+$order_by = " ORDER BY " . $order_field . " " . $direction . " ";
+/* sorting */
+
+
+$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
+$result = mysql_query($sql);
+$last_crawl = mysql_fetch_assoc($result);
+
+
+$sql = "select distinct crawl_results.website_id,
+website.name as wname,crawl_results.id as id,
+catalog_product_flat_1.entity_id,
+ catalog_product_flat_1.name as name,
+ catalog_product_flat_1.sku, 
+crawl_results.vendor_price ,
+ crawl_results.map_price ,
+ crawl_results.violation_amount ,
+crawl_results.website_product_url 
+from crawl_results
+inner join
+website
+on website.id = crawl_results.website_id
+inner join catalog_product_flat_1
+on catalog_product_flat_1.entity_id=crawl_results.product_id
+where crawl_results.crawl_id=" . $last_crawl['id'] ."  and  crawl_results.violation_amount>0.05 
+and
+website.excluded=0 " . $conVendorExport . " 
+and website_id = $web_id  ".$order_by." " .$limitvcon; 
+
+ 
+$violators_array=$db_resource->GetResultObj($sql);
+
+//$violators_array=$_SESSION['vendor2Array'];
+//if(isset($_SESSION['vendor2Array']))
+//{
+//      // print_r($violators_array);
+//}
 
 
 $filename="Products_Violated_By-".$_SESSION['vviolationTitle']."-".date('d-m-y').".csv";
