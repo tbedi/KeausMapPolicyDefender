@@ -44,9 +44,9 @@
         <div class="divt2222">
             <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
         </div>
-        <div class="divt2222">
+<!--        <div class="divt2222">
             <input type="button" class="btn-search3" value="Get Checked values" id="buttonClassh"> 
-        </div>
+        </div>-->
         <div class="divt2222" >
 
             <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "  /></a>
@@ -245,7 +245,7 @@
                     <tr>
                         <td>
                             <?php $checkidh = $violator->id; ?>
-                            <input type="checkbox"  class="caseh" name="caseh" value="<?php echo $checkidh; ?>"    /> 
+                            <input type="checkbox"  class="caseh" id="caseh" name="caseh" value="<?php echo $checkidh; ?>"    /> 
                         </td>
 
     <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id     ?>"&sku="<?php //violator->sku      ?>&action=search&field=sku&value=<?php // echo $violator->sku;      ?>"><?php //echo $violator->sku;      ?></a></td>-->

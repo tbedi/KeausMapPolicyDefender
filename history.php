@@ -91,7 +91,7 @@ $_SESSION['limit'] = $limit;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
     $limit = $_GET['limit'];
 }
-
+$limithcon = "  LIMIT $start, $limit ";
  static $to;
 static $from;
 /* where */
@@ -168,7 +168,7 @@ else {
 
 
 
-if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku' and !isset($_POST['info']))
+if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku' )
 {
     $sku=$_REQUEST['value'];
     $condition_sku=" and sku like '".$sku."' ";
@@ -178,7 +178,7 @@ else
     $condition_sku="";
 }
 //if (isset($_REQUEST['website_id'])and isset($_REQUEST['wname']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' and !isset($_POST['info']))
-if (  isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' and !isset($_POST['info']))
+if (  isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' )
 {    
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
@@ -201,29 +201,39 @@ else
 
 
 //checkbox
-if  (!isset($_REQUEST['selectallhistory']) or $_REQUEST['selectallhistory']="1")
-{ 
-       $limitcon = "  LIMIT $start, $limit ";
-}
- else 
-{
-    $limitcon="";
-}
-
-if (isset($_REQUEST['listh']) or ( isset($_REQUEST['listh']) and $_REQUEST['listh']!=""))
-{
-    $arrExportHistory= $_REQUEST['listh'];
-    echo $arrExportHistory;
-    $conHistoryExport=" and crawl_results.id in (". $arrExportHistory. ")" ;
-    
-}
- else {
-     $conHistoryExport="";
-}
+//if  (!isset($_REQUEST['selectallhistory']) or $_REQUEST['selectallhistory']="1")
+//{ 
+//       $limitcon = "  LIMIT $start, $limit ";
+//}
+// else 
+//{
+//    $limitcon="";
+//}
+//
+//if (isset($_REQUEST['listh']) or ( isset($_REQUEST['listh']) and $_REQUEST['listh']!=""))
+//{
+//    $arrExportHistory= $_REQUEST['listh'];
+//    echo $arrExportHistory;
+//    $conHistoryExport=" and crawl_results.id in (". $arrExportHistory. ")" ;
+//    
+//}
+// else {
+//     $conHistoryExport="";
+//}
 
 //checkbox
 
+if (isset($_REQUEST['selectallhistory']))
+{
+     $_SESSION['selectallhistory'] = $_REQUEST['selectallhistory'];
+     //echo      $_SESSION['selectallRecent'];
+}
 
+
+if (isset($_REQUEST['listh']) ) 
+{
+    $_SESSION['listh'] = $_REQUEST['listh'];
+}
 
 
 
@@ -247,10 +257,10 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
- ".$condition_wname." ".$condition_sku." " . $conHistoryExport . " and
+ ".$condition_wname." ".$condition_sku."  and
 crawl_results.violation_amount>0.05   
 and website.excluded=0 
-" . $order_by . "$limitcon " ;
+" . $order_by . "$limithcon " ;
 
 $violators_array = $db_resource->GetResultObj($sql);
 

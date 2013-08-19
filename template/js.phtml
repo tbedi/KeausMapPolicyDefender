@@ -267,7 +267,7 @@ $(function(){
 //recent
 $(document).ready(function () {
        // $("#buttonClass").click(function() {
-         $("#buttonClass,#buttonClass1,#buttonClass2").click(function() {
+         $("#buttonClass,#buttonClass1,#buttonClass2,#checkboxlist,#case").click(function() {
         getValueUsingClass();
     });
 });
@@ -289,10 +289,13 @@ function getValueUsingClass(){
     var selected;
     selected = chkArray.join(',') + ",";
     selected = selected.slice(0, -1);
+   
    if(selected.length > 1){
-        alert("You have selected " + selected);
+      //  alert("You have selected " + selected);
+       
     }else{
-        alert("Selected none");  
+       // alert("Selected none");  
+       selected=0;
     }
     
     //////////
@@ -308,14 +311,14 @@ function getValueUsingClass(){
     if(selectedall.length >= 1){
     //    alert("You have selected All" + selectedall);
     }else{
+        selectedall = 0;
        // alert("No Selected All");  
     }
     
    
- 
+  
  window.location = 'index.php?tab=recent&selectallRecent='+selectedall+'&listr='+selected;
- 
- 
+// $.post('index.php?tab=recent&selectallRecent='+selectedall+'&listr='+selected);
  
 //        //convert array to json
 //var jsonArray = JSON.stringify(selected);
@@ -364,7 +367,7 @@ $(function(){
 
 
 $(document).ready(function () {
-        $("#buttonClassh,#buttonClassh1,#buttonClassh2").click(function() {
+        $("#buttonClassh,#buttonClassh1,#buttonClassh2,#checkboxlisth,#caseh").click(function() {
         getValueUsingClassh();
     });
 });
@@ -383,9 +386,10 @@ $(document).ready(function () {
     selectedh = chkArrayh.join(',') + ",";
     selectedh = selectedh.slice(0, -1);
    if(selectedh.length > 1){
-        alert("You have selected " + selectedh);
+       // alert("You have selected " + selectedh);
     }else{
-        alert("Selected none");  
+       // alert("Selected none");  
+       selectedh=0;
     }
     
     //////////
@@ -402,6 +406,7 @@ $(document).ready(function () {
        // alert("You have selected All" + selectedallh);
     }else{
      //   alert("No Selected All");  
+     selectedallh=0;
     }
    
  
