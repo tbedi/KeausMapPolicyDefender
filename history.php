@@ -280,7 +280,7 @@ and website.excluded=0
 
 $violators_array = $db_resource->GetResultObj($sql);
 
-echo $sql;
+//echo $sql;
 
 $_SESSION['historyArray'] = $violators_array;
 if (isset($_SESSION['historyArray'])) {
