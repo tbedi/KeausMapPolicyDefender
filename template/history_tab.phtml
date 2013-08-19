@@ -122,12 +122,16 @@
       
                         </td>
                     <td>
-                        SKU
+                        
                         
 
                         <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                           SKU 
                         </a>
+                        
+                         <?php if ($order_field == "sku") { ?>
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                         <?php } ?>
                         
                         
 <!--                            <script type="text/javascript">
@@ -139,11 +143,14 @@
                         
                     </td>	
                     <td>
-                        Dealers
+                       
 
                         <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
+                             Dealers
                         </a>
+                        <?php if ($order_field == "name") { ?>
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
+                         <?php } ?>
 
                         <p>
 <!--                            <input class="history_violation_search searchh" placeholder="Enter Dealer..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch" onkeyup="tableSearch.search(event);"   /> -->
@@ -156,31 +163,43 @@
                         </p>
                     </td>	
                     <td>
-                        Dealers price
+                       
 
                         <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                           Dealers price  
                         </a>
+                        <?php if ($order_field == "vendor_price") { ?>
+                           <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
+                         <?php } ?>
                     </td>
                     <td>
-                        MAP price
+                        
                         <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                            MAP price
                         </a>
+                        <?php if ($order_field == "map_price") { ?>
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                         <?php } ?>
 
                     </td>
                     <td>
-                        Violation amt
+                        
 
                         <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                           Violation amt 
                         </a>
+                        <?php if ($order_field == "violation_amount") { ?>
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                         <?php } ?>
                     </td>
-                    <td>Date
+                    <td>
 
                         <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
+                            Date
                         </a>
+                        <?php if ($order_field == "date_executed") { ?>
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
+                         <?php } ?>
                     </td>
                     <td>
                         Link
