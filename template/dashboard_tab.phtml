@@ -43,7 +43,7 @@ $result1 = mysql_query($sql1);
 
 while ($row = mysql_fetch_array($result1)) {
 
-    
+    $rnm = '';
     $avg = ($row['countcurrent']+$row['countprev'])/2;
     $percent = ($row['diff']/$avg)*100;
     echo "<tr>";
@@ -51,7 +51,10 @@ while ($row = mysql_fetch_array($result1)) {
     if($row['diff']<0) $x ="red";
     elseif ($row['diff']==0) $x ="black";
     elseif ($row['diff']>0) $x ="green";
-    echo "<a href="."index.php?tab=violations-history&website_id=". $row['website_id'] ."&wname=".$row['name'].">" . $row['name'] . "</td>" . "<td>" . $row['countcurrent']."("."<font color="."$x".">".($row['diff'] > 0 ? "+" : "").$row['diff']."</font>".")"."</td>"."<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
+    if(strlen($row['name']) > 10)
+        $rnm = substr($row['name'],0,10)."...";
+    else $rnm = $row['name'];
+    echo "<a href="."index.php?tab=violations-history&website_id=". $row['website_id'] ."&wname=".$row['name'].">" . $rnm . "</td>" . "<td>" . $row['countcurrent']."("."<font color="."$x".">".($row['diff'] > 0 ? "+" : "").$row['diff']."</font>".")"."</td>"."<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 }
@@ -69,7 +72,7 @@ echo "</table>";
 
         <table class="Dash">
             <tr>
-                <td>SKU</td>	
+                <td width="100">SKU</td>	
                 <td >No. of current violations</td>
                 <td >No. of Previous violations</td>
                 <td >Total violated</td>
@@ -96,7 +99,10 @@ while ($row = mysql_fetch_array($result2)) {
     if($row['diff']<0) $x = "red";
     elseif ($row['diff']==0) $x = "black";
     elseif ($row['diff']>0) $x = "green";
-    echo "<a href="."index.php?tab=violations-history&product_id=". $row['product_id'] ."&sku=". $row['sku'] .">" . $row['sku'] . "</td>" . "<td>" . $row['currentcount']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font>".")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
+    if(strlen($row['sku']) > 10)
+        $rnm = substr($row['sku'],0,10)."...";
+    else $rnm = $row['sku'];
+    echo "<a href="."index.php?tab=violations-history&product_id=". $row['product_id'] ."&sku=". $row['sku'] .">" . $rnm . "</td>" . "<td>" . $row['currentcount']."(" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font>".")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
 }
 echo "</table>";
 ?>
@@ -104,12 +110,12 @@ echo "</table>";
     </div>
 </td>
 <div class="cell" class="input">         
-   <div class="dashhead">Dealer Violations</div>
+   <div class="dashhead">Vio. Amount by SKU</div>
 
         <table class="Dash">
             <tr>
 
-                <td >SKU</td>
+                <td width="150">SKU</td>
                 <td >Violation Amount</td>
 
             </tr>
@@ -135,13 +141,16 @@ AND crawl.id = (SELECT id FROM crawl ORDER BY id DESC LIMIT 1)
 and
 crawl.id =
 (select max(crawl.id) from crawl) order by violation_amount desc
-limit 8";
+limit 10";
 $result3 = mysql_query($sql3);
 
 while ($row = mysql_fetch_array($result3)) {
     echo "<tr>";
     echo "<td>";
-    echo "<a href=" . ">" . $row['sku'] . "</td>" . "<td>$" . $row['violation_amount'] . "</td>" . "</tr>";
+    if(strlen($row['sku']) > 15)
+        $rnm = substr($row['sku'],0,15)."...";
+    else $rnm = $row['sku'];
+    echo "<a href=" . ">" . $rnm . "</td>" . "<td>$" . $row['violation_amount'] . "</td>" . "</tr>";
 }
 echo "</table>";
 ?>
@@ -152,119 +161,81 @@ echo "</table>";
 
 
 <div class="cell" class="input"> 
-    <div class="dashhead">Product</div>
+    <div class="dashhead">SKU</div>
 
         <table class="Dash">
             <tr> 
-                <td width="250">SKU ID</td>
+                <td width="250">SKU</td>
             </tr>					
             <?php
             include('db.php');
 
-            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
-FROM
-prices.catalog_product_flat_1
+           $sql = "select 
+catalog_product_flat_1.sku
+from
+crawl_results
 inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.5
- and 
-crawl.id = 
-(select max(crawl.id) from crawl) limit 4 ";
+crawl ON crawl.id = crawl_results.crawl_id
+inner join
+catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
+and crawl_results.crawl_id not in (select id from crawl
+where date_format(date_executed, '%Y-%m-%d')
+between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
+group by crawl_results.product_id ";
+             $sqll = "select 
+catalog_product_flat_1.sku
+from
+crawl_results
+inner join
+crawl ON crawl.id = crawl_results.crawl_id
+inner join
+catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
+and crawl_results.crawl_id in (select id from crawl
+where date_format(date_executed, '%Y-%m-%d')
+between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
+group by crawl_results.product_id ";
             $result = mysql_query($sql);
+            $result1 = mysql_query($sqll);
+            $array=array();
+            $array2=array();
+            $result2 = array();
+           while($row = mysql_fetch_array($result))
+           {
+                   
+                       array_push($array,$row['sku']);
+            };
+           while($row2 = mysql_fetch_array($result1)){
+               array_push($array2,$row2['sku']);  
+           };
+               
+             $result2 = array_diff($array,$array2);
 
-
-            while ($row = mysql_fetch_array($result)) {
+             $i = 0;
+             if(count($result2) == 0)
+                    echo "<tr align="."center".">"."<td>No New SKU Violated</td>"."</tr>";
+             else{
+             forEach($result2 as $key => $value) {
+                 if($i>3) break;
+                else {
                 echo "<tr>";
                 echo "<td>";
-                echo $row['sku'];
+                echo $value;
                 echo "</td>";
                 echo "</tr>";
-            }
-            echo "</table>";
+                $i++;
+                }
+             }
+             }
+             
+
+             echo "</table>";
             ?>
             </td>
-  <div class="dashhead">Product</div>
+  <div class="dashhead">SKU</div>
 
         <table class="Dash">
             <tr> 
-                <td width="250">SKU ID</td>
-            </tr>					
-            <?php
-            include('db.php');
-
-            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.5
- and 
-crawl.id = 
-(select max(crawl.id) from crawl) limit 4 ";
-            $result = mysql_query($sql);
-
-
-            while ($row = mysql_fetch_array($result)) {
-                echo "<tr>";
-                echo "<td>";
-                echo $row['sku'];
-                echo "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-            ?>
-            </td>
-    </div>
-<div class="cell" class="input"> 
-    <div class="dashhead">Product</div>
-
-        <table class="Dash">
-            <tr> 
-                <td width="250">SKU ID</td>
-            </tr>					
-            <?php
-            include('db.php');
-
-            $sql = "SELECT distinct prices.catalog_product_flat_1.sku,prices.catalog_product_flat_1.price
-FROM
-prices.catalog_product_flat_1
-inner join
-prices.crawl_results
-on catalog_product_flat_1.entity_id = crawl_results.product_id 
-inner join crawl
-on
-crawl_results.crawl_id = crawl.id
-where crawl_results.violation_amount>0.5
- and 
-crawl.id = 
-(select max(crawl.id) from crawl) limit 4 ";
-            $result = mysql_query($sql);
-
-
-            while ($row = mysql_fetch_array($result)) {
-                echo "<tr>";
-                echo "<td>";
-                echo $row['sku'];
-                echo "</td>";
-                echo "</tr>";
-            }
-            echo "</table>";
-            ?>
-            </td>
-
-    <div class="dashhead">Product</div>
-
-        <table class="Dash">
-            <tr> 
-                <td width="250">SKU ID</td>	
+                <td width="250">SKU</td>
             </tr>					
             <?php
             include('db.php');
@@ -300,27 +271,203 @@ max(id)
 from
 crawl))
 group by crawl_results.product_id ";
+            $result = mysql_query($sql);
+            $result1 = mysql_query($sqll);
+            $array=array();
+            $array2=array();
+            $result2 = array();
+           while($row = mysql_fetch_array($result))
+           {
+                   
+                       array_push($array,$row['sku']);
+            };
+           while($row2 = mysql_fetch_array($result1)){
+               array_push($array2,$row2['sku']);  
+           };
+               
+             $result2 = array_diff($array,$array2);
+
+             $i = 0;
+             forEach($result2 as $key => $value) {
+                 if($i>3) break;
+                else {
+                echo "<tr>";
+                echo "<td>";
+                echo $value;
+                echo "</td>";
+                echo "</tr>";
+                $i++;
+                }
+}
+             
+
+             echo "</table>";
+            ?>
+            </td>
+    </div>
+<div class="cell" class="input"> 
+    <div class="dashhead">Dealer</div>
+
+        <table class="Dash">
+            <tr> 
+                <td width="250">Dealer</td>
+            </tr>					
+            <?php
+            include('db.php');
+
+$sql = "SELECT website.name name from website
+        inner join
+    crawl_results ON website.id = crawl_results.website_id
+        inner join
+    crawl ON crawl.id = crawl_results.crawl_id
+        and crawl_results.crawl_id not in (select id from crawl
+where date_format(date_executed, '%Y-%m-%d')
+between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
+group by website.name ";
+             $sqll = "SELECT 
+    website.name name
+from
+    website
+        inner join
+    crawl_results ON website.id = crawl_results.website_id
+        inner join
+    crawl ON crawl.id = crawl_results.crawl_id
+        and crawl_results.crawl_id in (select id from crawl
+where date_format(date_executed, '%Y-%m-%d')
+between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
+group by website.name ";
+            $result = mysql_query($sql);
+            $result1 = mysql_query($sqll);
+            $array=array();
+            $array2=array();
+            $result2 = array();
+           while($row = mysql_fetch_array($result))
+           {
+                   
+                       array_push($array,$row['name']);
+            };
+           while($row2 = mysql_fetch_array($result1)){
+               array_push($array2,$row2['name']);  
+           };
+               
+             $result2 = array_diff($array,$array2);
+
+             $i = 0;
+             if(count($result2) == 0)
+                    echo "<tr align="."center".">"."<td>No New Dealers Violated</td>"."</tr>";
+             else{
+             forEach($result2 as $key => $value) {
+                 if($i>3) break;
+                else {
+                echo "<tr>";
+                echo "<td>";
+                echo $value;
+                echo "</td>";
+                echo "</tr>";
+                $i++;
+                }
+             }
+             }
+             
+
+             echo "</table>";
+            ?>
+            </td>
+
+    <div class="dashhead">Dealer</div>
+
+        <table class="Dash">
+            <tr> 
+                <td width="250">Dealer</td>	
+            </tr>					
+            <?php
+            include('db.php');
+
+            $sql = "SELECT 
+    website.name name
+from
+    website
+        inner join
+    crawl_results ON website.id = crawl_results.website_id
+        inner join
+    crawl ON crawl.id = crawl_results.crawl_id
+        and crawl_results.crawl_id = (select 
+            max(id)
+        from
+            crawl)
+group by website.name ";
+             $sqll = "SELECT 
+    website.name name
+from
+    website
+        inner join
+    crawl_results ON website.id = crawl_results.website_id
+        inner join
+    crawl ON crawl.id = crawl_results.crawl_id
+        and crawl_results.crawl_id = (select 
+            max(id)
+        from
+            crawl
+where id !=(select max(id) from crawl))
+group by website.name";
             
             
 //            $result1 = array_diff($sql, $sqll);
             $result = mysql_query($sql);
             $result1 = mysql_query($sqll);
+            $array=array();
+            $array2=array();
+            $result2 = array();
 //            $row = mysql_fetch_array($result);
 //$row2 = mysql_fetch_array($result1);
 
-           $row = mysql_fetch_array($result);
-           $row2 = mysql_fetch_array($result1);
+           while($row = mysql_fetch_array($result))
+           {
+                   
+                       array_push($array,$row['name']);
+            };
+           while($row2 = mysql_fetch_array($result1)){
                
-             
-           
-            while ($result2 = array_diff($row,$row2)) {
+               
+               array_push($array2,$row2['name']);
+               
+           };
+               
+             $result2 = array_diff($array,$array2);
+          //print_r($result2);
+             $i = 0;
+             if(count($result2) == 0)
+                    echo "<tr align="."center".">"."<td>No New Dealers Violated</td>"."</tr>";
+//                     echo 'No Dealers Found';
+                 else {  
+             forEach($result2 as $key => $value) {
+                 if($i>3) break;
+                else {
                 echo "<tr>";
                 echo "<td>";
-                echo $result2['sku'];
+                echo $value;
                 echo "</td>";
                 echo "</tr>";
+                $i++;
+                }
+             }
                 
-            }
+                 
+     // Would output "subkey" in the example array
+                
+
+}
+             
+             //print_r(array_slice($result2, 0, 1080));
+//             $i = 0;
+//            while ($i<5) {
+//                echo "<tr>";
+//                echo "<td>";
+//                echo $result2[$i];
+//                echo "</td>";
+//                echo "</tr>";
+//                $i++;
+//            }
              echo "</table>";
 //              print_r($result1);
 //              
@@ -426,7 +573,7 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
             tooltip: {
                 formatter: function() {
                     return '<b>' + Highcharts.dateFormat('%a %d %b %Y', this.x) + '</b><br/>' +
-                           'Price Violations: ' +  this.y;
+                           'Violation Count: ' +  this.y;
                 }
             },
             credits: {

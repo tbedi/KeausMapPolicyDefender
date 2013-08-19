@@ -136,7 +136,7 @@ if (isset($_GET['page'])) {
         $result = mysql_query($sql);
         if ($result && mysql_num_rows($result) <= 0) {
             ?><table class="GrayBlack" align="center">
-                <tr align="center"><td width="500"> No Records Found  </td> </tr></table><?php } ?>
+                <tr align="center"><td width="425"> No Records Found  </td> </tr></table><?php } ?>
         <?php
         if ($page == 0) {
             $page = 1;
