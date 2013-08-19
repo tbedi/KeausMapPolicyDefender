@@ -136,7 +136,7 @@ if (isset($_GET['page'])) {
         $result = mysql_query($sql);
         if ($result && mysql_num_rows($result) <= 0) {
             ?><table class="GrayBlack" align="center">
-                <tr align="center"><td width="500"> No Records Found  </td> </tr></table><?php } ?>
+                <tr align="center"><td width="425"> No Records Found  </td> </tr></table><?php } ?>
         <?php
         if ($page == 0) {
             $page = 1;
@@ -158,7 +158,7 @@ if (isset($_GET['page'])) {
                 <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td width="250"><?php echo $row['date_created']; ?></td>
                     <td width="250"><?php echo $row['excluded']; ?></td>
-                    <td width="250"><a href="/dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td width="250"><a href="dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
                 <?php
@@ -197,7 +197,7 @@ LIMIT $start, $limit";
                     <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
                     <td width="300"><?php echo $row['date_created']; ?></td>
                     <td width="250"><?php echo $row['excluded']; ?></td>
-                    <td width="250"><a href="/dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td width="250"><a href="dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
                 </tr>
             <?php
         }
