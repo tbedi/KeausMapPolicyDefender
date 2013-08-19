@@ -27,34 +27,50 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'recent') {
 if ((isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab']=='recent' ) ) {
 	$limit=$_GET['limit'];
 }
+$limitrcon = "  LIMIT $start, $limit ";
 
-if  (!isset($_REQUEST['selectallRecent']) or $_REQUEST['selectallRecent']!=="1")
-{ 
-       $limitrcon = "  LIMIT $start, $limit ";
-}
- else 
-     {
-    $limitrcon="";
-}
-     
-     if  (isset($_REQUEST['selectallRecent']) and $_REQUEST['selectallRecent']=='1')
-{
-    $limitrcon="";
-}
+//if  (!isset($_REQUEST['selectallRecent']) or $_REQUEST['selectallRecent']!=="1")
+//{ 
+//       $limitrcon = "  LIMIT $start, $limit ";
+//}
+// else 
+//     {
+//    $limitrcon="";
+//}
+//     
+//     if  (isset($_REQUEST['selectallRecent']) and $_REQUEST['selectallRecent']=='1')
+//{
+//    $limitrcon="";
+//}
 //export selected
-if (isset($_REQUEST['listr']) and $_REQUEST['listr']!="" and ( !isset($_REQUEST['selectallRecent']) or $_REQUEST['selectallRecent']!="1"))
-{
-    $arrExportRecent= $_REQUEST['listr'];
-   // echo $arrExportRecent;
-    $conRecentExport=" and crawl_results.id in (". $arrExportRecent. ")" ;
-    
-}
- else {
-     $conRecentExport="";
-}
+//if (isset($_REQUEST['listr']) and $_REQUEST['listr']!="" and ( !isset($_REQUEST['selectallRecent']) or $_REQUEST['selectallRecent']!="1"))
+//{
+//    $arrExportRecent= $_REQUEST['listr'];
+//   // echo $arrExportRecent;
+//    $conRecentExport=" and crawl_results.id in (". $arrExportRecent. ")" ;
+//    
+//}
+// else {
+//     $conRecentExport="";
+//}
 //export selected
    // print_r($_SESSION['limit']);
 
+if (isset($_REQUEST['selectallRecent']))
+{
+     $_SESSION['selectallRecent'] = $_REQUEST['selectallRecent'];
+     //echo      $_SESSION['selectallRecent'];
+}
+
+
+if (isset($_REQUEST['listr']) ) 
+{
+    $_SESSION['listr'] = $_REQUEST['listr'];
+}
+    
+    
+    
+    
 
  $targetpage="index.php";
 /*where*/
@@ -112,7 +128,7 @@ website.excluded=0
 AND crawl.id = (SELECT id  FROM crawl  ORDER BY id DESC  LIMIT 1) 
 and
 crawl.id = 
-(select max(crawl.id) from crawl) " . $where . " " . $conRecentExport . "
+(select max(crawl.id) from crawl) " . $where . " 
 " . $order_by . " $limitrcon";
 
 
