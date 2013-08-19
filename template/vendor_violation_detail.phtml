@@ -60,26 +60,39 @@
                                 <td >SKU
 
                                     <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                                      SKU  
                                     </a>
+                                    
+                                    <?php if ($order_field == "sku") { ?>
+                                       <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                                    <?php } ?>
                                 </td>
-                                <td >Dealers price
+                                <td >
 
                                     <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                                       Dealers price 
                                     </a>
+                                    <?php if ($order_field == "vendor_price") { ?>
+                                      <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                                    <?php } ?>
                                 </td>
-                                <td >Map
+                                <td >
 
                                     <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                      Map price  
                                     </a>
+                                    <?php if ($order_field == "map_price") { ?>
+                                      <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                    <?php } ?>
                                 </td>
-                                <td >Violation amount
+                                <td >
 
                                     <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                       Violation amt 
                                     </a>
+                                    <?php if ($order_field == "violation_amount") { ?>
+                                       <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                    <?php } ?>
                                 </td>
                                 <td>
                                     Link
