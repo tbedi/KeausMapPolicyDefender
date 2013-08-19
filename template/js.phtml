@@ -204,6 +204,9 @@
         }        
 /*vendor_violation_detail*/   
 
+
+
+
 /*history*/
         function exporttoh()
         {
@@ -225,6 +228,10 @@
     }
 }
 /*history*/
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 //check all recent
@@ -254,14 +261,6 @@ $(function(){
 
 
 
-
-
-
-
-
-
-
-
 //get select class
 
 //recent
@@ -271,7 +270,7 @@ $(document).ready(function () {
         getValueUsingClass();
     });
 });
-//history
+
 
 
 
@@ -339,7 +338,7 @@ function getValueUsingClass(){
 ////convert array to json
     
     
-}
+}///recent end
 
 
 //check all history
@@ -363,6 +362,10 @@ $(function(){
     });
    
  });
+ 
+ 
+ 
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //check all history
 
 
@@ -413,7 +416,166 @@ $(document).ready(function () {
  window.location = 'index.php?tab=violations-history&selectallhistory='+selectedallh+'&listh='+selectedh;
  
    
-}
+}///History end
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//check product details
+
+//check all product details
+$(function(){
+ 
+    // add multiple select / deselect functionality
+    $("#selectallp").click(function () {
+          $('.casep').attr('checked', this.checked);
+    });
+ 
+    // if all checkbox are selected, check the selectall checkbox
+    // and viceversa
+    $(".casep").click(function(){
+ 
+        if($(".casep").length == $(".casep:checked").length) {
+            $("#selectallp").attr("checked", "checked");
+        } else {
+            $("#selectallp").removeAttr("checked");
+        }
+ 
+    });
+   
+ });
+ 
+
+
+
+$(document).ready(function () {
+        $("#buttonClassp,#buttonClassp,#buttonClassp,#checkboxlistp,#casep").click(function() {
+        getValueUsingClassp();
+    });
+});
+//checkbox product details
+ function getValueUsingClassp(){
+    /* declare an checkbox array */
+    var chkArrayp = [];
+      var chkallp = [];
+    /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+    $(".casep:checked").each(function() {
+        chkArrayp.push($(this).val());
+    });
+     
+    /* we join the array separated by the comma */
+    var selectedp;
+    selectedp = chkArrayp.join(',') + ",";
+    selectedp = selectedp.slice(0, -1);
+   if(selectedp.length > 1){
+       // alert("You have selected " + selectedh);
+    }else{
+       // alert("Selected none");  
+       selectedp=0;
+    }
+    
+    //////////
+     
+    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+    $("#checkboxlistp input:checked").each(function() {
+        chkallp.push($(this).val());
+    });
+     
+   
+    var selectedallp= chkallp;
+  
+      if(selectedallp.length >= 1){
+       // alert("You have selected All" + selectedallh);
+    }else{
+     //   alert("No Selected All");  
+     selectedallp=0;
+    }
+   
+ 
+ window.location = 'index.php?'+$.param(queryParameters)+'&selectallproduct='+selectedallp+'&listp='+selectedp;
+ 
+   
+}/////product details end
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//check vendor details
+
+//check all vendor details
+$(function(){
+ 
+    // add multiple select / deselect functionality
+    $("#selectallv").click(function () {
+          $('.casev').attr('checked', this.checked);
+    });
+ 
+    // if all checkbox are selected, check the selectall checkbox
+    // and viceversa
+    $(".casev").click(function(){
+ 
+        if($(".casev").length == $(".casev:checked").length) {
+            $("#selectallv").attr("checked", "checked");
+        } else {
+            $("#selectallv").removeAttr("checked");
+        }
+ 
+    });
+   
+ });
+ 
+
+
+
+
+$(document).ready(function () {
+        $("#buttonClassv,#buttonClasshv,#buttonClasshv,#checkboxlistv,#casev").click(function() {
+        getValueUsingClassv();
+    });
+});
+//checkbox vendor details
+ function getValueUsingClassv(){
+    /* declare an checkbox array */
+    var chkArrayv = [];
+      var chkallv = [];
+    /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+    $(".casev:checked").each(function() {
+        chkArrayv.push($(this).val());
+    });
+     
+    /* we join the array separated by the comma */
+    var selectedv;
+    selectedv = chkArrayv.join(',') + ",";
+    selectedv = selectedv.slice(0, -1);
+   if(selectedv.length > 1){
+       // alert("You have selected " + selectedh);
+    }else{
+       // alert("Selected none");  
+       selectedv=0;
+    }
+    
+    //////////
+     
+    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+    $("#checkboxlistv input:checked").each(function() {
+        chkallv.push($(this).val());
+    });
+     
+   
+    var selectedallv= chkallv;
+  
+      if(selectedallv.length >= 1){
+       // alert("You have selected All" + selectedallh);
+    }else{
+     //   alert("No Selected All");  
+     selectedallv=0;
+    }
+   
+ 
+ window.location = 'index.php?'+$.param(queryParameters)+'&selectallvendor='+selectedallv+'&listv='+selectedv;
+ 
+   
+}/// vendor details end
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 

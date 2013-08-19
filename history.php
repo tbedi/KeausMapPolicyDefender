@@ -195,9 +195,23 @@ if (  isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['fie
     
     
 }
+if ($website_id) {
+    $website_id=mysql_real_escape_string($website_id); 
+    $condition_wname = "  AND  website_id  = " ." $website_id ". ""; 
+}
 else
 {
     $condition_wname="";
+}
+
+
+if ($product_id) {
+    $product_id=mysql_real_escape_string($product_id); 
+    $condition_sku = "  AND  product_id  = " ." $product_id ". ""; 
+}
+else
+{
+    $condition_sku="";
 }
 //new changes
 
@@ -266,7 +280,7 @@ and website.excluded=0
 
 $violators_array = $db_resource->GetResultObj($sql);
 
-//echo $sql;
+echo $sql;
 
 $_SESSION['historyArray'] = $violators_array;
 if (isset($_SESSION['historyArray'])) {
