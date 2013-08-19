@@ -14,7 +14,7 @@
      padding:6px;
     border:1px solid #C9C9C9;
     margin:4px;
-    width:150px;
+    width:120px;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
     height: 32px;
@@ -47,7 +47,7 @@
     border-radius: 3px 3px 3px 3px;
     hight:14px;
     width: 90px;
-    padding:6px;
+    padding:4px;
     cursor: pointer;
     font-size: 19px;
      font-family: freightsans_prolight, Helvetica, Arial, sans-serif;
@@ -67,7 +67,7 @@
     border-radius: 3px 3px 3px 3px;
     hight:14px;
     width: 145px;
-    padding:6px;
+    padding:4px;
     cursor: pointer;
     font-size: 19px;
      font-family: freightsans_prolight, Helvetica, Arial, sans-serif;

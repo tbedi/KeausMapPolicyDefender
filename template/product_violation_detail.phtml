@@ -50,9 +50,9 @@
     <div class="cleaner1" >
 
     </div>
-</div>
+
 <div>
-    <div style="clear:  left; float: left; width:50%"> 
+<!--    <div style="clear:  left; float: left; width:50%"> -->
         <table align="left">
             <tr>
                 <td>
@@ -60,30 +60,52 @@
 <!--                        <tbody id="data">-->
                         <tbody >
                             <tr> 
-                                <td >Dealers
+                                <td>
+                          
+                        <div id="checkboxlistp">
+                            <input type="checkbox" id="selectallp" value="1"/>
+                        </div>
+
+
+                    </td>
+                                
+                                
+                                <td >
 
                                     <a  onclick="sort_grid('vendor', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
+                                      Dealers  
                                     </a>
+                                    
+                                    <?php if ($order_field == "vendor") { ?>
+                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
+                                     <?php } ?>
                                 </td>
-                                <td >Dealers price
+                                <td >
 
                                     <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                                        Dealers price
                                     </a>
+                                     <?php if ($order_field == "vendor_price") { ?>
+                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                                     <?php } ?>
                                 </td>
-                                <td >Map
+                                <td >
 
                                     <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                       Map price
                                     </a>
+                                     <?php if ($order_field == "map_price") { ?>
+                                     <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                     <?php } ?>
                                 </td>
-                                <td >Violation
-
+                                <td >
 
                                     <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                      Violation amt  
                                     </a>
+                                     <?php if ($order_field == "violation_amount") { ?>
+                                    <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                     <?php } ?>
                                 </td>
 
                             </tr>
@@ -98,6 +120,11 @@
                                 ?>
                                 <tr>
                                   
+                                    <td>
+                            <?php $checkid = $violator->id; ?>
+                            <input type="checkbox"  class="casep" id="casep" name="casep" value="<?php echo $checkid; ?>"    /> 
+                        </td>
+                                    
                                     <td ><a href="index.php?tab=violations-history&website_id=<?php echo $violator->website_id; ?>&wname=<?php echo $violator->vendor; ?>"><?php echo $violator->vendor; ?></a></td>
                                     <td><?php echo toMoney($violator->vendor_price); ?></td>
                                     <td><?php echo toMoney($violator->map_price); ?></td>
@@ -124,10 +151,15 @@
             <?php echo $pagination_html; ?>
         </div>	
     </div>
+     </div>
     <div style="float: right;width:49%;">
         <div>
             <?php include_once 'charts/a3.php'; ?>
         </div>
     </div>
 </div>
-    </div>
+
+   
+
+
+
