@@ -1,3 +1,4 @@
+
 <div class="top-paneltab" align="center">Violations as of the day ( <?php echo $str; ?>)</div>
 <div style="height: 100%; width: 100%;">
     <div style="clear:  left; float: left; width:50%"> 
@@ -61,23 +62,28 @@ function exportCSV(){
 
 
                     </td>
-                    <td >
+                    <td>
                         <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             SKU 
                         </a>
                         <?php if ($order_field == "sku") { ?>
+                         <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                                  
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
                         <?php } ?>
 
                     </td>
-                    <td >
+                    <td>
 
                         <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             Dealers 
                         </a>
                         <?php if ($order_field == "name") { ?>
+                           <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
-                        <?php } ?>
+                       </a> 
+                            <?php } ?>
                     </td>
                     <td >
 
@@ -85,26 +91,31 @@ function exportCSV(){
                             Dealers price 
                         </a>
                         <?php if ($order_field == "vendor_price") { ?>
-
+                          <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                             </a>
                         <?php } ?>
                     </td>
-                    <td >
+                    <td>
                         <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             MAP
                         </a>
-                        <?php if ($order_field == "vendor_price") { ?>
+                        <?php if ($order_field == "map_price") { ?>
+                        <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                            </a> 
                         <?php } ?>
                     </td>
 
-                    <td >
+                    <td>
 
                         <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             Violation amount
                         </a>
                         <?php if ($order_field == "violation_amount") { ?>
+                         <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
                             <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                             </a>
 
                         <?php } ?>
                     </td>
@@ -173,9 +184,20 @@ function exportCSV(){
             </div> 
         <?php } ?>
     </div>
+    <div style="align:right;float :right; ">
+    <div class="divt2222">
+            <img src="./images/red.png" value="red"/>  </div> <div class="divt2223">Violation amount > 10 </div> 
+            
+          <div class="divt2222">
+            <img src="./images/brown.png" /></div> <div class="divt2223"> Violation amount < 10 and > 5 </div> 
+            
+            <div class="divt2222">
+            <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> 
+            </div>
+       
+        <br>
     <div  >
-        <div style="float: right">
-            <img src="./images/message.png" ></div>
+        
         <table>
             <tr>
                 <td>
