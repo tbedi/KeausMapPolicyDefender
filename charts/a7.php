@@ -15,19 +15,23 @@ on crawl_results.website_id = website.id
 inner join
 crawl
 on crawl.id = crawl_results.crawl_id
-and date_format(crawl.date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL -7 DAY) and sysdate()
+and date_format(crawl.date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL -7 DAY) and sysdate() where crawl_results.violation_amount>0.05 and website.excluded=0
 group by date_format(crawl.date_executed, '%Y-%m-%d') limit 10
 ";
-$result4 = mysql_query($sql4);
+$dashchart_array = $db_resource->GetResultObj($sql4);
+//$result4 = mysql_query($sql4);
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
 $chart_violation_amount2_rows = array();
-while ($row = mysql_fetch_array($result4)) {
+foreach ($dashchart_array as $dashch) {
     
-    $chart_row = strtotime($row ['Date']) * 1000;
+
+//while ($row = mysql_fetch_array($result4)) {
+    
+    $chart_row = strtotime($dashch-> Date) * 1000;
     array_push($chart_vendor_rows, $chart_row);
-    array_push($chart_violation_amount_rows, $row['skucount']);
-    array_push($chart_violation_amount2_rows, $row['dealercount']);
+    array_push($chart_violation_amount_rows, $dashch->skucount);
+    array_push($chart_violation_amount2_rows, $dashch->dealercount);
 }
 //print_r($result1);
 $js_data_string_vendors = implode($chart_vendor_rows, ",");
