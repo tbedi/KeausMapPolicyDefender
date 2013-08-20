@@ -4,7 +4,17 @@ $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
  
 
-
+if (isset($_REQUEST['website_id']) )
+{
+       
+    $name=$_REQUEST['wname'];
+   
+}
+else
+{
+    $name="";
+   
+}
 
 foreach ($violators_array as $violator){
 
@@ -28,7 +38,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
             margin: [ 50, 50, 160, 150]
          },
          title: {
-             text: 'Violation by Dealers'
+             text: 'Violation By <?php echo $name ?>',
          },
          xAxis: {
              categories: [
@@ -92,4 +102,4 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
 
 </script>
 
-<div id="chart-a4"  style="width: 800px; height: 400px; margin: 0 auto"></div>
+<div id="chart-a4"  style="width: 600px; height: 400px; margin: 0 auto"></div>

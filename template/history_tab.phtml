@@ -150,7 +150,7 @@
 
 
                         <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            Dealers
+                            Dealer
                         </a>
                         <?php if ($order_field == "name") { ?>
                             <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
@@ -172,7 +172,7 @@
 
 
                         <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            Dealers price  
+                            Dealer price  
                         </a>
                         <?php if ($order_field == "vendor_price") { ?>
                             <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
@@ -300,45 +300,69 @@
             <div class="divt2222">
                 <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> 
         </div>
-        <table>
-            <tr><td>
-                    <?php
+        <?php
                     if (isset($_REQUEST['website_id'])) {
                         ?>
-
+        <table>
+            <tr><td>
                         <div>
                             <?php include_once 'charts/a4.php'; ?>
                         </div>
-                        <div style="clear:left; padding-top: 80px; padding-left: 6px;  display: none"> 
-                            <?php include_once 'charts/a5.php'; ?>
-                        </div>
-                    <?php } else { ?>
-                        <div style="clear:left; padding-top: 50px;padding-left: 6px; "> 
-                            <?php include_once 'charts/a5.php'; ?>
-                        </div>
-                    <?php } ?>
+                                          
                 </td>
             </tr>
             <tr><td>
-
-                    <?php
-                    if (isset($_REQUEST['product_id'])) {
-                        ?>
-                        <div>
-                            <?php include_once 'charts/a3.php'; ?>
-                        </div>
-                        <div style="float: left; padding-top:  50px; padding-left: 6px;display: none"> 
-                            <?php include_once 'charts/a6.php'; ?>
-                        </div>
-                    <?php } else { ?>
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
                             <?php include_once 'charts/a6.php'; ?>
                         </div>
-                    <?php } ?>
+                   
                 </td>
             </tr>
 
         </table>
+         <?php } 
+         
+               elseif (isset($_REQUEST['product_id'])) {
+                        ?>
+        <table>
+            <tr><td>
+                       <div>
+                            <?php include_once 'charts/a3.php'; ?>
+                        </div>
+                           
+                </td>
+            </tr>
+            <tr><td>
+
+                     <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
+                            <?php include_once 'charts/a5.php'; ?>
+                        </div>
+                   </td>
+            </tr>
+        </table>
+        <?php } 
+         
+               else {
+                        ?>
+        
+        <table>
+            <tr><td>
+                    
+                        <div style="clear:left; padding-top: 50px;padding-left: 6px; "> 
+                            <?php include_once 'charts/a5.php'; ?>
+                        </div>
+                   
+                </td>
+            </tr>
+            <tr><td>
+                        <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
+                            <?php include_once 'charts/a6.php'; ?>
+                        </div>
+                    </td>
+            </tr>
+
+        </table>
+               <?php } ?>
     </div>
 </div>
 <!--<br/>-->
