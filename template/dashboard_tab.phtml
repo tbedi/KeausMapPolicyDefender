@@ -12,26 +12,23 @@
 
             </tr>
 <?php
- 
-while ($row = mysql_fetch_array($resultDls)) {
- 
-
-    $rnm = '';
-    $avg = ($row['countcurrent']+$row['countprev'])/2;
-    $percent = ($row['diff']/$avg)*100;
+ foreach ($dashboard_array as $dash) {
+$rnm = '';
+    $avg = ($dash->countcurrent + $dash->countprev )/2;
+    $percent = ($dash->diff /$avg)*100;
     echo "<tr>";
     echo "<td>";
-    if($row['diff']<0) $x ="red";
-    elseif ($row['diff']==0) $x ="black";
-    elseif ($row['diff']>0) $x ="green";
-    if(strlen($row['name']) > 18)
-        $rnm = substr($row['name'],0,18)."...";
-    else $rnm = $row['name'];
-    echo "<a href="."index.php?tab=violations-history&website_id=". $row['website_id'] ."&wname=".$row['name'].">" . $rnm . "</td>" . "<td>" . $row['countcurrent']." ("."<font color="."$x".">".($row['diff'] > 0 ? "+" : "").$row['diff']."</font>".")"."</td>"."<td>" . $row['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $row['countsum'] . "</td>" . "</tr>";
+    if($dash->diff <0) $x ="red";
+    elseif ($dash->diff ==0) $x ="black";
+    elseif ($dash->diff >0) $x ="green";
+    if(strlen($dash->name) > 18)
+        $rnm = substr($dash->name,0,18)."...";
+    else $rnm = $dash->name;
+    echo "<a href="."index.php?tab=violations-history&website_id=". $dash->website_id ."&wname=".$dash->name.">" . $rnm . "</td>" . "<td>" .$dash->countcurrent." ("."<font color="."$x".">".($dash->diff > 0 ? "+" : "").$dash->diff."</font>".")"."</td>"."<td>" . $dash->countprev . "</td>" . "<td>" . "<font color="."$x".">".($dash->diff > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $dash->countsum . "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
-}
-//print_r($chart_vendor_rows);
+ }
+
 echo "</table>";
 
 
@@ -51,20 +48,19 @@ echo "</table>";
                 <td >Total violated</td>
             </tr>
 <?php
- 
-while ($row = mysql_fetch_array($resulttop)) {
+ foreach ($dash_array as $dash1) {
+     echo "<tr>";
+    echo "<td>";
+    if($dash1->diff <0) $x = "red";
+    elseif ($dash1->diff ==0) $x = "black";
+    elseif ($dash1->diff >0) $x = "green";
+    if(strlen($dash1->sku ) > 10)
+        $rnm = substr($dash1-> sku ,0,10)."...";
+    else $rnm = $dash1->sku;
+    echo "<a href="."index.php?tab=violations-history&product_id=". $dash1->product_id ."&sku=". $dash1->sku .">" . $rnm . "</td>" . "<td>" . $dash1->currentcount ." (" . "<font color="."$x".">".($dash1->diff > 0 ? "+" : ""). $dash1->diff."</font>".")"."</td>" . "<td>" . $dash1->prevcount . "</td>"."<td>" .$dash1->countsum . "</td>" . "</tr>";
+ }
  
 
-    echo "<tr>";
-    echo "<td>";
-    if($row['diff']<0) $x = "red";
-    elseif ($row['diff']==0) $x = "black";
-    elseif ($row['diff']>0) $x = "green";
-    if(strlen($row['sku']) > 10)
-        $rnm = substr($row['sku'],0,10)."...";
-    else $rnm = $row['sku'];
-    echo "<a href="."index.php?tab=violations-history&product_id=". $row['product_id'] ."&sku=". $row['sku'] .">" . $rnm . "</td>" . "<td>" . $row['currentcount']." (" . "<font color="."$x".">".($row['diff'] > 0 ? "+" : ""). $row['diff']."</font>".")"."</td>" . "<td>" . $row['prevcount'] . "</td>"."<td>" . $row['countsum'] . "</td>" . "</tr>";
-}
 echo "</table>";
 ?>
 
@@ -81,15 +77,15 @@ echo "</table>";
 
             </tr>
 <?php
-
-while ($row = mysql_fetch_array($result3)) {
+foreach ($dash1_array as $dash2) {
     echo "<tr>";
     echo "<td>";
-    if(strlen($row['sku']) > 15)
-        $rnm = substr($row['sku'],0,15)."...";
-    else $rnm = $row['sku'];
-    echo "<a href=" . ">" . $rnm . "</td>" . "<td>$" . $row['violation_amount'] . "</td>" . "</tr>";
+    if(strlen($dash2->sku) > 15)
+        $rnm = substr($dash2->sku ,0,15)."...";
+    else $rnm = $dash2->sku;
+    echo "<a href=" . ">" . $rnm . "</td>" . "<td>$" . $dash2-> violation_amount . "</td>" . "</tr>";
 }
+
 echo "</table>";
 ?>
 </div>
@@ -130,10 +126,6 @@ echo "</table>";
                 <td width="250">Started Violations SKU</td>
             </tr>					
             <?php
-
-
-           
-
              $i = 0;
              forEach($resultstrt as $key => $value) {
                  if($i>2) break;
@@ -152,7 +144,7 @@ echo "</table>";
             ?>
             </td>
     </div>
-<div class="cell" class="input"> 
+<div class="cell" class="input" style="height:200px;width:210px;" > 
     <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
         <table class="Dash">
