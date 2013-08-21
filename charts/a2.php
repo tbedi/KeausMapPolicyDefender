@@ -85,7 +85,7 @@ $js_data_string = implode($chart_rows, ",");
                         events: {
                           click: function(e) {
                              this.slice();                                                   
-                             location.href = "/index.php?tab=violation-by-seller&action=search&field=name&value="+ this.name;                        
+                             location.href = "/index.php?tab=violations-history";                        
                              e.preventDefault();
                           }
                        }
