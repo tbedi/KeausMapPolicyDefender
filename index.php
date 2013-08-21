@@ -37,12 +37,12 @@ $pagination= new Pagination();
                         <div class="tabpage recent" id="tabpage_2">
                             <?php include_once 'recent.php'; ?>
                         </div>
-                        <div class="tabpage violation-by-product" id="tabpage_3">
-                            <?php include_once 'product.php'; ?>
+<!--                        <div class="tabpage violation-by-product" id="tabpage_3">
+                            <?php // include_once 'product.php'; ?>
                         </div>
                     	<div class="tabpage violation-by-seller" id="tabpage_4">
-                            <?php include_once 'vendor.php'; ?>
-                        </div>
+                            <?php // include_once 'vendor.php'; ?>
+                        </div>-->
                         <div class="tabpage violations-history" id="tabpage_5">
                             <?php include_once 'history.php'; ?>
                         </div>    

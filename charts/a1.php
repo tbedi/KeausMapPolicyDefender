@@ -1,4 +1,3 @@
-
 <?php
 //getting last crawl
 $sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
