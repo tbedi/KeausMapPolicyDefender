@@ -113,7 +113,7 @@ and website_id = $website_id " . $where . "
 
  
 $violators_array=$db_resource->GetResultObj($sql);
- 
+//echo $sql; 
 
 $_SESSION['vendor2Array']=$violators_array;
 if(isset($_SESSION['vendor2Array']))

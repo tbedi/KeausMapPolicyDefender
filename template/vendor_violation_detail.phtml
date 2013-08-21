@@ -1,6 +1,12 @@
 <div style="height: 100%;width: 100%;">
     <div style="clear:  left; float: left; width:43%"> 
-        <div class="top-paneltab"> Products Violated By <?php echo $violators_array3[0]->wname; ?> </div>
+        <?php
+        if(isset($_SESSION['vviolationTitle']))
+{
+  //  print_r($_SESSION['vendor2Array3']); 
+  
+}?>
+        <div class="top-paneltab"> Products Violated By <?php if(isset( $_SESSION['vviolationTitle'])) echo $_SESSION['vviolationTitle']; ?> </div>
 
         <div class="cleaner1" >
 
@@ -146,7 +152,7 @@
                         <?php
                         if (count($violators_array) == 0) {
                             ?><table class="GrayBlack" align="center">
-                                <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+                                <tr align="center"><td width="700"> No Records Found  </td> </tr></table>
                         <?php }
                         ?>
                     </td>  
