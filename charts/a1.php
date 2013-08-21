@@ -37,6 +37,7 @@ $chart_rows = array();
 foreach ($items as $product) {
     $chart_row = "['" . $product['sku'] . "'," . round(100 * $product['violations'] / $sum, 2) . "]";
     array_push($chart_rows, $chart_row);
+    
 }
 
 $js_data_string = implode($chart_rows, ",");
@@ -82,7 +83,7 @@ $js_data_string = implode($chart_rows, ",");
                         events: {
                           click: function(e) {
                              this.slice();                                                   
-                             location.href = "/index.php?tab=violation-by-product&action=search&field=sku&value="+ this.name;                        
+                             location.href = "/index.php?tab=violations-history";                        
                              e.preventDefault();
                           }
                        }

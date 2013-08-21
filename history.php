@@ -145,6 +145,12 @@ $sql3 = "SELECT min(date_format(crawl.date_executed,'%Y-%m-%d')) as mindate from
  $violators_array3=$db_resource->GetResultObj($sql3);
 $mindate=$violators_array3[0]->mindate;
 /* calender dates */
+////////////////////////
+$sqldate="select date_format(crawl.date_executed,'%Y-%m-%d') as date_executed from crawl
+where id in(select  max(id) from crawl); "; 
+
+$violators_array_date=$db_resource->GetResultObj($sqldate);
+
 
 if (isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
     $to = $_POST["to"];
@@ -154,12 +160,12 @@ if (isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET['
      $_SESSION['tc'] = $_POST["to"];
     $_SESSION['frc'] = $_POST["from"];
 }
- 
+
 else {
-    $to= date("Y-m-d");
-         $from= date('Y-m-d',strtotime("-1 days"));
-	$_SESSION['t'] = date("Y-m-d");
-	$_SESSION['fr'] = date('Y-m-d',strtotime("-1 days"));
+        $to= $violators_array_date[0]->date_executed;
+        $from= $violators_array_date[0]->date_executed;
+	$_SESSION['t'] = $to;
+	$_SESSION['fr'] = $from;
         $_SESSION['tc'] = date("Y-m-d");
 	$_SESSION['frc'] = $mindate;
 }

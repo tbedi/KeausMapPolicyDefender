@@ -10,7 +10,7 @@ if (isset($_REQUEST['website_id']) )
 {
     $wname=$_REQUEST['website_id'];
     
-    $name=$_REQUEST['wname'];
+     $name= preg_replace('/[^A-Za-z0-9. \-]/', '', $_REQUEST['wname']);
     $condition=" and website_id =".$wname." ";
 }
 else

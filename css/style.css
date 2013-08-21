@@ -21,7 +21,16 @@
 	padding:0;
 }
 
-
+.trp{
+    font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+background-color:#ECF5DC;
+text-align:center;
+border-width:0px 0px 1px 1px;
+color:#000000;
+text-transform: capitalize;background-color: #ECF5DC;
+}
 
 
 #tabs{

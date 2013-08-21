@@ -114,11 +114,19 @@
 
         </div>
 
+<script type="text/javascript">
 
-        <table class="GrayBlack" align="left" style="width: 100%;">
-            <tbody id="data">
+$(document).ready(function() { $('table#filterTable2').columnFilters({alternateRowClassNames:['rowa','rowb'], excludeColumns:[0,3,4,5,7]}); });
 
-                <tr> 
+</script>
+        
+        
+        
+        <table class="GrayBlack" id="filterTable2"  align="left" style="width: 100%;">
+            <thead>
+           
+
+                <tr style=" background-color: #ECF5DC;"> 
                     <td>
 
                         <div id="checkboxlisth">
@@ -223,7 +231,11 @@
                         Link
                     </td>
                 </tr>
-
+ </thead>
+               
+ 
+<tfoot></tfoot>
+ <tbody>
 
                 <?php
                 foreach ($violators_array as $violator) {

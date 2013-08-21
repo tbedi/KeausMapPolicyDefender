@@ -1,4 +1,3 @@
-
 <div class="top-paneltab" align="center">Violations as of the day ( <?php echo $str; ?>)</div>
 <div style="height: 100%; width: 100%;">
     <div style="clear:  left; float: left; width:50%"> 
@@ -53,10 +52,41 @@ function exportCSV(){
         <!--<div style="align:right; width: 700px; padding-left: 324px; ">
          <img src="../images/message.png" /></div>-->
 <!--<form method="post" action="index.php?tab=recent" id="form">-->
+
+<!--<style type="text/css">
+
+table tr th {
+	background-color: #d3DADE;
+	padding: 3px;
+}	
+table tr.rowb { background-color:#EAf2FD; }
+
+table tr.filterColumns td { padding:2px; }
+
+body { padding-bottom:150px; }
+
+
+</style>-->
+<!--<script type="text/javascript">
+
+$(document).ready(function() { $('table#filterTable2').columnFilters({alternateRowClassNames:['rowa','rowb'], excludeColumns:[0,3,4,5,6]}); });
+
+</script>-->
+
+
         <table class="GrayBlack" align="left" style="width: 700px;">
-        <!--                <tbody id="data">-->
-            <tbody >
-                <tr> 
+            
+            <thead>
+ 
+
+                <tr style="  font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+background-color:#ECF5DC;
+text-align:center;
+border-width:0px 0px 1px 1px;
+color:#000000;
+text-transform: capitalize;background-color: #ECF5DC;"> 
                     <td>
                           
                         <div id="checkboxlist">
@@ -128,6 +158,14 @@ function exportCSV(){
                     </td>
 
                 </tr>
+                
+                </thead>
+               
+ 
+<tfoot></tfoot>
+ <tbody>
+               
+   
                 <?php
                 foreach ($violators_array as $violator) {
                     //  $i = 0;
@@ -138,16 +176,17 @@ function exportCSV(){
                     else if ($violator->violation_amount >= 10)
                         $cell_id = "vioR";
                     ?>
+                 
                     <tr>
-                        <td>
+                        <td >
                             <?php $checkid = $violator->id; ?>
                             <input type="checkbox"  class="case" id="case" name="case" value="<?php echo $checkid; ?>"    /> 
                         </td>
                         <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->product_id; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
                         <td ><a href="index.php?tab=violations-history&website_id=<?php echo $violator->website_id; ?>&wname=<?php echo $violator->name; ?>"><?php echo $violator->name; ?></a></td>
-                        <td><?php echo toMoney($violator->vendor_price); ?></td>
-                        <td><?php echo toMoney($violator->map_price); ?></td>
-                        <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
+                        <td ><?php echo toMoney($violator->vendor_price); ?></td>
+                        <td ><?php echo toMoney($violator->map_price); ?></td>
+                         <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
                         <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
 
                     </tr>

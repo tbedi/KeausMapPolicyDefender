@@ -7,10 +7,12 @@ $chart_violation_amount_rows = array ();
 if (isset($_REQUEST['website_id']) )
 {
        
-    $name=$_REQUEST['wname'];
+    //$name=$_REQUEST['wname'];
+    $name= preg_replace('/[^A-Za-z0-9. \-]/', '', $_REQUEST['wname']);
    
 }
-else
+else if ($_REQUEST['wname'] && $_REQUEST['wname']=="Zigsby's Kitchen") $name="zigbi";
+else 
 {
     $name="";
    
@@ -27,7 +29,9 @@ foreach ($violators_array as $violator){
   
 $js_data_string_vendors = implode ( $chart_vendor_rows, "," );
 $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
- 
+//echo $js_data_string_vendors;
+//echo $js_data_string_amounts;
+// 
 ?>
  <script type="text/javascript">
  $(function () {
