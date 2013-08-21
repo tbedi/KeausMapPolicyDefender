@@ -257,9 +257,9 @@ if (isset($_REQUEST['listh']) )
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,
-    date_format(crawl.date_executed,'%Y-%m-%d %H:%i:%s') as date_executed,
+    date_format(crawl.date_executed,'%m-%d-%Y %H:%i:%s') as date_executed,
 catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id,
-website.name , 
+website.name as vendor, 
 crawl_results.vendor_price ,
 crawl_results.map_price ,
 crawl_results.violation_amount ,

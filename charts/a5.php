@@ -87,7 +87,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
             },
             yAxis: {
                 title: {
-                    text: 'Violation',
+                    text: 'Violations',
                     style: {
                         fontSize: '13px',
                         fontFamily: 'Arial',

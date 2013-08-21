@@ -1,161 +1,172 @@
 <div style="height: 100%;width: 100%;">
-<div style="clear:  left; float: left; width:43%"> 
-<div class="top-paneltab"> Products Violated By <?php echo $violators_array3[0]->wname; ?> </div>
+    <div style="clear:  left; float: left; width:43%"> 
+        <div class="top-paneltab"> Products Violated By <?php echo $violators_array3[0]->wname; ?> </div>
 
-<div class="cleaner1" >
-
-</div>
-
-
-            <?php if (count($violators_array) > 3 * 15) : //more 3x default limit?>
-                <div class="divt1">
-
-                    <input  class="vendor-violation-search2 search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
-                </div>
-                <div class="divt22 search-btn-container">
-                    <button href="javascript:void(0);" class="btn-search"  onclick="search('.vendor-violation-search2', 'sku', 'search2');">Search</button>
-                </div>
-                <div class="divt22">
-
-                    <button href="javascript:void(0);" class="btn-search"  onclick="show_all2();" >Show all</button>
-                </div>
-            <?php endif; ?>
-       
-            <div style="align: right; float: right">
-        <a target="_blank" href="./export/export_vendor2_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "/></a>
-        <a target="_blank" href="./export/export_vendor2_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "/></a>
-        <a target="_blank" href="./export/export_vendor2_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "/></a>
-
-
-
-
-    </div>
-      
-            <div class="results-per-page-block" style="align: right; float: right ;padding-top: 10px; padding-right: 10px;" >
-                <select name="vendor2-limitv2" class="results-per-page2 dropdown"  >
-
-                    <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
-                    <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
-                    <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
-                    <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
-                    <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
-                </select>
-            </div>
-      
-
-<!-- table part -->
-<div class="cleaner1" >
-
-</div>
-
-<div>
-   
-        <table align="left">
-            <tr>
-                <td>
-                    <table class="GrayBlack" align="left" style="width: 670px; ">
-<!--                        <tbody id="data">-->
-                        <tbody>
-                            <tr> 
-                                 <td>
-                          
-                        <div id="checkboxlistv">
-                            <input type="checkbox" id="selectallv" value="1"/>
-                        </div>
-
-
-                    </td>
-                                <td >
-
-                                    <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                      SKU  
-                                    </a>
-                                    
-                                    <?php if ($order_field == "sku") { ?>
-                                       <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
-                                    <?php } ?>
-                                </td>
-                                <td >
-
-                                    <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                       Dealers price 
-                                    </a>
-                                    <?php if ($order_field == "vendor_price") { ?>
-                                      <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
-                                    <?php } ?>
-                                </td>
-                                <td >
-
-                                    <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                      Map price  
-                                    </a>
-                                    <?php if ($order_field == "map_price") { ?>
-                                      <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
-                                    <?php } ?>
-                                </td>
-                                <td >
-
-                                    <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
-                                       Violation amt 
-                                    </a>
-                                    <?php if ($order_field == "violation_amount") { ?>
-                                       <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    Link
-                                </td>
-
-                            </tr>
-                            <?php
-                            foreach ($violators_array as $violator) {
-
-                                $cell_id = "vio";
-                                if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
-                                    $cell_id = "vioO";
-                                else if ($violator->violation_amount >= 10)
-                                    $cell_id = "vioR";
-                                ?>
-                                <tr>
-                                   <td>
-                            <?php $checkid = $violator->id; ?>
-                            <input type="checkbox"  class="casev" id="casev" name="casev" value="<?php echo $checkid; ?>"    /> 
-                        </td>
-                                      <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->entity_id; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
-                                    <td><?php echo toMoney($violator->vendor_price); ?></td>
-                                    <td><?php echo toMoney($violator->map_price); ?></td>
-                                   <!-- <td><?php //echo money_format('$%i',$violator->map_price);    ?></td> -->
-                                    <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
-                                    <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
-
-                                </tr>				
-                            <?php } ?>
-
-                        </tbody></table> 
-                    <?php
-                    if (count($violators_array) == 0) {
-                        ?><table class="GrayBlack" align="center">
-                            <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
-                    <?php }
-                    ?>
-                </td>  
-            </tr>       
-        </table> 
-
-    <div class="cleaner" style="padding-top: 15px; ">
+        <div class="cleaner1" >
 
         </div>
-        <div align="left" style="display:block;  " >
-            <?php echo $pagination_html; ?>
-        </div>	
- 
 
+
+        <?php if (count($violators_array) > 3 * 15) : //more 3x default limit?>
+            <div class="divt1">
+
+                <input  class="vendor-violation-search2 search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-seller') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+            </div>
+            <div class="divt22 search-btn-container">
+                <button href="javascript:void(0);" class="btn-search"  onclick="search('.vendor-violation-search2', 'sku', 'search2');">Search</button>
+            </div>
+            <div class="divt22">
+
+                <button href="javascript:void(0);" class="btn-search"  onclick="show_all2();" >Show all</button>
+            </div>
+        <?php endif; ?>
+
+        <div style="align: right; float: right">
+            <a target="_blank" href="./export/export_vendor2_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "/></a>
+            <a target="_blank" href="./export/export_vendor2_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "/></a>
+            <a target="_blank" href="./export/export_vendor2_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "/></a>
+
+
+
+
+        </div>
+
+        <div class="results-per-page-block" style="align: right; float: right ;padding-top: 10px; padding-right: 10px;" >
+            <select name="vendor2-limitv2" class="results-per-page2 dropdown"  >
+
+                <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
+                <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
+                <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
+                <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
+                <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
+                 <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
+                <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
+                <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
+            </select>
+        </div>
+
+
+        <!-- table part -->
+        <div class="cleaner1" >
+
+        </div>
+
+        <div>
+
+            <table align="left">
+                <tr>
+                    <td>
+                        <table class="GrayBlack" align="left" style="width: 670px; ">
+    <!--                        <tbody id="data">-->
+                            <tbody>
+                                <tr> 
+                                    <td>
+
+                                        <div id="checkboxlistv">
+                                            <input type="checkbox" id="selectallv" value="1"/>
+                                        </div>
+
+
+                                    </td>
+                                    <td >
+
+                                        <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                            SKU  
+                                        </a>
+
+                                        <?php if ($order_field == "sku") { ?>
+                                            <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                                            </a>
+                                        <?php } ?>
+                                    </td>
+                                    <td >
+
+                                        <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                            Dealer price 
+                                        </a>
+                                        <?php if ($order_field == "vendor_price") { ?>
+                                            <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                                            </a>
+                                        <?php } ?>
+                                    </td>
+                                    <td >
+
+                                        <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                            Map price  
+                                        </a>
+                                        <?php if ($order_field == "map_price") { ?>
+                                            <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                            </a>
+                                        <?php } ?>
+                                    </td>
+                                    <td >
+
+                                        <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                            Violation amt 
+                                        </a>
+                                        <?php if ($order_field == "violation_amount") { ?>
+                                            <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                            </a>
+                                        <?php } ?>
+                                    </td>
+                                    <td>
+                                        Link
+                                    </td>
+
+                                </tr>
+                                <?php
+                                foreach ($violators_array as $violator) {
+
+                                    $cell_id = "vio";
+                                    if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
+                                        $cell_id = "vioO";
+                                    else if ($violator->violation_amount >= 10)
+                                        $cell_id = "vioR";
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php $checkid = $violator->id; ?>
+                                            <input type="checkbox"  class="casev" id="casev" name="casev" value="<?php echo $checkid; ?>"    /> 
+                                        </td>
+                                        <td ><a href="index.php?tab=violations-history&product_id=<?php echo $violator->entity_id; ?>&sku=<?php echo $violator->sku; ?>"><?php echo $violator->sku; ?></a></td>
+                                        <td><?php echo toMoney($violator->vendor_price); ?></td>
+                                        <td><?php echo toMoney($violator->map_price); ?></td>
+                                       <!-- <td><?php //echo money_format('$%i',$violator->map_price);      ?></td> -->
+                                        <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
+                                        <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
+
+                                    </tr>				
+                                <?php } ?>
+
+                            </tbody></table> 
+                        <?php
+                        if (count($violators_array) == 0) {
+                            ?><table class="GrayBlack" align="center">
+                                <tr align="center"><td width="500"> No Records Found  </td> </tr></table>
+                        <?php }
+                        ?>
+                    </td>  
+                </tr>       
+            </table> 
+
+            <div class="cleaner" style="padding-top: 15px; ">
+
+            </div>
+            <div align="left" style="display:block;  " >
+                <?php echo $pagination_html; ?>
+            </div>	
+
+
+        </div>
     </div>
-</div>
     <div style="float: right;width:55%;">    
 
         <div>
-            <?php include_once 'charts/a4.php'; ?>
+            <?php// include_once 'charts/a4.php'; ?>
         </div>
     </div>
 </div>

@@ -2,8 +2,17 @@
 // collecting rows information
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
-
-foreach ($violators_all_array as $violator) {
+if (isset($_REQUEST['sku']) )
+{
+    $sku=$_REQUEST['sku'];
+   
+}
+else
+{
+    $sku="";
+    
+}
+foreach ($violators_array as $violator) {
     $chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $violator->vendor) . "'";
     array_push($chart_vendor_rows, $chart_row);
     array_push($chart_violation_amount_rows, $violator->violation_amount);
@@ -21,7 +30,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
             margin: [ 50, 50, 160, 150],
     },
             title: {
-    text: 'Violation by product'
+    text: 'Violation By <?php echo $sku ?>',
     },
             xAxis: {
     categories: [
@@ -85,4 +94,4 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 
 </script>
 
-<div id="chart-a3"  style="width: 800px; height: 400px; margin: 0 auto"></div>
+<div id="chart-a3"  style="width: 600px; height: 400px; margin: 0 auto"></div>
