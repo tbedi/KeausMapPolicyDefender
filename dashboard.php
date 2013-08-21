@@ -9,20 +9,22 @@ $result1 = mysql_query($sqlcwl);
 $last_crawl1 = mysql_fetch_assoc($result1);
 
 
-
-$sql1 = "SELECT 
-website.name name, crawl_results.website_id, count(crawl_results.website_id) countcurrent, tab1.countprev countprev, count(crawl_results.website_id)-tab1.countprev diff, count(crawl_results.website_id)+tab1.countprev countsum
+$sql = "SELECT 
+website.name name, website_id, count(crawl_results.website_id) countcurrent
 from website
 inner join
 crawl_results
 on website.id = crawl_results.website_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-and crawl_results.crawl_id = " . $last_crawl['id'] . "
-inner join
-(
-SELECT
-website.name name, count(crawl_results.website_id) countprev
+and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+and crawl_results.violation_amount>0.05 and website.excluded=0
+group by website.name, website_id
+order by countcurrent desc limit 10";
+
+        
+ $sqld = "SELECT
+website.name name, website_id, count(crawl_results.website_id) countprev
 from website
 inner join
 crawl_results
@@ -30,13 +32,21 @@ on website.id = crawl_results.website_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl1['id'] . "
-group by website.name
-) as tab1 on tab1.name = website.name where crawl_results.violation_amount>0.05 and website.excluded=0
-group by website.name
-order by countcurrent desc limit 10
-";
-$dashboard_array = $db_resource->GetResultObj($sql1);
+and crawl_results.violation_amount>0.05 and website.excluded=0
+group by website.name, website_id order by countprev desc limit 10";
 
+         $dashh_array = $db_resource->GetResultObj($sql);
+             $dashh1_array = $db_resource->GetResultObj($sqld);
+        
+         
+             $newArray = Array();
+foreach($dashh_array as $k=>$val)
+{
+    if(array_key_exists($k, $dashh1_array))
+    {
+        $newArray[$k] = array_merge((array)$val,(array)$dashh1_array[$k]);
+    }
+}
 
 $sql2 = "select
 catalog_product_flat_1.sku, crawl_results.product_id,

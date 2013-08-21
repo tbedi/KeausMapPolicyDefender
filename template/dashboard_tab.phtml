@@ -12,30 +12,54 @@
 
             </tr>
 <?php
- foreach ($dashboard_array as $dash) {
-$rnm = '';
-    $avg = ($dash->countcurrent + $dash->countprev )/2;
-    $percent = ($dash->diff /$avg)*100;
+
+foreach ($newArray as $dash) {  
+//$rnm = '';
+//print_r($dash->countcurrent);
+$diffr = ($dash['countcurrent'] - $dash['countprev']);
+$csum = ($dash['countcurrent'] + $dash['countprev']);
+
+    $avg = ($csum)/2;
+    $percent = ($diffr/$avg)*100;
     echo "<tr>";
     echo "<td>";
-    if($dash->diff <0) $x ="red";
-    elseif ($dash->diff ==0) $x ="black";
-    elseif ($dash->diff >0) $x ="green";
-    if(strlen($dash->name) > 18)
-        $rnm = substr($dash->name,0,18)."...";
-    else $rnm = $dash->name;
-    echo "<a href="."index.php?tab=violations-history&website_id=". $dash->website_id ."&wname=".$dash->name.">" . $rnm . "</td>" . "<td>" .$dash->countcurrent." ("."<font color="."$x".">".($dash->diff > 0 ? "+" : "").$dash->diff."</font>".")"."</td>"."<td>" . $dash->countprev . "</td>" . "<td>" . "<font color="."$x".">".($dash->diff > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $dash->countsum . "</td>" . "</tr>";
+    if($diffr <0) $x ="red";
+    elseif ($diffr ==0) $x ="black";
+    elseif ($diffr >0) $x ="green";
+    if(strlen($dash['name']) > 18)
+        $rnm = substr($dash['name'],0,18)."...";
+    else $rnm = $dash['name'];
+    echo "<a href="."index.php?tab=violations-history&website_id=". $dash['website_id']."&wname=".$dash['name'].">" .$dash['name']."</td>"."<td>" .$dash['countcurrent']." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($diffr > 0 ? "+" : "").round($percent, 2)."%"."</font>" . "<td>" . $csum. "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
  }
-
+//print_r($diffr);
 echo "</table>";
+// foreach ($dashboard_array as $dash) {
+//$rnm = '';
+//    $avg = ($dash->countcurrent + $dash->countprev )/2;
+//    $percent = ($dash->diff /$avg)*100;
+//    echo "<tr>";
+//    echo "<td>";
+//    if($dash->diff <0) $x ="red";
+//    elseif ($dash->diff ==0) $x ="black";
+//    elseif ($dash->diff >0) $x ="green";
+//    if(strlen($dash->name) > 18)
+//        $rnm = substr($dash->name,0,18)."...";
+//    else $rnm = $dash->name;
+//    echo "<a href="."index.php?tab=violations-history&website_id=". $dash->website_id ."&wname=".$dash->name.">" . $rnm . "</td>" . "<td>" .$dash->countcurrent." ("."<font color="."$x".">".($dash->diff > 0 ? "+" : "").$dash->diff."</font>".")"."</td>"."<td>" . $dash->countprev . "</td>" . "<td>" . "<font color="."$x".">".($dash->diff > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $dash->countsum . "</td>" . "</tr>";
+//    echo "</td>";
+//    echo "</tr>";
+// }
+//
+//echo "</table>";
 
 
 	
 //while ($row = $newArray) {
-////    print_r($row);
+//    print_r($row);
 //    $rnm = '';
+//    $diff = $row['countcurrent'] - $row['countprev'];
 //    $avg = ($row['countcurrent']+$row['countprev'])/2;
 //    $percent = ($row['diff']/$avg)*100;
 //    echo "<tr>";
@@ -51,30 +75,7 @@ echo "</table>";
 //    echo "</tr>";
 //}
 //print_r($newArray);
-// foreach ($newArray as $dash) {  
-//$rnm = '';
-//print_r($dash->countcurrent);
-//$diffr = $dash->countcurrent - $dash->countprev;
-//$csum = $dash->countcurrent + $dash->countprev;
-//
-//    $avg = ($diffr)/2;
-//    $percent = ($diffr/$avg)*100;
-//    echo "<tr>";
-//    echo "<td>";
-//    if($diffr <0) $x ="red";
-//    elseif ($diffr ==0) $x ="black";
-//    elseif ($diffr >0) $x ="green";
-//    if(strlen($dash->name) > 18)
-//        $rnm = substr($dash->name,0,18)."...";
-//    else $rnm = $dash->name;
-//    echo "<a href="."index.php?tab=violations-history&website_id=". $dash->website_id ."&wname=".$dash->name.">" . $rnm . "</td>" . "<td>" .$dash->countcurrent." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $dash->countprev . "</td>" . "<td>" . "<font color="."$x".">".($diffr > 0 ? "+" : "").round($percent, 2)."%"."</font> ". "</td>" . "<td>" . $csum . "</td>" . "</tr>";
-//    echo "</td>";
-//    echo "</tr>";
-// }
-
-echo "</table>";
-
-
+//echo "</table>";
 //print_r($js_data_string_vendors);
 ?>	
 </div>
