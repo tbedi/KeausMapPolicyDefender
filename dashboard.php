@@ -20,7 +20,8 @@ inner join crawl
 on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl['id'] . "
 inner join
-( SELECT
+(
+SELECT
 website.name name, count(crawl_results.website_id) countprev
 from website
 inner join
@@ -122,7 +123,10 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id in (" . $last_crawl['id'] . ")
+and crawl_results.crawl_id in (select 
+max(id)
+from
+crawl)
 group by crawl_results.product_id ";
              $sqll = "select 
 catalog_product_flat_1.sku
@@ -132,9 +136,16 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id in (" . $last_crawl1['id'] . ")
+and crawl_results.crawl_id in (select 
+max(id)
+from
+crawl
+where
+id not in (select 
+max(id)
+from
+crawl))
 group by crawl_results.product_id ";
-            
              $dash4_array = $db_resource->GetResultObj($sql);
              $dash5_array = $db_resource->GetResultObj($sqll);
             $array=array();
@@ -193,7 +204,10 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id = (" . $last_crawl['id'] . ")
+        and crawl_results.crawl_id = (select 
+            max(id)
+        from
+            crawl)
 group by website.name ";
              $sqll = "SELECT 
     website.name name
@@ -203,7 +217,11 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id = (" . $last_crawl1['id'] . ")
+        and crawl_results.crawl_id = (select 
+            max(id)
+        from
+            crawl
+where id !=(select max(id) from crawl))
 group by website.name";
             $dash8_array = $db_resource->GetResultObj($sql);
              $dash9_array = $db_resource->GetResultObj($sqll);
