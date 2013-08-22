@@ -4,7 +4,7 @@ $sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
 $result = mysql_query($sql);
 $last_crawl = mysql_fetch_assoc($result);
 
-$sqlcwl = "select max(id) as id from crawl where id != (select max(id) from crawl)";
+$sqlcwl = "SELECT * FROM crawl ORDER BY id DESC LIMIT 1,1";
 $result1 = mysql_query($sqlcwl);
 $last_crawl1 = mysql_fetch_assoc($result1);
 
@@ -18,7 +18,7 @@ on website.id = crawl_results.website_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl['id'] . " 
-and crawl_results.violation_amount>0.05 and website.excluded=0
+and crawl_results.violation_amount>0.05 and website.excluded=0 
 group by website.name, website_id
 order by countcurrent desc limit 10";
 
@@ -34,36 +34,91 @@ and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 and crawl_results.violation_amount>0.05 and website.excluded=0
 group by website.name, website_id order by countprev desc limit 10";
 
-         $dashh_array = $db_resource->GetResultObj($sql);
-             $dashh1_array = $db_resource->GetResultObj($sqld);
-        
-         
-             $newArray = Array();
-foreach($dashh_array as $k=>$val)
+  $dashh_array = $db_resource->GetResultObj($sql);
+  $dashh1_array = $db_resource->GetResultObj($sqld);
+  
+$newArray = Array();
+foreach($dashh1_array as $k=>$val)
 {
-    if(array_key_exists($k, $dashh1_array))
+//        if ($val = NULL ){
+//        $val= 0;
+//    }
+//    print_r ($val);
+    if(array_key_exists($k, $dashh_array))
     {
-        $newArray[$k] = array_merge((array)$val,(array)$dashh1_array[$k]);
+        $newArray[$k] = array_merge((array)$val,(array)$dashh_array[$k]);
+    }
+    else{
+        $newArray[$k] = array_merge((array)0,(array)$dashh_array[$k]);
+        
+    }
+}
+  
+$sqlc = "select
+catalog_product_flat_1.sku,
+crawl_results.product_id,
+count(crawl_results.product_id) as currentcount
+from
+crawl_results
+inner join
+catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
+inner join
+crawl ON crawl.id = crawl_results.crawl_id
+and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+where
+crawl_results.violation_amount > 0.05
+group by crawl_results.product_id
+order by currentcount desc limit 10";
+
+$sqlp = "select
+catalog_product_flat_1.sku sku1,
+count(crawl_results.product_id) as prevcount
+from
+crawl_results
+inner join
+catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
+inner join
+crawl ON crawl.id = crawl_results.crawl_id
+and crawl_results.crawl_id = " . $last_crawl1['id'] . "
+where
+crawl_results.violation_amount > 0.05
+group by crawl_results.product_id
+order by prevcount desc";
+
+
+$dashc_array = $db_resource->GetResultObj($sqlc);
+$dashp_array = $db_resource->GetResultObj($sqlp);
+             $viosku = Array();
+foreach($dashc_array as $k1=>$val1)
+{
+    if(array_key_exists($k1, $dashp_array))
+    {
+        $viosku[$k1] = array_merge((array)$val1,(array)$dashp_array[$k1]);
     }
 }
 
-$sql2 = "select
-catalog_product_flat_1.sku, crawl_results.product_id,
-count(crawl_results.product_id) as currentcount, 
-if(tab1.prevcount is null,0,tab1.prevcount) prevcount, 
-count(crawl_results.product_id)-if(tab1.prevcount is null,0,tab1.prevcount) diff,
-count(crawl_results.product_id)+if(tab1.prevcount is null,0,tab1.prevcount) countsum
-from crawl_results inner join catalog_product_flat_1 
-on crawl_results.product_id = catalog_product_flat_1.entity_id
-inner join crawl on crawl.id = crawl_results.crawl_id 
-and crawl_results.crawl_id = " . $last_crawl['id'] . " left join ( select
-catalog_product_flat_1.sku sku1, 
-count(crawl_results.product_id) as prevcount from crawl_results 
-inner join catalog_product_flat_1 on crawl_results.product_id = catalog_product_flat_1.entity_id
-inner join crawl on crawl.id = crawl_results.crawl_id and crawl_results.crawl_id = " . $last_crawl1['id'] . "
-group by crawl_results.product_id ) as tab1 on tab1.sku1 = catalog_product_flat_1.sku 
-where crawl_results.violation_amount>0.05 group by crawl_results.product_id order by currentcount desc limit 10";
-$dash_array = $db_resource->GetResultObj($sql2);
+
+
+
+//$sql2 = "select
+//catalog_product_flat_1.sku, crawl_results.product_id,
+//count(crawl_results.product_id) as currentcount, 
+//if(tab1.prevcount is null,0,tab1.prevcount) prevcount, 
+//count(crawl_results.product_id)-if(tab1.prevcount is null,0,tab1.prevcount) diff,
+//count(crawl_results.product_id)+if(tab1.prevcount is null,0,tab1.prevcount) countsum
+//from crawl_results inner join catalog_product_flat_1 
+//on crawl_results.product_id = catalog_product_flat_1.entity_id
+//inner join crawl on crawl.id = crawl_results.crawl_id 
+//and crawl_results.crawl_id = " . $last_crawl['id'] . " left join ( select
+//catalog_product_flat_1.sku sku1, 
+//count(crawl_results.product_id) as prevcount from crawl_results 
+//inner join catalog_product_flat_1 on crawl_results.product_id = catalog_product_flat_1.entity_id
+//inner join crawl on crawl.id = crawl_results.crawl_id and crawl_results.crawl_id = " . $last_crawl1['id'] . "
+//group by crawl_results.product_id ) as tab1 on tab1.sku1 = catalog_product_flat_1.sku 
+//where crawl_results.violation_amount>0.05 group by crawl_results.product_id order by currentcount desc limit 10";
+//$dash_array = $db_resource->GetResultObj($sql2);
+
+
 
 $sql3 = "SELECT
 catalog_product_flat_1.sku,
