@@ -13,9 +13,9 @@
         <div class="divt2222">
             <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
         </div>
-<!--        <div class="divt2222">
-            <input type="button" class="btn-search3" value="Get Checked values" id="buttonClass"> 
-        </div>-->
+        <!--        <div class="divt2222">
+                    <input type="button" class="btn-search3" value="Get Checked values" id="buttonClass"> 
+                </div>-->
         <div class="divt2222" >
 
 <!--            <a target="_blank" onclick="exportcsv()"> <img src="./images/CSV.png" style="height:40px; width: 40px; "  /></a>-->
@@ -31,7 +31,7 @@
                 <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
                 <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
                 <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
-                 <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
+                <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
                 <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
                 <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
             </select>
@@ -51,13 +51,13 @@ function exportCSV(){
         </div>
         <!--<div style="align:right; width: 700px; padding-left: 324px; ">
          <img src="../images/message.png" /></div>-->
-<!--<form method="post" action="index.php?tab=recent" id="form">-->
+        <!--<form method="post" action="index.php?tab=recent" id="form">-->
 
 <!--<style type="text/css">
 
 table tr th {
-	background-color: #d3DADE;
-	padding: 3px;
+        background-color: #d3DADE;
+        padding: 3px;
 }	
 table tr.rowb { background-color:#EAf2FD; }
 
@@ -75,22 +75,26 @@ $(document).ready(function() { $('table#filterTable2').columnFilters({alternateR
 
 
         <table class="GrayBlack" align="left" style="width: 700px;">
-            
+
             <thead>
- 
+
 
                 <tr style="  font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
-    font-size: 17px;
-    font-weight: normal;
-background-color:#ECF5DC;
-text-align:center;
-border-width:0px 0px 1px 1px;
-color:#000000;
-text-transform: capitalize;background-color: #ECF5DC;"> 
+                    font-size: 17px;
+                    font-weight: normal;
+                    background-color:#ECF5DC;
+                    text-align:center;
+                    border-width:0px 0px 1px 1px;
+                    color:#000000;
+                    text-transform: capitalize;background-color: #ECF5DC;"> 
                     <td>
-                          
+
                         <div id="checkboxlist">
                             <input type="checkbox" id="selectall" value="1"/>
+
+                        </div>
+                        <div id="selectallreccontainer">
+                            <a id="selectallrecr" class="selectallrecr" href="#" >Select all</a>
                         </div>
 
 
@@ -100,9 +104,9 @@ text-transform: capitalize;background-color: #ECF5DC;">
                             SKU 
                         </a>
                         <?php if ($order_field == "sku") { ?>
-                         <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                                                  
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                            <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
                             </a>
                         <?php } ?>
 
@@ -113,10 +117,10 @@ text-transform: capitalize;background-color: #ECF5DC;">
                             Dealer 
                         </a>
                         <?php if ($order_field == "name") { ?>
-                           <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
-                       </a> 
-                            <?php } ?>
+                            <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
+                            </a> 
+                        <?php } ?>
                     </td>
                     <td >
 
@@ -124,9 +128,9 @@ text-transform: capitalize;background-color: #ECF5DC;">
                             Dealer price 
                         </a>
                         <?php if ($order_field == "vendor_price") { ?>
-                          <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
-                             </a>
+                            <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
                         <?php } ?>
                     </td>
                     <td>
@@ -134,8 +138,8 @@ text-transform: capitalize;background-color: #ECF5DC;">
                             MAP
                         </a>
                         <?php if ($order_field == "map_price") { ?>
-                        <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                            <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
                             </a> 
                         <?php } ?>
                     </td>
@@ -146,9 +150,9 @@ text-transform: capitalize;background-color: #ECF5DC;">
                             Violation amount
                         </a>
                         <?php if ($order_field == "violation_amount") { ?>
-                         <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
-                             </a>
+                            <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'recent');" href="javascript:void(0);">
+                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                            </a>
 
                         <?php } ?>
                     </td>
@@ -158,14 +162,14 @@ text-transform: capitalize;background-color: #ECF5DC;">
                     </td>
 
                 </tr>
-                
-                </thead>
-               
- 
-<tfoot></tfoot>
- <tbody>
-               
-   
+
+            </thead>
+
+
+            <tfoot></tfoot>
+            <tbody>
+
+
                 <?php
                 foreach ($violators_array as $violator) {
                     //  $i = 0;
@@ -176,7 +180,7 @@ text-transform: capitalize;background-color: #ECF5DC;">
                     else if ($violator->violation_amount >= 10)
                         $cell_id = "vioR";
                     ?>
-                 
+
                     <tr>
                         <td >
                             <?php $checkid = $violator->id; ?>
@@ -186,18 +190,18 @@ text-transform: capitalize;background-color: #ECF5DC;">
                         <td ><a href="index.php?tab=violations-history&website_id=<?php echo $violator->website_id; ?>&wname=<?php echo $violator->name; ?>"><?php echo $violator->name; ?></a></td>
                         <td ><?php echo toMoney($violator->vendor_price); ?></td>
                         <td ><?php echo toMoney($violator->map_price); ?></td>
-                         <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
+                        <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
                         <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
 
                     </tr>
 
                 <?php }
                 ?>
-               
+
 
 
             </tbody></table> 
-<!--     </form>-->
+        <!--     </form>-->
         <?php
         //create object/array from json data
 //if (isset($_POST['jsonArray']))
@@ -227,19 +231,19 @@ text-transform: capitalize;background-color: #ECF5DC;">
         <?php } ?>
     </div>
     <div style="align:right;float :right; ">
-    <div class="divt2222">
+        <div class="divt2222">
             <img src="./images/red.png" value="red"/>  </div> <div class="divt2223">Violation amount > 10 </div> 
-            
-          <div class="divt2222">
+
+        <div class="divt2222">
             <img src="./images/brown.png" /></div> <div class="divt2223"> Violation amount < 10 and > 5 </div> 
-            
-            <div class="divt2222">
+
+        <div class="divt2222">
             <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> 
-            </div>
-       
-        <br>
+    </div>
+
+    <br>
     <div  >
-        
+
         <table>
             <tr>
                 <td>

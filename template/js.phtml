@@ -266,7 +266,7 @@ $(function(){
 //recent
 $(document).ready(function () {
        // $("#buttonClass").click(function() {
-         $("#buttonClass,#buttonClass1,#buttonClass2,#checkboxlist,#case").click(function() {
+         $("#buttonClass,#buttonClass1,#buttonClass2,#checkboxlist,#case,#selectallreccontainer").click(function() {
         getValueUsingClass();
     });
 });
@@ -300,19 +300,28 @@ function getValueUsingClass(){
     //////////
      
     /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-    $("#checkboxlist input:checked").each(function() {
+    $("#checkboxlist input:checked ").each(function() {
         chkall.push($(this).val());
+        var    selectedall = chkall;
     });
+   
+   //   selectedall = 0;
+    
+    
+     
+//     $("#selectallreccontainer input:clicked ").each(function() {
+//      var  selectedall = 1;
+//    });
      
    
-    var selectedall;
-    selectedall = chkall;
-    if(selectedall.length >= 1){
-    //    alert("You have selected All" + selectedall);
-    }else{
-        selectedall = 0;
-       // alert("No Selected All");  
-    }
+//    var selectedall;
+ 
+//    if(selectedall.length >= 1){
+//    //    alert("You have selected All" + selectedall);
+//    }else{
+//        selectedall = 0;
+//       // alert("No Selected All");  
+//    }
     
    
   
@@ -338,7 +347,32 @@ function getValueUsingClass(){
 ////convert array to json
     
     
-}///recent end
+}
+//  $('.selectallrecr a').click(function(){
+//        if ( $(this).hasClass('selectallrecr') ) {
+//        var  selectedall = 1;
+//        document.write("slected alllllllll");
+//        }
+//         window.location = 'index.php?tab=recent&selectallRecent='+selectedall;
+//    });
+    $('.selectallrecr').click(function() {
+   window.location.href = 'index.php?tab=recent&'+$.param(queryParameters)+'&selectallRecent=1';
+   delete queryParameters['selectallRecent'];
+});
+//$('a').click(function(e){
+//    e.preventDefault();
+//    document.location.href='http://www.redirectlink.com?ref='+this.href;
+//    return false;
+//});
+
+
+
+
+///recent end
+
+
+
+
 
 
 //check all history
@@ -400,23 +434,32 @@ $(document).ready(function () {
     /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
     $("#checkboxlisth input:checked").each(function() {
         chkallh.push($(this).val());
+        // var selectedallh= chkallh;
     });
      
    
-    var selectedallh= chkallh;
-  
-      if(selectedallh.length >= 1){
-       // alert("You have selected All" + selectedallh);
-    }else{
-     //   alert("No Selected All");  
-     selectedallh=0;
-    }
-   
+//    var selectedallh= chkallh;
+//  
+//      if(selectedallh.length >= 1){
+//       // alert("You have selected All" + selectedallh);
+//    }else{
+//     //   alert("No Selected All");  
+//     selectedallh=0;
+//    }
+//   
  
- window.location = 'index.php?tab=violations-history&selectallhistory='+selectedallh+'&listh='+selectedh;
- 
-   
-}///History end
+ window.location = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&listh='+selectedh;
+ delete queryParameters['listh'];
+  delete queryParameters['selectallhistory']; 
+}
+
+ $('.selectallrech').click(function() {
+   window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallhistory=1';
+   delete queryParameters['selectallhistory'];
+    delete queryParameters['listh'];
+});
+
+/////History end
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
