@@ -61,10 +61,10 @@
                 <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
                 <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
                 <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
-                 <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
+                <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
                 <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
                 <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
-               
+
             </select>
         </div>
         <div>
@@ -85,7 +85,7 @@
             ?>
 
             <!--            <form method="post" action="index.php?tab=violations-history">
-                            <input type="checkbox" name="info" value="on" onchange="this.form.submit()" <?php //echo $info == 'on' ? 'checked="checked" ' : '';        ?> /> Export All
+                            <input type="checkbox" name="info" value="on" onchange="this.form.submit()" <?php //echo $info == 'on' ? 'checked="checked" ' : '';         ?> /> Export All
                             <input type="hidden" name="submitted" value="1" />
                         </form>-->
 
@@ -96,7 +96,7 @@
 
 
         <div class="divt1">
-<!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];             ?>" id="textBoxSearch"    /> -->
+<!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];              ?>" id="textBoxSearch"    /> -->
 
         </div>
         <div class="divt22 search-btn-container">
@@ -114,40 +114,50 @@
 
         </div>
 
-<script type="text/javascript">
+        <script type="text/javascript">
 
-$(document).ready(function() { $('table#filterTable2').columnFilters({alternateRowClassNames:['rowa','rowb'], excludeColumns:[0,3,4,5,7]}); });
+            $(document).ready(function() {
+                $('table#filterTable2').columnFilters({alternateRowClassNames: ['rowa', 'rowb'], excludeColumns: [0, 3, 4, 5, 7]});
+            });
 
-</script>
-        
-        
-        
+        </script>
+
+
+
         <table class="GrayBlack" id="filterTable2"  align="left" style="width: 100%;">
             <thead>
-           
-
-                <tr style=" background-color: #ECF5DC;"> 
-                    <td>
-
-                        <div id="checkboxlisth">
-                            <input type="checkbox" id="selectallh" value="1"/>
-                        </div>
 
 
-                    </td>
-                    <td>
+                <tr style=" background-color: #ECF5DC;font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+background-color:#ECF5DC;border:0px solid #A6CF00;border-width:0px 0px 1px 1px;
+text-align:center;
+ border-width:0px 0px 1px 1px;
+color:#000000;
+	   text-transform: capitalize"> 
+                    <th>
+
+            <div id="checkboxlisth">
+                <input type="checkbox" id="selectallh" value="1"/>
+            </div>
+             <div id="selectallrechcontainer">
+            <a id="selectallrech" href="#" class="selectallrech" >Select all</a>
+             </div>
+            </th>
+            <th>
 
 
 
-                        <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            SKU 
-                        </a>
+                <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                    SKU 
+                </a>
 
-                        <?php if ($order_field == "sku") { ?>
-                            <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
-                            </a>
-                        <?php } ?>
+                <?php if ($order_field == "sku") { ?>
+                    <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                    </a>
+                <?php } ?>
 
 
 <!--                            <script type="text/javascript">
@@ -157,85 +167,85 @@ $(document).ready(function() { $('table#filterTable2').columnFilters({alternateR
         }
     </script>-->
 
-                    </td>	
-                    <td>
+            </th>	
+            <th>
 
 
-                        <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            Dealer
-                        </a>
-                        <?php if ($order_field == "name") { ?>
-                            <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
-                            </a>
-                        <?php } ?>
+                <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                    Dealer
+                </a>
+                <?php if ($order_field == "name") { ?>
+                    <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "name" ? $direction : "asc" ); ?>_1.png" />
+                    </a>
+                <?php } ?>
 
-                        <p>
+            <p>
 <!--                            <input class="history_violation_search searchh" placeholder="Enter Dealer..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value']; ?>" id="textBoxSearch" onkeyup="tableSearch.search(event);"   /> -->
 <!--                               <script type="text/javascript">
-                            if (document.getElementById('textBoxSearch2').value == '') {
-                                    $searchfield="sku";
-                             
-                                }
-                            </script>-->
-                        </p>
-                    </td>	
-                    <td>
+                if (document.getElementById('textBoxSearch2').value == '') {
+                        $searchfield="sku";
+                 
+                    }
+                </script>-->
+            </p>
+            </th>	
+            <th>
 
 
-                        <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            Dealer price  
-                        </a>
-                        <?php if ($order_field == "vendor_price") { ?>
-                            <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
-                            </a>
-                        <?php } ?>
-                    </td>
-                    <td>
+                <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                    Dealer price  
+                </a>
+                <?php if ($order_field == "vendor_price") { ?>
+                    <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
+                    </a>
+                <?php } ?>
+            </th>
+            <th>
 
-                        <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            MAP price
-                        </a>
-                        <?php if ($order_field == "map_price") { ?>
-                            <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
-                            </a>
-                        <?php } ?>
+                <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                    MAP price
+                </a>
+                <?php if ($order_field == "map_price") { ?>
+                    <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                    </a>
+                <?php } ?>
 
-                    </td>
-                    <td>
+            </th>
+            <th>
 
 
-                        <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            Violation amt 
-                        </a>
-                        <?php if ($order_field == "violation_amount") { ?>
-                            <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
-                            </a>
-                        <?php } ?>
-                    </td>
-                    <td>
+                <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                    Violation amt 
+                </a>
+                <?php if ($order_field == "violation_amount") { ?>
+                    <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                    </a>
+                <?php } ?>
+            </th>
+            <th>
 
-                        <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            Date
-                        </a>
-                        <?php if ($order_field == "date_executed") { ?>
-                         <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                            <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
-                        </a>
-                                <?php } ?>
-                    </td>
-                    <td>
-                        Link
-                    </td>
-                </tr>
- </thead>
-               
- 
-<tfoot></tfoot>
- <tbody>
+                <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                    Date
+                </a>
+                <?php if ($order_field == "date_executed") { ?>
+                    <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
+                        <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
+                    </a>
+                <?php } ?>
+            </th>
+            <th>
+                Link
+            </th>
+            </tr>
+            </thead>
+
+
+            <tfoot></tfoot>
+            <tbody>
 
                 <?php
                 foreach ($violators_array as $violator) {
@@ -276,9 +286,9 @@ $(document).ready(function() { $('table#filterTable2').columnFilters({alternateR
                             <input type="checkbox"  class="caseh" id="caseh" name="caseh" value="<?php echo $checkidh; ?>"    /> 
                         </td>
 
-                            <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id           ?>"&sku="<?php //violator->sku            ?>&action=search&field=sku&value=<?php // echo $violator->sku;            ?>"><?php //echo $violator->sku;            ?></a></td>-->
+                                <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id            ?>"&sku="<?php //violator->sku             ?>&action=search&field=sku&value=<?php // echo $violator->sku;             ?>"><?php //echo $violator->sku;             ?></a></td>-->
                         <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku; ?></a></td>
-    <!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php // echo $violator->name;            ?>&website_id=<?php // echo $violator->website_id;            ?>&wname=<?php //echo $violator->name;            ?>"><?php // echo $violator->name;            ?></a></td>-->
+    <!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php // echo $violator->name;             ?>&website_id=<?php // echo $violator->website_id;             ?>&wname=<?php //echo $violator->name;             ?>"><?php // echo $violator->name;             ?></a></td>-->
                         <td><a href="<?php echo $vendor_link; ?>"><?php echo $violator->vendor; ?></a></td>
                         <td><?php echo toMoney($violator->vendor_price); ?></td>
                         <td><?php echo toMoney($violator->map_price); ?></td>
@@ -317,68 +327,66 @@ $(document).ready(function() { $('table#filterTable2').columnFilters({alternateR
                 <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> 
         </div>
         <?php
-                    if (isset($_REQUEST['website_id'])) {
-                        ?>
-        <table>
-            <tr><td>
+        if (isset($_REQUEST['website_id'])) {
+            ?>
+            <table>
+                <tr><td>
                         <div>
                             <?php include_once 'charts/a4.php'; ?>
                         </div>
-                                          
-                </td>
-            </tr>
-            <tr><td>
+
+                    </td>
+                </tr>
+                <tr><td>
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
                             <?php include_once 'charts/a6.php'; ?>
                         </div>
-                   
-                </td>
-            </tr>
 
-        </table>
-         <?php } 
-         
-               elseif (isset($_REQUEST['product_id'])) {
-                        ?>
-        <table>
-            <tr><td>
-                       <div>
+                    </td>
+                </tr>
+
+            </table>
+        <?php
+        } elseif (isset($_REQUEST['product_id'])) {
+            ?>
+            <table>
+                <tr><td>
+                        <div>
                             <?php include_once 'charts/a3.php'; ?>
                         </div>
-                           
-                </td>
-            </tr>
-            <tr><td>
 
-                     <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-                            <?php include_once 'charts/a5.php'; ?>
-                        </div>
-                   </td>
-            </tr>
-        </table>
-        <?php } 
-         
-               else {
-                        ?>
-        
-        <table>
-            <tr><td>
-                    
-                        <div style="clear:left; padding-top: 50px;padding-left: 6px; "> 
-                            <?php include_once 'charts/a5.php'; ?>
-                        </div>
-                   
-                </td>
-            </tr>
-            <tr><td>
+                    </td>
+                </tr>
+                <tr><td>
+
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-                            <?php include_once 'charts/a6.php'; ?>
+                            <?php include_once 'charts/a5.php'; ?>
                         </div>
                     </td>
-            </tr>
+                </tr>
+            </table>
+        <?php
+        } else {
+            ?>
 
-        </table>
-               <?php } ?>
+            <table>
+                <tr><td>
+
+                        <div style="clear:left; padding-top: 50px;padding-left: 6px; "> 
+    <?php include_once 'charts/a5.php'; ?>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr><td>
+                        <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
+    <?php include_once 'charts/a6.php'; ?>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+<?php } ?>
     </div>
 </div>
 <!--<br/>-->

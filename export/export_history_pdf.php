@@ -4,6 +4,7 @@ require_once('./tcpdf/tcpdf.php');
 
 include_once '../toMoney.php';
 include_once './db_class.php';
+ini_set('memory_limit', '-1');
 session_start();
 if(isset($_SESSION['listh']))
  $_SESSION['listh'];
@@ -95,7 +96,7 @@ $violators_array = $db_resource->GetResultObj($sql);
 
 
 
- static $html;
+     global $html;
 class Bshree extends TCPDF {
     //Page header
     public function Header() {
@@ -109,9 +110,8 @@ class Bshree extends TCPDF {
                   if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
             $html .= '
-                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Violation History 
-                ';
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Violation History';
             }
             $this->writeHTML($html, true, false, false, false, '');
     }

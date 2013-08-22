@@ -29,9 +29,12 @@ $limitpcon="";
 if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 	$limit=$_GET['limit2'];
 } 
-if  (!isset($_SESSION['selectallproduct']) and $_SESSION['selectallproduct']!=='1')
+if  (!isset($_SESSION['selectallproduct']) )
 { 
        $limitpcon = "  LIMIT $start, $limit ";
+}
+ else {
+     $limitpcon="";
 }
 
 
@@ -84,7 +87,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05  and w.excluded=0  " . $conProductExport . " 
-   " . $order_by . " $limitpcon";
+   " . $order_by   ;
  
 $violators_array=$db_resource->GetResultObj($sql);
 //print_r($sql);

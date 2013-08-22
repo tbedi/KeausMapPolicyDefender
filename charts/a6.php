@@ -20,21 +20,92 @@ else
 }
 
 
-$sql = "select Violations_amount, DateExec
+//$sql = "select Violations_amount,date_format(crawl.date_executed,'%Y-%m-%d') as date_executed 	
+//from
+//(select 
+//count(*) as Violations_amount,
+// date_format(crawl.date_executed,'%Y-%m-%d') as date_executed 		 
+//from crawl_results res
+//inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
+//inner join website sites on sites.id = res.website_id
+//inner join crawl on crawl.id = res.crawl_id
+//where
+//violation_amount > 0.05 
+//and sites.excluded = 0 ". $condition. " 
+//and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
+//group by crawl.date_executed
+//order by crawl.date_executed desc ) as yy order by date_executed ";
+$sql=
+        
+        "select
+website_id, date_executed
 from
-(select 
-count(*) as Violations_amount,
- crawl.date_executed as DateExec		 
-from crawl_results res
-inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
-inner join website sites on sites.id = res.website_id
-inner join crawl on crawl.id = res.crawl_id
+(select
+count(  website_id) as website_id,
+date_format(crawl.date_executed, '%Y-%m-%d') as date_executed
+from
+crawl_results res
+
+inner join website sites ON sites.id = res.website_id
+inner join crawl ON crawl.id = res.crawl_id
 where
-violation_amount > 0.05 
+violation_amount > 0.05
 and sites.excluded = 0 ". $condition. " 
-and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
-group by crawl.date_executed
-order by crawl.date_executed desc ) as yy order by DateExec";
+and (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
+group by date_format(crawl.date_executed, '%Y-%m-%d')
+order by crawl.date_executed desc) as yy
+order by date_executed
+";
+//prev
+//"select
+//Violations_amount, date_executed
+//from
+//(select
+//count(*) as Violations_amount,
+//date_format(crawl.date_executed, '%Y-%m-%d') as date_executed
+//from
+//crawl_results res
+//inner join catalog_product_flat_1 prods ON prods.entity_id = res.product_id
+//inner join website sites ON sites.id = res.website_id
+//inner join crawl ON crawl.id = res.crawl_id
+//where
+//violation_amount > 0.05
+//and sites.excluded = 0 ". $condition. " 
+//and (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
+//group by date_format(crawl.date_executed, '%Y-%m-%d')
+//order by crawl.date_executed desc) as yy
+//order by date_executed
+//";
+
+//"
+//    
+//select date_executed, count(distinct Website),violation_amount from (SELECT
+//date_format(crawl.date_executed, '%Y-%m-%d') AS date_executed,res.violation_amount,
+//sites.name AS Website
+//FROM
+//crawl ,
+//crawl_results res,
+//website sites,
+//catalog_product_flat_1 prods
+//WHERE
+// crawl.id = res.crawl_id and
+//sites.id = res.website_id and
+//res.violation_amount > 0.05 
+//and sites.excluded = 0 ". $condition. " 
+//and (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
+//group by date_format(crawl.date_executed, '%Y-%m-%d')
+//order by crawl.date_executed desc) as yy
+//order by date_executed
+//";
+
+
+
+
+
+
+
+
+
 
 //order by crawl.date_executed desc limit 0," . $limit. " ) as yy order by DateExec";
 
@@ -48,9 +119,9 @@ $result = mysql_query($sql);
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
 while ($row = mysql_fetch_assoc($result)) {
-    $chart_row = strtotime($row ['DateExec']) * 1000;
+    $chart_row = strtotime($row ['date_executed']) * 1000;
     array_push($chart_vendor_rows, $chart_row);
-    array_push($chart_violation_amount_rows, $row ['Violations_amount']);
+    array_push($chart_violation_amount_rows, $row ['website_id']);
 }
 
 
@@ -115,7 +186,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
             tooltip: {
                 formatter: function() {
                     return '<b>' + Highcharts.dateFormat('%a %d %b %Y', this.x) + '</b><br/>' +
-                           'Price Violations: ' +  this.y;
+                           'Dealer Violations: ' +  this.y;
                 }
             },
             legend: {

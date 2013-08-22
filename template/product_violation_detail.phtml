@@ -6,7 +6,7 @@
 
         </div>
 
-<!--<h3 align="center" style="padding-top:20px;"> Sellers Violated  <?php //echo  $namep       ?> </h3> -->
+<!--<h3 align="center" style="padding-top:20px;"> Sellers Violated  <?php //echo  $namep        ?> </h3> -->
 
 
         <?php if (count($violators_array) > 3 * 15) : //more 3x default limit?>
@@ -42,7 +42,7 @@
                 <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
                 <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
                 <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
-                 <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
+                <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
                 <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
                 <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
             </select>
@@ -68,7 +68,9 @@
                                         <div id="checkboxlistp">
                                             <input type="checkbox" id="selectallp" value="1"/>
                                         </div>
-
+                                        <div id="selectallrecPcontainer">
+                                            <a id="selectallrecP" href="#" class="selectallrecP" >Select all</a>
+                                        </div>
 
                                     </td>
 
@@ -165,7 +167,7 @@
     </div>
     <div style="float: right;width:49%;">
         <div>
-            <?php// include_once 'charts/a3.php'; ?>
+            <?php // include_once 'charts/a3.php'; ?>
         </div>
     </div>
 </div>

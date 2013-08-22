@@ -97,7 +97,7 @@ catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.produ
 and crawl_results.crawl_id not in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by crawl_results.product_id ";
+group by crawl_results.product_id limit 10";
              $sqll = "select 
 catalog_product_flat_1.sku
 from
@@ -109,7 +109,7 @@ catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.produ
 and crawl_results.crawl_id in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by crawl_results.product_id ";
+group by crawl_results.product_id limit 10";
              $dash2_array = $db_resource->GetResultObj($sql);
              $dash3_array = $db_resource->GetResultObj($sqll);
             $array=array();
@@ -145,6 +145,7 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
+<<<<<<< HEAD
 and crawl_results.crawl_id in (select 
 max(id)
 from
@@ -155,6 +156,11 @@ max(id)
 from
 crawl))
 group by crawl_results.product_id ";
+=======
+and crawl_results.crawl_id in (" . $last_crawl1['id'] . ")
+group by crawl_results.product_id limit 10";
+            
+>>>>>>> f9779d5a71e9a7b71fc53ad673534e1596342a9f
              $dash4_array = $db_resource->GetResultObj($sql);
              $dash5_array = $db_resource->GetResultObj($sqll);
             $array=array();
@@ -177,7 +183,7 @@ $sql = "SELECT website.name name from website
         and crawl_results.crawl_id not in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by website.name ";
+group by website.name limit 10";
              $sqll = "SELECT 
     website.name name
 from
@@ -189,7 +195,7 @@ from
         and crawl_results.crawl_id in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by website.name ";
+group by website.name limit 10";
               $dash6_array = $db_resource->GetResultObj($sql);
              $dash7_array = $db_resource->GetResultObj($sqll);
 
@@ -213,11 +219,16 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
+<<<<<<< HEAD
         and crawl_results.crawl_id = (select 
             max(id)
         from
             crawl)
 group by website.name ";
+=======
+        and crawl_results.crawl_id = (" . $last_crawl['id'] . ")
+group by website.name limit 10";
+>>>>>>> f9779d5a71e9a7b71fc53ad673534e1596342a9f
              $sqll = "SELECT 
     website.name name
 from
@@ -226,12 +237,17 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
+<<<<<<< HEAD
         and crawl_results.crawl_id = (select 
             max(id)
         from
             crawl
 where id !=(select max(id) from crawl))
 group by website.name";
+=======
+        and crawl_results.crawl_id = (" . $last_crawl1['id'] . ")
+group by website.name limit 10";
+>>>>>>> f9779d5a71e9a7b71fc53ad673534e1596342a9f
             $dash8_array = $db_resource->GetResultObj($sql);
              $dash9_array = $db_resource->GetResultObj($sqll);
 

@@ -26,7 +26,7 @@ $pagination= new Pagination();
                     <div id="tabs" align="center">
                         <ul>
                         	<li id="tabHeader_1" class="dashboard">Dashboard</li>
-                            <li id="tabHeader_2" class="recent">Recent violations</li>
+                           
                             <li id="tabHeader_5" class="violations-history">Violation history</li>
                         </ul>
                     </div>
@@ -34,6 +34,7 @@ $pagination= new Pagination();
                         <div class="tabpage dashboard" id="tabpage_1">
                             <?php include_once 'dashboard.php'; ?>
                         </div>
+<<<<<<< HEAD
                         <div class="tabpage recent" id="tabpage_2">
                             <?php include_once 'recent.php'; ?>
                         </div>
@@ -43,6 +44,8 @@ $pagination= new Pagination();
                     	<div class="tabpage violation-by-seller" id="tabpage_4">
                             <?php // include_once 'vendor.php'; ?>
                         </div>-->
+=======
+>>>>>>> f9779d5a71e9a7b71fc53ad673534e1596342a9f
                         <div class="tabpage violations-history" id="tabpage_5">
                             <?php include_once 'history.php'; ?>
                         </div>    
