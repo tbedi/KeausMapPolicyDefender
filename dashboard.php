@@ -22,8 +22,7 @@ and crawl_results.violation_amount>0.05 and website.excluded=0
 group by website.name, website_id
 order by countcurrent desc limit 10";
 
-        
- $sqld = "SELECT
+$sqld = "SELECT
 website.name name, website_id, count(crawl_results.website_id) countprev
 from website
 inner join
