@@ -30,7 +30,7 @@ $limitpcon="";
 if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 	$limit=$_GET['limit2'];
 } 
-if  (!isset($_SESSION['selectallproduct']) and $_SESSION['selectallproduct']!=='1')
+if  (!isset($_SESSION['selectallproduct']))
 { 
        $limitpcon = "  LIMIT $start, $limit ";
 }
