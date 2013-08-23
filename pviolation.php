@@ -86,7 +86,7 @@ if (isset($_REQUEST['listp']) )
 
 
 
-$sql = "SELECT  distinct w.`name` as vendor ,c.date_executed,
+$sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
     r.violation_amount as violation_amount,r.id as id,
     w.id as website_id,
     r.vendor_price as vendor_price,
