@@ -23,7 +23,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     FROM crawl_results  r
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
-    WHERE  r.violation_amount>0.05 AND w.excluded=0 " . $where ;
+    WHERE (date_format(c.date_executed,'%Y-%m-%d') between '$from' and '$to' ) and r.violation_amount>0.05 AND w.excluded=0 " . $where ;
 //pagination
 $limit = 15;
 //$_SESSION['limitp2'] = $limit;

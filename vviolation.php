@@ -93,7 +93,7 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
-$sql = "select distinct crawl_results.website_id,crawl.date_executed,
+$sql = "select distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
  catalog_product_flat_1.name as name,

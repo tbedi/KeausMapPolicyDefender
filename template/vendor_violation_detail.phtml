@@ -122,6 +122,17 @@
                                             </a>
                                         <?php } ?>
                                     </td>
+                                    <td >
+
+                                        <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                            Date
+                                        </a>
+                                        <?php if ($order_field == "date_executed") { ?>
+                                            <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
+                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
+                                            </a>
+                                        <?php } ?>
+                                    </td>
                                     <td>
                                         Link
                                     </td>
@@ -146,6 +157,7 @@
                                         <td><?php echo toMoney($violator->map_price); ?></td>
                                        <!-- <td><?php //echo money_format('$%i',$violator->map_price);      ?></td> -->
                                         <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
+                                        <td ><?php echo $violator->date_executed; ?></td>
                                         <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
 
                                     </tr>				
