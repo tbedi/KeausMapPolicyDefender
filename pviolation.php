@@ -2,6 +2,10 @@
 /*where*/
 $where = "";
 $limitpcon="";
+if (isset($_SESSION['listp']))
+unset($_SESSION['listp']);
+if (isset($_SESSION['selectallproduct']))
+unset($_SESSION['selectallproduct']);
 
 if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$field = strtolower($_GET['field']);
@@ -66,13 +70,14 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 if (isset($_REQUEST['selectallproduct']))
 {
      $_SESSION['selectallproduct'] = $_REQUEST['selectallproduct'];
-     //echo      $_SESSION['selectallRecent'];
+     
 }
 
 
 if (isset($_REQUEST['listp']) ) 
 {
     $_SESSION['listp'] = $_REQUEST['listp'];
+//    print_r ($_REQUEST['listp']);
 }
 
 

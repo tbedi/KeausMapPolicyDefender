@@ -22,21 +22,21 @@ if (isset($_SESSION['product_id'])) {
 //echo $_SESSION['selectallproduct'];
 //data collection
 $db_resource = new DB ();
-$limit=15;
-$start=0;
-$limitpcon="";
+//$limit=15;
+//$start=0;
+//$limitpcon="";
+//
+//
+//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
+//	$limit=$_GET['limit2'];
+//} 
+//if  (!isset($_SESSION['selectallproduct']))
+//{ 
+//       $limitpcon = "  LIMIT $start, $limit ";
+//}
 
 
-if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-	$limit=$_GET['limit2'];
-} 
-if  (!isset($_SESSION['selectallproduct']))
-{ 
-       $limitpcon = "  LIMIT $start, $limit ";
-}
-
-
-if (isset( $_SESSION['listp']) and  $_SESSION['listp']!="")
+if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
 {
     $arrExportProduct=  $_SESSION['listp'];
     
@@ -70,11 +70,11 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
  
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-$result = mysql_query($sql);
-$last_crawl = mysql_fetch_assoc($result);
+//$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
+//$result = mysql_query($sql);
+//$last_crawl = mysql_fetch_assoc($result);
 
-$sql = "SELECT  distinct w.`name` as vendor ,
+$sql = "SELECT  distinct w.`name` as vendor ,c.date_executed,
     r.violation_amount as violation_amount,r.id as id,
     w.id as website_id,
     r.vendor_price as vendor_price,
@@ -82,10 +82,11 @@ $sql = "SELECT  distinct w.`name` as vendor ,
     r.website_product_url,
     p.sku as sku
     FROM crawl_results  r
+    inner join crawl c on c.id=r.crawl_id
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
-    WHERE r.crawl_id=" . $last_crawl['id'] . " AND r.violation_amount>0.05  and w.excluded=0  " . $conProductExport . " 
-   " . $order_by . " $limitpcon";
+    where r.violation_amount>0.05  and w.excluded=0  " . $conProductExport . " 
+   " . $order_by   ;
  
 $violators_array=$db_resource->GetResultObj($sql);
 
@@ -126,4 +127,8 @@ foreach ($violators_array as $violators_array) {
 }
 
 echo "</table>";
+
+//unset($_SESSION['listp']);
+//unset($_SESSION['selectallproduct']);
+
 ?>

@@ -3,6 +3,10 @@
 $where = "";
 $limit = 15;
 $limitvcon="";
+if (isset($_SESSION['listv']))
+unset($_SESSION['listv']);
+if (isset($_SESSION['selectallvendor']))
+unset($_SESSION['selectallvendor']);
 //$_SESSION['limit'] = $limit;
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];

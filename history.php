@@ -6,11 +6,16 @@ $limit = 15;
 $flagfrom = 0;
 $flagto = 0;
  $start = 0;
+ 
 $additional_params;
 $searchfield;
 // Product
 $product_id = 0;
 $conHistoryExport;
+if (isset($_SESSION['listh']))
+unset($_SESSION['listh']);
+if (isset($_SESSION['selectallhistory']))
+unset($_SESSION['selectallhistory']);
 
 if (isset($_REQUEST['product_id'])) {
     $product_id = $_REQUEST['product_id'];
@@ -257,7 +262,17 @@ if (isset($_REQUEST['listh']) )
 {
     $_SESSION['listh'] = $_REQUEST['listh'];
 }
+if (isset($_REQUEST['selectallproduct']))
+{
+     $_SESSION['selectallproduct'] = $_REQUEST['selectallproduct'];
+     
+}
 
+
+if (isset($_REQUEST['listp']) ) 
+{
+    $_SESSION['listp'] = $_REQUEST['listp'];
+}
 
 
 

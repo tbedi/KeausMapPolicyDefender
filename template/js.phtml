@@ -313,12 +313,15 @@ $(document).ready(function () {
  window.location = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&listh='+selectedh;
  delete queryParameters['listh'];
   delete queryParameters['selectallhistory']; 
+ 
+  
 }
 
  $('.selectallrech').click(function() {
    window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallhistory=1';
    delete queryParameters['selectallhistory'];
     delete queryParameters['listh'];
+  
 });
 
 /////History end
@@ -399,13 +402,14 @@ $(document).ready(function () {
  window.location = 'index.php?'+$.param(queryParameters)+'&listp='+selectedp;
   delete queryParameters['selectallproduct'];
     delete queryParameters['listp'];
-   
+  
 }
 
  $('.selectallrecP').click(function() {
    window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallproduct=1';
    delete queryParameters['selectallproduct'];
     delete queryParameters['listp'];
+  
 });
 
 
@@ -488,15 +492,24 @@ $(document).ready(function () {
  window.location = 'index.php?'+$.param(queryParameters)+'&listv='+selectedv;
   delete queryParameters['selectallvendor'];
     delete queryParameters['listv'];
-   
+  
 }
 
  $('.selectallrecV').click(function() {
    window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallvendor=1';
    delete queryParameters['selectallvendor'];
     delete queryParameters['listv'];
+   
 });
-
+delete queryParameters['selectallvendor'];
+    delete queryParameters['listv'];
+    
+     delete queryParameters['selectallproduct'];
+    delete queryParameters['listp'];
+  
+    delete queryParameters['selectallhistory'];
+    delete queryParameters['listh'];
+   
 
 
 ///// vendor details end

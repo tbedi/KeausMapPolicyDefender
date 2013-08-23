@@ -13,20 +13,20 @@ if(isset($_SESSION['selectallhistory']))
 //echo $_SESSION['selectallhistory'];
 
 $db_resource = new DB ();
-$limit=15;
-$start=0;
-$limithcon="";
-//$_SESSION['limit'] = $limit;
-if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
-    $limit = $_GET['limit'];
-}
-if  (!isset($_SESSION['selectallhistory']) and $_SESSION['selectallhistory']!=='1')
-{ 
-       $limithcon = "  LIMIT $start, $limit ";
-}
+//$limit=15;
+//$start=0;
+//$limithcon="";
+////$_SESSION['limit'] = $limit;
+//if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
+//    $limit = $_GET['limit'];
+//}
+//if  (!isset($_SESSION['selectallhistory']) )
+//{ 
+//       $limithcon = "  LIMIT $start, $limit ";
+//}
 
 
-if (isset( $_SESSION['listh']) and  $_SESSION['listh']!="")
+if (isset( $_SESSION['listh']) and $_SESSION['listh']!=0 )
 {
     $arrExportHistory=  $_SESSION['listh'];
     
@@ -39,7 +39,7 @@ if (isset( $_SESSION['listh']) and  $_SESSION['listh']!="")
 }
      if  (isset($_SESSION['selectallhistory']) and $_SESSION['selectallhistory']=='1')
 {
-    $limithcon="";
+//    $limithcon="";
       $conHistoryExport="";
 }
 
@@ -83,7 +83,7 @@ on crawl.id=crawl_results.crawl_id
 where 
 crawl_results.violation_amount>0.05   
 and website.excluded=0 " . $conHistoryExport . " 
-" . $order_by . "$limithcon " ;
+" . $order_by  ;
 
 $violators_array = $db_resource->GetResultObj($sql);
 

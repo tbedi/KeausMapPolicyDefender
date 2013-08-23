@@ -83,7 +83,7 @@ and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 where
 crawl_results.violation_amount > 0.05
 group by crawl_results.product_id
-order by prevcount desc";
+order by prevcount desc limit 10";
 
 
 $dashc_array = $db_resource->GetResultObj($sqlc);
@@ -152,7 +152,7 @@ catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.produ
 and crawl_results.crawl_id not in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by crawl_results.product_id limit 10";
+group by crawl_results.product_id ";
              $sqll = "select 
 catalog_product_flat_1.sku
 from
@@ -191,7 +191,7 @@ and crawl_results.crawl_id in (select
 max(id)
 from
 crawl)
-group by crawl_results.product_id ";
+group by crawl_results.product_id limit 10 ";
              $sqll = "select 
 catalog_product_flat_1.sku
 from
@@ -200,7 +200,6 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-<<<<<<< HEAD
 and crawl_results.crawl_id in (select 
 max(id)
 from
@@ -210,12 +209,7 @@ id not in (select
 max(id)
 from
 crawl))
-group by crawl_results.product_id ";
-=======
-and crawl_results.crawl_id in (" . $last_crawl1['id'] . ")
 group by crawl_results.product_id limit 10";
-            
->>>>>>> f9779d5a71e9a7b71fc53ad673534e1596342a9f
              $dash4_array = $db_resource->GetResultObj($sql);
              $dash5_array = $db_resource->GetResultObj($sqll);
             $array=array();
@@ -274,16 +268,11 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
-<<<<<<< HEAD
         and crawl_results.crawl_id = (select 
             max(id)
         from
             crawl)
-group by website.name ";
-=======
-        and crawl_results.crawl_id = (" . $last_crawl['id'] . ")
 group by website.name limit 10";
->>>>>>> f9779d5a71e9a7b71fc53ad673534e1596342a9f
              $sqll = "SELECT 
     website.name name
 from
@@ -292,17 +281,12 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
-<<<<<<< HEAD
         and crawl_results.crawl_id = (select 
             max(id)
         from
             crawl
 where id !=(select max(id) from crawl))
-group by website.name";
-=======
-        and crawl_results.crawl_id = (" . $last_crawl1['id'] . ")
 group by website.name limit 10";
->>>>>>> f9779d5a71e9a7b71fc53ad673534e1596342a9f
             $dash8_array = $db_resource->GetResultObj($sql);
              $dash9_array = $db_resource->GetResultObj($sqll);
 

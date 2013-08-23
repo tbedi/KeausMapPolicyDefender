@@ -22,20 +22,20 @@ if (isset($_SESSION['website_id'])) {
     $web_id = $_SESSION['website_id'];
 }
 $db_resource = new DB ();
-$limit=15;
-$start=0;
-$limitvcon="";
-
-if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-	$limit=$_GET['limit2'];
-} 
-if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
-{ 
-       $limitvcon = "  LIMIT $start, $limit ";
-}
+//$limit=15;
+//$start=0;
+//$limitvcon="";
+//
+//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
+//	$limit=$_GET['limit2'];
+//} 
+//if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
+//{ 
+//       $limitvcon = "  LIMIT $start, $limit ";
+//}
 
  
-if (isset( $_SESSION['listv']) and  $_SESSION['listv']!="")
+if (isset( $_SESSION['listv']) and  $_SESSION['listv']!=0)
 {
     $arrExportVendor=  $_SESSION['listv'];
     
@@ -48,7 +48,7 @@ if (isset( $_SESSION['listv']) and  $_SESSION['listv']!="")
 }
      if  (isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']=='1')
 {
-    $limitvcon="";
+//    $limitvcon="";
       $conVendorExport="";
 }
 
@@ -95,7 +95,7 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where crawl_results.crawl_id=" . $last_crawl['id'] ."  and  crawl_results.violation_amount>0.05 
 and
 website.excluded=0 " . $conVendorExport . " 
-and website_id = $web_id  ".$order_by." " .$limitvcon; 
+and website_id = $web_id  ".$order_by; 
 
  
 $violators_array=$db_resource->GetResultObj($sql);
