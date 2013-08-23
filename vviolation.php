@@ -33,7 +33,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value
 	$where = "  AND  " . $field . "  LIKE '%" . $value . "%'";
 }
 /*where*/
-
+$to=$_SESSION['tc'];
+$from=$_SESSION['frc'] ;
 
       $sql ="select distinct crawl_results.website_id,crawl.date_executed,
 website.name as wname,crawl_results.id as id,
