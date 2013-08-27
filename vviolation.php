@@ -11,7 +11,7 @@ unset($_SESSION['selectallvendor']);
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];
 } 
-$limitvcon = "  LIMIT $start, $limit ";
+
 
 
 if (isset($_REQUEST['selectallvendor']))
@@ -36,15 +36,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'search2' && isset($_GET['value
 $to=$_SESSION['tc'];
 $from=$_SESSION['frc'] ;
 
-      $sql ="select distinct crawl_results.website_id,crawl.date_executed,
-website.name as wname,crawl_results.id as id,
-catalog_product_flat_1.entity_id,
- catalog_product_flat_1.name as name,
- catalog_product_flat_1.sku, 
-crawl_results.vendor_price ,
- crawl_results.map_price ,
- crawl_results.violation_amount ,
-crawl_results.website_product_url 
+      $sql ="select *
 from crawl_results
 inner join crawl  on crawl.id=crawl_results.crawl_id
 inner join
@@ -55,7 +47,8 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' ) and  crawl_results.violation_amount>0.05 
 and
 website.excluded=0 
-and website_id = $website_id " . $where . "  " .$limitvcon;
+and website_id = $website_id " . $where  ;
+//  echo $sql;    
         
         
 
@@ -73,6 +66,7 @@ if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-
     $start = 0;
     $page = 1;
 }
+$limitvcon = "  LIMIT $start, $limit ";
 /*second grid pagination*/
 
 /* sorting */
@@ -112,7 +106,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' ) and crawl_results.violation_amount>0.05 
 and
-website.excluded=0 AND crawl_results.crawl_id=" . $last_crawl['id'] ."
+website.excluded=0 
 and website_id = $website_id " . $where . " 
      ".$order_by." " .$limitvcon; 
 

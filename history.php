@@ -99,7 +99,7 @@ $_SESSION['limit'] = $limit;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
     $limit = $_GET['limit'];
 }
-$limithcon = "  LIMIT $start, $limit ";
+
  static $to;
 static $from;
 /* where */
@@ -136,15 +136,17 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+   // echo $_GET['page'];
     $page = mysql_escape_string($_GET['page']);
     $start = ($page - 1) * $limit;
+   // echo $start;
 } else {
     $start = 0;
     $page = 1;
 }
 /* Pagination */
 
-
+$limithcon = "  LIMIT $start, $limit ";
 
 
 $sql3 = "SELECT min(date_format(crawl.date_executed,'%Y-%m-%d')) as mindate from crawl";
@@ -317,8 +319,8 @@ if (isset($_SESSION['historyArray'])) {
  	// put inside document.ready jquery event 
 </script>
 <?php
-/*Pagination*/
 
+//pagination
 $sql1 = " SELECT FOUND_ROWS() as total;";
 $total_pages = $db_resource->GetResultObj($sql1);
 $total_pages = $total_pages[0]->total;
@@ -331,7 +333,7 @@ $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param
 
 
 
-
+    
 
 /*For sorting using*/
 $additional_params = "&limit=".$limit;
