@@ -132,6 +132,7 @@ $arr_data_row = array($violators_array->vendor,toMoney($violators_array->vendor_
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here
+
 exportCSV($arr_data, $arr_columns);
 
 

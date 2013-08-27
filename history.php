@@ -23,7 +23,7 @@ if (isset($_REQUEST['product_id'])) {
 }
 
 
-//url calendeer form
+//url calender form
 
         
         $searchfield;
@@ -158,25 +158,33 @@ $sqldate="select date_format(crawl.date_executed,'%Y-%m-%d') as date_executed fr
 where id in(select  max(id) from crawl); "; 
 
 $violators_array_date=$db_resource->GetResultObj($sqldate);
-
-
-if (isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
-    $to = $_POST["to"];
-    $from = $_POST["from"];
-    $_SESSION['t'] = $_POST["to"];
-    $_SESSION['fr'] = $_POST["from"];
-     $_SESSION['tc'] = $_POST["to"];
-    $_SESSION['frc'] = $_POST["from"];
-}
-
-else {
-        $to= $violators_array_date[0]->date_executed;
+if (!isset($_REQUEST['option']) && !isset($_POST['to']) && !isset($_POST['from'])) {
+ $to= $violators_array_date[0]->date_executed;
         $from= $violators_array_date[0]->date_executed;
 	$_SESSION['t'] = $to;
 	$_SESSION['fr'] = $from;
         $_SESSION['tc'] = date("Y-m-d");
 	$_SESSION['frc'] = $mindate;
 }
+//  $_SESSION['t'] = $_POST["to"];
+//    $_SESSION['fr'] = $_POST["from"];
+elseif(isset($_POST["to"]) && ($_POST["from"])) 
+    {
+    $_SESSION['t'] = $_POST['to'];
+    $_SESSION['fr'] = $_POST['from'];
+    $to = $_SESSION['t'];
+    $from = $_SESSION['fr'];
+}
+
+
+if(isset($_SESSION['t']) && isset($_SESSION['fr']))
+{
+    $to = $_SESSION['t'];
+    $from = $_SESSION['fr'];
+}
+//print_r($_SESSION);
+//echo $to."-".$from."-";
+
 /* calender dates */
 //new changes
 
@@ -304,12 +312,12 @@ and website.excluded=0
 
 $violators_array = $db_resource->GetResultObj($sql);
 
-//echo $sql;
-
-$_SESSION['historyArray'] = $violators_array;
-if (isset($_SESSION['historyArray'])) {
-    // print_r($_SESSION['historyArray']); 
-}
+//echo "---".$sql;
+//
+//$_SESSION['historyArray'] = $violators_array;
+//if (isset($_SESSION['historyArray'])) {
+//    // print_r($_SESSION['historyArray']); 
+//}
 ?>
 <script type="text/javascript">
   //  document.getElementById(inputFieldfrom).setAttribute(value, <?php $from; ?>); it showed js error
