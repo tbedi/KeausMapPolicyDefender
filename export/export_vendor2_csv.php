@@ -119,7 +119,9 @@ $arr_columns = array(
     'SKU',
     'Dealers Price',
     'MAP Price',
-    'Violation Amount'
+    'Violation Amount',
+    'Date'
+    
     
     
 );
@@ -127,7 +129,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ) {
     //print_r($row);die();
-$arr_data_row = array($violators_array->sku,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount));
+$arr_data_row = array($violators_array->sku,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount),$violators_array->date_executed);
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here
