@@ -5,9 +5,10 @@ include_once '../toMoney.php';
 include_once './db.php';
 $sku="";
 $product_id="";
-if(isset($_REQUEST['sku']))
+
+if(isset($_SESSION['pviolationTitle']))
 {
-$sku=$_REQUEST['sku'];
+$sku=$_SESSION['pviolationTitle'];
 }
 
 session_start();
@@ -78,7 +79,7 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
 
-$sql = "SELECT  distinct w.`name` as vendor ,c.date_executed,
+$sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
     r.violation_amount as violation_amount,r.id as id,
     w.id as website_id,
     r.vendor_price as vendor_price,
@@ -118,7 +119,8 @@ $arr_columns = array(
     'Dealers',
     'Dealers Price',
     'MAP',
-    'Violation'
+    'Violation',
+    'Date'
     
     
 );
@@ -126,7 +128,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ){
     //print_r($row);die();
-$arr_data_row = array($violators_array->vendor,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount));
+$arr_data_row = array($violators_array->vendor,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount),$violators_array->date_executed);
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

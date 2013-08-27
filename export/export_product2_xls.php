@@ -5,9 +5,11 @@ include_once '../toMoney.php';
 include_once './db.php';
 $sku="";
 $product_id="";
-if(isset($_REQUEST['sku']))
+
+if(isset($_SESSION['pviolationTitle']))
 {
-$sku=$_REQUEST['sku'];
+$sku=$_SESSION['pviolationTitle'];
+print_r($sku);
 }
 
 session_start();
@@ -74,11 +76,11 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 //$result = mysql_query($sql);
 //$last_crawl = mysql_fetch_assoc($result);
 
-$sql = "SELECT  distinct w.`name` as vendor ,c.date_executed,
+$sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
     r.violation_amount as violation_amount,r.id as id,
     w.id as website_id,
     r.vendor_price as vendor_price,
-    cast(r.map_price as decimal(10,2)) as map_price,
+    r.map_price ,
     r.website_product_url,
     p.sku as sku
     FROM crawl_results  r
@@ -109,6 +111,7 @@ echo '<td>Dealers </td>';
 echo '<td>Dealers Price </td>';
 echo '<td>Map Price </td>';
 echo '<td>Violation Amount </td>';
+echo '<td>Date </td>';
 
 print('</tr>');
 
@@ -121,6 +124,7 @@ foreach ($violators_array as $violators_array) {
     $output .= "<td>" . toMoney($violators_array->vendor_price) . "</td>";
     $output .= "<td>" . toMoney($violators_array->map_price) . "</td>";
     $output .= "<td>" . toMoney($violators_array->violation_amount) . "</td>";
+     $output .= "<td>" . $violators_array->date_executed . "</td>";
 
 
     print(trim($output)) . "</tr>\t\n";
