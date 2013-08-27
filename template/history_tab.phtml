@@ -18,9 +18,7 @@
 <div style=" width: 100%;" >
     <div style="clear:  left; float: left; width:60%; "> 
 
-        <div class="divt2222" style="padding-right: 15px;">
-            <input class="searchh" placeholder="Search..." type="text" size="30"  maxlength="1000" value="" id="textBoxSearch" onkeyup="tableSearch.search(event);" onclick="tableSearch.init();"  />
-        </div>    
+         
         <form action="<?php echo $urls ?>" method="post"> 
 
             <div class="divt2222">
@@ -38,7 +36,7 @@
             </div>
             <div class="divt2222">  <div class="divtsp"></div></div>
             <div class="divt2222">
-                <input type="submit" class="btn-search" name="submit" value="show" />
+                <input type="submit" class="btn-search" name="submit" value="Search" />
             </div>
         </form>
         <div class="divt2222">
@@ -47,7 +45,7 @@
         <!--        <div class="divt2222">
                     <input type="button" class="btn-search3" value="Get Checked values" id="buttonClassh"> 
                 </div>-->
-        <div class="divt2222" >
+        <div class="divt2222" style="padding-left: 180px;" >
 
             <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "  /></a>
             <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "  /></a>
