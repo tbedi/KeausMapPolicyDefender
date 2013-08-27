@@ -2,7 +2,9 @@
 //pagination
 $tableName = "crawl_results";
 $targetpage = "index.php";
-$limit = 15;
+
+ $limit = 25;
+
 $flagfrom = 0;
 $flagto = 0;
  $start = 0;
@@ -33,10 +35,12 @@ if (isset($_REQUEST['product_id'])) {
             $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
         }
          if (isset($_REQUEST['sku']) ){
-                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; ;       
+                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; 
+                $limit = 15;
         }
         if (isset($_REQUEST['website_id']) ){
-                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];       
+                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];  
+                 $limit = 15;
         }
 //        else {
 //            $urls = "?tab=violations-history&option=show_dates";
