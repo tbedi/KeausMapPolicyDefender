@@ -130,13 +130,11 @@
 
                 <tr style=" background-color: #ECF5DC;font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
     font-size: 15px;
-    font-weight: normal;
-background-color:#ECF5DC;border:0px solid #A6CF00;border-width:0px 0px 1px 1px;
-text-align:center;
- border-width:0px 0px 1px 1px;
-color:#000000;
+    font-weight: normal;align:center;padding:6px;
+background-color:#ECF5DC;border:1px solid #A6CF00;border-width:1px 1px 1px 1px;
+text-align:center; color:#000000;
 	   text-transform: capitalize"> 
-                    <th>
+                    <td>
 
             <div id="checkboxlisth">
                 <input type="checkbox" id="selectallh" value="1"/>
@@ -144,8 +142,8 @@ color:#000000;
              <div id="selectallrechcontainer">
             <a id="selectallrech" href="#" class="selectallrech" >Select all</a>
              </div>
-            </th>
-            <th>
+            </td>
+            <td>
 
 
 
@@ -167,8 +165,8 @@ color:#000000;
         }
     </script>-->
 
-            </th>	
-            <th>
+            </td>	
+            <td>
 
 
                 <a  onclick="sort_grid('name', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
@@ -189,8 +187,8 @@ color:#000000;
                     }
                 </script>-->
             </p>
-            </th>	
-            <th>
+            </td>	
+            <td>
 
 
                 <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
@@ -201,8 +199,8 @@ color:#000000;
                         <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
                     </a>
                 <?php } ?>
-            </th>
-            <th>
+            </td>
+            <td>
 
                 <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     MAP price
@@ -213,8 +211,8 @@ color:#000000;
                     </a>
                 <?php } ?>
 
-            </th>
-            <th>
+            </td>
+            <td>
 
 
                 <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
@@ -225,8 +223,8 @@ color:#000000;
                         <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
                     </a>
                 <?php } ?>
-            </th>
-            <th>
+            </td>
+            <td>
 
                 <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                     Date
@@ -236,10 +234,10 @@ color:#000000;
                         <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
                     </a>
                 <?php } ?>
-            </th>
-            <th>
-                Link
-            </th>
+            </td>
+            <td> <a>Link</a>
+                
+            </td>
             </tr>
             </thead>
 
@@ -304,7 +302,7 @@ color:#000000;
                 <tr align="center"><td width="900" hight="30"> No Records Found  </td> </tr></table>
         <?php }
         ?>   
-        <div class="cleaner" style="padding-top: 15px; ">
+        <div class="cleaner" style="padding-top: 5px; ">
 
         </div>
         <div  align="left" style="padding-bottom: 10px;" >
