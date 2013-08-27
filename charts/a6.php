@@ -56,6 +56,7 @@ group by date_format(crawl.date_executed, '%Y-%m-%d')
 order by crawl.date_executed desc) as yy
 order by date_executed
 ";
+//echo $sql;
 //prev
 //"select
 //Violations_amount, date_executed

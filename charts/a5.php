@@ -52,7 +52,12 @@ crawl_results res
 
 inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
 inner join crawl ON crawl.id = res.crawl_id
-where (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
+inner join
+website sites ON sites.id = res.website_id
+where
+violation_amount > 0.05
+and sites.excluded = 0
+and (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
  ". $condition. " 
 group by date_format(crawl.date_executed, '%Y-%m-%d')
 order by crawl.date_executed desc) as yy
@@ -60,7 +65,7 @@ order by date_executed
 ";
 $result = mysql_query($sql);
 
-
+//echo $sql;
 
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
