@@ -4,15 +4,15 @@ include_once './db_class.php';
 include_once '../toMoney.php';
 include_once './db.php';
 
-
+session_start();
  
  $sku="";
-if(isset($_REQUEST['sku']))
+if(isset($_SESSION['pviolationTitle']))
 {
-$sku=$_REQUEST['sku'];
+$sku=$_SESSION['pviolationTitle'];
 }
 
-session_start();
+
 
 
 
@@ -79,7 +79,7 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
 
-$sql = "SELECT  distinct w.`name` as vendor ,c.date_executed,
+$sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
     r.violation_amount as violation_amount,r.id as id,
     w.id as website_id,
     r.vendor_price as vendor_price,
@@ -127,7 +127,7 @@ public $html;
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
                
-                $sku = $_REQUEST['sku'];
+                $sku = $_SESSION['pviolationTitle'];
                $html .= '
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
                     Dealers Violated by '.$sku.'
@@ -233,7 +233,8 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
          <td style="width:250px">Dealers </td>    
          <td style="width:85px">Dealers Price</td>    
          <td style="width:85px">Map Price</td>    
-         <td style="width:85px">Violation Amount</td>    
+         <td style="width:85px">Violation Amount</td>   
+         <td style="width:90px">Date</td>   
         </tr>  
             </table>
          <table class="border">
@@ -246,6 +247,7 @@ foreach ($violators_array as $violators_array ){
             <td style="width:85px"> $ {$violators_array->vendor_price}</td>
             <td style="width:85px"> $ {$violators_array->map_price}</td>
             <td style="width:85px"> $ {$violators_array->violation_amount}</td>
+              <td style="width:90px">{$violators_array->date_executed}</td>
          
    </tr>
 	  
@@ -266,7 +268,7 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-$pdf->Output("Dealers_Violated_".$product_id.'-'.date('Y-m-d'), 'I');
+$pdf->Output("Dealers_Violated_".$sku.'-'.date('Y-m-d'), 'I');
 
 
 //unset($_SESSION['listp']);

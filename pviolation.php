@@ -125,6 +125,9 @@ $sql3 = "SELECT   c.date_executed,
  
 $violators_array3=$db_resource->GetResultObj($sql3);
 
+ $_SESSION['pviolationTitle']=$violators_array3[0]->sku;
+
+
 $_SESSION['product2Array']=$violators_array;
 if(isset($_SESSION['product2Array']))
 {
