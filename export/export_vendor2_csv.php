@@ -76,7 +76,7 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 //$last_crawl = mysql_fetch_assoc($result);
 
 
-$sql = "select distinct crawl_results.website_id,
+$sql = "select distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
  catalog_product_flat_1.name as name,
@@ -86,6 +86,7 @@ crawl_results.vendor_price ,
  crawl_results.violation_amount ,
 crawl_results.website_product_url 
 from crawl_results
+ inner join crawl on crawl.id=crawl_results.crawl_id
 inner join
 website
 on website.id = crawl_results.website_id

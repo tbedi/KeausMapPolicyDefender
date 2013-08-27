@@ -12,11 +12,13 @@ if (isset($_REQUEST['sku']) )
 {
     $sku=$_REQUEST['sku'];
     $condition=" and sku like '".$sku."' ";
+    $count_p="count( product_id)";
 }
 else
 {
     $sku="";
     $condition="";
+    $count_p="count( distinct product_id)";
 }
 //$sql = "
 //select Violations_amount, date_executed
@@ -44,8 +46,8 @@ $sql=
         "select
  product_id, date_executed
 from
-(select
-count(  product_id) as product_id,
+(select  
+".$count_p ." as product_id,
 date_format(crawl.date_executed, '%Y-%m-%d') as date_executed
 from
 crawl_results res
