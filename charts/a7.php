@@ -41,6 +41,8 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
 
 <script>$(function () {
         $('#container').highcharts({
+            
+       colors: ['#058DC7','#7d007d'],
             chart: {
                 type: 'areaspline'
             },
