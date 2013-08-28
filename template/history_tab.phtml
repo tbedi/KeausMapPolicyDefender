@@ -249,23 +249,23 @@ text-align:center; color:#000000;
 
                     //$product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku . "&action=search&field=sku&value=" . $violator->sku;
                     $product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku;
-                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-                        $product_link.="&page=" . $_GET['page'];
-                    }
-                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
-                        $product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
-                    }
+//                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+//                        $product_link.="&page=" . $_GET['page'];
+//                    }
+//                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
+//                        $product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
+//                    }
 
 
 
                     //  $vendor_link = "?tab=violations-history&website_id=" . $vendor->website_id . "&wname=" . $vendor->name . "&action=search&field=website_id&value=" . $vendor->website_id;
                     $vendor_link = "?tab=violations-history&website_id=" . $violator->website_id . "&wname=" . $violator->vendor;
-                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-                        $vendor_link.="&page=" . $_GET['page'];
-                    }
-                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
-                        $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
-                    }
+//                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+//                        $vendor_link.="&page=" . $_GET['page'];
+//                    }
+//                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
+//                        $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+//                    }
 
 
 
