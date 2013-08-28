@@ -143,7 +143,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
         }
 
         $('#chart-a6').highcharts({
-             colors: ['#7851a9	','#058DC7',  '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+             colors: ['#000062'],
         
             chart: {
                 renderTo: 'a6',

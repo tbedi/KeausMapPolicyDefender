@@ -42,12 +42,23 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
 <script>$(function () {
         $('#container').highcharts({
             
-       colors: ['#058DC7','#7d007d'],
+       colors: ['#058DC7','#800040'],
             chart: {
+                
+                 backgroundColor: {
+                  linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+         stops: [
+            [0, 'rgb(226, 226, 226)'],
+            [1, 'rgb(167, 167, 167)']
+         ]
+      },           
                 type: 'areaspline'
             },
             title: {
+                
+                     
                 text: 'Violations by Dealers & Products'
+                
             },
             xAxis: {
                 categories: [
@@ -67,7 +78,8 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
 
             },
             yAxis: {
-                title: {
+                title: { 
+                   
                     text: 'Violations',
                 style: {
                         fontSize: '13px',
