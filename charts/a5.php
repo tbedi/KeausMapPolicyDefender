@@ -88,7 +88,11 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 
       
         $('#chart-a5').highcharts({
+            
+        colors: ['#de6fa1','#058DC7',  '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
             chart: {
+                
+        
                 renderTo: 'a5',
                 defaultSeriesType: 'line',
                 margin: [50, 50, 100, 80],
