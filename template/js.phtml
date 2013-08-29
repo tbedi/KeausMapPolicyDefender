@@ -242,7 +242,7 @@ $(function(){
  
     // add multiple select / deselect functionality
     $("#selectallh").click(function () {
-          $('.caseh').attr('checked', this.checked);
+          $('.caseh').prop('checked', this.checked);
     });
  
     // if all checkbox are selected, check the selectall checkbox
@@ -250,9 +250,9 @@ $(function(){
     $(".caseh").click(function(){
  
         if($(".caseh").length == $(".caseh:checked").length) {
-            $("#selectallh").attr("checked", "checked");
+            $("#selectallh").prop("checked", "checked");
         } else {
-            $("#selectallh").removeAttr("checked");
+            $("#selectallh").removeProp("checked");
         }
  
     });
@@ -335,7 +335,7 @@ $(function(){
  
     // add multiple select / deselect functionality
     $("#selectallp").click(function () {
-          $('.casep').attr('checked', this.checked);
+          $('.casep').prop('checked', this.checked);
     });
  
     // if all checkbox are selected, check the selectall checkbox
@@ -343,9 +343,9 @@ $(function(){
     $(".casep").click(function(){
  
         if($(".casep").length == $(".casep:checked").length) {
-            $("#selectallp").attr("checked", "checked");
+            $("#selectallp").prop("checked", "checked");
         } else {
-            $("#selectallp").removeAttr("checked");
+            $("#selectallp").removeProp("checked");
         }
  
     });
@@ -424,7 +424,7 @@ $(function(){
  
     // add multiple select / deselect functionality
     $("#selectallv").click(function () {
-          $('.casev').attr('checked', this.checked);
+          $('.casev').prop('checked', this.checked);
     });
  
     // if all checkbox are selected, check the selectall checkbox
@@ -432,9 +432,9 @@ $(function(){
     $(".casev").click(function(){
  
         if($(".casev").length == $(".casev:checked").length) {
-            $("#selectallv").attr("checked", "checked");
+            $("#selectallv").prop("checked", "checked");
         } else {
-            $("#selectallv").removeAttr("checked");
+            $("#selectallv").removeProp("checked");
         }
  
     });
