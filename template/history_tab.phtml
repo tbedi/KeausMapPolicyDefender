@@ -41,7 +41,9 @@
         </form>
         <div class="divt2222">
              <form name="showall" action ="index.php?tab=violations-history" method="post">
-            <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+<!--            <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>-->
+<button type="submit" name="showall" value="true" href="index.php?tab=violations-history" class="btn-search"  onclick=<?php   setCookie("dealer","",-1);
+                  setCookie("product","",-1);  ?> >Show all</button>
              </form>
         </div>
         <!--        <div class="divt2222">
