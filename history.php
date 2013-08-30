@@ -8,7 +8,8 @@ $targetpage = "index.php";
 $flagfrom = 0;
 $flagto = 0;
  $start = 0;
- 
+ $wherev="";
+  $wherep="";
 $additional_params;
 $searchfield;
 // Product
@@ -94,7 +95,58 @@ if (isset($_REQUEST['website_id'])) {
 //}
 /*where*/
 
-
+//           if(isset($_POST['dealer']) ) 
+//           {
+//               $_SESSION['dealer']=$_POST['dealer'];
+//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
+//           }
+//           
+//            if(isset($_SESSION['dealer'])) 
+//           {
+//               
+//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
+//           }
+           
+           
+//                if(isset($_POST['product']) ) 
+//           {
+//                      $_SESSION['product']=$_POST['product'];
+//                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
+//           }
+//              if( isset($_SESSION['product'])) 
+//           {
+//                  
+//                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
+//           }
+            if(isset($_POST['showall'])=="true" ) 
+            {
+                 setCookie("dealer","",-1);
+                  setCookie("product","",-1);
+            }
+             if(isset($_POST['dealer']) ) 
+           {
+                setcookie("dealer",$_POST['dealer'],2000000000); 
+                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_POST['dealer'])) . "%'";
+           }
+           
+            if(isset($_COOKIE['dealer'])!="") 
+           {
+                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_COOKIE['dealer'])) . "%'";
+           }
+           
+           
+                if(isset($_POST['product']) ) 
+           {
+                      setcookie("product",$_POST['product'],2000000000); 
+                $wherep = "  AND  sku  LIKE '%" .  $_POST['product'] . "%'";
+           }
+            if(isset($_COOKIE['product'])!="") 
+           {
+                  
+                $wherep = "  AND  sku  LIKE '%" .  $_COOKIE['product'] . "%'";
+           }
+           
+          
 //vendor
 
 
@@ -311,7 +363,7 @@ on crawl.id=crawl_results.crawl_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
  ".$condition_wname." ".$condition_sku."  and
 crawl_results.violation_amount>0.05   
-and website.excluded=0 
+and website.excluded=0 $wherev ".$wherep."
 " . $order_by . "$limithcon " ;
 
 $violators_array = $db_resource->GetResultObj($sql);

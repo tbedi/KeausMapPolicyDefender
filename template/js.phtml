@@ -1,6 +1,10 @@
 <script type="text/javascript">
 
-
+// function handle(e){
+//       document.dealerSearch.action ="tab=violations-history&";
+//
+//        return false; //Otherwise the form will be submitted
+//    }
  
 		/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
 	function check_for_search_params(){
@@ -68,9 +72,8 @@
      	 
      	 /*Show all common method*/
      	 function show_all() {		  
-     		location.search='?tab='+selected_tab ;
-     	      //  window.open(search_field, "_self");
-     	        
+     		
+     	         location.search='?tab='+selected_tab ;  	        
      	 }
      	 /*Show all common method*/
      	 
@@ -522,6 +525,9 @@ delete queryParameters['selectallvendor'];
 
 
 
+
+    
+    
 
         
 </script>
