@@ -4,7 +4,7 @@ include_once '../toMoney.php';
 include_once './db_class.php';
 include_once './db.php';
 session_start();
-
+ $conVendorExport="";
 $vviolationTitle=$_SESSION['vviolationTitle'];
 
 if(isset($_SESSION['vviolationTitle']))

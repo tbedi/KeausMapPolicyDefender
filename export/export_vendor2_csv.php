@@ -22,7 +22,7 @@ $db_resource = new DB ();
 //$limit=15;
 //$start=0;
 //$limitvcon="";
-   $conVendorExport;
+   $conVendorExport="";
 
 //if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 //	$limit=$_GET['limit2'];

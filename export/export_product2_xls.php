@@ -5,7 +5,7 @@ include_once '../toMoney.php';
 include_once './db.php';
 $sku="";
 $product_id="";
-
+ $conProductExport="";
 if(isset($_SESSION['pviolationTitle']))
 {
 $sku=$_SESSION['pviolationTitle'];
