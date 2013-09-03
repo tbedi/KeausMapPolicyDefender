@@ -19,10 +19,10 @@ if (isset($_SESSION['website_id'])) {
     $web_id = $_SESSION['website_id'];
 }
 $db_resource = new DB ();
-$limit=15;
-$start=0;
-$limitvcon="";
-   $conVendorExport;
+//$limit=15;
+//$start=0;
+//$limitvcon="";
+   $conVendorExport="";
 
 //if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 //	$limit=$_GET['limit2'];
@@ -33,7 +33,7 @@ $limitvcon="";
 //}
 
  
-if (isset($_SESSION['listv']))
+if (isset($_SESSION['listv']) and $_SESSION['listv']!=0)
 {
     $arrExportVendor;
     $arrExportVendor=$_SESSION['listv'];
@@ -42,10 +42,12 @@ if (isset($_SESSION['listv']))
     $conVendorExport=" and crawl_results.id in (". $_SESSION['listv']. ")" ;
     
 }
-
+ else {
+    $conVendorExport="";
+}
      if  (isset($_SESSION['selectallvendor']) )
 {
-    $limitvcon="";
+//    $limitvcon="";
       $conVendorExport="";
 }
 
@@ -69,12 +71,12 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
 
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-$result = mysql_query($sql);
-$last_crawl = mysql_fetch_assoc($result);
+//$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
+//$result = mysql_query($sql);
+//$last_crawl = mysql_fetch_assoc($result);
 
 
-$sql = "select distinct crawl_results.website_id,
+$sql = "select distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
  catalog_product_flat_1.name as name,
@@ -84,19 +86,20 @@ crawl_results.vendor_price ,
  crawl_results.violation_amount ,
 crawl_results.website_product_url 
 from crawl_results
+ inner join crawl on crawl.id=crawl_results.crawl_id
 inner join
 website
 on website.id = crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
-where crawl_results.crawl_id=" . $last_crawl['id'] ."  and  crawl_results.violation_amount>0.05 
+where  crawl_results.violation_amount>0.05 
 and
 website.excluded=0 " . $conVendorExport . " 
 and website_id = $web_id  ".$order_by; 
 
  
 $violators_array=$db_resource->GetResultObj($sql);
-echo $sql;
+//echo $sql;
 //$violators_array=$_SESSION['vendor2Array'];
 //if(isset($_SESSION['vendor2Array']))
 //{
@@ -116,7 +119,9 @@ $arr_columns = array(
     'SKU',
     'Dealers Price',
     'MAP Price',
-    'Violation Amount'
+    'Violation Amount',
+    'Date'
+    
     
     
 );
@@ -124,7 +129,7 @@ $arr_data = array();
 
 foreach ($violators_array as $violators_array ) {
     //print_r($row);die();
-$arr_data_row = array($violators_array->sku,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount));
+$arr_data_row = array($violators_array->sku,toMoney($violators_array->vendor_price),toMoney($violators_array->map_price),toMoney($violators_array->violation_amount),$violators_array->date_executed);
 /* push data to array */
 array_push($arr_data, $arr_data_row);
 } //do it here

@@ -12,11 +12,13 @@ if (isset($_REQUEST['website_id']) )
     
      $name= preg_replace('/[^A-Za-z0-9. \-]/', '', $_REQUEST['wname']);
     $condition=" and website_id =".$wname." ";
+    $count_v="count(website_id)";
 }
 else
 {
     $name="";
     $condition="";
+    $count_v="count( distinct website_id)";
 }
 
 
@@ -40,8 +42,8 @@ $sql=
         "select
 website_id, date_executed
 from
-(select
-count(  website_id) as website_id,
+(select  
+". $count_v ." as website_id,
 date_format(crawl.date_executed, '%Y-%m-%d') as date_executed
 from
 crawl_results res
@@ -56,6 +58,7 @@ group by date_format(crawl.date_executed, '%Y-%m-%d')
 order by crawl.date_executed desc) as yy
 order by date_executed
 ";
+//echo $sql;
 //prev
 //"select
 //Violations_amount, date_executed
@@ -140,6 +143,8 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
         }
 
         $('#chart-a6').highcharts({
+             colors: ['#000062'],
+        
             chart: {
                 renderTo: 'a6',
                 defaultSeriesType: 'line',

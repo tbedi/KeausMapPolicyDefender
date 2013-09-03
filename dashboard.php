@@ -75,8 +75,13 @@ crawl ON crawl.id = crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 where
 crawl_results.violation_amount > 0.05
+ 
 group by crawl_results.product_id, catalog_product_flat_1.sku
 order by prevcount desc limit 8";
+/*=======
+group by crawl_results.product_id
+order by prevcount desc limit 10";
+>>>>>>> 37b057ebf29d4ba8704a7ab85a873d4669d6489a*/
 
 
 $dashc_array = $db_resource->GetResultObj($sqlc);
@@ -184,7 +189,7 @@ and crawl_results.crawl_id in (select
 max(id)
 from
 crawl)
-group by crawl_results.product_id ";
+group by crawl_results.product_id limit 10 ";
              $sqll = "select 
 catalog_product_flat_1.sku
 from
@@ -202,7 +207,8 @@ id not in (select
 max(id)
 from
 crawl))
-group by crawl_results.product_id ";
+group by crawl_results.product_id limit 10";
+ 
              $dash4_array = $db_resource->GetResultObj($sql);
              $dash5_array = $db_resource->GetResultObj($sqll);
             $array=array();
@@ -265,7 +271,9 @@ from
             max(id)
         from
             crawl)
-group by website.name ";
+ 
+group by website.name limit 10";
+ 
              $sqll = "SELECT 
     website.name name
 from
@@ -279,7 +287,9 @@ from
         from
             crawl
 where id !=(select max(id) from crawl))
-group by website.name";
+ 
+group by website.name limit 10";
+ 
             $dash8_array = $db_resource->GetResultObj($sql);
              $dash9_array = $db_resource->GetResultObj($sqll);
 

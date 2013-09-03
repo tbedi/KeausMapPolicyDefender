@@ -7,7 +7,7 @@ include_once '../toMoney.php';
 include_once './db_class.php';
 include_once './db.php';
 session_start();
-
+ $conVendorExport="";
 $vviolationTitle=$_SESSION['vviolationTitle'];
 
 if(isset($_SESSION['vviolationTitle']))
@@ -22,20 +22,20 @@ if (isset($_SESSION['website_id'])) {
     $web_id = $_SESSION['website_id'];
 }
 $db_resource = new DB ();
-$limit=15;
-$start=0;
-$limitvcon="";
-
-if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-	$limit=$_GET['limit2'];
-} 
-if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
-{ 
-       $limitvcon = "  LIMIT $start, $limit ";
-}
+//$limit=15;
+//$start=0;
+//$limitvcon="";
+//
+//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
+//	$limit=$_GET['limit2'];
+//} 
+//if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
+//{ 
+//       $limitvcon = "  LIMIT $start, $limit ";
+//}
 
  
-if (isset( $_SESSION['listv']) and  $_SESSION['listv']!="")
+if (isset( $_SESSION['listv']) and  $_SESSION['listv']!=0)
 {
     $arrExportVendor=  $_SESSION['listv'];
     
@@ -48,7 +48,7 @@ if (isset( $_SESSION['listv']) and  $_SESSION['listv']!="")
 }
      if  (isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']=='1')
 {
-    $limitvcon="";
+//    $limitvcon="";
       $conVendorExport="";
 }
 
@@ -77,7 +77,7 @@ $result = mysql_query($sql);
 $last_crawl = mysql_fetch_assoc($result);
 
 
-$sql = "select distinct crawl_results.website_id,
+$sql = "select distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
  catalog_product_flat_1.name as name,
@@ -87,16 +87,16 @@ crawl_results.vendor_price ,
  crawl_results.violation_amount ,
 crawl_results.website_product_url 
 from crawl_results
+ inner join crawl on crawl.id=crawl_results.crawl_id
 inner join
 website
 on website.id = crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
-where crawl_results.crawl_id=" . $last_crawl['id'] ."  and  crawl_results.violation_amount>0.05 
+where  crawl_results.violation_amount>0.05 
 and
 website.excluded=0 " . $conVendorExport . " 
-and website_id = $web_id  ".$order_by." " .$limitvcon; 
-
+and website_id = $web_id  ".$order_by; 
  
 $violators_array=$db_resource->GetResultObj($sql);
 
@@ -119,6 +119,7 @@ echo '<td>SKU </td>';
 echo '<td>Dealers Price </td>';
 echo '<td>Map Price </td>';
 echo '<td>Violation Amount </td>';
+echo '<td>Date </td>';
 
 print('</tr>');
 
@@ -131,6 +132,7 @@ foreach ($violators_array as $violators_array) {
     $output .= "<td>" . toMoney($violators_array->vendor_price) . "</td>";
     $output .= "<td>" . toMoney($violators_array->map_price) . "</td>";
     $output .= "<td>" . toMoney($violators_array->violation_amount) . "</td>";
+     $output .= "<td>" . $violators_array->date_executed . "</td>";
 
     print(trim($output)) . "</tr>\t\n";
 }

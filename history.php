@@ -2,15 +2,23 @@
 //pagination
 $tableName = "crawl_results";
 $targetpage = "index.php";
-$limit = 15;
+
+ $limit = 25;
+
 $flagfrom = 0;
 $flagto = 0;
  $start = 0;
+ $wherev="";
+  $wherep="";
 $additional_params;
 $searchfield;
 // Product
 $product_id = 0;
 $conHistoryExport;
+if (isset($_SESSION['listh']))
+unset($_SESSION['listh']);
+if (isset($_SESSION['selectallhistory']))
+unset($_SESSION['selectallhistory']);
 
 if (isset($_REQUEST['product_id'])) {
     $product_id = $_REQUEST['product_id'];
@@ -18,7 +26,7 @@ if (isset($_REQUEST['product_id'])) {
 }
 
 
-//url calendeer form
+//url calender form
 
         
         $searchfield;
@@ -28,10 +36,12 @@ if (isset($_REQUEST['product_id'])) {
             $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
         }
          if (isset($_REQUEST['sku']) ){
-                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; ;       
+                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; 
+                $limit = 15;
         }
         if (isset($_REQUEST['website_id']) ){
-                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];       
+                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];  
+                 $limit = 15;
         }
 //        else {
 //            $urls = "?tab=violations-history&option=show_dates";
@@ -85,7 +95,58 @@ if (isset($_REQUEST['website_id'])) {
 //}
 /*where*/
 
-
+//           if(isset($_POST['dealer']) ) 
+//           {
+//               $_SESSION['dealer']=$_POST['dealer'];
+//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
+//           }
+//           
+//            if(isset($_SESSION['dealer'])) 
+//           {
+//               
+//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
+//           }
+           
+           
+//                if(isset($_POST['product']) ) 
+//           {
+//                      $_SESSION['product']=$_POST['product'];
+//                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
+//           }
+//              if( isset($_SESSION['product'])) 
+//           {
+//                  
+//                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
+//           }
+            if(isset($_POST['showall'])=="true" ) 
+            {
+                 setCookie("dealer","",-1);
+                  setCookie("product","",-1);
+            }
+             if(isset($_POST['dealer']) ) 
+           {
+                setcookie("dealer",$_POST['dealer'],2000000000); 
+                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_POST['dealer'])) . "%'";
+           }
+           
+            if(isset($_COOKIE['dealer'])!="") 
+           {
+                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_COOKIE['dealer'])) . "%'";
+           }
+           
+           
+                if(isset($_POST['product']) ) 
+           {
+                      setcookie("product",$_POST['product'],2000000000); 
+                $wherep = "  AND  sku  LIKE '%" .  $_POST['product'] . "%'";
+           }
+            if(isset($_COOKIE['product'])!="") 
+           {
+                  
+                $wherep = "  AND  sku  LIKE '%" .  $_COOKIE['product'] . "%'";
+           }
+           
+          
 //vendor
 
 
@@ -94,7 +155,7 @@ $_SESSION['limit'] = $limit;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
     $limit = $_GET['limit'];
 }
-$limithcon = "  LIMIT $start, $limit ";
+
  static $to;
 static $from;
 /* where */
@@ -131,15 +192,17 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+   // echo $_GET['page'];
     $page = mysql_escape_string($_GET['page']);
     $start = ($page - 1) * $limit;
+   // echo $start;
 } else {
     $start = 0;
     $page = 1;
 }
 /* Pagination */
 
-
+$limithcon = "  LIMIT $start, $limit ";
 
 
 $sql3 = "SELECT min(date_format(crawl.date_executed,'%Y-%m-%d')) as mindate from crawl";
@@ -151,25 +214,33 @@ $sqldate="select date_format(crawl.date_executed,'%Y-%m-%d') as date_executed fr
 where id in(select  max(id) from crawl); "; 
 
 $violators_array_date=$db_resource->GetResultObj($sqldate);
-
-
-if (isset($_POST["to"]) && ($_POST["from"]) && isset($_GET['option']) && $_GET['option'] == 'show_dates') {
-    $to = $_POST["to"];
-    $from = $_POST["from"];
-    $_SESSION['t'] = $_POST["to"];
-    $_SESSION['fr'] = $_POST["from"];
-     $_SESSION['tc'] = $_POST["to"];
-    $_SESSION['frc'] = $_POST["from"];
-}
-
-else {
-        $to= $violators_array_date[0]->date_executed;
+if (!isset($_REQUEST['option']) && !isset($_POST['to']) && !isset($_POST['from'])) {
+ $to= $violators_array_date[0]->date_executed;
         $from= $violators_array_date[0]->date_executed;
 	$_SESSION['t'] = $to;
 	$_SESSION['fr'] = $from;
         $_SESSION['tc'] = date("Y-m-d");
 	$_SESSION['frc'] = $mindate;
 }
+//  $_SESSION['t'] = $_POST["to"];
+//    $_SESSION['fr'] = $_POST["from"];
+elseif(isset($_POST["to"]) && ($_POST["from"])) 
+    {
+    $_SESSION['t'] = $_POST['to'];
+    $_SESSION['fr'] = $_POST['from'];
+    $to = $_SESSION['t'];
+    $from = $_SESSION['fr'];
+}
+
+
+if(isset($_SESSION['t']) && isset($_SESSION['fr']))
+{
+    $to = $_SESSION['t'];
+    $from = $_SESSION['fr'];
+}
+//print_r($_SESSION);
+//echo $to."-".$from."-";
+
 /* calender dates */
 //new changes
 
@@ -257,14 +328,24 @@ if (isset($_REQUEST['listh']) )
 {
     $_SESSION['listh'] = $_REQUEST['listh'];
 }
+if (isset($_REQUEST['selectallproduct']))
+{
+     $_SESSION['selectallproduct'] = $_REQUEST['selectallproduct'];
+     
+}
 
+
+if (isset($_REQUEST['listp']) ) 
+{
+    $_SESSION['listp'] = $_REQUEST['listp'];
+}
 
 
 
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,
-    date_format(crawl.date_executed,'%m-%d-%Y %H:%i:%s') as date_executed,
+    date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id,
 website.name as vendor, 
 crawl_results.vendor_price ,
@@ -282,17 +363,17 @@ on crawl.id=crawl_results.crawl_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
  ".$condition_wname." ".$condition_sku."  and
 crawl_results.violation_amount>0.05   
-and website.excluded=0 
+and website.excluded=0 $wherev ".$wherep."
 " . $order_by . "$limithcon " ;
 
 $violators_array = $db_resource->GetResultObj($sql);
 
-//echo $sql;
-
-$_SESSION['historyArray'] = $violators_array;
-if (isset($_SESSION['historyArray'])) {
-    // print_r($_SESSION['historyArray']); 
-}
+//echo "---".$sql;
+//
+//$_SESSION['historyArray'] = $violators_array;
+//if (isset($_SESSION['historyArray'])) {
+//    // print_r($_SESSION['historyArray']); 
+//}
 ?>
 <script type="text/javascript">
   //  document.getElementById(inputFieldfrom).setAttribute(value, <?php $from; ?>); it showed js error
@@ -302,8 +383,8 @@ if (isset($_SESSION['historyArray'])) {
  	// put inside document.ready jquery event 
 </script>
 <?php
-/*Pagination*/
 
+//pagination
 $sql1 = " SELECT FOUND_ROWS() as total;";
 $total_pages = $db_resource->GetResultObj($sql1);
 $total_pages = $total_pages[0]->total;
@@ -316,7 +397,7 @@ $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param
 
 
 
-
+    
 
 /*For sorting using*/
 $additional_params = "&limit=".$limit;

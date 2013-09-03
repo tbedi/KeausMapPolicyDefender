@@ -12,11 +12,13 @@ if (isset($_REQUEST['sku']) )
 {
     $sku=$_REQUEST['sku'];
     $condition=" and sku like '".$sku."' ";
+    $count_p="count( product_id)";
 }
 else
 {
     $sku="";
     $condition="";
+    $count_p="count( distinct product_id)";
 }
 //$sql = "
 //select Violations_amount, date_executed
@@ -44,15 +46,20 @@ $sql=
         "select
  product_id, date_executed
 from
-(select
-count(  product_id) as product_id,
+(select  
+".$count_p ." as product_id,
 date_format(crawl.date_executed, '%Y-%m-%d') as date_executed
 from
 crawl_results res
 
 inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
 inner join crawl ON crawl.id = res.crawl_id
-where (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
+inner join
+website sites ON sites.id = res.website_id
+where
+violation_amount > 0.05
+and sites.excluded = 0
+and (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
  ". $condition. " 
 group by date_format(crawl.date_executed, '%Y-%m-%d')
 order by crawl.date_executed desc) as yy
@@ -60,7 +67,7 @@ order by date_executed
 ";
 $result = mysql_query($sql);
 
-
+//echo $sql;
 
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
@@ -81,7 +88,11 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 
       
         $('#chart-a5').highcharts({
+            
+        colors: ['#0082a4'],
             chart: {
+                
+        
                 renderTo: 'a5',
                 defaultSeriesType: 'line',
                 margin: [50, 50, 100, 80],

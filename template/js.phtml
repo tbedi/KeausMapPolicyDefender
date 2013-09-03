@@ -1,6 +1,10 @@
 <script type="text/javascript">
 
-
+// function handle(e){
+//       document.dealerSearch.action ="tab=violations-history&";
+//
+//        return false; //Otherwise the form will be submitted
+//    }
  
 		/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
 	function check_for_search_params(){
@@ -68,9 +72,8 @@
      	 
      	 /*Show all common method*/
      	 function show_all() {		  
-     		location.search='?tab='+selected_tab ;
-     	      //  window.open(search_field, "_self");
-     	        
+     		
+     	         location.search='?tab='+selected_tab ;  	        
      	 }
      	 /*Show all common method*/
      	 
@@ -242,7 +245,7 @@ $(function(){
  
     // add multiple select / deselect functionality
     $("#selectallh").click(function () {
-          $('.caseh').attr('checked', this.checked);
+          $('.caseh').prop('checked', this.checked);
     });
  
     // if all checkbox are selected, check the selectall checkbox
@@ -250,9 +253,9 @@ $(function(){
     $(".caseh").click(function(){
  
         if($(".caseh").length == $(".caseh:checked").length) {
-            $("#selectallh").attr("checked", "checked");
+            $("#selectallh").prop("checked", "checked");
         } else {
-            $("#selectallh").removeAttr("checked");
+            $("#selectallh").removeProp("checked");
         }
  
     });
@@ -313,12 +316,15 @@ $(document).ready(function () {
  window.location = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&listh='+selectedh;
  delete queryParameters['listh'];
   delete queryParameters['selectallhistory']; 
+ 
+  
 }
 
  $('.selectallrech').click(function() {
    window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallhistory=1';
    delete queryParameters['selectallhistory'];
     delete queryParameters['listh'];
+  
 });
 
 /////History end
@@ -332,7 +338,7 @@ $(function(){
  
     // add multiple select / deselect functionality
     $("#selectallp").click(function () {
-          $('.casep').attr('checked', this.checked);
+          $('.casep').prop('checked', this.checked);
     });
  
     // if all checkbox are selected, check the selectall checkbox
@@ -340,9 +346,9 @@ $(function(){
     $(".casep").click(function(){
  
         if($(".casep").length == $(".casep:checked").length) {
-            $("#selectallp").attr("checked", "checked");
+            $("#selectallp").prop("checked", "checked");
         } else {
-            $("#selectallp").removeAttr("checked");
+            $("#selectallp").removeProp("checked");
         }
  
     });
@@ -399,13 +405,14 @@ $(document).ready(function () {
  window.location = 'index.php?'+$.param(queryParameters)+'&listp='+selectedp;
   delete queryParameters['selectallproduct'];
     delete queryParameters['listp'];
-   
+  
 }
 
  $('.selectallrecP').click(function() {
    window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallproduct=1';
    delete queryParameters['selectallproduct'];
     delete queryParameters['listp'];
+  
 });
 
 
@@ -420,7 +427,7 @@ $(function(){
  
     // add multiple select / deselect functionality
     $("#selectallv").click(function () {
-          $('.casev').attr('checked', this.checked);
+          $('.casev').prop('checked', this.checked);
     });
  
     // if all checkbox are selected, check the selectall checkbox
@@ -428,9 +435,9 @@ $(function(){
     $(".casev").click(function(){
  
         if($(".casev").length == $(".casev:checked").length) {
-            $("#selectallv").attr("checked", "checked");
+            $("#selectallv").prop("checked", "checked");
         } else {
-            $("#selectallv").removeAttr("checked");
+            $("#selectallv").removeProp("checked");
         }
  
     });
@@ -488,15 +495,24 @@ $(document).ready(function () {
  window.location = 'index.php?'+$.param(queryParameters)+'&listv='+selectedv;
   delete queryParameters['selectallvendor'];
     delete queryParameters['listv'];
-   
+  
 }
 
  $('.selectallrecV').click(function() {
    window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallvendor=1';
    delete queryParameters['selectallvendor'];
     delete queryParameters['listv'];
+   
 });
-
+delete queryParameters['selectallvendor'];
+    delete queryParameters['listv'];
+    
+     delete queryParameters['selectallproduct'];
+    delete queryParameters['listp'];
+  
+    delete queryParameters['selectallhistory'];
+    delete queryParameters['listh'];
+   
 
 
 ///// vendor details end
@@ -509,6 +525,9 @@ $(document).ready(function () {
 
 
 
+
+    
+    
 
         
 </script>
