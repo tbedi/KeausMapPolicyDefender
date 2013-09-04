@@ -62,10 +62,10 @@ $csum = ($das['currentcount'] + $das['prevcount']);
     if($diffr <0) $x ="red";
     elseif ($diffr ==0) $x ="black";
     elseif ($diffr >0) $x ="green";
-    if(strlen($das['sku']) > 10)
-        $rnm = substr($das['sku'],0,10)."...";
-    else $rnm = $das['sku'];
-    echo "<a href="."index.php?tab=violations-history&product_id=". $das['product_id']."&sku=".$das['sku'].">" .$rnm."</td>"."<td>" .$das['currentcount']." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum. "</td>" . "</tr>";
+    if(strlen($das['sku1']) > 10)
+        $rnm = substr($das['sku1'],0,10)."...";
+    else $rnm = $das['sku1'];
+    echo "<a href="."index.php?tab=violations-history&product_id=". $das['product_id']."&sku=".$das['sku1'].">" .$rnm."</td>"."<td>" .$das['currentcount']." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum. "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
 

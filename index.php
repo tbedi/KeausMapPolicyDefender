@@ -42,7 +42,7 @@ if (isset($_GET['resetsessionvar']))
                         <div class="tabpage dashboard" id="tabpage_1">
                             <?php include_once 'dashboard.php'; ?>
                         </div>
-                       
+ 
 
                         <div class="tabpage violations-history" id="tabpage_5">
                             <?php include_once 'history.php'; ?>

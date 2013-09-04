@@ -9,8 +9,8 @@ $result1 = mysql_query($sqlcwl);
 $last_crawl1 = mysql_fetch_assoc($result1);
 
 
-$sql = "SELECT 
-website.name name, website_id, count(crawl_results.website_id) countcurrent
+$sql = "SELECT website_id,
+website.name name, count(crawl_results.website_id) countcurrent
 from website
 inner join
 crawl_results
@@ -19,11 +19,11 @@ inner join crawl
 on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl['id'] . " 
 and crawl_results.violation_amount>0.05 and website.excluded=0 
-group by website.name, website_id
-order by countcurrent desc limit 10";
+group by website_id, website.name
+order by countcurrent desc limit 8";
 
-$sqld = "SELECT
-website.name name, website_id, count(crawl_results.website_id) countprev
+$sqld = "SELECT  website_id,
+website.name name, count(crawl_results.website_id) countprev
 from website
 inner join
 crawl_results
@@ -32,7 +32,7 @@ inner join crawl
 on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 and crawl_results.violation_amount>0.05 and website.excluded=0
-group by website.name, website_id order by countprev desc limit 10";
+group by website_id, website.name order by countprev desc limit 8";
 
   $dashh_array = $db_resource->GetResultObj($sql);
   $dashh1_array = $db_resource->GetResultObj($sqld);
@@ -40,22 +40,15 @@ group by website.name, website_id order by countprev desc limit 10";
 $newArray = Array();
 foreach($dashh1_array as $k=>$val)
 {
-//        if ($val = NULL ){
-//        $val= 0;
-//    }
 //    print_r ($val);
     if(array_key_exists($k, $dashh_array))
     {
         $newArray[$k] = array_merge((array)$val,(array)$dashh_array[$k]);
     }
-    else{
-        $newArray[$k] = array_merge((array)0,(array)$dashh_array[$k]);
-        
-    }
 }
   
 $sqlc = "select
-catalog_product_flat_1.sku,
+catalog_product_flat_1.sku sku1,
 crawl_results.product_id,
 count(crawl_results.product_id) as currentcount
 from
@@ -67,8 +60,8 @@ crawl ON crawl.id = crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl['id'] . " 
 where
 crawl_results.violation_amount > 0.05
-group by crawl_results.product_id
-order by currentcount desc limit 10";
+group by crawl_results.product_id, catalog_product_flat_1.sku
+order by currentcount desc limit 8";
 
 $sqlp = "select
 catalog_product_flat_1.sku sku1,
@@ -82,18 +75,23 @@ crawl ON crawl.id = crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 where
 crawl_results.violation_amount > 0.05
+ 
+group by crawl_results.product_id, catalog_product_flat_1.sku
+order by prevcount desc limit 8";
+/*=======
 group by crawl_results.product_id
 order by prevcount desc limit 10";
+>>>>>>> 37b057ebf29d4ba8704a7ab85a873d4669d6489a*/
 
 
 $dashc_array = $db_resource->GetResultObj($sqlc);
 $dashp_array = $db_resource->GetResultObj($sqlp);
              $viosku = Array();
-foreach($dashc_array as $k1=>$val1)
+foreach($dashp_array as $k1=>$val1)
 {
-    if(array_key_exists($k1, $dashp_array))
+    if(array_key_exists($k1, $dashc_array))
     {
-        $viosku[$k1] = array_merge((array)$val1,(array)$dashp_array[$k1]);
+        $viosku[$k1] = array_merge((array)$val1,(array)$dashc_array[$k1]);
     }
 }
 
@@ -138,7 +136,7 @@ website.excluded=0
 AND crawl.id = (SELECT id FROM crawl ORDER BY id DESC LIMIT 1)
 and
 crawl.id = " . $last_crawl['id'] . " order by violation_amount desc
-limit 10";
+limit 8";
 $dash1_array = $db_resource->GetResultObj($sql3);
 
 $sql = "select 
@@ -164,7 +162,7 @@ catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.produ
 and crawl_results.crawl_id in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by crawl_results.product_id limit 10";
+group by crawl_results.product_id ";
              $dash2_array = $db_resource->GetResultObj($sql);
              $dash3_array = $db_resource->GetResultObj($sqll);
             $array=array();
@@ -210,6 +208,7 @@ max(id)
 from
 crawl))
 group by crawl_results.product_id limit 10";
+ 
              $dash4_array = $db_resource->GetResultObj($sql);
              $dash5_array = $db_resource->GetResultObj($sqll);
             $array=array();
@@ -232,7 +231,7 @@ $sql = "SELECT website.name name from website
         and crawl_results.crawl_id not in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by website.name limit 10";
+group by website.name ";
              $sqll = "SELECT 
     website.name name
 from
@@ -244,7 +243,7 @@ from
         and crawl_results.crawl_id in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by website.name limit 10";
+group by website.name ";
               $dash6_array = $db_resource->GetResultObj($sql);
              $dash7_array = $db_resource->GetResultObj($sqll);
 
@@ -272,7 +271,9 @@ from
             max(id)
         from
             crawl)
+ 
 group by website.name limit 10";
+ 
              $sqll = "SELECT 
     website.name name
 from
@@ -286,7 +287,9 @@ from
         from
             crawl
 where id !=(select max(id) from crawl))
+ 
 group by website.name limit 10";
+ 
             $dash8_array = $db_resource->GetResultObj($sql);
              $dash9_array = $db_resource->GetResultObj($sqll);
 
