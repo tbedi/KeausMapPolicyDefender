@@ -95,58 +95,87 @@ if (isset($_REQUEST['website_id'])) {
 //}
 /*where*/
 
-//           if(isset($_POST['dealer']) ) 
-//           {
-//               $_SESSION['dealer']=$_POST['dealer'];
-//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
-//           }
-//           
-//            if(isset($_SESSION['dealer'])) 
-//           {
-//               
-//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
-//           }
-           
-           
-//                if(isset($_POST['product']) ) 
-//           {
-//                      $_SESSION['product']=$_POST['product'];
-//                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
-//           }
-//              if( isset($_SESSION['product'])) 
-//           {
-//                  
-//                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
-//           }
-            if(isset($_POST['showall'])=="true" ) 
-            {
-                 setCookie("dealer","",-1);
-                  setCookie("product","",-1);
-            }
-             if(isset($_POST['dealer']) ) 
+           if(isset($_POST['dealer']) ) 
            {
-                setcookie("dealer",$_POST['dealer'],2000000000); 
-                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_POST['dealer'])) . "%'";
+               $_SESSION['dealer']=$_POST['dealer'];
+                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
            }
            
-            if(isset($_COOKIE['dealer'])!="") 
+            if(isset($_SESSION['dealer'])) 
            {
-                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_COOKIE['dealer'])) . "%'";
+               
+                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
            }
-           
-           
+                    
                 if(isset($_POST['product']) ) 
            {
-                      setcookie("product",$_POST['product'],2000000000); 
-                $wherep = "  AND  sku  LIKE '%" .  $_POST['product'] . "%'";
+                      $_SESSION['product']=$_POST['product'];
+                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
            }
-            if(isset($_COOKIE['product'])!="") 
+              if(isset($_SESSION['product'])) 
            {
                   
-                $wherep = "  AND  sku  LIKE '%" .  $_COOKIE['product'] . "%'";
+                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
            }
            
+           
+          if (isset($_GET['resetsessionvar']))
+          {
+              if(isset($_SESSION['product']))
+               unset($_SESSION['product']);
+               
+                if(isset($_SESSION['dealer']))
+               unset($_SESSION['dealer']);
+           return TRUE;
+          }
           
+          
+                 function showhr()
+           {
+               if(isset($_SESSION['product']))
+               unset($_SESSION['product']);
+               
+                if(isset($_SESSION['dealer']))
+               unset($_SESSION['dealer']);
+               
+           }
+
+           
+           
+           
+           
+           
+           
+           
+//            if(isset($_POST['showall'])=="true" ) 
+//            {
+//                 setCookie("dealer","",-1);
+//                  setCookie("product","",-1);
+//            }
+//             if(isset($_POST['dealer']) ) 
+//           {
+//                setcookie("dealer",$_POST['dealer'],2000000000); 
+//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_POST['dealer'])) . "%'";
+//           }
+//           
+//            if(isset($_COOKIE['dealer'])!="") 
+//           {
+//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_COOKIE['dealer'])) . "%'";
+//           }
+//           
+//           
+//                if(isset($_POST['product']) ) 
+//           {
+//                      setcookie("product",$_POST['product'],2000000000); 
+//                $wherep = "  AND  sku  LIKE '%" .  $_POST['product'] . "%'";
+//           }
+//            if(isset($_COOKIE['product'])!="") 
+//           {
+//                  
+//                $wherep = "  AND  sku  LIKE '%" .  $_COOKIE['product'] . "%'";
+//           }
+           
+        //  echo $_POST['showall'];
 //vendor
 
 
