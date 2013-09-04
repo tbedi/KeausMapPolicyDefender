@@ -32,20 +32,56 @@ inner join crawl
 on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 and crawl_results.violation_amount>0.05 and website.excluded=0
-group by website_id, website.name order by countprev desc limit 8";
+group by website_id, website.name order by countprev desc";
 
   $dashh_array = $db_resource->GetResultObj($sql);
   $dashh1_array = $db_resource->GetResultObj($sqld);
   
-$newArray = Array();
-foreach($dashh1_array as $k=>$val)
+  foreach($dashh_array as $k=>$val)
 {
-//    print_r ($val);
-    if(array_key_exists($k, $dashh_array))
-    {
-        $newArray[$k] = array_merge((array)$val,(array)$dashh_array[$k]);
-    }
+      
+//      print_r($val);
+//      print_r($k);
+      foreach($val as $k1=>$val1)
+      {
+//          echo 'value - ';
+//          print_r($val1);
+//      echo 'key - ';
+//      print_r($k1);
+//      
+//      echo ' - AFTER SEARCH - ';
+      foreach($dashh1_array as $kx=>$valx)
+{
+      foreach($valx as $kx1=>$valx1)
+      {
+      if ($k1 == $kx1 && $val1 == $valx1)
+      {
+//          print_r($valx->countprev);
+          $newArray[$k] = array_merge((array)$val,(array)$dashh_array[$k],(array)$valx );
+      }
+      }
 }
+      }
+      
+      
+}
+
+ function search($array, $key, $value)
+{
+    $results = array();
+
+    if (is_array($array))
+    {
+        if (isset($array[$key]) && $array[$key] == $value)
+            $results[] = $array;
+
+        foreach ($array as $subarray)
+            $results = array_merge($results, search($subarray, $key, $value));
+    }
+
+    return $results;
+}
+
   
 $sqlc = "select
 catalog_product_flat_1.sku sku1,
@@ -77,45 +113,44 @@ where
 crawl_results.violation_amount > 0.05
  
 group by crawl_results.product_id, catalog_product_flat_1.sku
-order by prevcount desc limit 8";
-/*=======
-group by crawl_results.product_id
-order by prevcount desc limit 10";
->>>>>>> 37b057ebf29d4ba8704a7ab85a873d4669d6489a*/
+order by prevcount desc ";
 
 
 $dashc_array = $db_resource->GetResultObj($sqlc);
 $dashp_array = $db_resource->GetResultObj($sqlp);
-             $viosku = Array();
-foreach($dashp_array as $k1=>$val1)
+
+$viosku = Array();
+ foreach($dashc_array as $k=>$val)
 {
-    if(array_key_exists($k1, $dashc_array))
-    {
-        $viosku[$k1] = array_merge((array)$val1,(array)$dashc_array[$k1]);
-    }
+
+      foreach($val as $k2=>$val2)
+      {
+      foreach($dashp_array as $ky=>$valy)
+{
+      foreach($valy as $ky2=>$valy2)
+      {
+      if ($k2 == $ky2 && $val2 == $valy2)
+      {
+//          print_r($valx->countprev);
+          $viosku[$k] = array_merge((array)$val,(array)$dashc_array[$k],(array)$valy );
+      }
+      }
+}
+      }
+      
+      
 }
 
 
 
-
-//$sql2 = "select
-//catalog_product_flat_1.sku, crawl_results.product_id,
-//count(crawl_results.product_id) as currentcount, 
-//if(tab1.prevcount is null,0,tab1.prevcount) prevcount, 
-//count(crawl_results.product_id)-if(tab1.prevcount is null,0,tab1.prevcount) diff,
-//count(crawl_results.product_id)+if(tab1.prevcount is null,0,tab1.prevcount) countsum
-//from crawl_results inner join catalog_product_flat_1 
-//on crawl_results.product_id = catalog_product_flat_1.entity_id
-//inner join crawl on crawl.id = crawl_results.crawl_id 
-//and crawl_results.crawl_id = " . $last_crawl['id'] . " left join ( select
-//catalog_product_flat_1.sku sku1, 
-//count(crawl_results.product_id) as prevcount from crawl_results 
-//inner join catalog_product_flat_1 on crawl_results.product_id = catalog_product_flat_1.entity_id
-//inner join crawl on crawl.id = crawl_results.crawl_id and crawl_results.crawl_id = " . $last_crawl1['id'] . "
-//group by crawl_results.product_id ) as tab1 on tab1.sku1 = catalog_product_flat_1.sku 
-//where crawl_results.violation_amount>0.05 group by crawl_results.product_id order by currentcount desc limit 10";
-//$dash_array = $db_resource->GetResultObj($sql2);
-
+//             $viosku = Array();
+//foreach($dashp_array as $k1=>$val1)
+//{
+//    if(array_key_exists($k1, $dashc_array))
+//    {
+//        $viosku[$k1] = array_merge((array)$val1,(array)$dashc_array[$k1]);
+//    }
+//}
 
 
 $sql3 = "SELECT
@@ -136,7 +171,7 @@ website.excluded=0
 AND crawl.id = (SELECT id FROM crawl ORDER BY id DESC LIMIT 1)
 and
 crawl.id = " . $last_crawl['id'] . " order by violation_amount desc
-limit 8";
+limit 9";
 $dash1_array = $db_resource->GetResultObj($sql3);
 
 $sql = "select 

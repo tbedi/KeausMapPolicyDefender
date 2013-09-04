@@ -13,9 +13,10 @@
             </tr>
 <?php
 
-foreach ($newArray as $dash) {  
+foreach ($newArray as $dash) 
+    {  
 //$rnm = '';
-//print_r($dash->countcurrent);
+//print_r($dash);
 $diffr = ($dash['countcurrent'] - $dash['countprev']);
 $csum = ($dash['countcurrent'] + $dash['countprev']);
 
@@ -26,9 +27,9 @@ $csum = ($dash['countcurrent'] + $dash['countprev']);
     if($diffr <0) $x ="red";
     elseif ($diffr ==0) $x ="black";
     elseif ($diffr >0) $x ="green";
-    if(strlen($dash['name']) > 18)
-        $rnm = substr($dash['name'],0,18)."...";
-    else $rnm = $dash['name'];
+//    if(strlen($dash['name']) > 18)
+//        $rnm = substr($dash['name'],0,18)."...";
+//    else $rnm = $dash['name'];
     echo "<a href="."index.php?tab=violations-history&website_id=". $dash['website_id']."&wname=".$dash['name'].">" .$dash['name']."</td>"."<td>" .$dash['countcurrent']." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($diffr > 0 ? "+" : "").round($percent, 2)."%"."</font>" . "<td>" . $csum. "</td>" . "</tr>";
     echo "</td>";
     echo "</tr>";
@@ -50,7 +51,8 @@ echo "</table>";
                 <td >Total violated</td>
             </tr>
 <?php
-foreach ($viosku as $das) { 
+foreach ($viosku as $das) 
+    { 
     
 $rnm = '';
 //print_r($dash->countcurrent);
@@ -62,8 +64,8 @@ $csum = ($das['currentcount'] + $das['prevcount']);
     if($diffr <0) $x ="red";
     elseif ($diffr ==0) $x ="black";
     elseif ($diffr >0) $x ="green";
-    if(strlen($das['sku1']) > 10)
-        $rnm = substr($das['sku1'],0,10)."...";
+    if(strlen($das['sku1']) > 15)
+        $rnm = substr($das['sku1'],0,15)."...";
     else $rnm = $das['sku1'];
     echo "<a href="."index.php?tab=violations-history&product_id=". $das['product_id']."&sku=".$das['sku1'].">" .$rnm."</td>"."<td>" .$das['currentcount']." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum. "</td>" . "</tr>";
     echo "</td>";
@@ -72,19 +74,6 @@ $csum = ($das['currentcount'] + $das['prevcount']);
  }
 //   print_r($das);
 
-
-// foreach ($dash_array as $dash1) {
-//     echo "<tr>";
-//    echo "<td>";
-//    if($dash1->diff <0) $x = "red";
-//    elseif ($dash1->diff ==0) $x = "black";
-//    elseif ($dash1->diff >0) $x = "green";
-//    if(strlen($dash1->sku ) > 10)
-//        $rnm = substr($dash1-> sku ,0,10)."...";
-//    else $rnm = $dash1->sku;
-//    echo "<a href="."index.php?tab=violations-history&product_id=". $dash1->product_id ."&sku=". $dash1->sku .">" . $rnm . "</td>" . "<td>" . $dash1->currentcount ." (" . "<font color="."$x".">".($dash1->diff > 0 ? "+" : ""). $dash1->diff."</font>".")"."</td>" . "<td>" . $dash1->prevcount . "</td>"."<td>" .$dash1->countsum . "</td>" . "</tr>";
-// }
-// 
 
 echo "</table>";
 ?>
