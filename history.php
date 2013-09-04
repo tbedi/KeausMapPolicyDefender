@@ -1,4 +1,21 @@
 <?php
+
+function resetSessionVariables() {
+  if(isset($_SESSION['product'])){
+		unset($_SESSION['product']); 
+	}
+	if(isset($_SESSION['dealer'])){
+		unset($_SESSION['dealer']);
+	}
+echo 'true';
+//return TRUE;
+}
+ 
+if(isset($_GET['action']) && $_GET['action'] == 'resetSession') {
+	resetSessionVariables();
+}else {
+    
+
 //pagination
 $tableName = "crawl_results";
 $targetpage = "index.php";
@@ -15,6 +32,16 @@ $searchfield;
 // Product
 $product_id = 0;
 $conHistoryExport;
+///////
+
+
+
+
+
+/////////
+
+
+
 if (isset($_SESSION['listh']))
 unset($_SESSION['listh']);
 if (isset($_SESSION['selectallhistory']))
@@ -119,29 +146,7 @@ if (isset($_REQUEST['website_id'])) {
            }
            
            
-          if (isset($_GET['resetsessionvar']))
-          {
-              if(isset($_SESSION['product']))
-               unset($_SESSION['product']);
-               
-                if(isset($_SESSION['dealer']))
-               unset($_SESSION['dealer']);
-           return TRUE;
-          }
-          
-          
-                 function showhr()
-           {
-               if(isset($_SESSION['product']))
-               unset($_SESSION['product']);
-               
-                if(isset($_SESSION['dealer']))
-               unset($_SESSION['dealer']);
-               
-           }
-
-           
-           
+       
            
            
            
@@ -471,5 +476,5 @@ if ($website_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") 
     include_once 'vviolation.php';
 }
 //include_once 'template/product_violation_detail.phtml';
-
+}///end of ajax else
 ?>

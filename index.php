@@ -16,15 +16,10 @@ include_once 'pagination_class.php';
 $db_resource = new DB ();
 $title="Price Defender";
 $pagination= new Pagination();
-if (isset($_GET['resetsessionvar']))
-          {
-              if(isset($_SESSION['product']))
-               unset($_SESSION['product']);
-               
-                if(isset($_SESSION['dealer']))
-               unset($_SESSION['dealer']);
-           return TRUE;
-          }
+
+
+
+
 ?>
  <?php include_once 'template/head.phtml'; ?>
     <body id="home">
