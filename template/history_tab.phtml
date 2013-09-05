@@ -160,12 +160,12 @@
 
                         <?php if ($order_field == "sku") { ?>
                             <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
                             </a>
                         <?php } ?>
 
                         <form name="productSearch" action="JavaScript:searchPro();" method="get">
-                            <input type="text" name="product" id="txtproduct" />
+                            <input type="text" class="search" name="product" id="txtproduct" />
                         </form>
 
 
@@ -178,7 +178,7 @@
                         </a>
 <?php if ($order_field == "vendor") { ?>
                             <a  onclick="sort_grid('vendor', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
                         <form name="dealerSearch" action ="JavaScript:searchVen();" method="get">
@@ -198,7 +198,7 @@
                         </a>
 <?php if ($order_field == "vendor_price") { ?>
                             <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
                             </a>
 <?php } ?>
                     </td>
@@ -209,7 +209,7 @@
                         </a>
 <?php if ($order_field == "map_price") { ?>
                             <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
 
@@ -222,7 +222,7 @@
                         </a>
 <?php if ($order_field == "violation_amount") { ?>
                             <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
                     </td>
@@ -233,7 +233,7 @@
                         </a>
 <?php if ($order_field == "date_executed") { ?>
                             <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
                     </td>
