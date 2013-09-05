@@ -1,6 +1,6 @@
 <?php
-
 //dashboard page
+
 $sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
 $result = mysql_query($sql);
 $last_crawl = mysql_fetch_assoc($result);
@@ -9,6 +9,7 @@ $sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1";
 $result1 = mysql_query($sqlcwl);
 $last_crawl1 = mysql_fetch_assoc($result1);
 
+//top violations by dealer query
 
 $sql = "SELECT website_id,
 website.name name, count(crawl_results.website_id) countcurrent
@@ -39,20 +40,10 @@ $dashh_array = $db_resource->GetResultObj($sql);
 $dashh1_array = $db_resource->GetResultObj($sqld);
 
 foreach ($dashh_array as $k => $val) {
-
-//      print_r($val);
-//      print_r($k);
     foreach ($val as $k1 => $val1) {
-//          echo 'value - ';
-//          print_r($val1);
-//      echo 'key - ';
-//      print_r($k1);
-//      
-//      echo ' - AFTER SEARCH - ';
         foreach ($dashh1_array as $kx => $valx) {
             foreach ($valx as $kx1 => $valx1) {
                 if ($k1 == $kx1 && $val1 == $valx1) {
-//          print_r($valx->countprev);
                     $newArray[$k] = array_merge((array) $val, (array) $dashh_array[$k], (array) $valx);
                 }
             }
@@ -60,19 +51,21 @@ foreach ($dashh_array as $k => $val) {
     }
 }
 
-function search($array, $key, $value) {
-    $results = array();
+//function search($array, $key, $value) {
+//    $results = array();
+//
+//    if (is_array($array)) {
+//        if (isset($array[$key]) && $array[$key] == $value)
+//            $results[] = $array;
+//
+//        foreach ($array as $subarray)
+//            $results = array_merge($results, search($subarray, $key, $value));
+//    }
+//
+//    return $results;
+//}
 
-    if (is_array($array)) {
-        if (isset($array[$key]) && $array[$key] == $value)
-            $results[] = $array;
-
-        foreach ($array as $subarray)
-            $results = array_merge($results, search($subarray, $key, $value));
-    }
-
-    return $results;
-}
+//top violations by SKU query
 
 $sqlc = "select
 catalog_product_flat_1.sku sku1,
@@ -88,7 +81,7 @@ and crawl_results.crawl_id = " . $last_crawl['id'] . "
 where
 crawl_results.violation_amount > 0.05
 group by crawl_results.product_id, catalog_product_flat_1.sku
-order by currentcount desc limit 10";
+order by currentcount desc limit 8";
 
 $sqlp = "select
 catalog_product_flat_1.sku sku1,
@@ -102,7 +95,6 @@ crawl ON crawl.id = crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 where
 crawl_results.violation_amount > 0.05
- 
 group by crawl_results.product_id, catalog_product_flat_1.sku
 order by prevcount desc ";
 
@@ -117,7 +109,6 @@ foreach ($dashc_array as $k => $val) {
         foreach ($dashp_array as $ky => $valy) {
             foreach ($valy as $ky2 => $valy2) {
                 if ($k2 == $ky2 && $val2 == $valy2) {
-//          print_r($valx->countprev);
                     $viosku[$k] = array_merge((array) $val, (array) $dashc_array[$k], (array) $valy);
                 }
             }
@@ -125,6 +116,7 @@ foreach ($dashc_array as $k => $val) {
     }
 }
 
+//violations amount by sku query
 
 $sql3 = "SELECT
 catalog_product_flat_1.sku,
@@ -147,6 +139,8 @@ crawl.id = " . $last_crawl['id'] . " order by violation_amount desc
 limit 9";
 $dash1_array = $db_resource->GetResultObj($sql3);
 
+//Stopped Violations SKU query
+
 $sql = "select 
 catalog_product_flat_1.sku
 from
@@ -158,7 +152,8 @@ catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.produ
 and crawl_results.crawl_id not in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
 between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by crawl_results.product_id ";
+group by crawl_results.product_id";
+
 $sqll = "select 
 catalog_product_flat_1.sku
 from
@@ -169,10 +164,37 @@ inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
 and crawl_results.crawl_id in (select id from crawl
 where date_format(date_executed, '%Y-%m-%d')
-between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by crawl_results.product_id ";
+between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate()) group by crawl_results.product_id";
 $dash2_array = $db_resource->GetResultObj($sql);
 $dash3_array = $db_resource->GetResultObj($sqll);
+
+//print_r($dy1);
+//echo 'testing - ';
+//print_r($dy2);
+
+//$unique = array_map(
+//    'unserialize',
+//    array_unique(
+//        array_map(
+//            'serialize',
+//            $dy1
+//        )
+//    )
+//);
+//
+//var_dump($unique);
+
+
+// $uniques = array();
+//foreach ($dy1 as $obj) {
+//$uniques[$obj->sku] = $obj;
+//}
+//
+//var_dump($uniques);
+
+
+
+
 $array = array();
 $array2 = array();
 $resultst = array();
@@ -184,6 +206,8 @@ foreach ($dash3_array as $dash3) {
 }
 
 $resultst = array_diff($array, $array2);
+
+//Started Violations SKU query
 
 $sql = "select 
 catalog_product_flat_1.sku
@@ -220,6 +244,8 @@ foreach ($dash5_array as $dash5) {
 
 $resultstrt = array_diff($array, $array2);
 
+//Stopped Violations Dealer query
+
 $sql = "SELECT website.name name from website
         inner join
     crawl_results ON website.id = crawl_results.website_id
@@ -255,6 +281,8 @@ foreach ($dash7_array as $dash7) {
 }
 
 $resultstv = array_diff($array, $array2);
+
+//Started Violations Dealer
 
 $sql = "SELECT 
     website.name name

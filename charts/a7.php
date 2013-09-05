@@ -1,21 +1,19 @@
 <?php
 $sql4 = "select
-crawl.date_executed Date,
+date_format(crawl.date_executed, '%Y-%m-%d') Date,
 count(distinct crawl_results.product_id) as skucount,
 count(distinct crawl_results.website_id) as dealercount
 from
 crawl_results
 inner join
-catalog_product_flat_1
-on crawl_results.product_id = catalog_product_flat_1.entity_id
+website ON crawl_results.website_id = website.id
 inner join
-website
-on crawl_results.website_id = website.id
-inner join
-crawl
-on crawl.id = crawl_results.crawl_id
-and date_format(crawl.date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL -7 DAY) and sysdate() where crawl_results.violation_amount>0.05 and website.excluded=0
-group by date_format(crawl.date_executed, '%Y-%m-%d') limit 10
+crawl ON crawl.id = crawl_results.crawl_id
+and date_format(crawl.date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL - 7 DAY) and sysdate()
+where
+crawl_results.violation_amount > 0.05
+and website.excluded = 0
+group by date_format(crawl.date_executed, '%Y-%m-%d')
 ";
 $dashchart_array = $db_resource->GetResultObj($sql4);
 //$result4 = mysql_query($sql4);
