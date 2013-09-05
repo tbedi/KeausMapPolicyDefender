@@ -167,7 +167,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                         fontFamily: 'Arial'
                     },
                     formatter: function() {
-                        return Highcharts.dateFormat('%a %d %b', this.value);
+                        return Highcharts.dateFormat('%d %b %y', this.value);
                     },
                 }
             },

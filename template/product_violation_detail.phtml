@@ -1,7 +1,7 @@
 
 <div style="height: 100%;width: 100%;">
-    <div style="clear:  left; float: left; width:43%"> 
-        <div class="top-paneltab"> Dealers Violated  <?php echo $violators_array3[0]->sku; ?> </div>
+    <div style="clear:  left; float: left; width:43%; padding-top:20px;"> 
+        <div class="top-paneltab" style="padding-top:20px;"> Dealers Violated  <?php echo $violators_array3[0]->sku; ?> </div>
         <div class="cleaner1" >
 
         </div>
@@ -62,13 +62,13 @@
                         <table class="GrayBlack" align="left" style="width: 670px;">
     <!--                        <tbody id="data">-->
                             <tbody >
-                                <tr style=" background-color: #ECF5DC;font-family: freightsans_prolight,Helvetica,Arial,sans-serif; font-size: 15px;font-weight: normal;background-color:#ECF5DC;border:0px solid #A6CF00;border-width:0px 0px 1px 1px;text-align:center; border-width:0px 0px 1px 1px;color:#000000;text-transform: capitalize"> 
+                                <tr > 
                                     <td>
 
                                         <div id="checkboxlistp">
                                             <input type="checkbox" id="selectallp" value="1"/>
                                         </div>
-                                        <div id="selectallrecPcontainer">
+                                        <div id="selectallrecPcontainer" style="padding-top: 5px;">
                                             <a id="selectallrecP" href="#" class="selectallrecP" >Select all</a>
                                         </div>
 
@@ -83,7 +83,7 @@
 
                                         <?php if ($order_field == "vendor") { ?>
                                             <a  onclick="sort_grid('vendor', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
+                                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                                             </a>
                                         <?php } ?>
                                     </td>
@@ -94,7 +94,7 @@
                                         </a>
                                         <?php if ($order_field == "vendor_price") { ?>
                                             <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
+                                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />
                                             </a>
                                         <?php } ?>
                                     </td>
@@ -105,7 +105,7 @@
                                         </a>
                                         <?php if ($order_field == "map_price") { ?>
                                             <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
                                             </a>
                                         <?php } ?>
                                     </td>
@@ -116,7 +116,7 @@
                                         </a>
                                         <?php if ($order_field == "violation_amount") { ?>
                                             <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
                                             </a>
                                         <?php } ?>
                                     </td>
@@ -127,7 +127,7 @@
                                         </a>
                                         <?php if ($order_field == "date_executed") { ?>
                                             <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
-                                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
+                                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
                                             </a>
                                         <?php } ?>
                                     </td>

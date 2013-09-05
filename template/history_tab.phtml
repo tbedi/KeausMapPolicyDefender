@@ -41,7 +41,7 @@
         </form>
         <div class="divt2222">
             <form name="showall" action ="index.php?tab=violations-history" method="post">
-               <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+                <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search" style="width: 120px;" onclick="show_all();" >Reset Search</button>
                 <!--<button type="submit" name="showall" value="true" href="index.php?tab=violations-history" class="btn-search"  onclick=<?php
 //                if (isset($_SESSION['product'])) {
 //                    unset($_SESSION['product']);
@@ -55,13 +55,12 @@
         <!--        <div class="divt2222">
                     <input type="button" class="btn-search3" value="Get Checked values" id="buttonClassh"> 
                 </div>-->
-        <div class="divt2222" style="padding-left: 180px;" >
-
+        <div style="align: right; float: right">
             <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "  /></a>
             <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "  /></a>
             <a target="_blank" href="./export/export_history_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "  /></a>
         </div>
-        <div class="results-per-page-block " style="padding-top: 10px">
+       <div class="results-per-page-block"  style="align: right; float: right ;padding-top: 10px; padding-right: 10px;">
             <select name="recent-limit" class="results-per-page dropdown"  >
 
                 <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
@@ -133,21 +132,16 @@
         <table class="GrayBlack"  align="left" style="width: 100%;">
 
 <!--        <table class="GrayBlack" id="filterTable2"  align="left" style="width: 100%;"> col filter  --> 
-            <thead>
+            
+   <tbody>
 
-
-                <tr style=" background-color: #ECF5DC;font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
-                    font-size: 15px;
-                    font-weight: normal;align:center;padding:6px;
-                    background-color:#ECF5DC;border:1px solid #A6CF00;border-width:1px 1px 1px 1px;
-                    text-align:center; color:#000000;
-                    text-transform: capitalize"> 
+                <tr > 
                     <td>
 
                         <div id="checkboxlisth">
                             <input type="checkbox" id="selectallh" value="1"/>
                         </div>
-                        <div id="selectallrechcontainer">
+                        <div id="selectallrechcontainer" style="padding-top: 5px;">
                             <a id="selectallrech" href="#" class="selectallrech" >Select all</a>
                         </div>
                     </td>
@@ -159,14 +153,14 @@
                             SKU 
                         </a>
 
-<?php if ($order_field == "sku") { ?>
+                        <?php if ($order_field == "sku") { ?>
                             <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
                             </a>
-<?php } ?>
+                        <?php } ?>
 
-                        <form name="productSearch" action ="index.php?tab=violations-history" method="post">
-                            <input type="text" name="product"  />
+                        <form name="productSearch" action="JavaScript:searchPro();" method="get">
+                            <input type="text" class="search" name="product" id="txtproduct" />
                         </form>
 
 
@@ -179,11 +173,11 @@
                         </a>
 <?php if ($order_field == "vendor") { ?>
                             <a  onclick="sort_grid('vendor', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
-                        <form name="dealerSearch" action ="index.php?tab=violations-history" method="post">
-                            <input type="text" name="dealer"  />
+                        <form name="dealerSearch" action ="JavaScript:searchVen();" method="get">
+                            <input type="text" class="search" name="dealer" id="txtvendor" />
                         </form>
 
 
@@ -199,7 +193,7 @@
                         </a>
 <?php if ($order_field == "vendor_price") { ?>
                             <a  onclick="sort_grid('vendor_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor_price" ? $direction : "asc" ); ?>_1.png" />         
                             </a>
 <?php } ?>
                     </td>
@@ -210,7 +204,7 @@
                         </a>
 <?php if ($order_field == "map_price") { ?>
                             <a  onclick="sort_grid('map_price', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "map_price" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
 
@@ -223,7 +217,7 @@
                         </a>
 <?php if ($order_field == "violation_amount") { ?>
                             <a  onclick="sort_grid('violation_amount', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "violation_amount" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
                     </td>
@@ -234,7 +228,7 @@
                         </a>
 <?php if ($order_field == "date_executed") { ?>
                             <a  onclick="sort_grid('date_executed', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
-                                <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
+                                <img  style="float:right;" src="images/arrow_<?php echo ( $order_field == "date_executed" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
                     </td>
@@ -242,11 +236,11 @@
 
                     </td>
                 </tr>
-            </thead>
+           
 
 
-            <tfoot></tfoot>
-            <tbody>
+           
+         
 
                 <?php
                 foreach ($violators_array as $violator) {
@@ -315,16 +309,16 @@
     <div style="height: 100%;float: right; width: 39%;" >
 
         <div style="align:right;float :right; ">
-            <!--            <div class="divt2222">
+                     <div class="divt2222">
                             <img src="./images/red.png" value="red"/>  </div> <div class="divt2223">Violation amount > 10 </div> 
             
                         <div class="divt2222">
                             <img src="./images/brown.png" /></div> <div class="divt2223"> Violation amount < 10 and > 5 </div> 
             
                         <div class="divt2222">
-                            <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> -->
+                            <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> 
 
-            <img src="./images/message1.png" style="width: 520px; align:right;"/>
+          
 
         </div>
         <?php

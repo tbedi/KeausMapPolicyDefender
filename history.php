@@ -122,28 +122,18 @@ if (isset($_REQUEST['website_id'])) {
 //}
 /*where*/
 
-           if(isset($_POST['dealer']) ) 
+           if(isset($_GET['dealer']) ) 
            {
-               $_SESSION['dealer']=$_POST['dealer'];
-                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
+              $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_GET['dealer'])) . "%'";
            }
            
-            if(isset($_SESSION['dealer'])) 
+                               
+                if(isset($_GET['product']) ) 
            {
-               
-                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_SESSION['dealer'])) . "%'";
+                 
+                $wherep = "  AND  sku  LIKE '%" .  $_GET['product'] . "%'";
            }
-                    
-                if(isset($_POST['product']) ) 
-           {
-                      $_SESSION['product']=$_POST['product'];
-                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
-           }
-              if(isset($_SESSION['product'])) 
-           {
-                  
-                $wherep = "  AND  sku  LIKE '%" .  $_SESSION['product'] . "%'";
-           }
+              
            
            
        
