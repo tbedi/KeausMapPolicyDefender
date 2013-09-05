@@ -55,9 +55,7 @@ violation_amount > 0.05
 and sites.excluded = 0 ". $condition. " 
 and (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
 group by date_format(crawl.date_executed, '%Y-%m-%d')
-order by crawl.date_executed desc) as yy
-order by date_executed
-";
+order by crawl.date_executed desc limit 30) as yy order by date_executed ";
 //echo $sql;
 //prev
 //"select
