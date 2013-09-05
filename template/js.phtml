@@ -79,32 +79,11 @@
 
     /*Show all common method*/
     function show_all() {
-        alert('In show all...');
-       	$.ajax({
-		type: "GET",
-                data: {action:'resetSession'},
-		url:"history.php",
-                
-		success:function(response)
-		{   
-		alert(response);
-		   if(response == 'true')
-		    {
-		        alert("session cleared");
-		    }
-		    else
-		    {
-		        alert("some error in the code");
-		    }
-                 },
-                error:function()
-                {alert("There is Error");}
-        });
-    }
-//             alert("<?php // show();  ?>");
-//             
-    // location.search='?tab='+selected_tab ;  	        
+       
 
+         
+     location.search='?tab='+selected_tab ;  	        
+    }
     /*Show all common method*/
 
     function show_all2() {
