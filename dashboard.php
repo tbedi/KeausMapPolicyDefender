@@ -1,6 +1,7 @@
 <?php
 //dashboard page
 
+
 $sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
 $result = mysql_query($sql);
 $last_crawl = mysql_fetch_assoc($result);
@@ -8,6 +9,14 @@ $last_crawl = mysql_fetch_assoc($result);
 $sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1";
 $result1 = mysql_query($sqlcwl);
 $last_crawl1 = mysql_fetch_assoc($result1);
+
+$sqldays = "select id from crawl order by id desc limit 1,3";
+$resultday = $db_resource->GetResultObj($sqldays);
+$s='';
+foreach ($resultday as $da) {
+$s = $s.$da->id.',';
+}
+$s=  substr($s, 0, strlen($s)-1);
 
 //top violations by dealer query
 
@@ -148,12 +157,7 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id in (select
-id
-from
-crawl
-where
-date_format(date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL - 4 DAY) and DATE_ADD(sysdate(), INTERVAL - 1 DAY))
+and crawl_results.crawl_id in (".$s.")
 and crawl_results.violation_amount > 0.05
 group by crawl_results.product_id
 ";
@@ -261,12 +265,7 @@ inner join
 crawl_results ON website.id = crawl_results.website_id
 inner join
 crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id in (select
-id
-from
-crawl
-where
-date_format(date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL - 4 DAY) and DATE_ADD(sysdate(), INTERVAL - 1 DAY))
+and crawl_results.crawl_id in (".$s.")
 and website.excluded = 0
 and crawl_results.violation_amount > 0.05
 group by website.name
