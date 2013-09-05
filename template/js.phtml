@@ -5,76 +5,76 @@
 //
 //        return false; //Otherwise the form will be submitted
 //    }
- 
-		/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
-	function check_for_search_params(){
-		if (queryParameters['tab']!=selected_tab) {			 
-			delete  queryParameters['action'];
-			delete queryParameters['field'];
-			delete queryParameters['value'];
-		}
-	}
-        
-  
+
+    /* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
+    function check_for_search_params() {
+        if (queryParameters['tab'] != selected_tab) {
+            delete  queryParameters['action'];
+            delete queryParameters['field'];
+            delete queryParameters['value'];
+        }
+    }
 
 
-/*product_violation_tab.phtml*/
-         function exporttop(){
-     		var mode = $("#exportp").val();	 
-     		queryParameters['tab'] = "violation-by-product";
-     		if (mode)
-     			open("export/export_product_" + mode + ".php?" + $.param(queryParameters));
-     	}
-     		
-     	/*Common search function*/
-     	  function search(name, search_field, action) {
-     		
-     	        
-     	        var field = search_field;
-     		  var value = $(name).val();
-     	          
+
+
+    /*product_violation_tab.phtml*/
+    function exporttop() {
+        var mode = $("#exportp").val();
+        queryParameters['tab'] = "violation-by-product";
+        if (mode)
+            open("export/export_product_" + mode + ".php?" + $.param(queryParameters));
+    }
+
+    /*Common search function*/
+    function search(name, search_field, action) {
+
+
+        var field = search_field;
+        var value = $(name).val();
+
 //     	          if((queryParameters['website_id'])==null)
 //     	              {
-//     	                  var v_id=<?php //$website_id  ?>;
+//     	                  var v_id=<?php //$website_id   ?>;
 //     	              }
 //     	              else
 //     	                  {
 //     	                       var v_id=queryParameters['website_id'];
 //     	                  }
-     	          //if(queryParameters['product_id']=='undefined')
-     	            //  {
-     	              //    var v_id=<?php //$product_id  ?>;
-     	             // }
-     	          
-     	          
-     		  var v_id=queryParameters['website_id'];
-     		  var p_id=queryParameters['product_id'];
-     		  queryParameters={}; //clear parameters
-     		  queryParameters['tab'] = selected_tab;
-     		  
-     		  if (value.length) {
-     		     	queryParameters['action'] = action;
-     		     	queryParameters['field'] = field;
-     		     	queryParameters['value'] =  value;
-     		  }
-     		  if (v_id) 
-     			  queryParameters['website_id']=v_id;
-     		  if (p_id)
-     			  queryParameters['product_id']=p_id;
-     		     	     location.search='?'+$.param(queryParameters);  
-     	            
-     	            
-     	  }
-     	 /*Common search function*/
-     	 
+        //if(queryParameters['product_id']=='undefined')
+        //  {
+        //    var v_id=<?php //$product_id   ?>;
+        // }
 
-     	 
-     
 
-     	 /*Show all common method*/
-     	 function show_all() {	
-    	alert('In show all...');
-	$.ajax({
+        var v_id = queryParameters['website_id'];
+        var p_id = queryParameters['product_id'];
+        queryParameters = {}; //clear parameters
+        queryParameters['tab'] = selected_tab;
+
+        if (value.length) {
+            queryParameters['action'] = action;
+            queryParameters['field'] = field;
+            queryParameters['value'] = value;
+        }
+        if (v_id)
+            queryParameters['website_id'] = v_id;
+        if (p_id)
+            queryParameters['product_id'] = p_id;
+        location.search = '?' + $.param(queryParameters);
+
+
+    }
+    /*Common search function*/
+
+
+
+
+
+    /*Show all common method*/
+    function show_all() {
+        alert('In show all...');
+       	$.ajax({
 		type: "GET",
                 data: {action:'resetSession'},
 		url:"history.php",
@@ -94,163 +94,163 @@
                 error:function()
                 {alert("There is Error");}
         });
-         }
-//             alert("<?php// show(); ?>");
+    }
+//             alert("<?php // show();  ?>");
 //             
-      // location.search='?tab='+selected_tab ;  	        
-     	
-     	 /*Show all common method*/
-     	 
-     	 function show_all2() {           
-     		 if(queryParameters['action']) {
-     	        if (queryParameters['action']=='search2') {
-     	                delete  queryParameters['action'];
-     	                delete queryParameters['field'];
-     	                delete queryParameters['value'];
-     	        }
-     		 }
-     	        if (queryParameters['page2']) {
-     	                delete queryParameters['page2'];
-     	        }
-     	        queryParameters['tab'] = selected_tab;
-     	         location.search='?'+$.param(queryParameters);
-     		 
-     	 }
-     	 
-     	 
-     	 
-     	  /*Limits functions*/
-     	 $(document).ready(function() {
-     		 $('.results-per-page').each(function() {	  
-     			  $(this).change(function() {  
-     				   check_for_search_params(); 
-     					var limit=$(this).val();    			 
-     			    	queryParameters['tab'] = selected_tab;
-     					queryParameters['limit'] = limit;	 
-     			    	location.search='?'+$.param(queryParameters);
-     				}); 
-     	 	});
+    // location.search='?tab='+selected_tab ;  	        
 
-     		$('.results-per-page2').each(function() {	  
-     				  $(this).change(function() {  
-     					  check_for_search_params(); 
-     						var limit=$(this).val();    			 
-     					    queryParameters['tab'] = selected_tab;
-     						queryParameters['limit2'] = limit;	 
-     					    location.search='?'+$.param(queryParameters);
-     					}); 
-     			});	 	
-     		
-     		/*Binding enter search*/
-     		$(".recent_violation_search, .product-violation-search, .vendor-violation-search, .history_violation_search").keypress(function(e) {
-     		    if(e.which == 13) {
-     		        $(this).parent().parent().children('.search-btn-container').children('button').click();
-                          $(this).parent().parent().children('.search-btn-container1').children('button').click();
-     		    }
-     		});	
-     		/*Binding enter search*/
-     		
-     		/*Binding enter search 2nd grids*/
-     		$(".product-violation-search2, .vendor-violation-search2, .history-search2").keypress(function(e) {
-     		    if(e.which == 13) {
-     		        $(this).parent().parent().children('.search-btn-container').children('button').click();
-     		    }
-     		});
+    /*Show all common method*/
+
+    function show_all2() {
+        if (queryParameters['action']) {
+            if (queryParameters['action'] == 'search2') {
+                delete  queryParameters['action'];
+                delete queryParameters['field'];
+                delete queryParameters['value'];
+            }
+        }
+        if (queryParameters['page2']) {
+            delete queryParameters['page2'];
+        }
+        queryParameters['tab'] = selected_tab;
+        location.search = '?' + $.param(queryParameters);
+
+    }
+
+
+
+    /*Limits functions*/
+    $(document).ready(function() {
+        $('.results-per-page').each(function() {
+            $(this).change(function() {
+                check_for_search_params();
+                var limit = $(this).val();
+                queryParameters['tab'] = selected_tab;
+                queryParameters['limit'] = limit;
+                location.search = '?' + $.param(queryParameters);
+            });
+        });
+
+        $('.results-per-page2').each(function() {
+            $(this).change(function() {
+                check_for_search_params();
+                var limit = $(this).val();
+                queryParameters['tab'] = selected_tab;
+                queryParameters['limit2'] = limit;
+                location.search = '?' + $.param(queryParameters);
+            });
+        });
+
+        /*Binding enter search*/
+        $(".recent_violation_search, .product-violation-search, .vendor-violation-search, .history_violation_search").keypress(function(e) {
+            if (e.which == 13) {
+                $(this).parent().parent().children('.search-btn-container').children('button').click();
+                $(this).parent().parent().children('.search-btn-container1').children('button').click();
+            }
+        });
+        /*Binding enter search*/
+
+        /*Binding enter search 2nd grids*/
+        $(".product-violation-search2, .vendor-violation-search2, .history-search2").keypress(function(e) {
+            if (e.which == 13) {
+                $(this).parent().parent().children('.search-btn-container').children('button').click();
+            }
+        });
 //                $(".history-search2").keypress(function(e) {
 //     		    if(e.which == 13) {
 //     		        $(this).parent().parent().children('.search-btn-container1').children('button').click();
 //     		    }
 //     		});	
-     		/*Binding enter search 2nd grids*/
-     		
-     	 });
-     	 /*Limits functions*/
-     	 /*Pagination function*/
-     	 function switch_page(page_num, param_name){
-     		 	check_for_search_params(); // to prevent search params in query
-     			queryParameters['tab'] = selected_tab;
-     			queryParameters[param_name] = page_num;	 
-     			location.search='?'+$.param(queryParameters);
-     		}
-     	 /*Pagination function*/
+        /*Binding enter search 2nd grids*/
 
-     	 /*Global sorting links*/
-     	function sort_grid(field,direction, grid){
-     		check_for_search_params(); // to prevent search params from different tab in query
-     		queryParameters['tab'] = selected_tab;
-     		queryParameters['grid'] = grid;
-     		queryParameters['dir'] = direction;
-     		queryParameters['sort'] = field;
-     		location.search='?'+$.param(queryParameters);
-     	}
-     	 /*Global sorting links*/         
-/*product_violation_tab.phtml*/
-
-/*product_violation_detail.phtml*/
-        function exporttop2() {
-            var mode = $("#exportp2").val();
-            var url_options = window.location.search.substring(1);
-
-            if (url_options.length)
-                url_options = '?' + url_options;
-
-
-            if (mode)
-                open("export/export_product2_" + mode + ".php" + url_options);
-        }
-/*product_violation_detail.phtml*/
-
-
-/*vendor_violation_tab*/
-        function exporttov() {
-            var mode = $("#exportv").val();
-            var url_options = window.location.search.substring(1);
-
-            if (url_options.length)
-                url_options = '?' + url_options;
-
-            if (mode)
-                open("export/export_vendor_" + mode + ".php" + url_options);
-        }
-/*vendor_violation_tab*/
-        
-/*vendor_violation_detail*/   
-        function exporttov2() {
-            var mode = $("#exportv2").val();
-            var url_options = window.location.search.substring(1);
-
-            if (url_options.length)
-                url_options = '?' + url_options;
-
-            if (mode)
-                open("export/export_vendor2_" + mode + ".php" + url_options);
-        }        
-/*vendor_violation_detail*/   
-
-
-
-
-/*history*/
-        function exporttoh()
-        {
-            var mode = $("#exporth").val();
-            var url_options = window.location.search.substring(1);
-
-            if (url_options.length)
-                url_options = '?' + url_options;
-
-            if (mode)
-                open("export/export_history_" + mode + ".php?" + $.param(queryParameters));
-            //open("export_history_" + mode + ".php" + url_options);
-
-        } 
-        
-        function checkTextField(field) {
-    if (field.value == '') {
-      var $searchsku=1;
+    });
+    /*Limits functions*/
+    /*Pagination function*/
+    function switch_page(page_num, param_name) {
+        check_for_search_params(); // to prevent search params in query
+        queryParameters['tab'] = selected_tab;
+        queryParameters[param_name] = page_num;
+        location.search = '?' + $.param(queryParameters);
     }
-}
-/*history*/
+    /*Pagination function*/
+
+    /*Global sorting links*/
+    function sort_grid(field, direction, grid) {
+        check_for_search_params(); // to prevent search params from different tab in query
+        queryParameters['tab'] = selected_tab;
+        queryParameters['grid'] = grid;
+        queryParameters['dir'] = direction;
+        queryParameters['sort'] = field;
+        location.search = '?' + $.param(queryParameters);
+    }
+    /*Global sorting links*/
+    /*product_violation_tab.phtml*/
+
+    /*product_violation_detail.phtml*/
+    function exporttop2() {
+        var mode = $("#exportp2").val();
+        var url_options = window.location.search.substring(1);
+
+        if (url_options.length)
+            url_options = '?' + url_options;
+
+
+        if (mode)
+            open("export/export_product2_" + mode + ".php" + url_options);
+    }
+    /*product_violation_detail.phtml*/
+
+
+    /*vendor_violation_tab*/
+    function exporttov() {
+        var mode = $("#exportv").val();
+        var url_options = window.location.search.substring(1);
+
+        if (url_options.length)
+            url_options = '?' + url_options;
+
+        if (mode)
+            open("export/export_vendor_" + mode + ".php" + url_options);
+    }
+    /*vendor_violation_tab*/
+
+    /*vendor_violation_detail*/
+    function exporttov2() {
+        var mode = $("#exportv2").val();
+        var url_options = window.location.search.substring(1);
+
+        if (url_options.length)
+            url_options = '?' + url_options;
+
+        if (mode)
+            open("export/export_vendor2_" + mode + ".php" + url_options);
+    }
+    /*vendor_violation_detail*/
+
+
+
+
+    /*history*/
+    function exporttoh()
+    {
+        var mode = $("#exporth").val();
+        var url_options = window.location.search.substring(1);
+
+        if (url_options.length)
+            url_options = '?' + url_options;
+
+        if (mode)
+            open("export/export_history_" + mode + ".php?" + $.param(queryParameters));
+        //open("export_history_" + mode + ".php" + url_options);
+
+    }
+
+    function checkTextField(field) {
+        if (field.value == '') {
+            var $searchsku = 1;
+        }
+    }
+    /*history*/
 
 
 
@@ -265,68 +265,68 @@
 
 
 //check all history
-$(function(){
- 
-    // add multiple select / deselect functionality
-    $("#selectallh").click(function () {
-          $('.caseh').prop('checked', this.checked);
+    $(function() {
+
+        // add multiple select / deselect functionality
+        $("#selectallh").click(function() {
+            $('.caseh').prop('checked', this.checked);
+        });
+
+        // if all checkbox are selected, check the selectall checkbox
+        // and viceversa
+        $(".caseh").click(function() {
+
+            if ($(".caseh").length == $(".caseh:checked").length) {
+                $("#selectallh").prop("checked", "checked");
+            } else {
+                $("#selectallh").removeProp("checked");
+            }
+
+        });
+
     });
- 
-    // if all checkbox are selected, check the selectall checkbox
-    // and viceversa
-    $(".caseh").click(function(){
- 
-        if($(".caseh").length == $(".caseh:checked").length) {
-            $("#selectallh").prop("checked", "checked");
-        } else {
-            $("#selectallh").removeProp("checked");
-        }
- 
-    });
-   
- });
- 
- 
- 
- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //check all history
 
 
-$(document).ready(function () {
+    $(document).ready(function() {
         $("#buttonClassh,#buttonClassh1,#buttonClassh2,#checkboxlisth,#caseh").click(function() {
-        getValueUsingClassh();
+            getValueUsingClassh();
+        });
     });
-});
 //checkbox history tab
- function getValueUsingClassh(){
-    /* declare an checkbox array */
-    var chkArrayh = [];
-      var chkallh = [];
-    /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
-    $(".caseh:checked").each(function() {
-        chkArrayh.push($(this).val());
-    });
-     
-    /* we join the array separated by the comma */
-    var selectedh;
-    selectedh = chkArrayh.join(',') + ",";
-    selectedh = selectedh.slice(0, -1);
-   if(selectedh.length > 1){
-       // alert("You have selected " + selectedh);
-    }else{
-       // alert("Selected none");  
-       selectedh=0;
-    }
-    
-    //////////
-     
-    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-    $("#checkboxlisth input:checked").each(function() {
-        chkallh.push($(this).val());
-        // var selectedallh= chkallh;
-    });
-     
-   
+    function getValueUsingClassh() {
+        /* declare an checkbox array */
+        var chkArrayh = [];
+        var chkallh = [];
+        /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+        $(".caseh:checked").each(function() {
+            chkArrayh.push($(this).val());
+        });
+
+        /* we join the array separated by the comma */
+        var selectedh;
+        selectedh = chkArrayh.join(',') + ",";
+        selectedh = selectedh.slice(0, -1);
+        if (selectedh.length > 1) {
+            // alert("You have selected " + selectedh);
+        } else {
+            // alert("Selected none");  
+            selectedh = 0;
+        }
+
+        //////////
+
+        /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+        $("#checkboxlisth input:checked").each(function() {
+            chkallh.push($(this).val());
+            // var selectedallh= chkallh;
+        });
+
+
 //    var selectedallh= chkallh;
 //  
 //      if(selectedallh.length >= 1){
@@ -336,20 +336,20 @@ $(document).ready(function () {
 //     selectedallh=0;
 //    }
 //   
- 
- window.location = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&listh='+selectedh;
- delete queryParameters['listh'];
-  delete queryParameters['selectallhistory']; 
- 
-  
-}
 
- $('.selectallrech').click(function() {
-   window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallhistory=1';
-   delete queryParameters['selectallhistory'];
-    delete queryParameters['listh'];
-  
-});
+        window.location = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&listh=' + selectedh;
+        delete queryParameters['listh'];
+        delete queryParameters['selectallhistory'];
+
+
+    }
+
+    $('.selectallrech').click(function() {
+        window.location.href = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&selectallhistory=1';
+        delete queryParameters['selectallhistory'];
+        delete queryParameters['listh'];
+
+    });
 
 /////History end
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -358,64 +358,64 @@ $(document).ready(function () {
 //check product details
 
 //check all product details
-$(function(){
- 
-    // add multiple select / deselect functionality
-    $("#selectallp").click(function () {
-          $('.casep').prop('checked', this.checked);
+    $(function() {
+
+        // add multiple select / deselect functionality
+        $("#selectallp").click(function() {
+            $('.casep').prop('checked', this.checked);
+        });
+
+        // if all checkbox are selected, check the selectall checkbox
+        // and viceversa
+        $(".casep").click(function() {
+
+            if ($(".casep").length == $(".casep:checked").length) {
+                $("#selectallp").prop("checked", "checked");
+            } else {
+                $("#selectallp").removeProp("checked");
+            }
+
+        });
+
     });
- 
-    // if all checkbox are selected, check the selectall checkbox
-    // and viceversa
-    $(".casep").click(function(){
- 
-        if($(".casep").length == $(".casep:checked").length) {
-            $("#selectallp").prop("checked", "checked");
-        } else {
-            $("#selectallp").removeProp("checked");
-        }
- 
-    });
-   
- });
- 
 
 
 
-$(document).ready(function () {
+
+    $(document).ready(function() {
         $("#buttonClassp,#buttonClassp,#buttonClassp,#checkboxlistp,#casep").click(function() {
-        getValueUsingClassp();
+            getValueUsingClassp();
+        });
     });
-});
 //checkbox product details
- function getValueUsingClassp(){
-    /* declare an checkbox array */
-    var chkArrayp = [];
-      var chkallp = [];
-    /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
-    $(".casep:checked").each(function() {
-        chkArrayp.push($(this).val());
-    });
-     
-    /* we join the array separated by the comma */
-    var selectedp;
-    selectedp = chkArrayp.join(',') + ",";
-    selectedp = selectedp.slice(0, -1);
-   if(selectedp.length > 1){
-       // alert("You have selected " + selectedh);
-    }else{
-       // alert("Selected none");  
-       selectedp=0;
-    }
-    
-    //////////
-     
-    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-    $("#checkboxlistp input:checked").each(function() {
-        chkallp.push($(this).val());
-    });
-     
-   
+    function getValueUsingClassp() {
+        /* declare an checkbox array */
+        var chkArrayp = [];
+        var chkallp = [];
+        /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+        $(".casep:checked").each(function() {
+            chkArrayp.push($(this).val());
+        });
+
+        /* we join the array separated by the comma */
+        var selectedp;
+        selectedp = chkArrayp.join(',') + ",";
+        selectedp = selectedp.slice(0, -1);
+        if (selectedp.length > 1) {
+            // alert("You have selected " + selectedh);
+        } else {
+            // alert("Selected none");  
+            selectedp = 0;
+        }
+
+        //////////
+
+        /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+        $("#checkboxlistp input:checked").each(function() {
+            chkallp.push($(this).val());
+        });
+
+
 //    var selectedallp= chkallp;
 //  
 //      if(selectedallp.length >= 1){
@@ -424,20 +424,20 @@ $(document).ready(function () {
 //     //   alert("No Selected All");  
 //     selectedallp=0;
 //    }
-   
- 
- window.location = 'index.php?'+$.param(queryParameters)+'&listp='+selectedp;
-  delete queryParameters['selectallproduct'];
-    delete queryParameters['listp'];
-  
-}
 
- $('.selectallrecP').click(function() {
-   window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallproduct=1';
-   delete queryParameters['selectallproduct'];
-    delete queryParameters['listp'];
-  
-});
+
+        window.location = 'index.php?' + $.param(queryParameters) + '&listp=' + selectedp;
+        delete queryParameters['selectallproduct'];
+        delete queryParameters['listp'];
+
+    }
+
+    $('.selectallrecP').click(function() {
+        window.location.href = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&selectallproduct=1';
+        delete queryParameters['selectallproduct'];
+        delete queryParameters['listp'];
+
+    });
 
 
 ///////product details end
@@ -447,65 +447,65 @@ $(document).ready(function () {
 //check vendor details
 
 //check all vendor details
-$(function(){
- 
-    // add multiple select / deselect functionality
-    $("#selectallv").click(function () {
-          $('.casev').prop('checked', this.checked);
+    $(function() {
+
+        // add multiple select / deselect functionality
+        $("#selectallv").click(function() {
+            $('.casev').prop('checked', this.checked);
+        });
+
+        // if all checkbox are selected, check the selectall checkbox
+        // and viceversa
+        $(".casev").click(function() {
+
+            if ($(".casev").length == $(".casev:checked").length) {
+                $("#selectallv").prop("checked", "checked");
+            } else {
+                $("#selectallv").removeProp("checked");
+            }
+
+        });
+
     });
- 
-    // if all checkbox are selected, check the selectall checkbox
-    // and viceversa
-    $(".casev").click(function(){
- 
-        if($(".casev").length == $(".casev:checked").length) {
-            $("#selectallv").prop("checked", "checked");
-        } else {
-            $("#selectallv").removeProp("checked");
-        }
- 
-    });
-   
- });
- 
 
 
 
 
-$(document).ready(function () {
+
+    $(document).ready(function() {
         $("#buttonClassv,#buttonClasshv,#buttonClasshv,#checkboxlistv,#casev").click(function() {
-        getValueUsingClassv();
+            getValueUsingClassv();
+        });
     });
-});
 //checkbox vendor details
- function getValueUsingClassv(){
-    /* declare an checkbox array */
-    var chkArrayv = [];
-      var chkallv = [];
-    /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
-    $(".casev:checked").each(function() {
-        chkArrayv.push($(this).val());
-    });
-     
-    /* we join the array separated by the comma */
-    var selectedv;
-    selectedv = chkArrayv.join(',') + ",";
-    selectedv = selectedv.slice(0, -1);
-   if(selectedv.length > 1){
-       // alert("You have selected " + selectedh);
-    }else{
-       // alert("Selected none");  
-       selectedv=0;
-    }
-    
-    //////////
-     
-    /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-    $("#checkboxlistv input:checked").each(function() {
-        chkallv.push($(this).val());
-    });
-     
-   
+    function getValueUsingClassv() {
+        /* declare an checkbox array */
+        var chkArrayv = [];
+        var chkallv = [];
+        /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+        $(".casev:checked").each(function() {
+            chkArrayv.push($(this).val());
+        });
+
+        /* we join the array separated by the comma */
+        var selectedv;
+        selectedv = chkArrayv.join(',') + ",";
+        selectedv = selectedv.slice(0, -1);
+        if (selectedv.length > 1) {
+            // alert("You have selected " + selectedh);
+        } else {
+            // alert("Selected none");  
+            selectedv = 0;
+        }
+
+        //////////
+
+        /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
+        $("#checkboxlistv input:checked").each(function() {
+            chkallv.push($(this).val());
+        });
+
+
 //    var selectedallv= chkallv;
 //  
 //      if(selectedallv.length >= 1){
@@ -514,29 +514,29 @@ $(document).ready(function () {
 //     //   alert("No Selected All");  
 //     selectedallv=0;
 //    }
-   
- 
- window.location = 'index.php?'+$.param(queryParameters)+'&listv='+selectedv;
-  delete queryParameters['selectallvendor'];
-    delete queryParameters['listv'];
-  
-}
 
- $('.selectallrecV').click(function() {
-   window.location.href = 'index.php?tab=violations-history&'+$.param(queryParameters)+'&selectallvendor=1';
-   delete queryParameters['selectallvendor'];
+
+        window.location = 'index.php?' + $.param(queryParameters) + '&listv=' + selectedv;
+        delete queryParameters['selectallvendor'];
+        delete queryParameters['listv'];
+
+    }
+
+    $('.selectallrecV').click(function() {
+        window.location.href = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&selectallvendor=1';
+        delete queryParameters['selectallvendor'];
+        delete queryParameters['listv'];
+
+    });
+    delete queryParameters['selectallvendor'];
     delete queryParameters['listv'];
-   
-});
-delete queryParameters['selectallvendor'];
-    delete queryParameters['listv'];
-    
-     delete queryParameters['selectallproduct'];
+
+    delete queryParameters['selectallproduct'];
     delete queryParameters['listp'];
-  
+
     delete queryParameters['selectallhistory'];
     delete queryParameters['listh'];
-   
+
 
 
 ///// vendor details end
@@ -550,8 +550,8 @@ delete queryParameters['selectallvendor'];
 
 
 
-    
-    
 
-        
+
+
+
 </script>

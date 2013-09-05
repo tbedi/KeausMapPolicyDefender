@@ -41,7 +41,7 @@
         </form>
         <div class="divt2222">
             <form name="showall" action ="index.php?tab=violations-history" method="post">
-               <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
+                <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search" style="width: 120px;" onclick="show_all();" >Reset Search</button>
                 <!--<button type="submit" name="showall" value="true" href="index.php?tab=violations-history" class="btn-search"  onclick=<?php
 //                if (isset($_SESSION['product'])) {
 //                    unset($_SESSION['product']);
@@ -55,7 +55,7 @@
         <!--        <div class="divt2222">
                     <input type="button" class="btn-search3" value="Get Checked values" id="buttonClassh"> 
                 </div>-->
-        <div class="divt2222" style="padding-left: 180px;" >
+        <div class="divt2222" style="padding-left: 150px;" >
 
             <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "  /></a>
             <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "  /></a>
@@ -147,7 +147,7 @@
                         <div id="checkboxlisth">
                             <input type="checkbox" id="selectallh" value="1"/>
                         </div>
-                        <div id="selectallrechcontainer">
+                        <div id="selectallrechcontainer" style="padding-top: 5px;">
                             <a id="selectallrech" href="#" class="selectallrech" >Select all</a>
                         </div>
                     </td>
@@ -315,16 +315,16 @@
     <div style="height: 100%;float: right; width: 39%;" >
 
         <div style="align:right;float :right; ">
-            <!--            <div class="divt2222">
+                     <div class="divt2222">
                             <img src="./images/red.png" value="red"/>  </div> <div class="divt2223">Violation amount > 10 </div> 
             
                         <div class="divt2222">
                             <img src="./images/brown.png" /></div> <div class="divt2223"> Violation amount < 10 and > 5 </div> 
             
                         <div class="divt2222">
-                            <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> -->
+                            <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> 
 
-            <img src="./images/message1.png" style="width: 520px; align:right;"/>
+          
 
         </div>
         <?php
