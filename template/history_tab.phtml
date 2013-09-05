@@ -55,13 +55,12 @@
         <!--        <div class="divt2222">
                     <input type="button" class="btn-search3" value="Get Checked values" id="buttonClassh"> 
                 </div>-->
-        <div class="divt2222" style="padding-left: 150px;" >
-
+        <div style="align: right; float: right">
             <a target="_blank" href="./export/export_history_csv.php" > <img src="./images/CSV.png" style="height:40px; width: 40px; "  /></a>
             <a target="_blank" href="./export/export_history_pdf.php" > <img src="./images/PDF.png" style="height:40px; width: 40px; "  /></a>
             <a target="_blank" href="./export/export_history_xls.php" > <img src="./images/XLS.png" style="height:40px; width: 40px; "  /></a>
         </div>
-        <div class="results-per-page-block " style="padding-top: 10px">
+       <div class="results-per-page-block"  style="align: right; float: right ;padding-top: 10px; padding-right: 10px;">
             <select name="recent-limit" class="results-per-page dropdown"  >
 
                 <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
@@ -159,14 +158,14 @@
                             SKU 
                         </a>
 
-<?php if ($order_field == "sku") { ?>
+                        <?php if ($order_field == "sku") { ?>
                             <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "sku" ? $direction : "asc" ); ?>_1.png" />
                             </a>
-<?php } ?>
+                        <?php } ?>
 
-                        <form name="productSearch" action ="index.php?tab=violations-history" method="post">
-                            <input type="text" name="product"  />
+                        <form name="productSearch" action="JavaScript:searchPro();" method="get">
+                            <input type="text" name="product" id="txtproduct" />
                         </form>
 
 
@@ -182,8 +181,8 @@
                                 <img  style="float:right;" width="22" src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
-                        <form name="dealerSearch" action ="index.php?tab=violations-history" method="post">
-                            <input type="text" name="dealer"  />
+                        <form name="dealerSearch" action ="JavaScript:searchVen();" method="get">
+                            <input type="text" name="dealer" id="txtvendor" />
                         </form>
 
 

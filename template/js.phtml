@@ -1,5 +1,11 @@
 <script type="text/javascript">
 
+
+
+
+
+
+
 // function handle(e){
 //       document.dealerSearch.action ="tab=violations-history&";
 //
@@ -543,7 +549,18 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+function searchPro(){
+var pro = document.getElementById("txtproduct").value;
+ window.location ="index.php?tab=violations-history&product="+pro+"&"+ $.param(queryParameters);
+    
 
+}
+function searchVen(){
+var ven = document.getElementById("txtvendor").value;
+ window.location ="index.php?tab=violations-history&dealer="+ven+"&"+ $.param(queryParameters);
+    
+
+}
 
 
 
