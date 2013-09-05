@@ -133,7 +133,6 @@ on crawl.id=crawl_results.crawl_id
 where crawl_results.violation_amount>0.05
 and
 website.excluded=0
-AND crawl.id = (SELECT id FROM crawl ORDER BY id DESC LIMIT 1)
 and
 crawl.id = " . $last_crawl['id'] . " order by violation_amount desc
 limit 9";
@@ -141,7 +140,7 @@ $dash1_array = $db_resource->GetResultObj($sql3);
 
 //Stopped Violations SKU query
 
-$sql = "select 
+$sql = "select
 catalog_product_flat_1.sku
 from
 crawl_results
@@ -149,12 +148,17 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id not in (select id from crawl
-where date_format(date_executed, '%Y-%m-%d')
-between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by crawl_results.product_id";
+and crawl_results.crawl_id in (select
+id
+from
+crawl
+where
+date_format(date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL - 4 DAY) and DATE_ADD(sysdate(), INTERVAL - 1 DAY))
+and crawl_results.violation_amount > 0.05
+group by crawl_results.product_id
+";
 
-$sqll = "select 
+$sqll = "select
 catalog_product_flat_1.sku
 from
 crawl_results
@@ -162,9 +166,10 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id in (select id from crawl
-where date_format(date_executed, '%Y-%m-%d')
-between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate()) group by crawl_results.product_id";
+and crawl_results.crawl_id = " . $last_crawl['id'] . "
+and crawl_results.violation_amount > 0.05
+group by crawl_results.product_id
+";
 $dash2_array = $db_resource->GetResultObj($sql);
 $dash3_array = $db_resource->GetResultObj($sqll);
 
@@ -218,6 +223,7 @@ crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
 and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+and crawl_results.violation_amount > 0.05
 group by crawl_results.product_id ";
 $sqll = "select 
 catalog_product_flat_1.sku
@@ -228,6 +234,7 @@ crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
 and crawl_results.crawl_id = " . $last_crawl1['id'] . "
+and crawl_results.violation_amount > 0.05
 group by crawl_results.product_id";
 
 $dash4_array = $db_resource->GetResultObj($sql);
@@ -246,27 +253,37 @@ $resultstrt = array_diff($array, $array2);
 
 //Stopped Violations Dealer query
 
-$sql = "SELECT website.name name from website
-        inner join
-    crawl_results ON website.id = crawl_results.website_id
-        inner join
-    crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id not in (select id from crawl
-where date_format(date_executed, '%Y-%m-%d')
-between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by website.name ";
-$sqll = "SELECT 
-    website.name name
+$sql = "SELECT
+website.name name
 from
-    website
-        inner join
-    crawl_results ON website.id = crawl_results.website_id
-        inner join
-    crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id in (select id from crawl
-where date_format(date_executed, '%Y-%m-%d')
-between DATE_ADD(sysdate(), INTERVAL -3 DAY) and sysdate())
-group by website.name ";
+website
+inner join
+crawl_results ON website.id = crawl_results.website_id
+inner join
+crawl ON crawl.id = crawl_results.crawl_id
+and crawl_results.crawl_id in (select
+id
+from
+crawl
+where
+date_format(date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL - 4 DAY) and DATE_ADD(sysdate(), INTERVAL - 1 DAY))
+and website.excluded = 0
+and crawl_results.violation_amount > 0.05
+group by website.name
+";
+$sqll = "SELECT
+website.name name
+from
+website
+inner join
+crawl_results ON website.id = crawl_results.website_id
+inner join
+crawl ON crawl.id = crawl_results.crawl_id
+and crawl_results.crawl_id = " . $last_crawl['id'] . "
+and website.excluded = 0
+and crawl_results.violation_amount > 0.05
+group by website.name
+";
 $dash6_array = $db_resource->GetResultObj($sql);
 $dash7_array = $db_resource->GetResultObj($sqll);
 
@@ -293,6 +310,8 @@ from
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
         and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+            and website.excluded = 0
+and crawl_results.violation_amount > 0.05
  group by website.name ";
 
 $sqll = "SELECT 
@@ -304,6 +323,8 @@ from
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
         and crawl_results.crawl_id = " . $last_crawl1['id'] . " 
+            and website.excluded = 0
+and crawl_results.violation_amount > 0.05
             group by website.name ";
 
 $dash8_array = $db_resource->GetResultObj($sql);
