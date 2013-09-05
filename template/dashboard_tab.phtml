@@ -1,6 +1,6 @@
- <div class="row">
+<div class="row">
     <div class="cell" class="input"> 
-       <div class="dashhead">Top Violations by Dealer</div>
+        <div class="dashhead">Top Violations by Dealer</div>
 
         <table class="Dash" >
             <tr >
@@ -11,37 +11,38 @@
                 <td>Total violated</td>
 
             </tr>
-<?php
-
-foreach ($newArray as $dash) 
-    {  
+            <?php
+            foreach ($newArray as $dash) {
 //$rnm = '';
 //print_r($dash);
-$diffr = ($dash['countcurrent'] - $dash['countprev']);
-$csum = ($dash['countcurrent'] + $dash['countprev']);
+                $diffr = ($dash['countcurrent'] - $dash['countprev']);
+                $csum = ($dash['countcurrent'] + $dash['countprev']);
 
-    $avg = ($csum)/2;
-    $percent = ($diffr/$avg)*100;
-    echo "<tr>";
-    echo "<td>";
-    if($diffr <0) $x ="red";
-    elseif ($diffr ==0) $x ="black";
-    elseif ($diffr >0) $x ="green";
+                $avg = ($csum) / 2;
+                $percent = ($diffr / $avg) * 100;
+                echo "<tr>";
+                echo "<td>";
+                if ($diffr < 0)
+                    $x = "red";
+                elseif ($diffr == 0)
+                    $x = "black";
+                elseif ($diffr > 0)
+                    $x = "green";
 //    if(strlen($dash['name']) > 18)
 //        $rnm = substr($dash['name'],0,18)."...";
 //    else $rnm = $dash['name'];
-    echo "<a href="."index.php?tab=violations-history&website_id=". $dash['website_id']."&wname=".$dash['name'].">" .$dash['name']."</td>"."<td>" .$dash['countcurrent']." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color="."$x".">".($diffr > 0 ? "+" : "").round($percent, 2)."%"."</font>" . "<td>" . $csum. "</td>" . "</tr>";
-    echo "</td>";
-    echo "</tr>";
- }
+                echo "<a href=" . "index.php?tab=violations-history&website_id=" . $dash['website_id'] . "&wname=" . $dash['name'] . ">" . $dash['name'] . "</td>" . "<td>" . $dash['countcurrent'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "<td>" . $csum . "</td>" . "</tr>";
+                echo "</td>";
+                echo "</tr>";
+            }
 //print_r($newArray);
-echo "</table>";
-?>	
-</div>
-<!--</div>
-<div class="row">-->
+            echo "</table>";
+            ?>	
+    </div>
+    <!--</div>
+    <div class="row">-->
     <div class="cell" class="input">
-       <div class="dashhead">Top violations by SKU</div>
+        <div class="dashhead">Top violations by SKU</div>
 
         <table class="Dash" >
             <tr>
@@ -50,193 +51,196 @@ echo "</table>";
                 <td >No. of Previous violations</td>
                 <td >Total violated</td>
             </tr>
-<?php
-foreach ($viosku as $das) 
-    { 
-    
-$rnm = '';
-//print_r($dash->countcurrent);
-$diffr = ($das['currentcount'] - $das['prevcount']);
-$csum = ($das['currentcount'] + $das['prevcount']);
-    
-    echo "<tr>";
-    echo "<td>";
-    if($diffr <0) $x ="red";
-    elseif ($diffr ==0) $x ="black";
-    elseif ($diffr >0) $x ="green";
-    if(strlen($das['sku1']) > 15)
-        $rnm = substr($das['sku1'],0,15)."...";
-    else $rnm = $das['sku1'];
-    echo "<a href="."index.php?tab=violations-history&product_id=". $das['product_id']."&sku=".$das['sku1'].">" .$rnm."</td>"."<td>" .$das['currentcount']." ("."<font color="."$x".">".($diffr > 0 ? "+" : "").$diffr."</font>".")"."</td>"."<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum. "</td>" . "</tr>";
-    echo "</td>";
-    echo "</tr>";
+            <?php
+            foreach ($viosku as $das) {
 
- }
+                $rnm = '';
+//print_r($dash->countcurrent);
+                $diffr = ($das['currentcount'] - $das['prevcount']);
+                $csum = ($das['currentcount'] + $das['prevcount']);
+
+                echo "<tr>";
+                echo "<td>";
+                if ($diffr < 0)
+                    $x = "red";
+                elseif ($diffr == 0)
+                    $x = "black";
+                elseif ($diffr > 0)
+                    $x = "green";
+                if (strlen($das['sku1']) > 15)
+                    $rnm = substr($das['sku1'], 0, 15) . "...";
+                else
+                    $rnm = $das['sku1'];
+                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum . "</td>" . "</tr>";
+                echo "</td>";
+                echo "</tr>";
+            }
 //   print_r($das);
 
 
-echo "</table>";
-?>
+            echo "</table>";
+            ?>
 
     </div>
 </td>
 <div class="cell" class="input">         
-   <div class="dashhead">Violation Amt by SKU</div>
+    <div class="dashhead">Violation Amt by SKU</div>
 
-        <table class="Dash" width="250">
-            <tr>
+    <table class="Dash" width="250">
+        <tr>
 
-                <td width="150">SKU</td>
-                <td >Violation Amount</td>
+            <td width="150">SKU</td>
+            <td >Violation Amount</td>
 
-            </tr>
-<?php
-foreach ($dash1_array as $dash2) {
-    echo "<tr>";
-    echo "<td>";
-    if(strlen($dash2->sku) > 15)
-        $rnm = substr($dash2->sku ,0,15)."...";
-    else $rnm = $dash2->sku;
-    echo "<a href=" . ">" . $rnm . "</td>" . "<td>$" . $dash2-> violation_amount . "</td>" . "</tr>";
-}
+        </tr>
+        <?php
+        foreach ($dash1_array as $dash2) {
+            echo "<tr>";
+            echo "<td>";
+            if (strlen($dash2->sku) > 15)
+                $rnm = substr($dash2->sku, 0, 15) . "...";
+            else
+                $rnm = $dash2->sku;
+            echo "<a href=" . ">" . $rnm . "</td>" . "<td>$" . $dash2->violation_amount . "</td>" . "</tr>";
+        }
 
-echo "</table>";
-?>
+        echo "</table>";
+        ?>
 </div>
 
 <div class="cell" class="input" style="height:200px;width:210px;" > 
     <div class="dashhead" style="visibility:hidden" >SKU</div>
 
-        <table class="Dash">
-            <tr> 
-                <td width="250">Stopped Violations SKU</td>
-            </tr>					
-            <?php
-             $i = 0;
-             if(count($resultst) == 0)
-                    echo "<tr align="."center".">"."<td>No New SKU Violated</td>"."</tr>";
-             else{
-             forEach($resultst as $key => $value) {
-                 if($i>2) break;
+    <table class="Dash">
+        <tr> 
+            <td width="250">Stopped Violations SKU</td>
+        </tr>					
+        <?php
+        $i = 0;
+        if (count($resultst) == 0)
+            echo "<tr align=" . "center" . ">" . "<td>No New SKU Violated</td>" . "</tr>";
+        else {
+            forEach ($resultst as $key => $value) {
+                if ($i > 2)
+                    break;
                 else {
-                echo "<tr>";
-                echo "<td>";
-                echo $value;
-                echo "</td>";
-                echo "</tr>";
-                $i++;
+                    echo "<tr>";
+                    echo "<td>";
+                    echo $value;
+                    echo "</td>";
+                    echo "</tr>";
+                    $i++;
                 }
-             }
-             }
-             
+            }
+        }
 
-             echo "</table>";
-            ?>
-            </td>
-  <div class="dashhead" style="visibility:hidden" >SKU</div>
+
+        echo "</table>";
+        ?>
+        </td>
+        <div class="dashhead" style="visibility:hidden" >SKU</div>
 
         <table class="Dash">
             <tr> 
                 <td width="250">Started Violations SKU</td>
             </tr>					
             <?php
-             $i = 0;
-             if(count($resultstrt) == 0)
-                    echo "<tr align="."center".">"."<td>No New SKU's Violated</td>"."</tr>";
-                 else {  
-             forEach($resultstrt as $key => $value) {
-                 if($i>2) break;
-                else {
-                echo "<tr>";
-                echo "<td>";
-                echo $value;
-                echo "</td>";
-                echo "</tr>";
-                $i++;
+            $i = 0;
+            if (count($resultstrt) == 0)
+                echo "<tr align=" . "center" . ">" . "<td>No New SKU's Violated</td>" . "</tr>";
+            else {
+                forEach ($resultstrt as $key => $value) {
+                    if ($i > 2)
+                        break;
+                    else {
+                        echo "<tr>";
+                        echo "<td>";
+                        echo $value;
+                        echo "</td>";
+                        echo "</tr>";
+                        $i++;
+                    }
                 }
-             }
-}
-             
+            }
 
-             echo "</table>";
+
+            echo "</table>";
             ?>
             </td>
-    </div>
-<div class="cell" class="input" style="height:200px;width:210px;" > 
-    <div class="dashhead" style="visibility:hidden" >Dealer</div>
+            </div>
+            <div class="cell" class="input" style="height:200px;width:210px;" > 
+                <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
-        <table class="Dash">
-            <tr> 
-                <td width="250">Stopped Violations Dealer</td>
-            </tr>					
-            <?php
+                <table class="Dash">
+                    <tr> 
+                        <td width="250">Stopped Violations Dealer</td>
+                    </tr>					
+                    <?php
+                    $i = 0;
+                    if (count($resultstv) == 0)
+                        echo "<tr align=" . "center" . ">" . "<td>No New Dealers Violated</td>" . "</tr>";
+                    else {
+                        forEach ($resultstv as $key => $value) {
+                            if ($i > 2)
+                                break;
+                            else {
+                                echo "<tr>";
+                                echo "<td>";
+                                echo $value;
+                                echo "</td>";
+                                echo "</tr>";
+                                $i++;
+                            }
+                        }
+                    }
 
 
+                    echo "</table>";
+                    ?>
+                    </td>
 
-             $i = 0;
-             if(count($resultstv) == 0)
-                    echo "<tr align="."center".">"."<td>No New Dealers Violated</td>"."</tr>";
-             else{
-             forEach($resultstv as $key => $value) {
-                 if($i>2) break;
-                else {
-                echo "<tr>";
-                echo "<td>";
-                echo $value;
-                echo "</td>";
-                echo "</tr>";
-                $i++;
-                }
-             }
-             }
-             
+                    <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
-             echo "</table>";
-            ?>
-            </td>
+                    <table class="Dash">
+                        <tr> 
+                            <td width="250">Started Violations Dealer</td>	
+                        </tr>					
+                        <?php
+                        $i = 0;
+                        if (count($resultstrtv) == 0)
+                            echo "<tr align=" . "center" . ">" . "<td>No New Dealers Violated</td>" . "</tr>";
+                        else {
+                            forEach ($resultstrtv as $key => $value) {
+                                if ($i > 3)
+                                    break;
+                                else {
+                                    echo "<tr>";
+                                    echo "<td>";
+                                    echo $value;
+                                    echo "</td>";
+                                    echo "</tr>";
+                                    $i++;
+                                }
+                            }
+                        }
+                        echo "</table>";
+                        ?>
+                        </td>
+                        </div>  
 
-    <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
-        <table class="Dash">
-            <tr> 
-                <td width="250">Started Violations Dealer</td>	
-            </tr>					
-            <?php
-            
-             $i = 0;
-             if(count($resultstrtv) == 0)
-                    echo "<tr align="."center".">"."<td>No New Dealers Violated</td>"."</tr>";
-                 else {  
-             forEach($resultstrtv as $key => $value) {
-                 if($i>3) break;
-                else {
-                echo "<tr>";
-                echo "<td>";
-                echo $value;
-                echo "</td>";
-                echo "</tr>";
-                $i++;
-                }
-             }
-           }
-             echo "</table>";
-            ?>
-            </td>
-    </div>  
-        
-
-<div id="container" style="min-width: 310px; height: 400px ; margin: auto">
-  <?php include_once 'charts/a7.php'; ?>
-    </div>
-<div class="cell" align="center" > 
-<div class="cell" align="center" style="float: left;width: 600px;
-    margin: 0 auto;" > 
-  <?php include_once 'charts/a1.php'; ?>
-</div>
-<div class="cell" align="center" style="float: right;width: 600px;
-    margin: 0 auto;" > 
-  <?php include_once 'charts/a2.php'; ?>
-    </div>
- </div>
-    </div>
+                        <div id="container" style="min-width: 310px; height: 400px ; margin: auto">
+                                 <?php include_once 'charts/a7.php'; ?>
+                        </div>
+                        <div class="cell" align="center" > 
+                            <div class="cell" align="center" style="float: left;width: 600px;
+                                 margin: 0 auto;" > 
+                                <?php include_once 'charts/a1.php'; ?>
+                            </div>
+                            <div class="cell" align="center" style="float: right;width: 600px;
+                                 margin: 0 auto;" > 
+<?php include_once 'charts/a2.php'; ?>
+                            </div>
+                        </div>
+                        </div>
 
