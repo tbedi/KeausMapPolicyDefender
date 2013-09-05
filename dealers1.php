@@ -65,7 +65,7 @@ if (isset($_GET['page'])) {
 <form action="dealers.php" method="POST">
     <table class="table1" align="left">
         <tr>
-            <td>
+      <td width="20">
                 <div class="divt1">
 
                     <input  class="recent_violation_search search" name="websearch" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == 'search') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
@@ -77,6 +77,7 @@ if (isset($_GET['page'])) {
                     <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
                 </div>
             </td>
+            
             </form>
 
             <td width="20">
