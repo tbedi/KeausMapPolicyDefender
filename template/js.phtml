@@ -308,21 +308,15 @@
             chkallh.push($(this).val());
             // var selectedallh= chkallh;
         });
+//         alert(selectedh);
+         $.post('./export/export_history_csv.php', 'listh=' + selectedh, function(response) {
+//                     alert(response);
+                 });
 
-
-//    var selectedallh= chkallh;
-//  
-//      if(selectedallh.length >= 1){
-//       // alert("You have selected All" + selectedallh);
-//    }else{
-//     //   alert("No Selected All");  
-//     selectedallh=0;
-//    }
-//   
-
-        window.location = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&listh=' + selectedh;
-        delete queryParameters['listh'];
-        delete queryParameters['selectallhistory'];
+         
+//        window.location = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&listh=' + selectedh;
+//        delete queryParameters['listh'];
+//        delete queryParameters['selectallhistory'];
 
 
     }

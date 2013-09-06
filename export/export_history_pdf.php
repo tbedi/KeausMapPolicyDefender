@@ -6,10 +6,10 @@ include_once '../toMoney.php';
 include_once './db_class.php';
 ini_set('memory_limit', '-1');
 session_start();
-if(isset($_SESSION['listh']))
- $_SESSION['listh'];
-if(isset($_SESSION['selectallhistory']))
- $_SESSION['selectallhistory'];
+if(isset($_POST['listh']))
+ $_SESSION['listh']=$_POST['listh'];
+if(isset($_POST['selectallhistory']))
+ $_SESSION['selectallhistory']=$_POST['selectallhistory'];
 //echo $_SESSION['selectallhistory'];
 $conHistoryExport="";
 $db_resource = new DB ();
