@@ -21,6 +21,7 @@ $limit = 15;
 //$_SESSION['limitp2'] = $limit;
 if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 	$limit=$_GET['limit2'];
+         $_GET['page2']=1;
 } 
 
 //pagination
