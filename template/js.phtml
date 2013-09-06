@@ -276,7 +276,7 @@
 
 
     $(document).ready(function() {
-        $("#buttonClassh,#buttonClassh1,#buttonClassh2,#checkboxlisth,#caseh").click(function() {
+        $("#buttonClassh,#buttonClassh1,#buttonClassh2,#checkboxlisth,#caseh,#exporth").click(function() {
             getValueUsingClassh();
         });
     });
@@ -366,7 +366,7 @@
 
 
     $(document).ready(function() {
-        $("#buttonClassp,#buttonClassp,#buttonClassp,#checkboxlistp,#casep").click(function() {
+        $("#buttonClassp,#buttonClassp,#buttonClassp,#checkboxlistp,#casep,#exportp").click(function() {
             getValueUsingClassp();
         });
     });
@@ -457,7 +457,7 @@
 
 
     $(document).ready(function() {
-        $("#buttonClassv,#buttonClasshv,#buttonClasshv,#checkboxlistv,#casev").click(function() {
+        $("#buttonClassv,#buttonClasshv,#buttonClasshv,#checkboxlistv,#casev,#exportv").click(function() {
             getValueUsingClassv();
         });
     });
@@ -490,19 +490,23 @@
         });
 
 
-//    var selectedallv= chkallv;
-//  
-//      if(selectedallv.length >= 1){
-//       // alert("You have selected All" + selectedallh);
-//    }else{
-//     //   alert("No Selected All");  
-//     selectedallv=0;
-//    }
 
 
-        window.location = 'index.php?' + $.param(queryParameters) + '&listv=' + selectedv;
-        delete queryParameters['selectallvendor'];
-        delete queryParameters['listv'];
+                $.post('./export/export_vendor2_csv.php', 'listv=' + selectedv, function(response) {
+//                     alert(response);
+                });
+                $.post('./export/export_vendor2_pdf.php', 'listv=' + selectedv, function(response) {
+//                    alert(response);
+                });
+                $.post('./export/export_vendor2_xls.php', 'listv=' + selectedv, function(response) {
+//                    alert(response);
+                });
+
+
+
+//        window.location = 'index.php?' + $.param(queryParameters) + '&listv=' + selectedv;
+//        delete queryParameters['selectallvendor'];
+//        delete queryParameters['listv'];
 
     }
 

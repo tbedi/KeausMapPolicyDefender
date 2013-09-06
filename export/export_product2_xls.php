@@ -10,7 +10,7 @@ $product_id="";
 if(isset($_SESSION['pviolationTitle']))
 {
 $sku=$_SESSION['pviolationTitle'];
-print_r($sku);
+//print_r($sku);
 }
 
 

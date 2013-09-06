@@ -13,10 +13,10 @@ $vviolationTitle=$_SESSION['vviolationTitle'];
 if(isset($_SESSION['vviolationTitle']))
 $_SESSION['vviolationTitle'];
 
-if(isset($_SESSION['listv']))
- $_SESSION['listv'];
-if(isset($_SESSION['selectallvendor']))
- $_SESSION['selectallvendor'];
+if(isset($_POST['listv']))
+ $_SESSION['listv']=$_POST['listv'];
+if(isset($_POST['selectallvendor']))
+ $_SESSION['selectallvendor']=$_POST['selectallvendor'];
 
 if (isset($_SESSION['website_id'])) {
     $web_id = $_SESSION['website_id'];

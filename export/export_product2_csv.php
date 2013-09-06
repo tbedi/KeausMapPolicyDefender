@@ -44,10 +44,8 @@ $db_resource = new DB ();
 if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
 {
     $arrExportProduct=  $_SESSION['listp'];
-    
-    // print_r($arrExportRecent);
-    $conProductExport=" and r.id in (". $_SESSION['listp']. ")" ;
-  //  echo $_SESSION['listp'];
+        $conProductExport=" and r.id in (". $_SESSION['listp']. ")" ;
+ 
 }
  else {
      $conProductExport="";
@@ -59,7 +57,7 @@ if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
       $conProductExport="";
 }
 //echo $_REQUEST['selectallproduct'];
-echo $conProductExport;
+
 /* sorting */
 
 if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vproduct_2"  ) {
