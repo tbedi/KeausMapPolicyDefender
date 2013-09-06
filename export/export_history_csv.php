@@ -9,17 +9,7 @@ if(isset($_POST['selectallhistory']))
 //echo $_SESSION['selectallhistory'];
 $conHistoryExport="";
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limithcon="";
-//$_SESSION['limit'] = $limit;
-//if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
-//    $limit = $_GET['limit'];
-//}
-//if  (!isset($_SESSION['selectallhistory']) )
-//{ 
-//       $limithcon = "  LIMIT $start, $limit ";
-//}
+
 
 
 if (isset( $_SESSION['listh']) and  $_SESSION['listh']!=0)
@@ -35,7 +25,7 @@ if (isset( $_SESSION['listh']) and  $_SESSION['listh']!=0)
 }
      if  (isset($_SESSION['selectallhistory']) and $_SESSION['selectallhistory']=='1')
 {
-//    $limithcon="";
+
       $conHistoryExport="";
 }
 
@@ -87,11 +77,6 @@ $violators_array = $db_resource->GetResultObj($sql);
 
 
 
-//$violators_array=$_SESSION['historyArray'];
-//if(isset($_SESSION['historyArray']))
-//{
-//      // print_r($violators_array);
-//}
 
 $filename="Violation_History-".date('d-m-y').".csv";
 
@@ -101,8 +86,7 @@ $filename="Violation_History-".date('d-m-y').".csv";
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
 header('Content-Disposition: attachment; filename="'.$filename.'"');
-//header('Content-Disposition: attachment; filename="Violation_History.csv"');
-//header('Content-Disposition: attachment; filename='."Violation_History".'_'.date('Y-m-d'));
+
 
 
 /* columns */

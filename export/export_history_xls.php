@@ -11,17 +11,7 @@ if(isset($_POST['selectallhistory']))
 //echo $_SESSION['selectallhistory'];
 $conHistoryExport="";
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limithcon="";
-////$_SESSION['limit'] = $limit;
-//if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
-//    $limit = $_GET['limit'];
-//}
-//if  (!isset($_SESSION['selectallhistory']) )
-//{ 
-//       $limithcon = "  LIMIT $start, $limit ";
-//}
+
 
 
 if (isset( $_SESSION['listh']) and $_SESSION['listh']!=0 )
@@ -37,7 +27,7 @@ if (isset( $_SESSION['listh']) and $_SESSION['listh']!=0 )
 }
      if  (isset($_SESSION['selectallhistory']) and $_SESSION['selectallhistory']=='1')
 {
-//    $limithcon="";
+
       $conHistoryExport="";
 }
 

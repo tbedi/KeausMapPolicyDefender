@@ -25,20 +25,7 @@ if (isset($_SESSION['product_id'])) {
 //echo $_SESSION['selectallproduct'];
 //data collection
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limitpcon="";
-//
-//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-//	$limit=$_GET['limit2'];
-//} 
-//if  (!isset($_SESSION['selectallproduct']) )
-//{ 
-//       $limitpcon = "  LIMIT $start, $limit ";
-//}
-// else {
-//     $limitpcon="";
-//}
+
 
 
 if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
@@ -53,10 +40,10 @@ if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
 }
      if  (isset($_SESSION['selectallproduct']) and $_SESSION['selectallproduct']=='1')
 {
-//    $limitpcon="";
+
       $conProductExport="";
 }
-//echo $_REQUEST['selectallproduct'];
+
 
 /* sorting */
 
@@ -94,15 +81,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-
    " . $order_by   ;
  
 $violators_array=$db_resource->GetResultObj($sql);
-//print_r($sql);
 
-//session_start();
-//$violators_array=$_SESSION['product2Array'];
-//
-//if(isset($_SESSION['product2Array']))
-//{
-//    //   print_r($violators_array);
-//}
 
 
 
@@ -111,8 +90,7 @@ $filename="Dealers_Violated-".$sku."-".date('d-m-y').".csv";
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
 header('Content-Disposition: attachment; filename="'.$filename.'"');
-//header('Content-Disposition: attachment; filename="Product_Violation.csv"');
-//header('Content-Disposition: attachment; filename='."Sellers_Violated_".$product_id.'_'.date('Y-m-d'));
+
 
 /* columns */
 $arr_columns = array(
@@ -157,11 +135,6 @@ function exportCSV($data, $col_headers = array(), $return_string = false) {
     }
 }
   
- 
-
-//unset($_SESSION['listp']);
-//unset($_SESSION['selectallproduct']);
-
 
 ?>
 

@@ -30,17 +30,6 @@ if (isset($_SESSION['product_id'])) {
 //echo $_SESSION['selectallproduct'];
 //data collection
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limitpcon="";
-//
-//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-//	$limit=$_GET['limit2'];
-//} 
-//if  (!isset($_SESSION['selectallproduct']) )
-//{ 
-//       $limitpcon = "  LIMIT $start, $limit ";
-//}
 
 
 if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
@@ -95,19 +84,6 @@ $sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-
  
 $violators_array=$db_resource->GetResultObj($sql);
 //print_r($sql);
-
-
-
-
-
-
-//$violators_array=$_SESSION['product2Array'];
-//if(isset($_SESSION['product2Array']))
-//{
-//       //print_r($violators_array);
-//}
-
-
 
 
 
@@ -271,5 +247,3 @@ ob_clean();
 $pdf->Output("Dealers_Violated_".$sku.'-'.date('Y-m-d'), 'I');
 
 
-//unset($_SESSION['listp']);
-//unset($_SESSION['selectallproduct']);

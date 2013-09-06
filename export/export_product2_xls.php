@@ -26,18 +26,7 @@ if (isset($_SESSION['product_id'])) {
 //echo $_SESSION['selectallproduct'];
 //data collection
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limitpcon="";
-//
-//
-//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-//	$limit=$_GET['limit2'];
-//} 
-//if  (!isset($_SESSION['selectallproduct']))
-//{ 
-//       $limitpcon = "  LIMIT $start, $limit ";
-//}
+
 
 
 if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
@@ -73,10 +62,7 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 }
  
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
-/* sorting */
-//$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-//$result = mysql_query($sql);
-//$last_crawl = mysql_fetch_assoc($result);
+
 
 $sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
     r.violation_amount as violation_amount,r.id as id,
@@ -94,13 +80,6 @@ $sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-
  
 $violators_array=$db_resource->GetResultObj($sql);
 
-
-
-
-//$violators_array = $_SESSION['product2Array'];
-//if (isset($_SESSION['product2Array'])) {
-//    //   print_r($violators_array);
-//}
 
 
 header('Content-Type: application/vnd.ms-excel'); //define header info for browser    
@@ -133,8 +112,5 @@ foreach ($violators_array as $violators_array) {
 }
 
 echo "</table>";
-
-//unset($_SESSION['listp']);
-//unset($_SESSION['selectallproduct']);
 
 ?>

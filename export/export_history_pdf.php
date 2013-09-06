@@ -13,17 +13,6 @@ if(isset($_POST['selectallhistory']))
 //echo $_SESSION['selectallhistory'];
 $conHistoryExport="";
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limithcon="";
-////$_SESSION['limit'] = $limit;
-//if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
-//    $limit = $_GET['limit'];
-//}
-//if  (!isset($_SESSION['selectallhistory']) )
-//{ 
-//       $limithcon = "  LIMIT $start, $limit ";
-//}
 
 
 if (isset( $_SESSION['listh']) and $_SESSION['listh']!=0 )
@@ -39,7 +28,7 @@ if (isset( $_SESSION['listh']) and $_SESSION['listh']!=0 )
 }
      if  (isset($_SESSION['selectallhistory']) and $_SESSION['selectallhistory']=='1')
 {
-//    $limithcon="";
+
       $conHistoryExport="";
 }
 
@@ -186,16 +175,9 @@ $pdf->AddPage();
 $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 /* Example adding for products*/
 include_once 'db.php';
-$limit=10;
-  
-/*
-$where = "";
 
-if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-	$field = strtolower($_GET['field']);
-	$value = strtolower($_GET['value']);
-	$where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";
-}*/
+  
+
 
 
 

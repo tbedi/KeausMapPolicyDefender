@@ -19,18 +19,8 @@ if (isset($_SESSION['website_id'])) {
     $web_id = $_SESSION['website_id'];
 }
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limitvcon="";
-   $conVendorExport="";
 
-//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-//	$limit=$_GET['limit2'];
-//} 
-//if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
-//{ 
-//       $limitvcon = "  LIMIT $start, $limit ";
-//}
+   $conVendorExport="";
 
  
 if (isset($_SESSION['listv']) and $_SESSION['listv']!=0)
@@ -47,7 +37,7 @@ if (isset($_SESSION['listv']) and $_SESSION['listv']!=0)
 }
      if  (isset($_SESSION['selectallvendor']) )
 {
-//    $limitvcon="";
+
       $conVendorExport="";
 }
 
@@ -71,9 +61,6 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
 
-//$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-//$result = mysql_query($sql);
-//$last_crawl = mysql_fetch_assoc($result);
 
 
 $sql = "select distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
@@ -100,18 +87,13 @@ and website_id = $web_id  ".$order_by;
  
 $violators_array=$db_resource->GetResultObj($sql);
 //echo $sql;
-//$violators_array=$_SESSION['vendor2Array'];
-//if(isset($_SESSION['vendor2Array']))
-//{
-//      // print_r($violators_array);
-//}
+
 
 
 $filename="Products_Violated_By-".$_SESSION['vviolationTitle']."-".date('d-m-y').".csv";
 
 header("Content-type: text/csv");
 header("Cache-Control: no-store, no-cache");
-//header('Content-Disposition: attachment; filename="Seller_Violation.csv"');
 header('Content-Disposition: attachment; filename="'.$filename.'"');
 
 /* columns */

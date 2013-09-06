@@ -22,17 +22,7 @@ if (isset($_SESSION['website_id'])) {
     $web_id = $_SESSION['website_id'];
 }
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limitvcon="";
-//
-//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-//	$limit=$_GET['limit2'];
-//} 
-//if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
-//{ 
-//       $limitvcon = "  LIMIT $start, $limit ";
-//}
+
 
  
 if (isset( $_SESSION['listv']) and  $_SESSION['listv']!=0)
@@ -48,7 +38,7 @@ if (isset( $_SESSION['listv']) and  $_SESSION['listv']!=0)
 }
      if  (isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']=='1')
 {
-//    $limitvcon="";
+
       $conVendorExport="";
 }
 
@@ -103,14 +93,7 @@ $violators_array=$db_resource->GetResultObj($sql);
 
 
 
-//$violators_array = $_SESSION['vendor2Array'];
-//if (isset($_SESSION['vendor2Array'])) {
-//    // print_r($violators_array);
-//}
-
-
 header('Content-Type: application/vnd.ms-excel');
-//header('Content-Disposition: attachment; filename=' . "Products_Violated_by_" . $_SESSION['vviolationTitle'] . '-' . date('d-m-y'));
 header('Content-Disposition: attachment; filename=' . "Products_Violated_by_" . $_SESSION['vviolationTitle'] . "_" . date('d-m-y'));
 header('Pragma: no-cache');
 header('Expires: 0');

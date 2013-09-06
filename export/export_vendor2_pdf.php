@@ -19,17 +19,7 @@ if (isset($_SESSION['website_id'])) {
     $web_id = $_SESSION['website_id'];
 }
 $db_resource = new DB ();
-//$limit=15;
-//$start=0;
-//$limitvcon="";
-//
-//if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
-//	$limit=$_GET['limit2'];
-//} 
-//if  (!isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']!=='1')
-//{ 
-//       $limitvcon = "  LIMIT $start, $limit ";
-//}
+
 
  
 if (isset( $_SESSION['listv']) and  $_SESSION['listv']!=0)
@@ -45,7 +35,7 @@ if (isset( $_SESSION['listv']) and  $_SESSION['listv']!=0)
 }
      if  (isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']=='1')
 {
-//    $limitvcon="";
+
       $conVendorExport="";
 }
 
@@ -99,15 +89,6 @@ and website_id = $web_id  ".$order_by;
 $violators_array=$db_resource->GetResultObj($sql);
 
 
-
-
-
-
-//$violators_array=$_SESSION['vendor2Array'];
-//if(isset($_SESSION['vendor2Array']))
-//{
-//     //  print_r($violators_array);
-//}
 class Bshree extends TCPDF {
 
     //Page header
@@ -261,4 +242,3 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // This method has several options, check the source code documentation for more information.
 ob_clean();
         $pdf->Output("Products_Violated_by_".$_SESSION['vviolationTitle'].'-'.date('Y-m-d'), 'I');
-// 

@@ -1,13 +1,9 @@
 <?php
-//if(isset($_REQUEST['limit'])){
-//$limit=$_REQUEST['limit'];
-//}
-//else $limit=15;
+
 $from=$_SESSION['frc'];
 $to=$_SESSION['tc'];
 
-//echo "from ".$from;
-//echo "to ".$to;
+
 if (isset($_REQUEST['sku']) )
 {
     $sku=$_REQUEST['sku'];
@@ -20,24 +16,7 @@ else
     $condition="";
     $count_p="count( distinct product_id)";
 }
-//$sql = "
-//select Violations_amount, date_executed
-//from
-//(select 
-//count(*) as Violations_amount,
-// date_format(crawl.date_executed, '%Y-%m-%d') as date_executed		 
-//from crawl_results res
-//inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
-//inner join website sites on sites.id = res.website_id
-//inner join crawl on crawl.id = res.crawl_id
-//where
-//violation_amount > 0.05 
-//and sites.excluded = 0  ". $condition. " 
-//and (date_format(crawl.date_executed,'%Y-%m-%d') between '" .$from. "'and '" .$to."')
-//group by date_format(crawl.date_executed, '%Y-%m-%d')
-//order by crawl.date_executed desc ) as yy order by date_executed";
 
-//order by crawl.date_executed desc limit 0," . $limit. " ) as yy order by DateExec";
 
 
 
