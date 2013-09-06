@@ -312,6 +312,12 @@
          $.post('./export/export_history_csv.php', 'listh=' + selectedh, function(response) {
 //                     alert(response);
                  });
+                   $.post('./export/export_history_pdf.php', 'listh=' + selectedh, function(response) {
+//                     alert(response);
+                 });
+                   $.post('./export/export_history_xls.php', 'listh=' + selectedh, function(response) {
+//                     alert(response);
+                 });
 
          
 //        window.location = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&listh=' + selectedh;
@@ -392,20 +398,21 @@
             chkallp.push($(this).val());
         });
 
+//alert(selectedp);
 
-//    var selectedallp= chkallp;
-//  
-//      if(selectedallp.length >= 1){
-//       // alert("You have selected All" + selectedallh);
-//    }else{
-//     //   alert("No Selected All");  
-//     selectedallp=0;
-//    }
+        $.post('./export/export_product2_csv.php', 'listp=' + selectedp, function(response) {
+//                     alert(response);
+                });
+                $.post('./export/export_product2_pdf.php', 'listp=' + selectedp, function(response) {
+//                    alert(response);
+                });
+                $.post('./export/export_product2_xls.php', 'listp=' + selectedp, function(response) {
+//                    alert(response);
+                });
 
-
-        window.location = 'index.php?' + $.param(queryParameters) + '&listp=' + selectedp;
-        delete queryParameters['selectallproduct'];
-        delete queryParameters['listp'];
+//        window.location = 'index.php?' + $.param(queryParameters) + '&listp=' + selectedp;
+//        delete queryParameters['selectallproduct'];
+//        delete queryParameters['listp'];
 
     }
 

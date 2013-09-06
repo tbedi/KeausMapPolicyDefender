@@ -19,10 +19,10 @@ $sku=$_SESSION['pviolationTitle'];
 
 $product_id = $_REQUEST['product_id'];
 
-if(isset($_SESSION['listp']))
- $_SESSION['listp'];
-if(isset($_SESSION['selectallproduct']))
- $_SESSION['selectallproduct'];
+if(isset($_POST['listp']))
+ $_SESSION['listp'] = $_POST['listp'];
+if(isset($_POST['selectallproduct']))
+ $_SESSION['selectallproduct'] = $_POST['selectallproduct'];
 
 if (isset($_SESSION['product_id'])) {
     $product_id = $_SESSION['product_id'];

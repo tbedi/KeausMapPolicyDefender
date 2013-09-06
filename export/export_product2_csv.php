@@ -3,6 +3,7 @@
 include_once './db_class.php';
 include_once '../toMoney.php';
 include_once './db.php';
+session_start();
 $sku="";
 $product_id="";
  $conProductExport="";
@@ -11,11 +12,12 @@ if(isset($_SESSION['pviolationTitle']))
 $sku=$_SESSION['pviolationTitle'];
 }
 
-session_start();
-//if(isset($_SESSION['listp']))
-// $_SESSION['listp'];
-//if(isset($_SESSION['selectallproduct']))
-// $_SESSION['selectallproduct'];
+
+
+if(isset($_POST['listp']))
+ $_SESSION['listp'] = $_POST['listp'];
+if(isset($_POST['selectallproduct']))
+ $_SESSION['selectallproduct'] = $_POST['selectallproduct'];
 
 if (isset($_SESSION['product_id'])) {
     $product_id = $_SESSION['product_id'];
