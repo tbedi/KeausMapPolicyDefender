@@ -37,7 +37,7 @@
 
         </div>
 
-        <div class="results-per-page-block" style="align: right; float: right ;padding-top: 10px; padding-right: 10px;" >
+        <div class="results-per-page-block" style="align: right; float: right ;padding-top: 10px; " >
              <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;"> Limit </div>
             </div>
@@ -52,6 +52,7 @@
                 <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
                 <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
             </select>
+            
         </div>
 
 
@@ -62,10 +63,8 @@
 
         <div>
 
-            <table align="left">
-                <tr>
-                    <td>
-                        <table class="GrayBlack" align="left" style="width: 670px; ">
+            
+                        <table class="GrayBlack" align="left" style="width: 100%;">
     <!--                        <tbody id="data">-->
                             <tbody>
                              <tr > 
@@ -80,7 +79,7 @@
 
 
                                     </td>
-                                    <td >
+                                    <td>
 
                                         <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vvendor_2');" href="javascript:void(0);">
                                             SKU  
@@ -173,9 +172,7 @@
                                 <tr align="center"><td width="700"> No Records Found  </td> </tr></table>
                         <?php }
                         ?>
-                    </td>  
-                </tr>       
-            </table> 
+                  
 
             <div class="cleaner" style="padding-top: 5px; ">
 
