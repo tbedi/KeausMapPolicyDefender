@@ -58,18 +58,7 @@ if (isset($_REQUEST['product_id'])) {
         
         $searchfield;
         $urls = "?tab=violations-history&option=show_dates";
-        if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
-            
-            $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
-        }
-         if (isset($_REQUEST['sku']) ){
-                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; 
-                $limit = 15;
-        }
-        if (isset($_REQUEST['website_id']) ){
-                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];  
-                 $limit = 15;
-        }
+        
 //        else {
 //            $urls = "?tab=violations-history&option=show_dates";
 //        }
@@ -122,16 +111,20 @@ if (isset($_REQUEST['website_id'])) {
 //}
 /*where*/
 
+
+          
+
+            
            if(isset($_GET['dealer']) ) 
            {
-              $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_GET['dealer'])) . "%'";
+              $wherev = "  AND  website.name   = '" . mysql_real_escape_string(trim($_GET['dealer'])) . "'";
            }
            
                                
                 if(isset($_GET['product']) ) 
            {
                  
-                $wherep = "  AND  sku  LIKE '%" .  $_GET['product'] . "%'";
+                $wherep = "  AND  sku  = '" .  $_GET['product'] . "'";
            }
               
            
@@ -365,7 +358,30 @@ if (isset($_REQUEST['listp']) )
 }
 
 
-
+if(isset($_GET['limit']))
+        {
+            $urls.="&limit=".$limit;
+        }
+        
+        
+        if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
+            
+            $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
+        }
+        
+         if (isset($_REQUEST['sku']) ){
+                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; 
+                $limit = 15;
+        }
+        if (isset($_REQUEST['website_id']) ){
+                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];  
+                 $limit = 15;
+        }
+        
+        
+        
+        
+        
 
     $sql = "SELECT SQL_CALC_FOUND_ROWS  
     catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,
@@ -392,7 +408,7 @@ and website.excluded=0 $wherev ".$wherep."
 
 $violators_array = $db_resource->GetResultObj($sql);
 
-//echo "---".$sql;
+echo $sql;
 //
 //$_SESSION['historyArray'] = $violators_array;
 //if (isset($_SESSION['historyArray'])) {
