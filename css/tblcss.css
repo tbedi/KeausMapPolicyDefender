@@ -59,14 +59,14 @@ border-width:0px 0px 0px 1px;
 .GrayBlack tr:first-child { background-color: #ECF5DC;}
 
 .GrayBlack tr:first-child td{
-  font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
-    font-size: 15px;
-    font-weight: normal;
+font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
+font-size: 15px;
+font-weight: normal;
 background-color:#ECF5DC;
 text-align:center;
- border-width:0px 0px 1px 1px;
+border-width:0px 0px 1px 1px;
 color:#000000;
-	   text-transform: capitalize;
+text-transform: capitalize;
 }
 .GrayBlack tr td{ border:0px solid #A6CF00;border-width:0px 0px 1px 1px;  }
  
