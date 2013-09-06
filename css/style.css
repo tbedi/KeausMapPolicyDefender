@@ -120,7 +120,8 @@ padding:0px;
 background-color: #ECF5DC;
 /*border:1px solid #ECF5DC;*/
 border-collapse: collapse;
-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+/*box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);*/
+box-shadow: 10px 10px 5px #888888;
 }
 
 
@@ -149,15 +150,15 @@ border-width:0px 0px 0px 1px;
   font-family: freightsans_prolight,Helvetica,Arial,sans-serif;
     font-size: 15px;
     font-weight: normal;
- 
+ background-color:#ECF5DC;
 text-align:center;
  border-width:0px 0px 1px 1px;
 color:#000000;
 	   text-transform: capitalize;
 }
-/*.Dash tr td{ */
-/*    border:0px solid #A6CF00;*/
-/*    border-width:0px 0px 1px 1px;  }*/
+/*.Dash tr td{ 
+    border:0px solid #A6CF00;
+    border-width:0px 0px 1px 1px;  }*/
  
 .Dash tr td:first-child{
 border-width:0px 0px 1px 0px;
@@ -173,8 +174,7 @@ border-width:0px 0px 1px 1px;
 }
 .cell {
     display:table-cell;
-    padding: 10px 5px 5px 1px;
-    font: bold;
+    padding: 10px 5px 5px 1px; 
 }
  
 /*heading of dashboard blocks*/
@@ -184,7 +184,7 @@ border-width:0px 0px 1px 1px;
 	text-decoration: none;
 	font-size: 22px;
 	line-height: 1.3;
-	text-transform: uppercase;
+	text-transform: capitalize;
 	font-family: freightsans_prolight, Helvetica, Arial, sans-serif;
     }
 
