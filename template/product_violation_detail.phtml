@@ -80,7 +80,7 @@
                                         ?>
                                         
                                         <form name="productSearchDetail" action="JavaScript:searchProDetail();" method="get">
-                                            <input type="text" class="search" name="productDetail" id="txtproductDetail" />
+                                            <input type="text" class="search" name="productDetail" id="txtproductDetail" placeholder="Search Vendor..." value="<?php if(isset($_GET['searchvendor'])) echo $_GET['searchvendor'];?>"/>
                                         </form>
                                          <?php endif; ?>
                                         
