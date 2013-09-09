@@ -93,7 +93,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
                  x: 4,
                  y: 5,
                  style: {
-                     fontSize: '12px',
+                     fontSize: '10px',
                      fontFamily: 'Verdana, sans-serif'
                  }
              }
