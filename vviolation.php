@@ -3,6 +3,13 @@
 $where = "";
 $limit = 15;
 $limitvcon="";
+$searchven="";
+
+if (isset($_GET['searchproduct']))
+{
+   $searchven="  AND  sku  = '" .  $_GET['searchproduct'] . "'";
+}
+
 if (isset($_SESSION['listv']))
 unset($_SESSION['listv']);
 if (isset($_SESSION['selectallvendor']))
@@ -44,7 +51,7 @@ inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' ) and  crawl_results.violation_amount>0.05 
 and
-website.excluded=0 
+website.excluded=0  " . $searchven . "
 and website_id = $website_id " . $where  ;
   
         
@@ -105,12 +112,12 @@ on catalog_product_flat_1.entity_id=crawl_results.product_id
 where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' ) and crawl_results.violation_amount>0.05 
 and
 website.excluded=0 
-and website_id = $website_id " . $where . " 
+and website_id = $website_id " . $where .  $searchven. "
      ".$order_by." " .$limitvcon; 
 
  
 $violators_array=$db_resource->GetResultObj($sql);
-//echo $sql; 
+    
 
 $_SESSION['vendor2Array']=$violators_array;
 
@@ -126,7 +133,7 @@ $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param
 $additional_params = ""; //addtiion params to pagination url;
 /*For sorting using*/
 
-$sql3 = "select  name as wname from   website where  id = ".$website_id ;
+$sql3 = "select  name as wname from   website where  id = ".$website_id. " limit 1";
 
 
 

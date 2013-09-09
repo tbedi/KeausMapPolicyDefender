@@ -2,16 +2,6 @@
 
 
 
-
-
-
-
-// function handle(e){
-//       document.dealerSearch.action ="tab=violations-history&";
-//
-//        return false; //Otherwise the form will be submitted
-//    }
-
     /* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
     function check_for_search_params() {
         if (queryParameters['tab'] != selected_tab) {
@@ -38,20 +28,6 @@
 
         var field = search_field;
         var value = $(name).val();
-
-//     	          if((queryParameters['website_id'])==null)
-//     	              {
-//     	                  var v_id=<?php //$website_id   ?>;
-//     	              }
-//     	              else
-//     	                  {
-//     	                       var v_id=queryParameters['website_id'];
-//     	                  }
-        //if(queryParameters['product_id']=='undefined')
-        //  {
-        //    var v_id=<?php //$product_id   ?>;
-        // }
-
 
         var v_id = queryParameters['website_id'];
         var p_id = queryParameters['product_id'];
@@ -85,20 +61,26 @@
     /*Show all common method*/
 
     function show_all2() {
-        if (queryParameters['action']) {
-            if (queryParameters['action'] == 'search2') {
-                delete  queryParameters['action'];
-                delete queryParameters['field'];
-                delete queryParameters['value'];
+        if (queryParameters['searchvendor']) {
+         
+                delete  queryParameters['searchvendor'];
+                delete  queryParameters['limit2'];
+               
             }
-        }
+            if (queryParameters['searchproduct']) {
+         
+                delete  queryParameters['searchproduct'];
+                delete  queryParameters['limit2'];
+               
+            }
+       
         if (queryParameters['page2']) {
             delete queryParameters['page2'];
         }
         queryParameters['tab'] = selected_tab;
         location.search = '?' + $.param(queryParameters);
+ }
 
-    }
 
 
 
@@ -139,11 +121,7 @@
                 $(this).parent().parent().children('.search-btn-container').children('button').click();
             }
         });
-//                $(".history-search2").keypress(function(e) {
-//     		    if(e.which == 13) {
-//     		        $(this).parent().parent().children('.search-btn-container1').children('button').click();
-//     		    }
-//     		});	
+	
         /*Binding enter search 2nd grids*/
 
     });
@@ -224,7 +202,7 @@
 
         if (mode)
             open("export/export_history_" + mode + ".php?" + $.param(queryParameters));
-        //open("export_history_" + mode + ".php" + url_options);
+       
 
     }
 
@@ -320,9 +298,7 @@
                  });
 
          
-//        window.location = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&listh=' + selectedh;
-//        delete queryParameters['listh'];
-//        delete queryParameters['selectallhistory'];
+
 
 
     }
@@ -410,9 +386,7 @@
 //                    alert(response);
                 });
 
-//        window.location = 'index.php?' + $.param(queryParameters) + '&listp=' + selectedp;
-//        delete queryParameters['selectallproduct'];
-//        delete queryParameters['listp'];
+
 
     }
 
@@ -503,11 +477,6 @@
                 });
 
 
-
-//        window.location = 'index.php?' + $.param(queryParameters) + '&listv=' + selectedv;
-//        delete queryParameters['selectallvendor'];
-//        delete queryParameters['listv'];
-
     }
 
     $('.selectallrecV').click(function() {
@@ -543,14 +512,14 @@ var ven = document.getElementById("txtvendor").value;
     
 
 }
-
-
-
-
-
-
-
-
+function searchProDetail(){
+var venDetail = document.getElementById("txtproductDetail").value;
+ window.location ="index.php?tab=violations-history&"+ $.param(queryParameters)+"&searchvendor="+venDetail;
+ }
+ function searchVenDetail(){
+var proDetail = document.getElementById("txtvendorDetail").value;
+ window.location ="index.php?tab=violations-history&"+ $.param(queryParameters)+"&searchproduct="+proDetail;
+ }
 
 
 </script>
