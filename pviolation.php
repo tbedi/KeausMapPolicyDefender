@@ -18,7 +18,7 @@ $to=$_SESSION['tc'];
 $from=$_SESSION['frc'] ;
 //pagination
 $limit = 15;
-//$_SESSION['limitp2'] = $limit;
+
 if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 	$limit=$_GET['limit2'];
          $_GET['page2']=1;
@@ -37,7 +37,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,c.date_executed,
     INNER JOIN website w ON r.website_id=w.id
     INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
     WHERE (date_format(c.date_executed,'%Y-%m-%d') between '$from' and '$to' ) and r.violation_amount>0.05 AND w.excluded=0 " . $where ;
-//echo $sql;
+
 //pagination
 
 
@@ -88,7 +88,7 @@ if (isset($_REQUEST['selectallproduct']))
 if (isset($_REQUEST['listp']) ) 
 {
     $_SESSION['listp'] = $_REQUEST['listp'];
-//    print_r ($_REQUEST['listp']);
+
 }
 
 
@@ -113,7 +113,7 @@ $sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-
  
 $violators_array=$db_resource->GetResultObj($sql);
 
-//echo $sql;
+
 
 $sql3 = "SELECT   c.date_executed,
        p.sku as sku
@@ -130,11 +130,7 @@ $violators_array3=$db_resource->GetResultObj($sql3);
 
 
 $_SESSION['product2Array']=$violators_array;
-if(isset($_SESSION['product2Array']))
-{
-  //  print_r($_SESSION['product2Array']); 
-  
-}
+
 
  
 /*Pagination*/

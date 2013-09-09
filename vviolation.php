@@ -7,22 +7,16 @@ if (isset($_SESSION['listv']))
 unset($_SESSION['listv']);
 if (isset($_SESSION['selectallvendor']))
 unset($_SESSION['selectallvendor']);
-//$_SESSION['limit'] = $limit;
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];
         $_GET['page2']=1;
   
-        
-        
 } 
-
-
 
 if (isset($_REQUEST['selectallvendor']))
 {
      $_SESSION['selectallvendor'] = $_REQUEST['selectallvendor'];
-     //echo      $_SESSION['selectallvendor'];
-}
+  }
 
 
 if (isset($_REQUEST['listv']) ) 
@@ -52,7 +46,7 @@ where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' ) a
 and
 website.excluded=0 
 and website_id = $website_id " . $where  ;
-//  echo $sql;    
+  
         
         
 
@@ -119,11 +113,6 @@ $violators_array=$db_resource->GetResultObj($sql);
 //echo $sql; 
 
 $_SESSION['vendor2Array']=$violators_array;
-if(isset($_SESSION['vendor2Array']))
-{
-   // print_r($_SESSION['vendor2Array']); 
-  
-}
 
  
  
@@ -145,11 +134,7 @@ $violators_array3=$db_resource->GetResultObj($sql3);
 
 
 $_SESSION['vviolationTitle']=$violators_array3[0]->wname;
-if(isset($_SESSION['vviolationTitle']))
-{
-  //  print_r($_SESSION['vendor2Array3']); 
-  
-}
+
 
 include_once 'template/vendor_violation_detail.phtml';
 ?>
