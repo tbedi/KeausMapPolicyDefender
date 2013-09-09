@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="cell" class="input"> 
+    <div class="cell" > 
         <div class="dashhead">Top Violations by Dealer</div>
 
         <table class="Dash" >
             <tr >
-                <td>Dealer</td>	
+                <td width="150">Dealer</td>	
                 <td>No. of current violations</td>
                 <td>No. of previous violations</td>
                 <td>%</td>
@@ -13,8 +13,6 @@
             </tr>
             <?php
             foreach ($newArray as $dash) {
-//$rnm = '';
-//print_r($dash);
                 $diffr = ($dash['countcurrent'] - $dash['countprev']);
                 $csum = ($dash['countcurrent'] + $dash['countprev']);
 
@@ -28,34 +26,25 @@
                     $x = "black";
                 elseif ($diffr > 0)
                     $x = "green";
-//    if(strlen($dash['name']) > 18)
-//        $rnm = substr($dash['name'],0,18)."...";
-//    else $rnm = $dash['name'];
                 echo "<a href=" . "index.php?tab=violations-history&website_id=" . $dash['website_id'] . "&wname=" . $dash['name'] . ">" . $dash['name'] . "</td>" . "<td>" . $dash['countcurrent'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "<td>" . $csum . "</td>" . "</tr>";
                 echo "</td>";
                 echo "</tr>";
             }
-//print_r($newArray);
             echo "</table>";
             ?>	
     </div>
-    <!--</div>
-    <div class="row">-->
-    <div class="cell" class="input">
+    <div class="cell" >
         <div class="dashhead">Top violations by SKU</div>
 
         <table class="Dash" >
             <tr>
-                <td width="100">SKU</td>	
+                <td width="150">SKU</td>	
                 <td >No. of current violations</td>
                 <td >No. of Previous violations</td>
                 <td >Total violated</td>
             </tr>
             <?php
             foreach ($viosku as $das) {
-
-                $rnm = '';
-//print_r($dash->countcurrent);
                 $diffr = ($das['currentcount'] - $das['prevcount']);
                 $csum = ($das['currentcount'] + $das['prevcount']);
 
@@ -67,29 +56,22 @@
                     $x = "black";
                 elseif ($diffr > 0)
                     $x = "green";
-                if (strlen($das['sku1']) > 15)
-                    $rnm = substr($das['sku1'], 0, 15) . "...";
-                else
-                    $rnm = $das['sku1'];
-                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum . "</td>" . "</tr>";
+                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum . "</td>" . "</tr>";
                 echo "</td>";
                 echo "</tr>";
             }
-//   print_r($das);
-
-
             echo "</table>";
             ?>
 
     </div>
 </td>
-<div class="cell" class="input">         
+<div class="cell" >         
     <div class="dashhead">Violation Amt by SKU</div>
 
     <table class="Dash" width="250">
-        <tr>
+        <tr height="65px">
 
-            <td width="150">SKU</td>
+            <td width="170">SKU</td>
             <td >Violation Amount</td>
 
         </tr>
@@ -97,18 +79,14 @@
         foreach ($dash1_array as $dash2) {
             echo "<tr>";
             echo "<td>";
-            if (strlen($dash2->sku) > 15)
-                $rnm = substr($dash2->sku, 0, 15) . "...";
-            else
-                $rnm = $dash2->sku;
-            echo "<a href=" . ">" . $rnm . "</td>" . "<td>$" . $dash2->violation_amount . "</td>" . "</tr>";
+            echo "<a href=" . ">" . $dash2->sku . "</td>" . "<td>$" . $dash2->violation_amount . "</td>" . "</tr>";
         }
 
         echo "</table>";
         ?>
 </div>
 
-<div class="cell" class="input" style="height:200px;width:210px;" > 
+<div class="cell"  style="height:200px;width:190px;" > 
     <div class="dashhead" style="visibility:hidden" >SKU</div>
 
     <table class="Dash">
@@ -133,8 +111,6 @@
                 }
             }
         }
-
-
         echo "</table>";
         ?>
         </td>
@@ -162,13 +138,11 @@
                     }
                 }
             }
-
-
             echo "</table>";
             ?>
             </td>
             </div>
-            <div class="cell" class="input" style="height:200px;width:210px;" > 
+            <div class="cell"  style="height:200px;width:190px;" > 
                 <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
                 <table class="Dash">
@@ -193,8 +167,6 @@
                             }
                         }
                     }
-
-
                     echo "</table>";
                     ?>
                     </td>
@@ -226,21 +198,25 @@
                         echo "</table>";
                         ?>
                         </td>
-                        </div>  
+                        </div> 
+
+                        <table>
+                            <tr><td>
+                                    <div class="cell" align="center" > 
+                                        <div class="cell" align="center" style="float: left;width: 600px; margin: 0 auto;" > 
+                                             <?php include_once 'charts/a1.php'; ?>
+                                        </div>
+                                        <div class="cell" align="center" style="float: right;width: 600px; margin: 0 auto;" > 
+                                            <?php include_once 'charts/a2.php'; ?>
+                                        </div>
+                                    </div></td></tr>
+                            <tr><td>
+                                    <div> 
+                                        <?php include_once 'charts/a7.php'; ?>
+                                    </div></td>
+                            </tr></table>
+
+                        </div>
 
 
-                        <div id="container" style="min-width: 310px; height: 400px ; margin: auto">
-                                 <?php include_once 'charts/a7.php'; ?>
-                        </div>
-                        <div class="cell" align="center" > 
-                            <div class="cell" align="center" style="float: left;width: 600px;
-                                 margin: 0 auto;" > 
-                                <?php include_once 'charts/a1.php'; ?>
-                            </div>
-                            <div class="cell" align="center" style="float: right;width: 600px;
-                                 margin: 0 auto;" > 
-<?php include_once 'charts/a2.php'; ?>
-                            </div>
-                        </div>
-                        </div>
 

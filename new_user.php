@@ -55,7 +55,6 @@ $dt = date('Y/m/d');
 $query = "SELECT COUNT(*) as num FROM $tableName";
 $total_pages = mysql_fetch_array(mysql_query($query));
 $total_pages = $total_pages['num'];
-
 $stages = 3;
 $page = 1;
 if (isset($_GET['page'])) {
@@ -69,7 +68,7 @@ if (isset($_GET['page'])) {
 <form action="users.php" method="POST">
 <table class="table1" align="left">
     <tr>
-        <td>
+        <td width="20">
             <div class="divt1">
 
                <input  class="recent_violation_search search" placeholder="Enter name ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
@@ -82,10 +81,14 @@ if (isset($_GET['page'])) {
             </div>
         </td>
           </form>
-        <td width="20">
+        <td width="10">
                <?php
-                echo "<form method=get action=$page_name>
-                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."dropdown"." onchange="."form.submit()".">
+            echo "<form method=get action=$page_name> 
+                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." >
+                   <div class="."divt2222".">
+                <div style="."padding:5px; padding-top: 6px;"."> Show </div>
+            </div> 
+              <select name=limit class="."dropdown"." onchange="."form.submit()".">
                <option value=15 $select15>15 Records</option>
                <option value=20 $select20>20 Records</option>
                <option value=30 $select30>30 Records</option>
@@ -128,13 +131,6 @@ if (isset($_GET['page'])) {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
                     ?></a></td>
-<!--            <td>Last Login Date<a href="/users.php?col=username&dir=<?php // echo $desc; ?>"><?php
-//                    if ($desc === 'desc')
-//                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-//                    elseif ($desc === 'asc') {
-//                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
-//                    }
-                    ?></a></td>-->
             <td>Edit</td>
         </tr>
         <?php
@@ -178,7 +174,6 @@ if (isset($_GET['page'])) {
  }}
  
  }
-
                  elseif(!isset($_POST['websearch']))
                   
                         {
@@ -205,7 +200,6 @@ if (isset($_GET['page'])) {
                 <td width="400"><?php echo $row['email']; ?></td>
                 <td width="250"><?php echo $row['name']; ?></td>
                 <td width="250"><?php echo $row['role']; ?></td>
-<!--                <td width="250"><?php // echo $row['last_login']; ?></td>-->
                 <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>

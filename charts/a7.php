@@ -9,7 +9,6 @@ inner join
 website ON crawl_results.website_id = website.id
 inner join
 crawl ON crawl.id = crawl_results.crawl_id
-and date_format(crawl.date_executed, '%Y-%m-%d') between DATE_ADD(sysdate(), INTERVAL - 7 DAY) and sysdate()
 where
 crawl_results.violation_amount > 0.05
 and website.excluded = 0
@@ -52,6 +51,16 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
             title: {
                 text: 'Violations by Dealers & Products'
 
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 100,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: '#FFFFFF'
             },
             xAxis: {
                 categories: [
@@ -110,3 +119,5 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
         });
     });
 </script>
+
+<div id="container" style="width: 1500px; height: 400px ; margin: auto"></div>

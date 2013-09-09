@@ -60,22 +60,6 @@ foreach ($dashh_array as $k => $val) {
     }
 }
 
-//function search($array, $key, $value) {
-//    $results = array();
-//
-//    if (is_array($array)) {
-//        if (isset($array[$key]) && $array[$key] == $value)
-//            $results[] = $array;
-//
-//        foreach ($array as $subarray)
-//            $results = array_merge($results, search($subarray, $key, $value));
-//    }
-//
-//    return $results;
-//}
-
-//top violations by SKU query
-
 $sqlc = "select
 catalog_product_flat_1.sku sku1,
 crawl_results.product_id,
@@ -144,7 +128,7 @@ and
 website.excluded=0
 and
 crawl.id = " . $last_crawl['id'] . " order by violation_amount desc
-limit 9";
+limit 8";
 $dash1_array = $db_resource->GetResultObj($sql3);
 
 //Stopped Violations SKU query
@@ -176,34 +160,6 @@ group by crawl_results.product_id
 ";
 $dash2_array = $db_resource->GetResultObj($sql);
 $dash3_array = $db_resource->GetResultObj($sqll);
-
-//print_r($dy1);
-//echo 'testing - ';
-//print_r($dy2);
-
-//$unique = array_map(
-//    'unserialize',
-//    array_unique(
-//        array_map(
-//            'serialize',
-//            $dy1
-//        )
-//    )
-//);
-//
-//var_dump($unique);
-
-
-// $uniques = array();
-//foreach ($dy1 as $obj) {
-//$uniques[$obj->sku] = $obj;
-//}
-//
-//var_dump($uniques);
-
-
-
-
 $array = array();
 $array2 = array();
 $resultst = array();

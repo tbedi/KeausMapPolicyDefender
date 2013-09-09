@@ -63,7 +63,7 @@ if (isset($_GET['page'])) {
 }
 ?>
 <form action="dealers.php" method="POST">
-    <table class="table1" align="left">
+    <table class="table1" align="right" width="1510px">
         <tr>
       <td width="20">
                 <div class="divt1">
@@ -80,10 +80,14 @@ if (isset($_GET['page'])) {
             
             </form>
 
-            <td width="20">
+            <td width="10">
                <?php
-                echo "<form method=get action=$page_name>
-                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." ><select name=limit class="."dropdown"." onchange="."form.submit()".">
+                echo "<form method=get action=$page_name> 
+                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." >
+                   <div class="."divt2222".">
+                <div style="."padding:5px; padding-top: 6px;"."> Show </div>
+            </div> 
+              <select name=limit class="."dropdown"." onchange="."form.submit()".">
                <option value=10 $select10>10 Records</option>
                <option value=25 $select25>25 Records</option>
                <option value=40 $select40>40 Records</option>
@@ -280,4 +284,6 @@ $paginate.= "</div>";
 // pagination
 echo $paginate;
 ?>
+
 <div class="cleaner1" ></div>
+
