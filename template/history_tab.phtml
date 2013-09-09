@@ -213,17 +213,13 @@
                     if(isset($_GET['option']) and $_GET['option']=="show_dates")
                           $product_link.="&option=show_dates";                
                     
-                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-                        $product_link.="&page=" . $_GET['page'];
-                    }
+
 
                    
                     $vendor_link = "?tab=violations-history&website_id=" . $violator->website_id . "&wname=" . $violator->vendor;
                      if(isset($_GET['option']) and $_GET['option']=="show_dates")
                           $vendor_link.="&option=show_dates";  
-                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-                        $vendor_link.="&page=" . $_GET['page'];
-                    }
+
 
 
 
