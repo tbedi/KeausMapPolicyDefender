@@ -56,7 +56,7 @@
             </form>
         </div>
        
-        <div style="align: right; float: right">
+        <div style="align: right; float: right ">
             <a target="_blank" href="./export/export_history_csv.php" id="exporth"> <img src="./images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"  /></a>
             <a target="_blank" href="./export/export_history_pdf.php" id="exporth"> <img src="./images/PDF.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888 "  /></a>
             <a target="_blank" href="./export/export_history_xls.php" id="exporth"> <img src="./images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888"  /></a>
@@ -126,7 +126,7 @@
                         <?php } ?>
 
                         <form name="productSearch" action="JavaScript:searchPro();" method="get">
-                            <input type="text" class="search" name="product" id="txtproduct" placeholder="Search SKU..." value="<?php if(isset($_GET['product'])) echo $_GET['product'];?>" />
+                            <input type="text" class="search" name="product" id="txtproduct" placeholder="Search SKU..." value="<?php if(isset($_GET['product'])){ echo $_GET['product'];} elseif(isset($_GET['sku'])){ echo $_GET['sku']; }?>" />
                         </form>
 
 
@@ -143,7 +143,7 @@
                             </a>
 <?php } ?>
                         <form name="dealerSearch" action ="JavaScript:searchVen();" method="get">
-                            <input type="text" class="search" name="dealer" id="txtvendor" placeholder="Search Vendor..." value="<?php if(isset($_GET['dealer'])) echo $_GET['dealer'];?>"/>
+                            <input type="text" class="search" name="dealer" id="txtvendor" placeholder="Search Vendor..." value="<?php if(isset($_GET['dealer'])) echo $_GET['dealer']; elseif(isset($_GET['wname'])){ echo $_GET['wname']; }?>"/>
                         </form>
 
                     </td>	
