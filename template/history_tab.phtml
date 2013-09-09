@@ -51,19 +51,11 @@
         <div class="divt2222">
             <form name="showall" action ="index.php?tab=violations-history" method="post">
                 <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search" style="width: 120px;" onclick="show_all();" >Reset Search</button>
-                <!--<button type="submit" name="showall" value="true" href="index.php?tab=violations-history" class="btn-search"  onclick=<?php
-//                if (isset($_SESSION['product'])) {
-//                    unset($_SESSION['product']);
-//                }
-//                if (isset($_SESSION['dealer'])) {
-//                    unset($_SESSION['dealer']);
-//                }
-                ?> >Show all</button>-->
+
+              
             </form>
         </div>
-        <!--        <div class="divt2222">
-                    <input type="button" class="btn-search3" value="Get Checked values" id="buttonClassh"> 
-                </div>-->
+       
         <div style="align: right; float: right">
             <a target="_blank" href="./export/export_history_csv.php" id="exporth"> <img src="./images/CSV.png" style="height:40px; width: 40px; "  /></a>
             <a target="_blank" href="./export/export_history_pdf.php" id="exporth"> <img src="./images/PDF.png" style="height:40px; width: 40px; "  /></a>
@@ -90,26 +82,7 @@
             </div>
         </div>
         <div>
-            <?php
-//            $sub;
-//            $info = 'off';
-//            if (isset($_POST['submitted']) && isset($_POST['info'])) {
-//                $sub = $_POST['submitted'];
-//                $info = $_POST['info'];
-//                if ($sub) {
-//                    if ($info == 'on') {
-//                        echo ' on!';
-//                    } else {
-//                        echo ' OFF!';
-//                    }
-//                }
-//            }
-            ?>
-
-            <!--            <form method="post" action="index.php?tab=violations-history">
-                            <input type="checkbox" name="info" value="on" onchange="this.form.submit()" <?php //echo $info == 'on' ? 'checked="checked" ' : '';            ?> /> Export All
-                            <input type="hidden" name="submitted" value="1" />
-                        </form>-->
+            
 
         </div>
 
@@ -117,36 +90,14 @@
         <div class="divtsp"></div>
 
 
-        <div class="divt1">
-<!--                <input class="history_violation_search search" placeholder="Enter SKU..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];                 ?>" id="textBoxSearch"    /> -->
-
-        </div>
-        <!--        <div class="divt22 search-btn-container">
-        
-        
-                    <button href="javascript:void(0);" class="btn-search"  onclick="search('.history_violation_search', 'website_id', 'search');">Search</button>
-                </div>-->
-        <!--        <div class="divt22 search-btn-container1">
-                    <button href="javascript:void(0);" class="btn-search"   onclick="search('.history_violation_search', 'name', 'search');">Search Dealer</button>
-                </div>-->
-
-
-
-        <div class="cleaner" style="padding-top: 15px; ">
+       <div class="cleaner" style="padding-top: 15px; ">
 
         </div>
 
-<!--        <script type="text/javascript"> //col filter
 
-            $(document).ready(function() {
-                $('table#filterTable2').columnFilters({alternateRowClassNames: ['rowa', 'rowb'], excludeColumns: [0, 3, 4, 5, 7]});
-            });
-
-        </script>-->
 
         <table class="GrayBlack"  align="left" style="width: 100%;">
 
-<!--        <table class="GrayBlack" id="filterTable2"  align="left" style="width: 100%;"> col filter  --> 
             
    <tbody>
 
@@ -194,10 +145,6 @@
                         <form name="dealerSearch" action ="JavaScript:searchVen();" method="get">
                             <input type="text" class="search" name="dealer" id="txtvendor" />
                         </form>
-
-
-<!--              <input class="history_violation_search searchh"  placeholder="Enter Dealer..." type="text" size="30"  maxlength="1000" value="<?php // if (isset($_GET['action']) && $_GET['action'] == "search" && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') echo $_GET['value'];    ?>" id="history_violation_search"   /> -->
-
 
                     </td>	
                     <td>
@@ -261,27 +208,23 @@
                 foreach ($violators_array as $violator) {
 
 
-                    //$product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku . "&action=search&field=sku&value=" . $violator->sku;
+                 
                     $product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku;
                     if(isset($_GET['option']) and $_GET['option']=="show_dates")
                           $product_link.="&option=show_dates";                
                     
-//                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-//                        $product_link.="&page=" . $_GET['page'];
-//                    }
-//                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
-//                        $product_link.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
-//                    }
-                    //  $vendor_link = "?tab=violations-history&website_id=" . $vendor->website_id . "&wname=" . $vendor->name . "&action=search&field=website_id&value=" . $vendor->website_id;
+                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+                        $product_link.="&page=" . $_GET['page'];
+                    }
+
+                   
                     $vendor_link = "?tab=violations-history&website_id=" . $violator->website_id . "&wname=" . $violator->vendor;
                      if(isset($_GET['option']) and $_GET['option']=="show_dates")
                           $vendor_link.="&option=show_dates";  
-//                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
-//                        $vendor_link.="&page=" . $_GET['page'];
-//                    }
-//                    if (isset($_GET['action']) && $_GET['action'] == "search") { //added that search  was included
-//                        $vendor_link.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
-//                    }
+                    if (isset($_GET['page']) && $_GET['page']) { //adding pagination for first grid/table
+                        $vendor_link.="&page=" . $_GET['page'];
+                    }
+
 
 
 
@@ -298,9 +241,8 @@
                             <input type="checkbox"  class="caseh" id="caseh" name="caseh" value="<?php echo $checkidh; ?>"    /> 
                         </td>
 
-                                            <!--                        <td ><a href=?tab=violations-history&product_id="<?php // $violator->product_id               ?>"&sku="<?php //violator->sku                ?>&action=search&field=sku&value=<?php // echo $violator->sku;                ?>"><?php //echo $violator->sku;                ?></a></td>-->
+                                         
                         <td><a href="<?php echo $product_link; ?>"><?php echo $violator->sku; ?></a></td>
-    <!--                        <td ><a href="index.php?&tab=violations-history&action=search2&flag=1&field=name&value=<?php // echo $violator->name;                ?>&website_id=<?php // echo $violator->website_id;                ?>&wname=<?php //echo $violator->name;                ?>"><?php // echo $violator->name;                ?></a></td>-->
                         <td><a href="<?php echo $vendor_link; ?>"><?php echo $violator->vendor; ?></a></td>
                         <td><?php echo toMoney($violator->vendor_price); ?></td>
                         <td><?php echo toMoney($violator->map_price); ?></td>
@@ -392,13 +334,5 @@
 <?php } ?>
     </div>
 </div>
-<!--<br/>-->
 
-
-<!--<div class="divtsp"></div>-->
-
-<!--<div  class="chartt">-->
-
-
-<!--    </div>-->
 

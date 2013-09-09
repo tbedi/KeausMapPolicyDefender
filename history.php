@@ -1,21 +1,4 @@
 <?php
-
-function resetSessionVariables() {
-  if(isset($_SESSION['product'])){
-		unset($_SESSION['product']); 
-	}
-	if(isset($_SESSION['dealer'])){
-		unset($_SESSION['dealer']);
-	}
-echo 'true';
-//return TRUE;
-}
- 
-if(isset($_GET['action']) && $_GET['action'] == 'resetSession') {
-	resetSessionVariables();
-}else {
-    
-
 //pagination
 $tableName = "crawl_results";
 $targetpage = "index.php";
@@ -32,11 +15,6 @@ $searchfield;
 // Product
 $product_id = 0;
 $conHistoryExport;
-///////
-
-
-
-
 
 /////////
 
@@ -59,33 +37,9 @@ if (isset($_REQUEST['product_id'])) {
         $searchfield;
         $urls = "?tab=violations-history&option=show_dates";
         
-//        else {
-//            $urls = "?tab=violations-history&option=show_dates";
-//        }
-    //   echo $urls;
-        
 
 
 
-//
-
-
-/* where */
-//$wherep = "";
-//if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-//    $field = strtolower($_GET['field']);
-//    $value = strtolower($_GET['value']);
-//    $wherep = "  AND  " . $field . "  LIKE '%" . $value . "%'";
-//}
-//
-//if ($product_id) {
-//    $wherep= "  AND  entity_id  = '" . $product_id . "'";
-//    
-//}
-/* where */
-
-
-//Product
 
 //vendor
 
@@ -97,19 +51,7 @@ if (isset($_REQUEST['website_id'])) {
 }
 
 
- /*where*/
-//$wherev = "";
-//if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-//     $field = strtolower($_GET['field']);
-//    $value = strtolower($_GET['value']);
-//    $wherev = "  AND  website." . $field . "  LIKE '%" . mysql_real_escape_string(trim($value)) . "%'";
-//}
-//
-//if ($website_id) {
-//    $website_id=mysql_real_escape_string($website_id); 
-// $wherev = "  AND  website_id  = " ." $website_id ". ""; 
-//}
-/*where*/
+
 
 
           
@@ -126,46 +68,6 @@ if (isset($_REQUEST['website_id'])) {
                  
                 $wherep = "  AND  sku  = '" .  $_GET['product'] . "'";
            }
-              
-           
-           
-       
-           
-           
-           
-           
-           
-//            if(isset($_POST['showall'])=="true" ) 
-//            {
-//                 setCookie("dealer","",-1);
-//                  setCookie("product","",-1);
-//            }
-//             if(isset($_POST['dealer']) ) 
-//           {
-//                setcookie("dealer",$_POST['dealer'],2000000000); 
-//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_POST['dealer'])) . "%'";
-//           }
-//           
-//            if(isset($_COOKIE['dealer'])!="") 
-//           {
-//                $wherev = "  AND  website.name   LIKE '%" . mysql_real_escape_string(trim($_COOKIE['dealer'])) . "%'";
-//           }
-//           
-//           
-//                if(isset($_POST['product']) ) 
-//           {
-//                      setcookie("product",$_POST['product'],2000000000); 
-//                $wherep = "  AND  sku  LIKE '%" .  $_POST['product'] . "%'";
-//           }
-//            if(isset($_COOKIE['product'])!="") 
-//           {
-//                  
-//                $wherep = "  AND  sku  LIKE '%" .  $_COOKIE['product'] . "%'";
-//           }
-           
-        //  echo $_POST['showall'];
-//vendor
-
 
 
 $_SESSION['limit'] = $limit;
@@ -178,15 +80,6 @@ static $from;
 /* where */
 
 $where = "";
-//if (isset($_GET['action']) && $_GET['action'] == 'search' && isset($_GET['value']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-//    $field = strtolower($_GET['field']);
-//    $value = strtolower($_GET['value']);
-//    if(isset($_REQUEST['field']) and $_REQUEST['field']=='sku')
-//    { $where = "  AND  catalog_product_flat_1." . $field . "  LIKE '%" . $value . "%'";}
-//    else if(isset($_REQUEST['field']) and $_REQUEST['field']=='name')
-//    {  $where = "  AND  website." . $field . " = " . $value . "";}
-//}
-/* where */
 
 
 /* sorting */
@@ -239,8 +132,7 @@ if (!isset($_REQUEST['option']) && !isset($_POST['to']) && !isset($_POST['from']
         $_SESSION['tc'] = date("Y-m-d");
 	$_SESSION['frc'] = $mindate;
 }
-//  $_SESSION['t'] = $_POST["to"];
-//    $_SESSION['fr'] = $_POST["from"];
+
 elseif(isset($_POST["to"]) && ($_POST["from"])) 
     {
     $_SESSION['t'] = $_POST['to'];
@@ -255,14 +147,6 @@ if(isset($_SESSION['t']) && isset($_SESSION['fr']))
     $to = $_SESSION['t'];
     $from = $_SESSION['fr'];
 }
-//print_r($_SESSION);
-//echo $to."-".$from."-";
-
-/* calender dates */
-//new changes
-
-
-
 
 
 if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku' )
@@ -274,15 +158,14 @@ else
 {
     $condition_sku="";
 }
-//if (isset($_REQUEST['website_id'])and isset($_REQUEST['wname']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' and !isset($_POST['info']))
+
 if (  isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' )
 {    
     $field = strtolower($_GET['field']);
     $value = strtolower($_GET['value']);
     $condition_wname = "  AND  " . $field . "  LIKE '%" . mysql_real_escape_string(trim($value)) . "%'";
     
-  //  $wname=$_REQUEST['value'];
-   // $condition_wname=" and website.name like '".$wname."' ";
+
     if ($website_id) {
     $website_id=mysql_real_escape_string($website_id); 
     $condition_wname = "  AND  website_id  = " ." $website_id ". ""; 
@@ -308,31 +191,7 @@ else
 {
     $condition_sku="";
 }
-//new changes
 
-
-//checkbox
-//if  (!isset($_REQUEST['selectallhistory']) or $_REQUEST['selectallhistory']="1")
-//{ 
-//       $limitcon = "  LIMIT $start, $limit ";
-//}
-// else 
-//{
-//    $limitcon="";
-//}
-//
-//if (isset($_REQUEST['listh']) or ( isset($_REQUEST['listh']) and $_REQUEST['listh']!=""))
-//{
-//    $arrExportHistory= $_REQUEST['listh'];
-//    echo $arrExportHistory;
-//    $conHistoryExport=" and crawl_results.id in (". $arrExportHistory. ")" ;
-//    
-//}
-// else {
-//     $conHistoryExport="";
-//}
-
-//checkbox
 
 if (isset($_REQUEST['selectallhistory']))
 {
@@ -408,21 +267,6 @@ and website.excluded=0 $wherev ".$wherep."
 
 $violators_array = $db_resource->GetResultObj($sql);
 
-echo $sql;
-//
-//$_SESSION['historyArray'] = $violators_array;
-//if (isset($_SESSION['historyArray'])) {
-//    // print_r($_SESSION['historyArray']); 
-//}
-?>
-<script type="text/javascript">
-  //  document.getElementById(inputFieldfrom).setAttribute(value, <?php $from; ?>); it showed js error
- 	/*Jquery alernative*/
- 	//$("#inputFieldfrom").val('<?php $from; ?>');
- 	//but it will work only after document is rendered. in your case 2 ways: place it into template after input with this id or 
- 	// put inside document.ready jquery event 
-</script>
-<?php
 
 //pagination
 $sql1 = " SELECT FOUND_ROWS() as total;";
@@ -434,10 +278,6 @@ $page_param = "page"; //variable used for pagination
 $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
 /*Pagination*/
 
-
-
-
-    
 
 /*For sorting using*/
 $additional_params = "&limit=".$limit;
@@ -469,9 +309,7 @@ include_once 'template/history_tab.phtml';
 ?>
 
 <?php
-//if ($total_pages == 1) {
-//    $product_id = $page_violated_products[0]->product_id;
-//}
+
 
 if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
     include_once 'pviolation.php';
@@ -481,6 +319,6 @@ if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") 
 if ($website_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
     include_once 'vviolation.php';
 }
-//include_once 'template/product_violation_detail.phtml';
-}///end of ajax else
+
+
 ?>
