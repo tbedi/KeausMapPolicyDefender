@@ -73,6 +73,7 @@ if (isset($_POST['login']))
                 $user_id = $_SESSION['us_id'];
                 $current_date = $_SESSION['curent_login'];
                 $sql1 = mysql_query("UPDATE admin_users SET last_login = '$current_date' WHERE user_id = '$user_id'");
+                print_r($current_date);
                 if(!$sql1)
                     {
                     echo 'error';
@@ -89,6 +90,7 @@ if (isset($_POST['login']))
             }
         }
     }
+     
 $title = "Kraus Price Defender | Login";
 ?>
 <?php include_once 'template/head.phtml'; ?>

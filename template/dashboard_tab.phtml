@@ -12,10 +12,13 @@
 
             </tr>
             <?php
+             $i = 0;
             foreach ($newArray as $dash) {
                 $diffr = ($dash['countcurrent'] - $dash['countprev']);
                 $csum = ($dash['countcurrent'] + $dash['countprev']);
-
+                if ($i > 7)
+                        break;
+                    else{
                 $avg = ($csum) / 2;
                 $percent = ($diffr / $avg) * 100;
                 echo "<tr>";
@@ -29,7 +32,9 @@
                 echo "<a href=" . "index.php?tab=violations-history&website_id=" . $dash['website_id'] . "&wname=" . $dash['name'] . ">" . $dash['name'] . "</td>" . "<td>" . $dash['countcurrent'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "<td>" . $csum . "</td>" . "</tr>";
                 echo "</td>";
                 echo "</tr>";
-            }
+                $i++;
+                    }
+                }
             echo "</table>";
             ?>	
     </div>
@@ -44,9 +49,13 @@
                 <td >Total violated</td>
             </tr>
             <?php
+             $i = 0;
             foreach ($viosku as $das) {
                 $diffr = ($das['currentcount'] - $das['prevcount']);
                 $csum = ($das['currentcount'] + $das['prevcount']);
+                if ($i > 7)
+                        break;
+                    else{
 
                 echo "<tr>";
                 echo "<td>";
@@ -59,6 +68,8 @@
                 echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum . "</td>" . "</tr>";
                 echo "</td>";
                 echo "</tr>";
+                $i++;
+            }
             }
             echo "</table>";
             ?>
@@ -79,7 +90,7 @@
         foreach ($dash1_array as $dash2) {
             echo "<tr>";
             echo "<td>";
-            echo "<a href=" . ">" . $dash2->sku . "</td>" . "<td>$" . $dash2->violation_amount . "</td>" . "</tr>";
+            echo "<a>" . $dash2->sku . "</td>" . "<td>$" . $dash2->violation_amount . "</td>" . "</tr>";
         }
 
         echo "</table>";
