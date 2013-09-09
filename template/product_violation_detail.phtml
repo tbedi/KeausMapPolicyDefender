@@ -6,17 +6,10 @@
 
 
 
-        <?php if (count($violators_array) > 3 * 15) : //more 3x default limit?>
-            <div class="divt1">
+        <?php if (isset($_GET['searchvendor'])) :?>
+                        <div class="divt22">
 
-                <input  class="product-violation-search2 search" placeholder="Enter website..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == "search2" && isset($_GET['tab']) && $_GET['tab'] == 'violation-by-product') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
-            </div>
-            <div class="divt22 search-btn-container">
-                <button href="javascript:void(0);" class="btn-search"  onclick="search('.product-violation-search2', 'w.`name`', 'search2');">Search</button>
-            </div>
-            <div class="divt22">
-
-                <button href="javascript:void(0);" class="btn-search"  onclick="show_all2();" >Show all</button>
+                <button href="javascript:void(0);" class="btn-search"  onclick="show_all2();" >Reset Search</button>
             </div>
         <?php endif; ?>
          <div style="align: right; float: right">
@@ -82,7 +75,15 @@
                                             <a  onclick="sort_grid('vendor', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'vproduct_2');" href="javascript:void(0);">
                                                 <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                                             </a>
-                                        <?php } ?>
+                                        <?php } 
+                                        if (count($violators_array) > 3 * 15) : 
+                                        ?>
+                                        
+                                        <form name="productSearchDetail" action="JavaScript:searchProDetail();" method="get">
+                                            <input type="text" class="search" name="productDetail" id="txtproductDetail" />
+                                        </form>
+                                         <?php endif; ?>
+                                        
                                     </td>
                                     <td >
 

@@ -39,8 +39,6 @@ if (isset($_REQUEST['product_id'])) {
         
 
 
-
-
 //vendor
 
 $website_id=0;
@@ -51,10 +49,6 @@ if (isset($_REQUEST['website_id'])) {
 }
 
 
-
-
-
-          
 
             
            if(isset($_GET['dealer']) ) 
