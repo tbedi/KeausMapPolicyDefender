@@ -8,8 +8,6 @@
                 <td>No. of current violations</td>
                 <td>No. of previous violations</td>
                 <td>%</td>
-                <td>Total violated</td>
-
             </tr>
             <?php
              $i = 0;
@@ -24,19 +22,20 @@
                 echo "<tr>";
                 echo "<td>";
                 if ($diffr < 0)
-                    $x = "red";
+                    $x = "green";
                 elseif ($diffr == 0)
                     $x = "black";
                 elseif ($diffr > 0)
-                    $x = "green";
-                echo "<a href=" . "index.php?tab=violations-history&website_id=" . $dash['website_id'] . "&wname=" . $dash['name'] . ">" . $dash['name'] . "</td>" . "<td>" . $dash['countcurrent'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "<td>" . $csum . "</td>" . "</tr>";
+                    $x = "red";
+                echo "<a href=" . "index.php?tab=violations-history&website_id=" . $dash['website_id'] . "&wname=" . $dash['name'] . ">" . $dash['name'] . "</td>" . "<td>" . $dash['countcurrent'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "</tr>";
                 echo "</td>";
                 echo "</tr>";
                 $i++;
                     }
                 }
             echo "</table>";
-            ?>	
+            ?>
+          <table class="Dash" ><tr><td width="500"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
     </div>
     <div class="cell" >
         <div class="dashhead">Top violations by SKU</div>
@@ -46,7 +45,6 @@
                 <td width="150">SKU</td>	
                 <td >No. of current violations</td>
                 <td >No. of Previous violations</td>
-                <td >Total violated</td>
             </tr>
             <?php
              $i = 0;
@@ -60,12 +58,12 @@
                 echo "<tr>";
                 echo "<td>";
                 if ($diffr < 0)
-                    $x = "red";
+                    $x = "green";
                 elseif ($diffr == 0)
                     $x = "black";
                 elseif ($diffr > 0)
-                    $x = "green";
-                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "<td>" . $csum . "</td>" . "</tr>";
+                    $x = "red";
+                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "</tr>";
                 echo "</td>";
                 echo "</tr>";
                 $i++;
@@ -73,14 +71,14 @@
             }
             echo "</table>";
             ?>
-
+<table class="Dash" ><tr><td width="500"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
     </div>
 </td>
 <div class="cell" >         
-    <div class="dashhead">Violation Amt by SKU</div>
+    <div class="dashhead">SKU by violation amt</div>
 
     <table class="Dash" width="250">
-        <tr height="65px">
+        <tr>
 
             <td width="170">SKU</td>
             <td >Violation Amount</td>
@@ -95,6 +93,7 @@
 
         echo "</table>";
         ?>
+        <table class="Dash" ><tr><td width="237"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
 </div>
 
 <div class="cell"  style="height:200px;width:190px;" > 
