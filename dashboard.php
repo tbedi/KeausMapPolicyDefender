@@ -31,7 +31,7 @@ on crawl.id=crawl_results.crawl_id
 and crawl_results.crawl_id = " . $last_crawl['id'] . " 
 and crawl_results.violation_amount>0.05 and website.excluded=0 
 group by website_id, website.name
-order by countcurrent desc limit 8";
+order by countcurrent desc";
 
 $sqld = "SELECT  website_id,
 website.name name, count(crawl_results.website_id) countprev
@@ -74,7 +74,7 @@ and crawl_results.crawl_id = " . $last_crawl['id'] . "
 where
 crawl_results.violation_amount > 0.05
 group by crawl_results.product_id, catalog_product_flat_1.sku
-order by currentcount desc limit 8";
+order by currentcount desc";
 
 $sqlp = "select
 catalog_product_flat_1.sku sku1,

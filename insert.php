@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+//include('db.php');
 include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 session_start();
@@ -38,7 +38,7 @@ elseif(count($userdata) != 0)
 {
      $_SESSION['userdata'] = '1';
      ?>
-    <script>window.location.href = '/users.php?tab=create_user';</script>
+    <script>window.location.href = '/users.php';</script>
     <?php
 }
 ?>

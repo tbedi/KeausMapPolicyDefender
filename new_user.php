@@ -1,14 +1,10 @@
 <?php
-include_once 'db_login.php';
+	include_once 'db_login.php';
 include_once 'db.php';
 $title = "Kraus Price Defender | usernew.php";
-            ////pagination
 $tableName = "admin_users";
 $targetpage = "users.php";
-
 $page_name="users.php"; 
-////// starting of drop down to select number of records per page /////
-
 @$limit=$_GET['limit']; // Read the limit value from query string. 
 if(strlen($limit) > 0 and !is_numeric($limit)){
 echo "Data Error";
@@ -47,7 +43,8 @@ $this1 = $eu + $limit;
 $back = $eu - $limit; 
 $next = $eu + $limit; 
 
-$where = "";
+//	$limit = 15;  
+     $where = "";
 $column = $_SESSION['col'];
 $desc = $_SESSION['dir'];
 $dt = date('Y/m/d');
@@ -64,14 +61,15 @@ if (isset($_GET['page'])) {
     $start = 0;
     $page = 1;
 }
-?>
+                 
+               ?>
 <form action="users.php" method="POST">
 <table class="table1" align="left">
     <tr>
         <td width="20">
             <div class="divt1">
 
-               <input  class="recent_violation_search search" placeholder="Enter name ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+               <input  class="recent_violation_search search" placeholder="Enter username ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
             <div class="divt22 search-btn-container">
                 <input  class="btn-search" type="submit" value="Search">
@@ -81,7 +79,7 @@ if (isset($_GET['page'])) {
             </div>
         </td>
           </form>
-        <td width="10">
+<td width="10">
                <?php
             echo "<form method=get action=$page_name> 
                 <div class="."results-per-page"." style="."float:right;padding-top:10px;"." >
@@ -98,7 +96,6 @@ if (isset($_GET['page'])) {
             </td>  
 </tr>
 </table>
-  
 <div class="cleaner1" ></div>
 <table class="GrayBlack" align="center">
     <tbody id="data">
@@ -133,7 +130,9 @@ if (isset($_GET['page'])) {
                     ?></a></td>
             <td>Edit</td>
         </tr>
-        <?php
+
+
+<?php
            
  if(isset($_POST['websearch'])){
      $var1 = $_POST['websearch'];
@@ -157,14 +156,13 @@ if (isset($_GET['page'])) {
             if ($lastpage > 1) {
                 
     while ($row = mysql_fetch_array($result)) {
-        $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
+//        $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
     <tr>                                     
                 <td width="290"><?php echo $row['username']; ?></td>
                 <td width="400"><?php echo $row['email']; ?></td>
                 <td width="250"><?php echo $row['name']; ?></td>
                 <td width="250"><?php echo $row['role']; ?></td>
-<!--                <td width="250"><?php // echo $row['last_login']; ?></td>-->
                 <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
@@ -177,22 +175,22 @@ if (isset($_GET['page'])) {
                  elseif(!isset($_POST['websearch']))
                   
                         {
-        $query1 = "SELECT * from admin_users order by $column $desc LIMIT $start, $limit";
-        $result = mysql_query($query1);
-        // Initial page num setup
-            if ($page == 0) {
-                $page = 1;
-            }
-            $prev = $page - 1;
-            $next = $page + 1;
-            $lastpage = ceil($total_pages / $limit);
-            $LastPagem1 = $lastpage - 1;
-
-
-            $paginate = '';
-            
-            if ($lastpage > 1) {
-                while ($row = mysql_fetch_array($result)) {
+// Get page data
+	$query1 = "SELECT * FROM $tableName LIMIT $start, $limit";
+	
+	// Initial page num setup
+	if ($page == 0){$page = 1;}
+	$prev = $page - 1;	
+	$next = $page + 1;							
+	$lastpage = ceil($total_pages/$limit);		
+	$LastPagem1 = $lastpage - 1;					
+	
+	
+	$paginate = '';
+	if($lastpage > 1)
+	{	
+	$result = mysql_query($query1);
+ while ($row = mysql_fetch_array($result)) {
                      $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
             <tr>                                     
@@ -203,92 +201,98 @@ if (isset($_GET['page'])) {
                 <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
-
-            
-            <?php
-                }
-            }
+	
+ <?php }
         }
+                        }
         ?>
-            </tbody>
+</tbody>
 </table>
-            <?php
-    $paginate .= "<div class='paginate' align='left' >";
-        // Previous
-    if ($page > 1) {
-        $paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
-    } else {
-        $paginate.= "<span class='disabled'>previous</span>";
-    }
-        // Pages
-    if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
-        for ($counter = 1; $counter <= $lastpage; $counter++) {
-            if ($counter == $page) {
-                $paginate.= "<span class='current'>$counter</span>";
-            } else {
-                $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
-            }
-        }
-    } elseif ($lastpage > 5 + ($stages * 2)) { // Enough pages to hide a few?
-        // Beginning only hide later pages
-        if ($page < 1 + ($stages * 2)) {
-            for ($counter = 1; $counter < 4 + ($stages * 2); $counter++) {
-                if ($counter == $page) {
-                    $paginate.= "<span class='current'>$counter</span>";
-                } else {
-                    $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
-                }
-            }
-            $paginate.= "...";
-            $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
-            $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
-        }
-        // Middle hide some front and some back
-        elseif ($lastpage - ($stages * 2) > $page && $page > ($stages * 2)) {
-            $paginate.= "<a href='$targetpage?page=1'>1</a>";
-            $paginate.= "<a href='$targetpage?page=2'>2</a>";
-            $paginate.= "...";
-            for ($counter = $page - $stages; $counter <= $page + $stages; $counter++) {
-                if ($counter == $page) {
-                    $paginate.= "<span class='current'>$counter</span>";
-                } else {
-                    $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
-                }
-            }
-            $paginate.= "...";
-            $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
-            $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
-        }
-        // End only hide early pages
-        else {
-            $paginate.= "<a href='$targetpage?page=1'>1</a>";
-            $paginate.= "<a href='$targetpage?page=2'>2</a>";
-            $paginate.= "...";
-            for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++) {
-                if ($counter == $page) {
-                    $paginate.= "<span class='current'>$counter</span>";
-                } else {
-                    $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
-                }
-            }
-        }
-    }
-    
+    <?php
+	 
+		$paginate .= "<div class='paginate' align='left'>";
+		// Previous
+		if ($page > 1){
+			$paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
+		}else{
+			$paginate.= "<span class='disabled'>previous</span>";	}
+			
 
-    // Next
-    if ($page < $counter - 1) {
-        $paginate.= "<a href='$targetpage?page=$next'>next</a>";
-    } else {
-        $paginate.= "<span class='disabled'>next</span>";
-    }
-
-    $paginate.= "</div>";
-
-    //echo $total_pages . ' Results';
-    // pagination
-    echo $paginate;
-    
-    ?>
-
-
+		
+		// Pages	
+		if ($lastpage < 7 + ($stages * 2))	// Not enough pages to breaking it up
+		{	
+			for ($counter = 1; $counter <= $lastpage; $counter++)
+			{
+				if ($counter == $page){
+					$paginate.= "<span class='current'>$counter</span>";
+				}else{
+					$paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";}					
+			}
+		}
+		elseif($lastpage > 5 + ($stages * 2))	// Enough pages to hide a few?
+		{
+			// Beginning only hide later pages
+			if($page < 1 + ($stages * 2))		
+			{
+				for ($counter = 1; $counter < 4 + ($stages * 2); $counter++)
+				{
+					if ($counter == $page){
+						$paginate.= "<span class='current'>$counter</span>";
+					}else{
+						$paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";}					
+				}
+				$paginate.= "...";
+				$paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
+				$paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";		
+			}
+			// Middle hide some front and some back
+			elseif($lastpage - ($stages * 2) > $page && $page > ($stages * 2))
+			{
+				$paginate.= "<a href='$targetpage?page=1'>1</a>";
+				$paginate.= "<a href='$targetpage?page=2'>2</a>";
+				$paginate.= "...";
+				for ($counter = $page - $stages; $counter <= $page + $stages; $counter++)
+				{
+					if ($counter == $page){
+						$paginate.= "<span class='current'>$counter</span>";
+					}else{
+						$paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";}					
+				}
+				$paginate.= "...";
+				$paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
+				$paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";		
+			}
+			// End only hide early pages
+			else
+			{
+				$paginate.= "<a href='$targetpage?page=1'>1</a>";
+				$paginate.= "<a href='$targetpage?page=2'>2</a>";
+				$paginate.= "...";
+				for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++)
+				{
+					if ($counter == $page){
+						$paginate.= "<span class='current'>$counter</span>";
+					}else{
+						$paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";}					
+				}
+			}
+		}
+					
+				// Next
+		if ($page < $counter - 1){ 
+			$paginate.= "<a href='$targetpage?page=$next'>next</a>";
+		}else{
+			$paginate.= "<span class='disabled'>next</span>";
+			}
+			
+		$paginate.= "</div>";		
+	
+	
+//
+// echo $total_pages.' Results';
+ // pagination
+ echo $paginate;
+?>
+	
     
