@@ -1,7 +1,17 @@
 <?php
 //dashboard page
+$arraytest=  array();
+$date = "select date_format(date_executed,'%m/%d')  from crawl  ORDER BY id DESC  LIMIT 0,2";
+$datecp = $db_resource->GetResultObj($date);
+foreach ($datecp as $key1 => $value1) {
+foreach($value1 as $key2 => $value2)
+    array_push ($arraytest, $value2);
 
+}
 
+$_SESSION['curr'] = $arraytest[0];
+$_SESSION['prev'] = $arraytest[1];
+//echo $_SESSION['curr']."-".$_SESSION['prev'];
 $sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
 $result = mysql_query($sql);
 $last_crawl = mysql_fetch_assoc($result);
@@ -128,7 +138,7 @@ and
 website.excluded=0
 and
 crawl.id = " . $last_crawl['id'] . " order by violation_amount desc
-limit 8";
+limit 10";
 $dash1_array = $db_resource->GetResultObj($sql3);
 
 //Stopped Violations SKU query

@@ -174,7 +174,7 @@ border-width:0px 0px 1px 1px;
 }
 .cell {
     display:table-cell;
-    padding: 10px 5px 5px 1px; 
+    padding: 10px 5px 5px 15px; 
 }
  
 /*heading of dashboard blocks*/

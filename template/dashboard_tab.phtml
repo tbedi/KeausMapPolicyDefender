@@ -4,17 +4,19 @@
 
         <table class="Dash" >
             <tr >
-                <td width="150">Dealer</td>	
-                <td>No. of current violations</td>
-                <td>No. of previous violations</td>
+                <td width="170">Dealer</td>	
+                <td><?php echo $_SESSION['curr']; ?></td>
+                <td><?php echo $_SESSION['prev']; ?></td>
                 <td>%</td>
             </tr>
+
             <?php
+            
              $i = 0;
             foreach ($newArray as $dash) {
                 $diffr = ($dash['countcurrent'] - $dash['countprev']);
                 $csum = ($dash['countcurrent'] + $dash['countprev']);
-                if ($i > 7)
+                if ($i > 9)
                         break;
                     else{
                 $avg = ($csum) / 2;
@@ -35,26 +37,28 @@
                 }
             echo "</table>";
             ?>
-          <table class="Dash" ><tr><td width="500"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
+          <table class="Dash" ><tr><td width="325"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
     </div>
     <div class="cell" >
         <div class="dashhead">Top violations by SKU</div>
 
         <table class="Dash" >
             <tr>
-                <td width="150">SKU</td>	
-                <td >No. of current violations</td>
-                <td >No. of Previous violations</td>
+                <td width="170">SKU</td>	
+                <td ><?php echo $_SESSION['curr']; ?></td>
+                <td ><?php echo $_SESSION['prev']; ?></td>
+                <td>%</td>
             </tr>
             <?php
              $i = 0;
             foreach ($viosku as $das) {
                 $diffr = ($das['currentcount'] - $das['prevcount']);
                 $csum = ($das['currentcount'] + $das['prevcount']);
-                if ($i > 7)
+                if ($i > 9)
                         break;
                     else{
-
+                $avg = ($csum) / 2;
+                $percent = ($diffr / $avg) * 100;
                 echo "<tr>";
                 echo "<td>";
                 if ($diffr < 0)
@@ -63,7 +67,7 @@
                     $x = "black";
                 elseif ($diffr > 0)
                     $x = "red";
-                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "</tr>";
+                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "</tr>";
                 echo "</td>";
                 echo "</tr>";
                 $i++;
@@ -71,13 +75,13 @@
             }
             echo "</table>";
             ?>
-<table class="Dash" ><tr><td width="500"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
+<table class="Dash" ><tr><td width="325"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
     </div>
 </td>
 <div class="cell" >         
     <div class="dashhead">SKU by violation amt</div>
 
-    <table class="Dash" width="250">
+    <table class="Dash" >
         <tr>
 
             <td width="170">SKU</td>
@@ -93,7 +97,7 @@
 
         echo "</table>";
         ?>
-        <table class="Dash" ><tr><td width="237"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
+        <table class="Dash" ><tr><td width="283"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
 </div>
 
 <div class="cell"  style="height:200px;width:190px;" > 
