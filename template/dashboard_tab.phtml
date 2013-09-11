@@ -4,7 +4,7 @@
 
         <table class="Dash" >
             <tr >
-                <td width="170">Dealer</td>	
+                <td width="190">Dealer</td>	
                 <td><?php echo $_SESSION['curr']; ?></td>
                 <td><?php echo $_SESSION['prev']; ?></td>
                 <td>%</td>
@@ -29,22 +29,27 @@
                     $x = "black";
                 elseif ($diffr > 0)
                     $x = "red";
-                echo "<a href=" . "index.php?tab=violations-history&website_id=" . $dash['website_id'] . "&wname=" . $dash['name'] . ">" . $dash['name'] . "</td>" . "<td>" . $dash['countcurrent'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "</tr>";
+                echo "<a href=" . "index.php?tab=violations-history&website_id=" . $dash['website_id'] . "&wname=" . $dash['name'] . ">" . $dash['name'] . "</td>" . "<td>" . $dash['countcurrent'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $dash['countprev'] . "</td>" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "</td>";
                 echo "</td>";
                 echo "</tr>";
                 $i++;
-                    }
                 }
-            echo "</table>";
+                }
+                echo "<tr style=background-color:#ECF5DC; >";
+                echo "<td colspan="."4"." >";
+                echo "<a href="."index.php?tab=violations-history"." >Show All<a/>";
+                echo "</td>";
+                echo "</tr>";
             ?>
-          <table class="Dash" ><tr><td width="325"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
+           </table>
+<!--          <table class="Dash" ><tr><td width="310"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>-->
     </div>
     <div class="cell" >
         <div class="dashhead">Top violations by SKU</div>
 
         <table class="Dash" >
             <tr>
-                <td width="170">SKU</td>	
+                <td width="190">SKU</td>	
                 <td ><?php echo $_SESSION['curr']; ?></td>
                 <td ><?php echo $_SESSION['prev']; ?></td>
                 <td>%</td>
@@ -67,24 +72,29 @@
                     $x = "black";
                 elseif ($diffr > 0)
                     $x = "red";
-                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "</tr>";
+                echo "<a href=" . "index.php?tab=violations-history&product_id=" . $das['product_id'] . "&sku=" . $das['sku1'] . ">" . $rnm = $das['sku1'] . "</td>" . "<td>" . $das['currentcount'] . " (" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . $diffr . "</font>" . ")" . "</td>" . "<td>" . $das['prevcount'] . "</td>" . "" . "<td>" . "<font color=" . "$x" . ">" . ($diffr > 0 ? "+" : "") . round($percent, 2) . "%" . "</font>" . "</td>";
                 echo "</td>";
                 echo "</tr>";
                 $i++;
             }
             }
-            echo "</table>";
+            echo "<tr style=background-color:#ECF5DC;>";
+                echo "<td colspan="."4".">";
+                echo "<a href="."index.php?tab=violations-history"." >Show All<a/>";
+                echo "</td>";
+                echo "</tr>";
             ?>
-<table class="Dash" ><tr><td width="325"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
+            </table>
+<!--<table class="Dash" ><tr><td width="323"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>-->
     </div>
-</td>
+
 <div class="cell" >         
     <div class="dashhead">SKU by violation amt</div>
 
     <table class="Dash" >
         <tr>
 
-            <td width="170">SKU</td>
+            <td width="190">SKU</td>
             <td >Violation Amount</td>
 
         </tr>
@@ -92,18 +102,22 @@
         foreach ($dash1_array as $dash2) {
             echo "<tr>";
             echo "<td>";
-            echo "<a>" . $dash2->sku . "</td>" . "<td>$" . $dash2->violation_amount . "</td>" . "</tr>";
+            echo "<a>" . $dash2->sku . "</td>" . "<td>$" . $dash2->violation_amount . "</td>";
         }
-
-        echo "</table>";
+        echo "<tr style=background-color:#ECF5DC;>";
+                echo "<td colspan="."2".">";
+                echo "<a href="."index.php?tab=violations-history"." >Show All<a/>";
+                echo "</td>";
+                echo "</tr>";
         ?>
-        <table class="Dash" ><tr><td width="283"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>
+        </table>
+<!--        <table class="Dash" ><tr><td width="283"><a href="index.php?tab=violations-history" >Show All<a/></td></tr></table>-->
 </div>
 
 <div class="cell"  style="height:200px;width:190px;" > 
     <div class="dashhead" style="visibility:hidden" >SKU</div>
 
-    <table class="Dash">
+    <table class="Dashs">
         <tr> 
             <td width="250">Stopped Violations SKU</td>
         </tr>					
@@ -125,12 +139,12 @@
                 }
             }
         }
-        echo "</table>";
         ?>
+        </table>
         </td>
         <div class="dashhead" style="visibility:hidden" >SKU</div>
 
-        <table class="Dash">
+        <table class="Dashs">
             <tr> 
                 <td width="250">Started Violations SKU</td>
             </tr>					
@@ -152,14 +166,14 @@
                     }
                 }
             }
-            echo "</table>";
             ?>
+            </table>
             </td>
             </div>
             <div class="cell"  style="height:200px;width:190px;" > 
                 <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
-                <table class="Dash">
+                <table class="Dashs">
                     <tr> 
                         <td width="250">Stopped Violations Dealer</td>
                     </tr>					
@@ -181,13 +195,13 @@
                             }
                         }
                     }
-                    echo "</table>";
                     ?>
+                    </table>
                     </td>
 
                     <div class="dashhead" style="visibility:hidden" >Dealer</div>
 
-                    <table class="Dash">
+                    <table class="Dashs">
                         <tr> 
                             <td width="250">Started Violations Dealer</td>	
                         </tr>					
@@ -209,8 +223,8 @@
                                 }
                             }
                         }
-                        echo "</table>";
                         ?>
+                        </table>
                         </td>
                         </div> 
 
