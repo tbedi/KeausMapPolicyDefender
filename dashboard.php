@@ -1,8 +1,8 @@
 <?php
 //dashboard page
 $arraytest=  array();
-$date = "select date_format(date_executed,'%m/%d')  from crawl  ORDER BY id DESC  LIMIT 0,2";
-$datecp = $db_resource->GetResultObj($date);
+$date = "select date_executed  from crawl  ORDER BY id DESC  LIMIT 0,2"; // format date in PHP not in sql!
+$datecp = $db_resource->GetResultObj($date); // Used in history.php
 foreach ($datecp as $key1 => $value1) {
 foreach($value1 as $key2 => $value2)
     array_push ($arraytest, $value2);
