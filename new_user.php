@@ -82,16 +82,19 @@ if (isset($_GET['page'])) {
 <td width="10">
                <?php
             echo "<form method=get action=$page_name> 
-                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." >
-                   <div class="."divt2222".">
-                <div style="."padding:5px; padding-top: 6px;"."> Show </div>
+                <div class="."results-per-page"." style="."float:right; >
+                   <div class="."divt2222>
+                <div style="."padding:5px; padding-top: 6px;> Show </div>
             </div> 
               <select name=limit class="."dropdown"." onchange="."form.submit()".">
-               <option value=15 $select15>15 Records</option>
-               <option value=20 $select20>20 Records</option>
-               <option value=30 $select30>30 Records</option>
+               <option value=15 $select15>15 </option>
+               <option value=20 $select20>20 </option>
+               <option value=30 $select30>30 </option>
                </select>
-               <input type=hidden value=hidden class="."btn-search"."></div></form>"; 
+               <div class="."divt2222>
+                <div style="."padding:5px; padding-top: 6px;> Records</div>
+            </div>
+               <input type=hidden value=hidden class="."btn-search></div></form>"; 
                ?>
             </td>  
 </tr>

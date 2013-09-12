@@ -1,32 +1,30 @@
 <?php
 //dashboard page
-$arraytest=  array();
-$date = "select date_executed  from crawl  ORDER BY id DESC  LIMIT 0,2"; // format date in PHP not in sql!
+$arraytest = array();
+$date = "select date_executed  from crawl  ORDER BY id DESC  LIMIT 0,2"; //query for fetching current and previous date
 $datecp = $db_resource->GetResultObj($date); // Used in history.php
 foreach ($datecp as $key1 => $value1) {
-foreach($value1 as $key2 => $value2)
-    array_push ($arraytest, $value2);
-
+    foreach ($value1 as $key2 => $value2)
+        array_push($arraytest, $value2);
 }
-
 $_SESSION['curr'] = $arraytest[0];
 $_SESSION['prev'] = $arraytest[1];
-//echo $_SESSION['curr']."-".$_SESSION['prev'];
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
+
+$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1"; //query used to fetch max id
 $result = mysql_query($sql);
 $last_crawl = mysql_fetch_assoc($result);
 
-$sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1";
+$sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1"; //query used to fetch max-1 id 
 $result1 = mysql_query($sqlcwl);
 $last_crawl1 = mysql_fetch_assoc($result1);
 
-$sqldays = "select id from crawl order by id desc limit 1,3";
+$sqldays = "select id from crawl order by id desc limit 1,3"; //query used to fetch last three id's except maximum
 $resultday = $db_resource->GetResultObj($sqldays);
-$s='';
+$s = '';
 foreach ($resultday as $da) {
-$s = $s.$da->id.',';
+    $s = $s . $da->id . ',';
 }
-$s=  substr($s, 0, strlen($s)-1);
+$s = substr($s, 0, strlen($s) - 1); // $s variable used in stopped violations dealer block
 
 //top violations by dealer query
 
@@ -55,15 +53,15 @@ and crawl_results.crawl_id = " . $last_crawl1['id'] . "
 and crawl_results.violation_amount>0.05 and website.excluded=0
 group by website_id, website.name order by countprev desc";
 
-$dashh_array = $db_resource->GetResultObj($sql);
-$dashh1_array = $db_resource->GetResultObj($sqld);
+$dashh_array = $db_resource->GetResultObj($sql); //current array
+$dashh1_array = $db_resource->GetResultObj($sqld); //previous array
 
 foreach ($dashh_array as $k => $val) {
     foreach ($val as $k1 => $val1) {
         foreach ($dashh1_array as $kx => $valx) {
             foreach ($valx as $kx1 => $valx1) {
                 if ($k1 == $kx1 && $val1 == $valx1) {
-                    $newArray[$k] = array_merge((array) $val, (array) $dashh_array[$k], (array) $valx);
+                    $newArray[$k] = array_merge((array) $val, (array) $dashh_array[$k], (array) $valx); // array merges dealer,currentcount & previouscount
                 }
             }
         }
@@ -112,7 +110,7 @@ foreach ($dashc_array as $k => $val) {
         foreach ($dashp_array as $ky => $valy) {
             foreach ($valy as $ky2 => $valy2) {
                 if ($k2 == $ky2 && $val2 == $valy2) {
-                    $viosku[$k] = array_merge((array) $val, (array) $dashc_array[$k], (array) $valy);
+                    $viosku[$k] = array_merge((array) $val, (array) $dashc_array[$k], (array) $valy); // array merges SKU,currentcount & previouscount
                 }
             }
         }
@@ -151,7 +149,7 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id in (".$s.")
+and crawl_results.crawl_id in (" . $s . ")
 and crawl_results.violation_amount > 0.05
 group by crawl_results.product_id
 ";
@@ -231,7 +229,7 @@ inner join
 crawl_results ON website.id = crawl_results.website_id
 inner join
 crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id in (".$s.")
+and crawl_results.crawl_id in (" . $s . ")
 and website.excluded = 0
 and crawl_results.violation_amount > 0.05
 group by website.name

@@ -120,4 +120,4 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
     });
 </script>
 
-<div id="container" style="width: 1500px; height: 400px ; margin: auto"></div>
+<div id="container" style="width: 1520px; height: 400px ; margin: auto"></div>
