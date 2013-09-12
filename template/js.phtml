@@ -268,31 +268,37 @@
     }
     /* Select All  Button common*/
     /*New export function*/
-   function export2file(tab,type,grid_class) {
+   function export2file(tab,type,grid_class, order_field,order_direction, DateFromId, DateToId) {
 	var all_from_page=0;
 	var selected_all=0;
 		 
 	selected_all=parseInt($("."+grid_class+" .select_all_value").val());
 	 if (selected_all) {		
-		 queryParameters['row_ids']="All";
-	 }
-	if (!selected_all && $("."+grid_class+" .select_all_value").parent().parent().find("input[type=checkbox]").prop("checked")) {
+		 queryParameters['row_ids']="all";
+	 }else if (!selected_all && $("."+grid_class+" .select_all_value").parent().parent().find("input[type=checkbox]").prop("checked")) {
 		all_from_page=1;	
-		queryParameters['limit']=$(".limit-"+grid_class).val();	 		 
-	}  
-	if (!selected_all && !all_from_page) {
+		queryParameters['limit']=$(".limit-"+grid_class).val();	
+		queryParameters['row_ids']="limit"; 		 
+	}   else if (!selected_all && !all_from_page) {
 		var ids_array=[];
 		$("."+grid_class).find("input[type=checkbox]:checked").not('#'+$("."+grid_class+" .select_all_value").parent().parent().find("input[type=checkbox]").attr("id")).each(function() {
 			ids_array.push($(this).val());
-		});
-		 
+		});		 
 		queryParameters['row_ids']=ids_array.join(",");
+		if (ids_array.length==0) {
+			queryParameters['limit']=$(".limit-"+grid_class).val();	
+			queryParameters['row_ids']="limit"; 
+		}
+	} 
+
+	if (DateFromId.length && DateToId.length) {
+		queryParameters['from']=jQuery(DateFromId).val();
+		queryParameters['to']=jQuery(DateToId).val();
 	}
-	queryParameters['row_ids']=
 	 
-	//add sort and limit
-	//   queryParameters['tab']
-	   //open("export/export_"+tab+"_" + type + ".php?" + $.param(queryParameters));
+	queryParameters['order_field']=order_field;
+	queryParameters['order_direction']=order_direction;
+	   open("export/export_"+tab+"_" + type + ".php?" + $.param(queryParameters));
    }
    /*New export function*/
    	

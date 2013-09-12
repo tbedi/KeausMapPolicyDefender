@@ -58,9 +58,9 @@
         </div>
        
         <div style="align: right; float: right ">
-            <a   href="javascript:void(0);" onclick="export2file('history','csv','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>');"  id="exporth"> <img src="../images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"  /></a>
-            <a target="_blank" href="./export/export_history_pdf.php" id="exporth"> <img src="../images/pdf.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888 "  /></a>
-            <a target="_blank" href="./export/export_history_xls.php" id="exporth"> <img src="../images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888"  /></a>
+            <a   href="javascript:void(0);" onclick="export2file('history','csv','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"  /></a>
+            <a   href="javascript:void(0);" onclick="export2file('history','pdf','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/pdf.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888 "  /></a>
+            <a   href="javascript:void(0);" onclick="export2file('history','xls','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888"  /></a>
         </div>
        <div class="results-per-page-block"  style="align: right; float: right ;padding-top: 10px; padding-right: 10px;">
            <div class="divt2222">
@@ -255,7 +255,7 @@
                 </tr>
                 <tr><td>
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-    <?php include_once 'charts/a6.php'; ?>
+    <?php include_once 'charts/a5.php'; ?>
                         </div>
 
                     </td>
@@ -276,7 +276,7 @@
                 <tr><td>
 
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-    <?php include_once 'charts/a5.php'; ?>
+    <?php include_once 'charts/a6.php'; ?>
                         </div>
                     </td>
                 </tr>

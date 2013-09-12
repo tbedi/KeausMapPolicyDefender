@@ -1,88 +1,94 @@
 <?php 
-require_once('./tcpdf/tcpdf.php');
+/*GLOBAL*/
+/*configuration*/
+require_once('tcpdf/tcpdf.php');
+setlocale(LC_MONETARY, 'en_US');
+include_once '../db.php';
+include_once '../db_login.php';
 
+/*Login check*/
+if (!isset($_SESSION['username']))
+	header('Location: login.php');
 
-include_once '../toMoney.php';
-include_once './db_class.php';
-ini_set('memory_limit', '-1');
-session_start();
-if(isset($_POST['listh']))
- $_SESSION['listh']=$_POST['listh'];
-if(isset($_POST['selectallhistory']))
- $_SESSION['selectallhistory']=$_POST['selectallhistory'];
-//echo $_SESSION['selectallhistory'];
-$conHistoryExport="";
+/*configuration*/
+include_once '../db_class.php';
 $db_resource = new DB ();
+include_once '../toMoney.php';
+/*GLOBAL*/
+ 
 
+/*Prepare values for grid*/
+$limit = 15;
+$product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);
+$website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);
 
-if (isset( $_SESSION['listh']) and $_SESSION['listh']!=0 )
-{
-    $arrExportHistory=  $_SESSION['listh'];
-    
-    // print_r($arrExportHistory);
-    $conHistoryExport=" and crawl_results.id in (". $arrExportHistory. ")" ;
-    
-}
- else {
-     $conRecentExport="";
-}
-     if  (isset($_SESSION['selectallhistory']) and $_SESSION['selectallhistory']=='1')
-{
-
-      $conHistoryExport="";
-}
-
-
-/* sorting */
-if (isset($_GET['sort']) && isset($_GET['dir']) && isset($_GET['grid']) && $_GET['grid'] == "history") {
-    $direction = $_GET['dir'];
-    $order_field = $_GET['sort'];
-    $_SESSION['sort_history_dir'] = $_GET['dir'];
-    $_SESSION['sort_history_field'] = $_GET['sort'];
-} else if (isset($_SESSION['sort_history_field']) && isset($_SESSION['sort_history_dir'])) {
-    $direction = $_SESSION['sort_history_dir'];
-    $order_field = $_SESSION['sort_history_field'];
-} else {
-    $direction = "desc";
-    $order_field = "violation_amount";
-    $_SESSION['sort_history_dir'] = "desc";
-    $_SESSION['sort_history_field'] = "violation_amount";
-}
+//Calendar
+$to=date("Y-m-d 23:59:59",strtotime($_GET['to']));
+$from=date("Y-m-d 00:00:00",strtotime($_GET['from']));
+//Sorting
+$direction = $_GET['order_direction'];
+$order_field = $_GET['order_field'];
 $order_by = "order by " . $order_field . " " . $direction . " ";
-/* sorting */
+
+/* Pagination */
+if (isset($_GET['limit']) ) {
+	$limit = $_GET['limit'];
+}
+
+if (isset($_GET['page'])) {
+	// echo $_GET['page'];
+	$page = mysql_escape_string($_GET['page']);
+	$start = ($page - 1) * $limit;
+	// echo $start;
+} else {
+	$start = 0;
+	$page = 1;
+}
+$limithcon = "  LIMIT $start, $limit ";
+/* Pagination */
+
+/* Search Condition*/
+$search_condition="";
+if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
+{
+	$searched_sku=(isset($_REQUEST['sku']) ? $_REQUEST['sku'] : "" );
+	$searched_dealer=(isset($_REQUEST['dealer']) ? $_REQUEST['dealer'] : "" );
+
+	if ($searched_sku)
+		$search_condition.=" AND sku = '".$searched_sku."' ";
+	if ($searched_dealer)
+		$search_condition.=" AND website.name  LIKE '".$searched_dealer."%' ";
+}
+/* Search Condition*/
+if ($website_id) {
+	$website_id=mysql_real_escape_string($website_id);
+	$search_condition.= "  AND  website_id  = " ." $website_id ". "";
+}
 
 
- $sql = "SELECT SQL_CALC_FOUND_ROWS  
-    catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,
-    date_format(crawl.date_executed,'%Y-%m-%d %H:%i:%s') as date_executed,
-catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id,
-website.name , 
-crawl_results.vendor_price ,
-crawl_results.map_price ,
-crawl_results.violation_amount ,
-crawl_results.website_product_url
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join crawl
-on crawl.id=crawl_results.crawl_id
-where 
-crawl_results.violation_amount>0.05   
-and website.excluded=0 " . $conHistoryExport . " 
-" . $order_by  ;
+if ($product_id) {
+	$product_id=mysql_real_escape_string($product_id);
+	$search_condition.= "  AND  product_id  = " ." $product_id ". "";
+}
+/* Search Condition*/
+
+/****QUERY****/
+$sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
+			 	catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id, website.name as dealer,  crawl_results.vendor_price , crawl_results.map_price ,
+				crawl_results.violation_amount , crawl_results.website_product_url
+				FROM website
+				INNER JOIN crawl_results ON website.id = crawl_results.website_id
+				INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id=crawl_results.product_id
+				INNER JOIN crawl ON crawl.id=crawl_results.crawl_id
+				WHERE  crawl.date_executed  BETWEEN '".$from."'  AND  '".$to."'
+ 				".$search_condition."
+				AND	crawl_results.violation_amount>0.05
+				AND website.excluded=0
+				" . $order_by . "$limithcon " ;
 
 $violators_array = $db_resource->GetResultObj($sql);
 
-
-
-
-
-
-
-
+/*PDF*/
 
 
      global $html;
@@ -198,10 +204,11 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
     <tr>
         
          <td style="width:210px">SKU </td>    
-         <td style="width:190px">Dealers</td>    
+         <td style="width:150px">Dealers</td>    
          <td style="width:75px">Dealers Price</td>    
          <td style="width:75px">MAP Price</td>    
-         <td style="width:75px">Violation Amount</td>    
+         <td style="width:75px">Violation Amount</td> 
+ 		 <td style="width:80px">Date</td>    
      </tr>
          
          </table>
@@ -213,11 +220,11 @@ foreach ($violators_array as $violators_array ) {
 	<tr>
             
             <td style="width:210px">{$violators_array->sku}</td>
-            <td style="width:190px">{$violators_array->name}</td>
-            <td style="width:75px"> $ {$violators_array->vendor_price}</td>
-            <td style="width:75px"> $ {$violators_array->map_price}</td>
-            <td style="width:75px"> $ {$violators_array->violation_amount}</td>
-        
+            <td style="width:150px">{$violators_array->dealer}</td>
+            <td style="width:75px">\${$violators_array->vendor_price}</td>
+            <td style="width:75px">\${$violators_array->map_price}</td>
+            <td style="width:75px">\${$violators_array->violation_amount}</td>
+        	<td style="width:80px">{$violators_array->date_executed}</td>
             
            
                 

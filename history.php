@@ -1,28 +1,21 @@
 <?php
 //pagination
-$tableName = "crawl_results";
-$targetpage = "index.php";
+//$tableName = "crawl_results";
+//$targetpage = "index.php";
 
 $limit = 15;
 $start = 0;
- 
-$additional_params;
-//$searchfield;
+
 // Product
 $product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);
- 
 $website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);
  
-/////////
+$_SESSION['limit'] = $limit;  //???
 
-
-$_SESSION['limit'] = $limit; // ???
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
     $limit = $_GET['limit'];
 }
-
-/* where */
-$where = "";
+ 
 
 /* Calendar*/
 //$datecp - From dashboard.php
@@ -65,11 +58,9 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     $start = 0;
     $page = 1;
 }
+$limithcon = "  LIMIT $start, $limit ";
 /* Pagination */
 
-$limithcon = "  LIMIT $start, $limit ";
-
- 
 /* Search Condition*/
 $search_condition="";
 if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
@@ -98,14 +89,14 @@ if ($product_id) {
 }
 /*Add selected ids */
 
- /* ?? */
+ /* ?? *//*
 if (isset($_REQUEST['selectallhistory']))
 {
      $_SESSION['selectallhistory'] = $_REQUEST['selectallhistory'];
      //echo      $_SESSION['selectallRecent'];
 }
 /* ?? */
-
+/*
 if (isset($_REQUEST['listh']) ) 
 {
     $_SESSION['listh'] = $_REQUEST['listh'];
@@ -116,33 +107,13 @@ if (isset($_REQUEST['selectallproduct']))
      
 }
 /* ?? */
-
+/*
 if (isset($_REQUEST['listp']) ) 
 {
     $_SESSION['listp'] = $_REQUEST['listp'];
-}
+}*/
 
-/*Limit ??? *//*
-if(isset($_GET['limit']))
-        {
-            $urls.="&limit=".$limit;
-        }
-        
-        
-        if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
-            
-            $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
-        }
-        
-         if (isset($_REQUEST['product_id']) ){
-                $urls.="&product_id=".$_REQUEST['product_id']; 
-                $limit = 15;
-        }
-        if (isset($_REQUEST['website_id']) ){
-                $urls.="&website_id=".  $_REQUEST['website_id'];  
-                 $limit = 15;
-        }*/
- /*Limit  ???*/
+ 
                            
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,

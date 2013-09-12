@@ -2,16 +2,14 @@
 // collecting rows information
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
-if (isset($_REQUEST['sku']) )
+if (isset($_REQUEST['product_id']) )
 {
-    $sku=$_REQUEST['sku'];
-   
-}
-else
-{
-    $sku="";
+	$name_sql="SELECT sku from catalog_product_flat_1 WHERE entity_id=".$_REQUEST['product_id'];
+	$name=$db_resource->GetResultObj($name_sql);
+	$sku=$name[0]->sku;
     
 }
+
 foreach ($violators_array as $violator) {
     $chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $violator->vendor) . "'";
     array_push($chart_vendor_rows, $chart_row);
@@ -30,7 +28,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
             margin: [ 50, 50, 160, 150],
     },
             title: {
-    text: 'Violation By <?php echo $sku ?>',
+    text: 'Amount violations of <?php echo $sku ?> for as <?php echo date("d/m/Y",strtotime($datecp[0]->date_executed)) ?>',
     },
             xAxis: {
     categories: [
