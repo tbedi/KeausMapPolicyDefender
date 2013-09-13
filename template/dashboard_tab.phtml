@@ -7,8 +7,8 @@
         ?>
         <table class="Dash" >
             <tr >
-                <td width="250">Dealer</td>	
-                <td width="100"><?php echo $current_date; ?></td>
+                <td width="290">Dealer</td>	
+                <td width="150"><?php echo $current_date; ?></td>
                 <td><?php echo $previous_date; ?></td>
                 <td >Total violations</td>
                 <td>%</td>
@@ -53,10 +53,9 @@
 
         <table class="Dash" >
             <tr>
-                <td width="250">SKU</td>	
-                <td width="50"><?php echo $current_date; ?></td>
-                <td width="100"><?php echo $current_date; ?></td>
-
+                <td width="290">SKU</td>	
+                <td width="150"><?php echo $current_date; ?></td>
+ 
                 <td ><?php echo $previous_date; ?></td>
                 <td >Total violations</td>
                 <td>%</td>
@@ -102,7 +101,7 @@
         <table class="Dash" >
             <tr>
 
-                <td width="290">SKU</td>
+                <td width="400">SKU</td>
                 <td >Violation Amount</td>
 
             </tr>
@@ -245,11 +244,11 @@
     <table>
         <tr><td>
                 <div class="cell" align="center" > 
-                    <div class="cell" align="center" style="float: left;width: 600px; margin: 0 auto;" > 
+                    <div class="cell" align="center" style="float: left;width: 600px; padding-left: 60px; margin: 0 auto;" > 
                         <!-- pie chart code-->
                         <?php include_once 'charts/a1.php'; ?> 
                     </div>
-                    <div class="cell" align="center" style="float: right;width: 600px; margin: 0 auto;" > 
+                    <div class="cell" style="float: right;width: 600px; padding-left: 60px; margin: 0 auto;" > 
                         <!-- pie chart code-->
                         <?php include_once 'charts/a2.php'; ?>
                     </div>
