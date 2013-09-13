@@ -1,8 +1,8 @@
 <?php
 //getting last crawl
 $sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-$result = mysql_query($sql);
-$last_crawl = mysql_fetch_assoc($result);
+    $result = $db_resource->GetResultObj($sql);
+    $last_crawl = $result[0]->id;
 
 $limit = 10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
