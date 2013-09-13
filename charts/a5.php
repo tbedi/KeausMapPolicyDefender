@@ -1,5 +1,4 @@
 <?php
-
 if (  (isset($_REQUEST['to'])  ||  isset($_REQUEST['from']) )  && ($_REQUEST['to']!=$_REQUEST['from']) ) {
 	if (isset($_REQUEST['to']))
 		$to_sql="'".date("Y-m-d 23:59:59",strtotime($_REQUEST['to']))."'";
@@ -8,7 +7,6 @@ if (  (isset($_REQUEST['to'])  ||  isset($_REQUEST['from']) )  && ($_REQUEST['to
 		$from_sql="'".date("Y-m-d 00:00:00",strtotime($_REQUEST['from']))."'";
 } else {
 	$from_sql=" CURDATE() - INTERVAL 29 DAY ";
-
 	$to_sql="  CURDATE() + INTERVAL 1 DAY ";
 }
 
@@ -16,17 +14,13 @@ $name="";
 $where="";
 if (isset($_REQUEST['website_id']) )
 { 
-
     $name_sql="SELECT name from website  WHERE id=".$_REQUEST['website_id'];
     $name=$db_resource->GetResultObj($name_sql);
-
     $name=$name[0]->name;   
     $where=" AND  cr.website_id =".$_REQUEST['website_id']." ";
 }
 
-
 $sql="SELECT date_executed  FROM crawl  WHERE date_executed  BETWEEN " .$from_sql. " AND  " .$to_sql." ORDER BY  date_executed DESC  LIMIT 30";
-
 $last_30_days = array_reverse($db_resource->GetResultObj($sql));
  
 $chart_vendor_rows = array();
@@ -34,12 +28,10 @@ $chart_violation_amount_rows = array();
 foreach ($last_30_days as $day) {
     $chart_row = strtotime($day->date_executed) * 1000;
     array_push($chart_vendor_rows, $chart_row);
-
     $products_count_sql="SELECT SQL_CALC_FOUND_ROWS cr.website_id FROM crawl_results cr INNER JOIN  website w ON w.id=cr.website_id AND w.excluded=0   WHERE  cr.date_created='".date("Y-m-d",strtotime($day->date_executed))."' AND cr.violation_amount > 0.05 ".$where." GROUP BY    cr.product_id  ORDER BY cr.date_created DESC LIMIT 1";
     $db_resource->GetResultObj($products_count_sql);    
     $total_violations_of_the_day_sql = " SELECT FOUND_ROWS() as total;";
     $total_violations = $db_resource->GetResultObj($total_violations_of_the_day_sql);
-
     $total_violations = $total_violations[0]->total;    
     array_push($chart_violation_amount_rows, $total_violations);
 }

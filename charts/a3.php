@@ -4,10 +4,8 @@ $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
 if (isset($_REQUEST['product_id']) )
 {
-
 	$name_sql="SELECT sku from catalog_product_flat_1 WHERE entity_id=".$_REQUEST['product_id'];
 	$name=$db_resource->GetResultObj($name_sql);
-
 	$sku=$name[0]->sku;
     
 }

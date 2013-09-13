@@ -1,6 +1,5 @@
 <?php 
 /*GLOBAL*/
-
 /*configuration*/
 setlocale(LC_MONETARY, 'en_US');
 include_once '../db.php';
@@ -11,7 +10,6 @@ if (!isset($_SESSION['username']))
 	header('Location: login.php');
 
 /*configuration*/
-
 include_once '../db_class.php';
 $db_resource = new DB ();
 include_once '../toMoney.php';
@@ -19,7 +17,6 @@ include_once '../toMoney.php';
 
 /*Prepare values for grid*/
 $limit = 15;
-
 $product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);
 $website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);
 
@@ -86,7 +83,6 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_re
 				AND	crawl_results.violation_amount>0.05
 				AND website.excluded=0
 				" . $order_by . "$limithcon " ;
-
 
 $violators_array = $db_resource->GetResultObj($sql);
 /*CSV*/
