@@ -3,20 +3,15 @@
 $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
  
-
+$name="";
 if (isset($_REQUEST['website_id']) )
-{
-       
-  
-    $name= preg_replace('/[^A-Za-z0-9. \-]/', '', $_REQUEST['wname']);
+{       
+	$name_sql="SELECT name from website  WHERE id=".$_REQUEST['website_id'];
+	$name=$db_resource->GetResultObj($name_sql);
+	$name=$name[0]->name;  
    
 }
-else if ($_REQUEST['wname'] && $_REQUEST['wname']=="Zigsby's Kitchen") $name="zigbi";
-else 
-{
-    $name="";
-   
-}
+ 
 
 foreach ($violators_array as $violator){
 
@@ -40,7 +35,7 @@ $js_data_string_amounts = implode ( $chart_violation_amount_rows, "," );
             margin: [ 50, 50, 160, 150]
          },
          title: {
-             text: 'Violation By <?php echo $name ?>',
+             text: 'Violations By <?php echo $name ?> for as <?php echo date("d/m/Y",strtotime($datecp[0]->date_executed)) ?>',
          },
          xAxis: {
              categories: [

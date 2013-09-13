@@ -11,18 +11,4 @@ function loggedin(){
         return $loggedin;
     }
 }
-
-
-//function display_error()
-//{
-//    if($_SESSION['err-code']!== '')
-//    {$_error = $_SESSION[err-code];
-//    echo " <div id=" . "log" . " style=" . "color:#f40f0f" . " align=" . "center" . ">" . "<p font color=" . "red" . ">ABCDE</p>" . "</div>";
-//    echo $$error;
-//    }
-//}
-
 ?>
- 
-
-

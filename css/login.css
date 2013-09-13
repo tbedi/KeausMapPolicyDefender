@@ -19,7 +19,7 @@
      display: block; 
      float: right; 
      color: red; 
-     padding-right: 6px;
+     padding-right: 4px;
 } 
 
  #tabscontent1 {
@@ -54,10 +54,9 @@ ul{	padding:0px;}
 
 label
 {
-    color:#999;
+    color: red; 
     padding:4px;
     margin-top:4px;
-    color: #000;
 }
 .input
 {
