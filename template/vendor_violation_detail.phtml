@@ -3,17 +3,20 @@
         <div class="top-paneltab"> Products Violated By <?php   echo $dealer_name; ?> </div>
         <div class="cleaner1" >
         </div>
+        <!--Export div-->
         <div style="align: right; float: right">
             <a  href="javascript:void(0);" onclick="export2file('vendor2','csv','dealer-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportv"> <img src="../images/csv.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
             <a href="javascript:void(0);" onclick="export2file('vendor2','pdf','dealer-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportv"> <img src="../images/pdf.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
             <a href="javascript:void(0);" onclick="export2file('vendor2','xls','dealer-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportv"> <img src="../images/xls.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
 
         </div>
+        <!--Export div-->
 
         <div class="results-per-page-block" style="align: right; float: right ;padding-top: 10px; " >
             <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;"> Show </div>
             </div>
+            <!--Limit combo box-->
             <select name="vendor2-limitv2" class="results-per-page2 dropdown limit-dealer-grid"  >
 
                 <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
@@ -25,6 +28,7 @@
                 <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
                 <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
             </select>
+            <!--Limit combo box-->
             <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;"> Records</div>
             </div>
@@ -67,9 +71,11 @@
                                 </a>
                             <?php } ?>
                             <?php if (count($violators_array) > 3 * 15) : //more 3x default limit?>
+<!--                            Search -->
                                 <form name="vendorSearchDetail" action="JavaScript:searchVenDetail();" method="get">
                                     <input type="text" class="search" name="vendorDetail" id="txtvendorDetail"  placeholder="Search SKU..." value="<?php if(isset($_GET['searchproduct'])) echo $_GET['searchproduct'];?>" />
                                 </form>
+<!--                            Search -->
                             <?php endif; ?>
                         </td>
                         <td >
@@ -159,7 +165,7 @@
 
             </div>
             <div align="left" style="display:block;  " >
-                <?php echo $pagination_html; ?>
+                <?php echo $pagination_html; // pagination ?>
             </div>	
 
 

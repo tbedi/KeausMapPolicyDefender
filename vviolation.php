@@ -1,17 +1,21 @@
 <?php
-/*where*/
+//Declarations
 $where = "";
 $limit = 15;
 $limitvcon="";
 $searchven="";
+//Declarations
 
+
+//pagination
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];
         $_GET['page2']=1;
   
 } 
+//pagination
 
-/*where*/
+
       $sql ="select *
 from crawl_results
 inner join crawl  on crawl.id=crawl_results.crawl_id
@@ -94,9 +98,12 @@ $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param
 $additional_params = ""; //addtiion params to pagination url;
 /*For sorting using*/
 
+//get website name from selected id
 $sql3 = "select  name as wname from   website where  id = ".$website_id. " limit 1";
 $violators_array3=$db_resource->GetResultObj($sql3);
 $dealer_name=$violators_array3[0]->wname;
+
+//get website name from selected id
 
 
 include_once 'template/vendor_violation_detail.phtml';
