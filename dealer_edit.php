@@ -15,11 +15,15 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                             <form id="test" action="update_dealers.php" method="POST"> 
                                 <?php
                                 $name = $_GET['name'];
-                                include "db.php";
-
-                                $sql2 = "select * from website where name = '$name'";
-                                $qry = mysql_query($sql2);
-                                $row = mysql_fetch_array($qry);
+                                $sqld = "select * from website where name = '$name'"; //retrive data from database
+                                $row = $db_resource->GetResultObj($sqld);
+                                if (count($row) > 0) {
+                               $id = $row[0]->id;
+                                $name = $row[0]->name;
+                                $domain = $row[0]->domain;
+                                $date_created = $row[0]->date_created;
+                                $excluded = $row[0]->excluded;
+                                }
                                 ?> 
                                 <table align="center">
                                     <tbody>
@@ -28,7 +32,7 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                                                 Dealers Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </td>	
                                             <td>
-                                                <input type="text" name="name" class="input"  size="40" Value="<?php echo $row['name']; ?>" style="padding:5px;"/>
+                                                <input type="text" name="name" class="input"  size="40" Value="<?php echo $name; ?>" style="padding:5px;"/>
                                             </td>
                                         </tr>
                                         <tr> 
@@ -38,13 +42,13 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="hidden" name="domain" class="input"  size="40" value="<?php echo $row['domain']; ?>" style="padding:5px;"/>
+                                                <input type="hidden" name="domain" class="input"  size="40" value="<?php echo $domain; ?>" style="padding:5px;"/>
                                             </td></tr>
 
                                         <tr>
 
                                             <td>
-                                                <input type="hidden" name="date_created" class="input" size="40" value="<?php echo $row['date_created']; ?>" style="padding:5px;"/>
+                                                <input type="hidden" name="date_created" class="input" size="40" value="<?php echo $date_created; ?>" style="padding:5px;"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -53,7 +57,7 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                                                 Excluded:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </td>
                                             <td>
-                                                <input type="checkbox" name="excluded" size="40" value="<?php echo $row['excluded']; ?>" <?php if($row['excluded']!= 0) echo "checked"; ?> style="padding:5px;"/>
+                                                <input type="checkbox" name="excluded" size="40" value="<?php echo $excluded; ?>" <?php if($excluded!= 0) echo "checked"; ?> style="padding:5px;"/>
                                             </td>
                                         </tr>
                                         <tr> 
@@ -63,7 +67,7 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                                         </tr>
                                         <tr> 
                                             <td>&nbsp;</td>	
-                                            <td><input type="hidden" name="id" value="<?php echo $row['id']; ?>" />
+                                            <td><input type="hidden" name="id" value="<?php echo $id; ?>" />
                                             </td>
                                         </tr>
                                         <tr align="center">

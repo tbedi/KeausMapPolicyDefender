@@ -3,6 +3,7 @@
 include_once 'db_login.php';
 $title = "Kraus Price Defender | users.php";
 
+/*sorting coloumn*/
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 } else {
@@ -16,6 +17,7 @@ if (!isset($_SESSION['username'])) {
         $_SESSION['col'] = 'username';
      $_SESSION['dir'] = 'asc';
     }
+    /*sorting coloumn*/
     ?>
         <?php include_once 'template/head.phtml'; ?>
     <body id="login-page" >
@@ -23,7 +25,7 @@ if (!isset($_SESSION['username'])) {
 
         <div id="wrapper" align="center" >
             <?php
-// print_r($_SESSION);
+             /*successful message and error message display*/
             if (isset($_SESSION['a']) && $_SESSION['a'] === '1') {
                 echo " <div class=" . "logs" . " style=" . "color:#9AC847" . " align=" . "left" . ">User is updated successfully</div>";
             } elseif (isset($_SESSION['a']) && $_SESSION['a'] === '0') {
@@ -40,6 +42,7 @@ if (!isset($_SESSION['username'])) {
                 echo " <div class=" . "log" . "  align=" . "left" . ">Email is already registered..</div>";
             }
             unset($_SESSION['userdata']);
+            /*successful message and error message*/
             ?>
             <div id="tabContainer" class="main-content" align="center" >
                 <div id="tabs" align="center">
