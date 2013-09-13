@@ -4,18 +4,15 @@ $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
 if (isset($_REQUEST['product_id']) )
 {
-<<<<<<< HEAD
+
+
 	$name_sql="SELECT sku from catalog_product_flat_1 WHERE entity_id=".$_REQUEST['product_id'];
 	$name=$db_resource->GetResultObj($name_sql);
-=======
-	$name_sql="SELECT sku from catalog_product_flat_1 WHERE entity_id=".$_REQUEST['product_id'];
-	$name=$db_resource->GetResultObj($name_sql);
->>>>>>> 74dd734e8f3b748594399781bc7873dced2466e9
+
 	$sku=$name[0]->sku;
     
 }
-
-foreach ($violators_array as $violator) {
+    foreach ($violators_array as $violator) {
     $chart_row = "'" . preg_replace('/[^A-Za-z0-9\-]/', '', $violator->vendor) . "'";
     array_push($chart_vendor_rows, $chart_row);
     array_push($chart_violation_amount_rows, $violator->violation_amount);

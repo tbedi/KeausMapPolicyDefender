@@ -82,13 +82,11 @@ $sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-
  
 $violators_array=$db_resource->GetResultObj($sql);
 
-<<<<<<< HEAD
+
 /*getting sku*/
+
 $name=$db_resource->GetResultObj($name_sql);
-=======
-/*getting sku*/
-$name=$db_resource->GetResultObj($name_sql);
->>>>>>> 74dd734e8f3b748594399781bc7873dced2466e9
+
 $sku=$name[0]->sku;
 /*getting sku*/
   

@@ -11,7 +11,6 @@ if (!isset($_SESSION['username']))
 	header('Location: login.php');
 
 /*configuration*/
-
 include_once '../db_class.php';
 $db_resource = new DB ();
 include_once '../toMoney.php';
@@ -19,7 +18,6 @@ include_once '../toMoney.php';
 
 /*Prepare values for grid*/
 $limit = 15;
-
 $product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);
 $website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);
 
@@ -70,10 +68,12 @@ if ($website_id) {
 if ($product_id) {
 	$product_id=mysql_real_escape_string($product_id);
 	$search_condition.= "  AND  product_id  = " ." $product_id ". "";
+
 }
 /* Search Condition*/
 
 /****QUERY****/
+
 $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 			 	catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id, website.name as dealer,  crawl_results.vendor_price , crawl_results.map_price ,
 				crawl_results.violation_amount , crawl_results.website_product_url

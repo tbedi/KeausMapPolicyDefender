@@ -1,5 +1,6 @@
 <?php
-<<<<<<< HEAD
+
+
 /*GLOBAL*/
 /*configuration*/
 setlocale(LC_MONETARY, 'en_US');
@@ -14,24 +15,6 @@ if (!isset($_SESSION['username']))
 include_once '../db_class.php';
 $db_resource = new DB ();
 include_once '../toMoney.php';
-=======
-/*GLOBAL*/
-/*configuration*/
-setlocale(LC_MONETARY, 'en_US');
-include_once '../db.php';
-include_once '../db_login.php';
-
-/*Login check*/
-if (!isset($_SESSION['username']))
-	header('Location: login.php');
-
-/*configuration*/
-include_once '../db_class.php';
-$db_resource = new DB ();
-include_once '../toMoney.php';
->>>>>>> 74dd734e8f3b748594399781bc7873dced2466e9
-/*GLOBAL*/
-
 
 
 $sku="";

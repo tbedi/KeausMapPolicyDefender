@@ -17,16 +17,6 @@ include_once './toMoney.php';
 $db_resource = new DB ();
 $title="Price Defender";
 $pagination= new Pagination();
-<<<<<<< HEAD
- 
- 
-=======
- 
- 
->>>>>>> 74dd734e8f3b748594399781bc7873dced2466e9
- 
-
-
 ?>
  <?php include_once 'template/head.phtml'; ?>
     <body id="home">
