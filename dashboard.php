@@ -1,313 +1,230 @@
 <?php
-
-//dashboard page
-$arraytest = array();
-$date = "select date_executed  from crawl  ORDER BY id DESC  LIMIT 0,2"; //query for fetching current and previous date
+/*For other pages*/
+$date = "select date_executed  FROM crawl  ORDER BY id DESC  LIMIT 0,2"; //query for fetching current and previous date
 $datecp = $db_resource->GetResultObj($date); // Used in history.php
-foreach ($datecp as $key1 => $value1) {
-    foreach ($value1 as $key2 => $value2)
-        array_push($arraytest, $value2);
-}
-$_SESSION['curr'] = $arraytest[0];
-$_SESSION['prev'] = $arraytest[1];
-
-$sql = "select id from crawl  ORDER BY id DESC  LIMIT 1"; //query used to fetch max id
+/*For other pages*/
+/*Getting last Crawl Id*/
+$sql = "select id FROM crawl  ORDER BY id DESC  LIMIT 1"; //query used to fetch max id
 $last_crawl = $db_resource->GetResultObj($sql);
-$cmax = '';
-foreach ($last_crawl as $date1) {
-    $cmax = $cmax . $date1->id;  //$cmax gives maxid of crawl
-}
-
-$sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1"; //query used to fetch max-1 id 
+$last_crawl = $last_crawl[0]->id;
+/*Getting last Crawl Id*/
+/*Getting Previous Crawil Id*/
+$sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1"; //query used to fetch max-1 id
 $last_crawl1 = $db_resource->GetResultObj($sqlcwl);
-$cpre = '';
-foreach ($last_crawl1 as $date2) {
-    $cpre = $cpre . $date2->id;  //$cpre gives maxid-1 of crawl
-}
-
-$sqldays = "select id from crawl order by id desc limit 1,3"; //query used to fetch last three id's except maximum
-$resultday = $db_resource->GetResultObj($sqldays);
-$s = '';
-foreach ($resultday as $da) {
-    $s = $s . $da->id . ',';
-}
-$s = substr($s, 0, strlen($s) - 1); // $s variable used in stopped violations dealer block which display the id's of three days
-//top violations by dealer query
-$sql = "SELECT website_id,
-website.name name, count(crawl_results.website_id) countcurrent
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join crawl
-on crawl.id=crawl_results.crawl_id
-and crawl_results.crawl_id = " . $cmax . " 
-and crawl_results.violation_amount>0.05 and website.excluded=0 
-group by website_id, website.name
-order by countcurrent desc";
-
-$sqld = "SELECT  website_id,
-website.name name, count(crawl_results.website_id) countprev
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join crawl
-on crawl.id=crawl_results.crawl_id
-and crawl_results.crawl_id = " . $cpre . "
-and crawl_results.violation_amount>0.05 and website.excluded=0
-group by website_id, website.name order by countprev desc";
-
+$previous_crawl_id=$last_crawl1[0]->id;
+/*Getting Previous Crawil Id*/
+ 
+/*top violations by dealer */
+$sql = " SELECT SQL_CALC_FOUND_ROWS website_id, website.name name, count(crawl_results.website_id) countcurrent
+		FROM website
+		INNER JOIN crawl_results ON website.id = crawl_results.website_id
+		INNER JOIN crawl ON crawl.id=crawl_results.crawl_id 
+			AND crawl_results.crawl_id = " . $last_crawl . "  
+			AND crawl_results.violation_amount>0.05
+			AND website.excluded=0 
+		GROUP BY website_id, website.name
+		ORDER BY countcurrent DESC
+		LIMIT 10 ";
+ 
 $dashh_array = $db_resource->GetResultObj($sql); //current array
+
+$sql1 = " SELECT FOUND_ROWS() as total;";
+$current_total_violations_by_dealer = $db_resource->GetResultObj($sql1);
+$current_total_violations_by_dealer = $current_total_violations_by_dealer[0]->total;
+
+$current_website_ids=array();
+foreach ($dashh_array as $dealer){
+	$current_website_ids[]=$dealer->website_id;
+}
+$current_website_ids=implode($current_website_ids,",");
+
+$sqld = "SELECT  website_id, count(crawl_results.website_id) countprev
+		 FROM website
+		 INNER JOIN crawl_results ON website.id = crawl_results.website_id
+		 INNER JOIN crawl ON crawl.id=crawl_results.crawl_id
+			AND crawl_results.crawl_id = " . $previous_crawl_id . "
+			AND crawl_results.violation_amount>0.05
+			AND website.excluded=0
+			AND website_id IN (".$current_website_ids.")
+		 GROUP BY website_id, website.name";
+ 
 $dashh1_array = $db_resource->GetResultObj($sqld); //previous array
 
-foreach ($dashh_array as $k => $val) {
-    foreach ($val as $k1 => $val1) {
-        foreach ($dashh1_array as $kx => $valx) {
-            foreach ($valx as $kx1 => $valx1) {
-                if ($k1 == $kx1 && $val1 == $valx1) {
-                    $newArray[$k] = array_merge((array) $val, (array) $dashh_array[$k], (array) $valx); // array merges dealer,currentcount & previouscount
-                }
-            }
-        }
-    }
+
+
+$newArray=array();
+foreach ($dashh_array as $cur_dealer) {
+	$res=array();
+	$res['website_id']=$cur_dealer->website_id;
+	$res['name']=$cur_dealer->name;
+	$res['countcurrent']=$cur_dealer->countcurrent;
+	foreach ($dashh1_array as $prev_dealer) {
+		if ($prev_dealer->website_id==$cur_dealer->website_id) {
+			$res['countprev']=$prev_dealer->countprev;
+			break;
+		} 
+	}
+	if (!isset($res['countprev']))
+		$res['countprev']=0;
+	array_push($newArray,$res);
 }
-
-$sqlc = "select
-catalog_product_flat_1.sku sku1,
-crawl_results.product_id,
-count(crawl_results.product_id) as currentcount
-from
-crawl_results
-inner join
-catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = " . $cmax . " 
-where
-crawl_results.violation_amount > 0.05
-group by crawl_results.product_id, catalog_product_flat_1.sku
-order by currentcount desc";
-
-$sqlp = "select
-catalog_product_flat_1.sku sku1,
-count(crawl_results.product_id) as prevcount
-from
-crawl_results
-inner join
-catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = " . $cpre . "
-where
-crawl_results.violation_amount > 0.05
-group by crawl_results.product_id, catalog_product_flat_1.sku
-order by prevcount desc ";
-
+/*top violations by dealer */
+/*Top Biolations by Sku*/
+$sqlc = "SELECT SQL_CALC_FOUND_ROWS catalog_product_flat_1.sku sku1, crawl_results.product_id, count(crawl_results.product_id) as currentcount
+		 FROM crawl_results
+		 INNER JOIN catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
+		 INNER JOIN crawl ON crawl.id = crawl_results.crawl_id 
+			AND crawl_results.crawl_id = " . $last_crawl . "
+		 INNER JOIN website ON website.id=crawl_results.website_id
+		WHERE crawl_results.violation_amount > 0.05			
+			AND website.excluded=0
+		GROUP BY crawl_results.product_id, catalog_product_flat_1.sku
+		ORDER BY currentcount desc
+		LIMIT 10 ";
 
 $dashc_array = $db_resource->GetResultObj($sqlc);
+
+
+$sql1 = " SELECT FOUND_ROWS() as total;";
+$current_total_violations_by_product = $db_resource->GetResultObj($sql1);
+$current_total_violations_by_product = $current_total_violations_by_product[0]->total;
+
+$current_productids=array();
+foreach ($dashc_array as $product){
+	$current_productids[]=$product->product_id;
+}
+$current_productids=implode($current_productids,",");
+ 
+$sqlp = "SELECT crawl_results.product_id, count(crawl_results.product_id) as prevcount
+		 FROM crawl_results
+		 INNER JOIN catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
+		 INNER JOIN crawl ON crawl.id = crawl_results.crawl_id 
+			AND crawl_results.crawl_id = " . $previous_crawl_id . "
+		 INNER JOIN website ON website.id=crawl_results.website_id				
+		WHERE crawl_results.violation_amount > 0.05
+		    AND crawl_results.violation_amount>0.05
+			AND website.excluded=0
+			AND crawl_results.product_id IN (".$current_productids.")
+		GROUP BY crawl_results.product_id, catalog_product_flat_1.sku  ";
+
 $dashp_array = $db_resource->GetResultObj($sqlp);
 
 $viosku = Array();
-foreach ($dashc_array as $k => $val) {
-
-    foreach ($val as $k2 => $val2) {
-        foreach ($dashp_array as $ky => $valy) {
-            foreach ($valy as $ky2 => $valy2) {
-                if ($k2 == $ky2 && $val2 == $valy2) {
-                    $viosku[$k] = array_merge((array) $val, (array) $dashc_array[$k], (array) $valy); // array merges SKU,currentcount & previouscount
-                }
-            }
-        }
-    }
+foreach ($dashc_array as $cur_product) {
+	$res=array();
+	$res['product_id']=$cur_product->product_id;
+	$res['sku1']=$cur_product->sku1;
+	$res['currentcount']=$cur_product->currentcount;
+	foreach ($dashp_array as $prev_product) {
+		if ($prev_product->product_id==$cur_product->product_id) {
+			$res['prevcount']=$prev_product->prevcount;
+			break;
+		}
+	}
+	if (!isset($res['prevcount']))
+		$res['prevcount']=0;
+	array_push($viosku,$res);
 }
-
+ 
+/*Top Biolations by Sku*/
 //violations amount by sku query
 
-$sql3 = "SELECT
-catalog_product_flat_1.sku,
-crawl_results.violation_amount as violation_amount
-from website
-inner join
-prices.crawl_results
-on prices.website.id = prices.crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join
-crawl
-on crawl.id=crawl_results.crawl_id
-where crawl_results.violation_amount>0.05
-and
-website.excluded=0
-and
-crawl.id = " . $cmax . " order by violation_amount desc
-limit 10";
+$sql3 = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id, crawl_results.violation_amount as violation_amount
+		 FROM website
+		 INNER JOIN prices.crawl_results ON prices.website.id = prices.crawl_results.website_id
+		 INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id=crawl_results.product_id
+		 INNER JOIN crawl ON crawl.id=crawl_results.crawl_id WHERE crawl_results.violation_amount>0.05
+			AND website.excluded=0
+			AND crawl.id = " . $last_crawl . " ORDER BY violation_amount desc
+		LIMIT 10";   
 $dash1_array = $db_resource->GetResultObj($sql3);
 
-//Stopped Violations SKU query
+/*New & Old violations*/
+$sql = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id
+		FROM crawl_results
+		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
+		INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
+			AND crawl_results.crawl_id = " . $last_crawl . " 
+			AND crawl_results.violation_amount > 0.05
+		INNER JOIN website ON website.id=crawl_results.website_id	
+		    AND website.excluded=0					
+		GROUP BY crawl_results.product_id";
 
-$sql = "select
-catalog_product_flat_1.sku
-from
-crawl_results
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-inner join
-catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id in (" . $s . ")
-and crawl_results.violation_amount > 0.05
-group by crawl_results.product_id
-";
+$sqll = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id
+		FROM crawl_results
+		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
+		INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
+			AND crawl_results.crawl_id = " . $previous_crawl_id . "
+			AND crawl_results.violation_amount > 0.05
+		INNER JOIN website ON website.id=crawl_results.website_id	
+			AND website.excluded=0				
+		GROUP BY crawl_results.product_id";
 
-$sqll = "select
-catalog_product_flat_1.sku
-from
-crawl_results
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-inner join
-catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id = " . $cmax . "
-and crawl_results.violation_amount > 0.05
-group by crawl_results.product_id
-";
 $dash2_array = $db_resource->GetResultObj($sql);
 $dash3_array = $db_resource->GetResultObj($sqll);
 $array = array();
 $array2 = array();
 $resultst = array();
 foreach ($dash2_array as $dash2) {
-    array_push($array, $dash2->sku);
+    $array[$dash2->entity_id]=$dash2->sku;
 }
 foreach ($dash3_array as $dash3) {
-    array_push($array2, $dash3->sku);
+    $array2[$dash3->entity_id]=$dash3->sku;
 }
 
-$resultst = array_diff($array, $array2);
+$resultst = array_diff_key($array2, $array);
+$resultstrt=array_diff_key($array, $array2);
+/*New & Old violations*/
+/*New & Old Dealers*/ //Not finished
+/*$sql = "SELECT website.name name, website.id
+		FROM website
+		INNER JOIN crawl_results ON website.id = crawl_results.website_id
+		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
+			AND crawl_results.crawl_id = " . $last_crawl . "
+			AND website.excluded = 0
+			AND crawl_results.violation_amount > 0.05
+		GROUP BY crawl_results.website_id ";
 
-//Started Violations SKU query
+$sqll = "SELECT website.name name, website.id
+		FROM website
+		INNER JOIN crawl_results ON website.id = crawl_results.website_id
+		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
+			AND crawl_results.crawl_id = " . $previous_crawl_id . "
+			AND website.excluded = 0
+			AND crawl_results.violation_amount > 0.05
+		GROUP BY crawl_results.website_id";
+*/
+$sql="SELECT website.name name, website.id
+ FROM crawl_results r
+ INNER JOIN website ON website.id=r.website_id		 		 
+WHERE r.crawl_id=47
+	 AND r.violation_amount>0.05
+	 AND website.excluded=0
+GROUP BY r.website_id";
 
-$sql = "select 
-catalog_product_flat_1.sku
-from
-crawl_results
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-inner join
-catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id = " . $cmax . " 
-and crawl_results.violation_amount > 0.05
-group by crawl_results.product_id ";
-$sqll = "select 
-catalog_product_flat_1.sku
-from
-crawl_results
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-inner join
-catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id = " . $cpre . "
-and crawl_results.violation_amount > 0.05
-group by crawl_results.product_id";
+$sqll = "SELECT website.name name, website.id 
+ FROM crawl_results r
+ INNER JOIN website ON website.id=r.website_id		 		
+WHERE r.crawl_id=46
+	 AND r.violation_amount>0.05
+	 AND website.excluded=0
+GROUP BY r.website_id";
 
-$dash4_array = $db_resource->GetResultObj($sql);
-$dash5_array = $db_resource->GetResultObj($sqll);
-$array = array();
-$array2 = array();
-$resultstrt = array();
-foreach ($dash4_array as $dash4) {
-    array_push($array, $dash4->sku);
-}
-foreach ($dash5_array as $dash5) {
-    array_push($array2, $dash5->sku);
-}
-
-$resultstrt = array_diff($array, $array2); //$resultstrt this variable used in dashboard_tab.phtml in that the diff of first array and second array
-//Stopped Violations Dealer query
-
-$sql = "SELECT
-website.name name
-from
-website
-inner join
-crawl_results ON website.id = crawl_results.website_id
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id in (" . $s . ")
-and website.excluded = 0
-and crawl_results.violation_amount > 0.05
-group by website.name
-";
-$sqll = "SELECT
-website.name name
-from
-website
-inner join
-crawl_results ON website.id = crawl_results.website_id
-inner join
-crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = " . $cmax . "
-and website.excluded = 0
-and crawl_results.violation_amount > 0.05
-group by website.name
-";
 $dash6_array = $db_resource->GetResultObj($sql);
 $dash7_array = $db_resource->GetResultObj($sqll);
 
 $array = array();
 $array2 = array();
-$resultstv = array();
+ 
 foreach ($dash6_array as $dash6) {
-    array_push($array, $dash6->name);
+     $array[$dash6->id]=$dash6->name;
 }
 foreach ($dash7_array as $dash7) {
-    array_push($array2, $dash7->name);
+     $array2[$dash6->id]=$dash7->name;
 }
 
-$resultstv = array_diff($array, $array2);  //this variable giving the difference of two array
-//Started Violations Dealer
-
-$sql = "SELECT 
-    website.name name
-from
-    website
-        inner join
-    crawl_results ON website.id = crawl_results.website_id
-        inner join
-    crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id = " . $cmax . " 
-            and website.excluded = 0
-and crawl_results.violation_amount > 0.05
- group by website.name ";
-
-$sqll = "SELECT 
-    website.name name
-from
-    website
-        inner join
-    crawl_results ON website.id = crawl_results.website_id
-        inner join
-    crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id = " . $cpre . " 
-            and website.excluded = 0
-and crawl_results.violation_amount > 0.05
-            group by website.name ";
-
-$dash8_array = $db_resource->GetResultObj($sql);
-$dash9_array = $db_resource->GetResultObj($sqll);
-
-$array = array();
-$array2 = array();
-$resultstrtv = array();
-foreach ($dash8_array as $dash8) {
-    array_push($array, $dash8->name);
-}
-foreach ($dash9_array as $dash9) {
-    array_push($array2, $dash9->name);
-}
-
-
-$resultstrtv = array_diff($array, $array2); // providing the difference of two array
-
+$resultstv = array_diff_key($array2, $array2);  
+$resultstrtv = array_diff_key($array, $array2);  
+ 
 include_once 'template/dashboard_tab.phtml';
 ?>
