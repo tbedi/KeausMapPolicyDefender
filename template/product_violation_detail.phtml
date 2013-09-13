@@ -33,13 +33,9 @@
                 <div style="padding:5px; padding-top: 6px;"> Records</div>
             </div>
         </div>
-
-
         <!-- table part -->
         <div class="cleaner1" >
-
-        </div>
-                          
+        </div>                          
                         <table class="GrayBlack product-sku-grid" align="left" style="width: 100%;">
 
                             <tbody >
@@ -47,10 +43,11 @@
                                     <td>
 
                                         <div id="checkboxlistp">
-                                            <input type="checkbox" id="selectallp" value="1"/>
+                                            <input type="checkbox" id="selectallp"  onclick="select_all_checkboxes(this);" value="1"/>
                                         </div>
                                         <div id="selectallrecPcontainer" style="padding-top: 5px;">
-                                            <a id="selectallrecP" href="#" class="selectallrecP" >Select all</a>
+                                            <a id="selectallrecP" href="javascript:void(0);" onclick="select_all(this);" class="selectallrecP" >Select all</a>
+                                            <input type="hidden" value="0" class="select_all_value">
                                         </div>
 
                                     </td>

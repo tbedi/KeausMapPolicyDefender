@@ -1,43 +1,43 @@
-<?php 
-require_once('./tcpdf/tcpdf.php');
-include_once '../toMoney.php';
-include_once './db_class.php';
-include_once './db.php';
-session_start();
- $conVendorExport="";
-$vviolationTitle=$_SESSION['vviolationTitle'];
+<?php  
+/*GLOBAL*/
+/*configuration*/
+setlocale(LC_MONETARY, 'en_US');
+include_once '../db.php';
+include_once '../db_login.php';
+require_once('tcpdf/tcpdf.php');
+/*Login check*/
+if (!isset($_SESSION['username']))
+	header('Location: login.php');
 
-if(isset($_SESSION['vviolationTitle']))
-$_SESSION['vviolationTitle'];
-
-if(isset($_POST['listv']))
- $_SESSION['listv']=$_POST['listv'];
-if(isset($_POST['selectallvendor']))
- $_SESSION['selectallvendor']=$_POST['selectallvendor'];
-
-if (isset($_SESSION['website_id'])) {
-    $web_id = $_SESSION['website_id'];
-}
+/*configuration*/
+include_once '../db_class.php';
 $db_resource = new DB ();
+include_once '../toMoney.php';
+/*GLOBAL*/
+$website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);// get website id
+//Declarations
+$where = "";
+$limit = 15;
+$limitvcon="";
+$searchven="";
+//Declarations
 
+//pagination
+if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+	$limit=$_GET['limit2'];
+	$_GET['page2']=1;
+}
 
- 
-if (isset( $_SESSION['listv']) and  $_SESSION['listv']!=0)
-{
-    $arrExportVendor=  $_SESSION['listv'];
-    
-    // print_r($arrExportRecent);
-    $conVendorExport=" and crawl_results.id in (". $arrExportVendor. ")" ;
-    
+/*second grid pagination*/
+if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+	$page = $_GET['page2']; //$page_param should have same value
+	$start = ($page - 1) * $limit;
+} else {
+	$start = 0;
+	$page = 1;
 }
- else {
-     $conVendorExport="";
-}
-     if  (isset($_SESSION['selectallvendor']) and $_SESSION['selectallvendor']=='1')
-{
-
-      $conVendorExport="";
-}
+$limitvcon = "  LIMIT $start, $limit ";
+/*second grid pagination*/
 
 /* sorting */
 if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vvendor_2"  ) {
@@ -54,41 +54,45 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 	$_SESSION['sort_vvendor_2_dir'] = "desc";
 	$_SESSION['sort_vvendor_2_field'] = "violation_amount";
 }
- 
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
-
-
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-$result = mysql_query($sql);
-$last_crawl = mysql_fetch_assoc($result);
-
-
-$sql ="select distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
+/* Rows conditions*/
+if (isset($_REQUEST['row_ids'])) {
+	if  ($_REQUEST['row_ids']=="all")
+		$limitvcon="";
+	if  ($_REQUEST['row_ids']!="all" && $_REQUEST['row_ids']!="limit") {
+		$where.=" AND crawl_results.id IN (".$_REQUEST['row_ids'].")";
+		$limitvcon="";
+	}
+}
+/*Rows conditions*/
+$sql = "select SQL_CALC_FOUND_ROWS distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
- catalog_product_flat_1.name as name,
- catalog_product_flat_1.sku, 
+catalog_product_flat_1.name as name,
+catalog_product_flat_1.sku,
 crawl_results.vendor_price ,
- crawl_results.map_price ,
- crawl_results.violation_amount ,
-crawl_results.website_product_url 
+crawl_results.map_price ,
+crawl_results.violation_amount ,
+crawl_results.website_product_url
 from crawl_results
- inner join crawl on crawl.id=crawl_results.crawl_id
+inner join crawl  on crawl.id=crawl_results.crawl_id
 inner join
 website
 on website.id = crawl_results.website_id
 inner join catalog_product_flat_1
 on catalog_product_flat_1.entity_id=crawl_results.product_id
-where  crawl_results.violation_amount>0.05 
+where   crawl_results.violation_amount>0.05
 and
-website.excluded=0 " . $conVendorExport . " 
-and website_id = $web_id  ".$order_by; 
-
- 
+website.excluded=0
+and website_id = $website_id " . $where .  $searchven. "
+     ".$order_by." " .$limitvcon;
 $violators_array=$db_resource->GetResultObj($sql);
 
-
+$name_sql="SELECT name from website  WHERE id=".$_REQUEST['website_id'];
+$name=$db_resource->GetResultObj($name_sql);
+$GLOBALS['name']=$name[0]->name;
+/* PDF */
 class Bshree extends TCPDF {
 
     //Page header
@@ -100,12 +104,11 @@ class Bshree extends TCPDF {
         $this->SetFont('helvetica', 'B', 15);
         // Title
           if (count($this->pages) === 1) { // Do this only on the first page
-               $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
-           $web_name = $_REQUEST['wname'];
+               $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);         
  
                $html .= '
                    &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
-                    Products violated by '.$_SESSION['vviolationTitle'].'
+                    Products violated by '.$GLOBALS['name'].'
                 ';
             }
 
@@ -201,7 +204,7 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
           <table class="border1"> 
     <tr>
          <td style="width:260px">SKU </td>  
-         <td style="width:95px">Dealers Price</td>    
+         <td style="width:95px">Dealer Price</td>    
          <td style="width:95px">Map Price</td>    
          <td style="width:95px">Violation Amount</td>  
          <td style="width:90px">Date</td> 
@@ -214,9 +217,9 @@ foreach ($violators_array as $violators_array ) {
 	 
 	<tr>
             <td style="width:260px">{$violators_array->sku}</td>
-            <td style="width:95px"> $ {$violators_array->vendor_price}</td>
-            <td style="width:95px"> $ {$violators_array->map_price}</td>
-            <td style="width:95px"> $ {$violators_array->violation_amount}</td>
+            <td style="width:95px">\${$violators_array->vendor_price}</td>
+            <td style="width:95px">\${$violators_array->map_price}</td>
+            <td style="width:95px">\${$violators_array->violation_amount}</td>
             <td style="width:90px">{$violators_array->date_executed}</td>
           
             
@@ -241,4 +244,4 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-        $pdf->Output("Products_Violated_by_".$_SESSION['vviolationTitle'].'-'.date('Y-m-d'), 'I');
+        $pdf->Output("products_violated_by_".$GLOBALS['name'].'-'.date('Y-m-d'), 'I');

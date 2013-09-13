@@ -1,6 +1,5 @@
 <?php 
 /*GLOBAL*/
-
 /*configuration*/
 setlocale(LC_MONETARY, 'en_US');
 include_once '../db.php';
@@ -71,7 +70,16 @@ if ($product_id) {
 
 }
 /* Search Condition*/
-
+/* Rows conditions*/
+if (isset($_REQUEST['row_ids'])) {
+	if  ($_REQUEST['row_ids']=="all")
+		$limithcon="";
+	if  ($_REQUEST['row_ids']!="all" && $_REQUEST['row_ids']!="limit") {
+		$search_condition.=" AND crawl_results.id IN (".$_REQUEST['row_ids'].")";
+		$limithcon="";
+	}
+}
+/*Rows conditions*/
 /****QUERY****/
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,

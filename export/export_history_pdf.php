@@ -72,7 +72,16 @@ if ($product_id) {
 	$search_condition.= "  AND  product_id  = " ." $product_id ". "";
 }
 /* Search Condition*/
-
+/* Rows conditions*/
+if (isset($_REQUEST['row_ids'])) {
+	if  ($_REQUEST['row_ids']=="all")
+		$limithcon="";
+	if  ($_REQUEST['row_ids']!="all" && $_REQUEST['row_ids']!="limit") {		 
+		$search_condition.=" AND crawl_results.id IN (".$_REQUEST['row_ids'].")";
+		$limithcon="";
+	}
+}
+/*Rows conditions*/
 /****QUERY****/
 $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 			 	catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id, website.name as dealer,  crawl_results.vendor_price , crawl_results.map_price ,

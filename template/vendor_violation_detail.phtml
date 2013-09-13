@@ -50,10 +50,11 @@
                         <td>
 
                             <div id="checkboxlistv">
-                                <input type="checkbox" id="selectallv" value="1"/>
+                                <input type="checkbox" id="selectallv"  onclick="select_all_checkboxes(this);"  value="1"/>
                             </div>
                             <div id="selectallrecVcontainer" style="padding-top: 5px;">
-                                <a id="selectallrecV" href="#" class="selectallrecV" >Select all</a>
+                                <a id="selectallrecV" href="javascript:void(0);" onclick="select_all(this);" class="selectallrecV" >Select all</a>
+                                <input type="hidden" value="0" class="select_all_value">
                             </div>
 
 

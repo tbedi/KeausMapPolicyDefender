@@ -6,33 +6,12 @@ $limitvcon="";
 $searchven="";
 //Declarations
 
-
 //pagination
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];
-        $_GET['page2']=1;
-  
+        $_GET['page2']=1;  
 } 
-//pagination
-
-
-      $sql ="select *
-from crawl_results
-inner join crawl  on crawl.id=crawl_results.crawl_id
-inner join
-website
-on website.id = crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-where  crawl_results.violation_amount>0.05 
-and
-website.excluded=0  " . $searchven . "
-and website_id = $website_id " . $where  ;
-                  
-//pagination
-$violators_all_array=$db_resource->GetResultObj($sql); 
-$total_pages =  count($violators_all_array);  
-//pagination
+ 
 /*second grid pagination*/
 if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $page = $_GET['page2']; //$page_param should have same value
@@ -58,12 +37,11 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 	$order_field = "violation_amount";
 	$_SESSION['sort_vvendor_2_dir'] = "desc";
 	$_SESSION['sort_vvendor_2_field'] = "violation_amount";
-}
- 
+} 
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
 
-$sql = "select distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
+$sql = "select SQL_CALC_FOUND_ROWS distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 website.name as wname,crawl_results.id as id,
 catalog_product_flat_1.entity_id,
  catalog_product_flat_1.name as name,
@@ -84,14 +62,17 @@ and
 website.excluded=0 
 and website_id = $website_id " . $where .  $searchven. "
      ".$order_by." " .$limitvcon; 
-
  
 $violators_array=$db_resource->GetResultObj($sql);
     
 /*Pagination*/
+$sql1 = " SELECT FOUND_ROWS() as total;";
+$total_pages = $db_resource->GetResultObj($sql1);
+$total_pages = $total_pages[0]->total;
 $tab_name = 'violations-history';
 $page_param = "page2"; //variable used for pagination
 $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
+
 /*Pagination*/
 
 /*For sorting using*/
@@ -102,7 +83,6 @@ $additional_params = ""; //addtiion params to pagination url;
 $sql3 = "select  name as wname from   website where  id = ".$website_id. " limit 1";
 $violators_array3=$db_resource->GetResultObj($sql3);
 $dealer_name=$violators_array3[0]->wname;
-
 //get website name from selected id
 
 
