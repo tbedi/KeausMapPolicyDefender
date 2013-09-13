@@ -1,14 +1,15 @@
 <?php
- 
+ include_once 'db_class.php';
+ $db_resource = new db();
 $em = (isset($_SESSION['email']) ? $_SESSION['email'] : "");
-$fetch = "select username,last_login  from admin_users where email='$em'";
+$fetch = "select username,last_login  from admin_users where email='$em'"; // Retrieve data from database 
 $products = $db_resource->GetResultObj($fetch);
 
 if (count($products) > 0) {
     $us = $products[0]->username;
     $llog = $products[0]->last_login;
 }
-
+ /*login status and logout*/
 if (isset($_SESSION ['username'])) {
     
     $user_info = "Welcome, " . $us . "<a href=\"login.php?action=logout\">"." | "."<font color="."red".">"." Logout"."</font>"."</a>";
@@ -22,6 +23,7 @@ else
 } else {
     $user_info = "Welcome Guest! <a href=\"login.php\"> Sign In!</a>";
 }
+ /*login status and logout*/
 ?>
 
 
@@ -29,7 +31,7 @@ else
     <div id="kraus_header">
         <div class="header-logo container" >
             <div class="logo-img">
-                <a href="/"  ><img src="images/Kraus-Logo-HQ.png" width="186" height="71" /> </a>
+                <a href="/"  ><img src="images/kraus-logo.png" width="186" height="71" /> </a>
             </div>
             <div class="logo-text" >Price Defender</div>
         </div>
@@ -62,7 +64,7 @@ else
                 if(isset($llog))
                 {
                 echo "<br>";
-                echo $log_info;
+                echo $log_info; //display date time of user
                 }
                 ?> </div> 
             </div>

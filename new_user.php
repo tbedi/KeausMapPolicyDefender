@@ -290,10 +290,6 @@ if (isset($_GET['page'])) {
 			}
 			
 		$paginate.= "</div>";		
-	
-	
-//
-// echo $total_pages.' Results';
  // pagination
  echo $paginate;
 ?>

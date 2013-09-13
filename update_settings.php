@@ -5,7 +5,7 @@ include_once 'db_class.php';
 include('db.php');
 $db_resource = new DB ();
 $em = $_SESSION['email'];
-$fetch = "select username from admin_users where email='$em'";
+$fetch = "select username from admin_users where email='$em'"; // Retrieve username from database 
 $products = $db_resource->GetResultObj($fetch);
 $us = $products[0]->username;
 if (count($products) > 0) {
@@ -17,10 +17,11 @@ if (isset($_REQUEST["Submit"])) {
     if (isset($_REQUEST['cpassword']))
         $new_pass = md5($_REQUEST['cpassword']);
     if ($_SESSION['role'] == 'Admin') {
-        if (isset($user) && trim($_REQUEST['cpassword']) === '' && trim($_REQUEST['newpassword']) === '') {
+        if (isset($user) && trim($_REQUEST['cpassword']) === '' && trim($_REQUEST['newpassword']) === '') //username entered and password plus confirm password is blank.
+            {
             $sql = mysql_query("UPDATE admin_users SET username='$user' WHERE email='$email'");
 
-// if successfully update data, displays message "Successful".
+// if successfully update data, displays message "Successful" else error.
             if (!$sql) {
                 ?>
                 <script>
@@ -36,7 +37,8 @@ if (isset($_REQUEST["Submit"])) {
                 <?php
 
             }
-        } elseif (isset($user) && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') {
+        } elseif (isset($user) && trim($_REQUEST['cpassword']) != '' && trim($_REQUEST['newpassword']) != '') //username entered and password plus confirm password is not blank.
+            {
             $sql = mysql_query("UPDATE admin_users SET username='$user', password='$new_pass' WHERE email='$email'");
             if (!$sql) {
                 ?>

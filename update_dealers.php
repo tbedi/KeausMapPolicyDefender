@@ -10,7 +10,7 @@ $dc = $_POST['date_created'];
 $ex = (isset($_POST['excluded']) ? '1' : '0');
 $_SESSION['a'] = '';
 $result = mysql_query("UPDATE website SET name='$name', domain='$dom', date_created='$dc', excluded='$ex' WHERE id=$id") or die(mysql_error());
-// if successfully update data, displays message "Successful".
+// if successfully update data, displays message "Successful" else error
 if (!$result) {
     ?>
     <script>

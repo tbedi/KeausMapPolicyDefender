@@ -4,7 +4,7 @@ include_once 'db_class.php';
 include('db.php');
 $db_resource = new DB ();
 $em = $_SESSION['email'];
-$fetch = "select username from admin_users where email='$em'";
+$fetch = "select username from admin_users where email='$em'"; // Retrieve username from database 
 $products = $db_resource->GetResultObj($fetch);
 $us = $products[0]->username;
 if (count($products) > 0) {

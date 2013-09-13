@@ -15,10 +15,15 @@ $title = "Kraus Price Defender | user_edit.php";
                             <form id="test" action="update_user.php" method="POST"> 
                                 <?php
                                 $uid = $_GET['userid'];
-                                include "db.php";
                                 $sql2 = "select * from admin_users where user_id = '$uid'";
-                                $qry = mysql_query($sql2);
-                                $row = mysql_fetch_array($qry);
+                                $row = $db_resource->GetResultObj($sql2);
+
+                                if (count($row) > 0) {
+                                    $us = $row[0]->username;
+                                    $email = $row[0]->email;
+                                    $name = $row[0]->name;
+                                    $user_id = $row[0]->user_id;
+                                }
                                 ?>
                                 <div align="center" style="font-size: 150%;">
                                     <table>
@@ -31,7 +36,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                                     Username:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </td>	
                                                 <td>
-                                                    <input type="text" class="input" name="username" Value="<?php echo $row['username']; ?>"  size="40"  style="padding:5px;"/>
+                                                    <input type="text" class="input" name="username" Value="<?php echo $us; ?>"  size="40"  style="padding:5px;"/>
                                                 </td>
                                             </tr>
                                             <tr> 
@@ -58,7 +63,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                                     Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="input"  name="email" value="<?php echo $row['email']; ?>"  size="40"  style="padding:5px;"/>
+                                                    <input type="text" class="input"  name="email" value="<?php echo $email; ?>"  size="40"  style="padding:5px;"/>
                                                 </td></tr>
                                             <tr> 
                                                 <td>&nbsp;</td>	
@@ -71,7 +76,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                                     Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="input"  name="name" value="<?php echo $row['name']; ?>"  size="40"  style="padding:5px;"/>
+                                                    <input type="text" class="input"  name="name" value="<?php echo $name; ?>"  size="40"  style="padding:5px;"/>
                                                 </td>
                                             </tr>
                                             <tr> 
@@ -93,8 +98,8 @@ $title = "Kraus Price Defender | user_edit.php";
                                                 </td>
 
                                             </tr>
-                                            
-                                        <input type="hidden" name="user_id" value=" <?php echo $row['user_id']; ?> " style="padding:5px;"/>      
+
+                                        <input type="hidden" name="user_id" value=" <?php echo $user_id; ?> " style="padding:5px;"/>      
                                         <tr><td>&nbsp;</td>
                                             <td><input type="hidden" name="" value="" /></td></tr> 
                                         <tr> 

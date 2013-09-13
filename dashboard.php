@@ -1,4 +1,5 @@
 <?php
+
 //dashboard page
 $arraytest = array();
 $date = "select date_executed  from crawl  ORDER BY id DESC  LIMIT 0,2"; //query for fetching current and previous date
@@ -10,13 +11,19 @@ foreach ($datecp as $key1 => $value1) {
 $_SESSION['curr'] = $arraytest[0];
 $_SESSION['prev'] = $arraytest[1];
 
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1"; //query used to fetch max id
-$result = mysql_query($sql);
-$last_crawl = mysql_fetch_assoc($result);
+$sql = "select id from crawl  ORDER BY id DESC  LIMIT 1"; //query used to fetch max id
+$last_crawl = $db_resource->GetResultObj($sql);
+$cmax = '';
+foreach ($last_crawl as $date1) {
+    $cmax = $cmax . $date1->id;  //$cmax gives maxid of crawl
+}
 
 $sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1"; //query used to fetch max-1 id 
-$result1 = mysql_query($sqlcwl);
-$last_crawl1 = mysql_fetch_assoc($result1);
+$last_crawl1 = $db_resource->GetResultObj($sqlcwl);
+$cpre = '';
+foreach ($last_crawl1 as $date2) {
+    $cpre = $cpre . $date2->id;  //$cpre gives maxid-1 of crawl
+}
 
 $sqldays = "select id from crawl order by id desc limit 1,3"; //query used to fetch last three id's except maximum
 $resultday = $db_resource->GetResultObj($sqldays);
@@ -24,10 +31,8 @@ $s = '';
 foreach ($resultday as $da) {
     $s = $s . $da->id . ',';
 }
-$s = substr($s, 0, strlen($s) - 1); // $s variable used in stopped violations dealer block
-
+$s = substr($s, 0, strlen($s) - 1); // $s variable used in stopped violations dealer block which display the id's of three days
 //top violations by dealer query
-
 $sql = "SELECT website_id,
 website.name name, count(crawl_results.website_id) countcurrent
 from website
@@ -36,7 +41,7 @@ crawl_results
 on website.id = crawl_results.website_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+and crawl_results.crawl_id = " . $cmax . " 
 and crawl_results.violation_amount>0.05 and website.excluded=0 
 group by website_id, website.name
 order by countcurrent desc";
@@ -49,7 +54,7 @@ crawl_results
 on website.id = crawl_results.website_id
 inner join crawl
 on crawl.id=crawl_results.crawl_id
-and crawl_results.crawl_id = " . $last_crawl1['id'] . "
+and crawl_results.crawl_id = " . $cpre . "
 and crawl_results.violation_amount>0.05 and website.excluded=0
 group by website_id, website.name order by countprev desc";
 
@@ -78,7 +83,7 @@ inner join
 catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
 inner join
 crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+and crawl_results.crawl_id = " . $cmax . " 
 where
 crawl_results.violation_amount > 0.05
 group by crawl_results.product_id, catalog_product_flat_1.sku
@@ -93,7 +98,7 @@ inner join
 catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
 inner join
 crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = " . $last_crawl1['id'] . "
+and crawl_results.crawl_id = " . $cpre . "
 where
 crawl_results.violation_amount > 0.05
 group by crawl_results.product_id, catalog_product_flat_1.sku
@@ -135,7 +140,7 @@ where crawl_results.violation_amount>0.05
 and
 website.excluded=0
 and
-crawl.id = " . $last_crawl['id'] . " order by violation_amount desc
+crawl.id = " . $cmax . " order by violation_amount desc
 limit 10";
 $dash1_array = $db_resource->GetResultObj($sql3);
 
@@ -162,7 +167,7 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id = " . $last_crawl['id'] . "
+and crawl_results.crawl_id = " . $cmax . "
 and crawl_results.violation_amount > 0.05
 group by crawl_results.product_id
 ";
@@ -190,7 +195,7 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+and crawl_results.crawl_id = " . $cmax . " 
 and crawl_results.violation_amount > 0.05
 group by crawl_results.product_id ";
 $sqll = "select 
@@ -201,7 +206,7 @@ inner join
 crawl ON crawl.id = crawl_results.crawl_id
 inner join
 catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-and crawl_results.crawl_id = " . $last_crawl1['id'] . "
+and crawl_results.crawl_id = " . $cpre . "
 and crawl_results.violation_amount > 0.05
 group by crawl_results.product_id";
 
@@ -217,8 +222,7 @@ foreach ($dash5_array as $dash5) {
     array_push($array2, $dash5->sku);
 }
 
-$resultstrt = array_diff($array, $array2);
-
+$resultstrt = array_diff($array, $array2); //$resultstrt this variable used in dashboard_tab.phtml in that the diff of first array and second array
 //Stopped Violations Dealer query
 
 $sql = "SELECT
@@ -242,7 +246,7 @@ inner join
 crawl_results ON website.id = crawl_results.website_id
 inner join
 crawl ON crawl.id = crawl_results.crawl_id
-and crawl_results.crawl_id = " . $last_crawl['id'] . "
+and crawl_results.crawl_id = " . $cmax . "
 and website.excluded = 0
 and crawl_results.violation_amount > 0.05
 group by website.name
@@ -260,8 +264,7 @@ foreach ($dash7_array as $dash7) {
     array_push($array2, $dash7->name);
 }
 
-$resultstv = array_diff($array, $array2);
-
+$resultstv = array_diff($array, $array2);  //this variable giving the difference of two array
 //Started Violations Dealer
 
 $sql = "SELECT 
@@ -272,7 +275,7 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id = " . $last_crawl['id'] . " 
+        and crawl_results.crawl_id = " . $cmax . " 
             and website.excluded = 0
 and crawl_results.violation_amount > 0.05
  group by website.name ";
@@ -285,7 +288,7 @@ from
     crawl_results ON website.id = crawl_results.website_id
         inner join
     crawl ON crawl.id = crawl_results.crawl_id
-        and crawl_results.crawl_id = " . $last_crawl1['id'] . " 
+        and crawl_results.crawl_id = " . $cpre . " 
             and website.excluded = 0
 and crawl_results.violation_amount > 0.05
             group by website.name ";
@@ -304,7 +307,7 @@ foreach ($dash9_array as $dash9) {
 }
 
 
-$resultstrtv = array_diff($array, $array2);
+$resultstrtv = array_diff($array, $array2); // providing the difference of two array
 
 include_once 'template/dashboard_tab.phtml';
 ?>
