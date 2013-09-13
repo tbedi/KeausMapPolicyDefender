@@ -1,61 +1,48 @@
 <?php
 
-$from=$_SESSION['frc'];
-$to=$_SESSION['tc'];
+if (  (isset($_REQUEST['to'])  ||  isset($_REQUEST['from']) )  && ($_REQUEST['to']!=$_REQUEST['from']) ) {
+	if (isset($_REQUEST['to']))
+		$to_sql="'".date("Y-m-d 23:59:59",strtotime($_REQUEST['to']))."'";
+		
+	if (isset($_REQUEST['from']))
+		$from_sql="'".date("Y-m-d 00:00:00",strtotime($_REQUEST['from']))."'";
+} else {
+	$from_sql=" CURDATE() - INTERVAL 29 DAY ";
 
-
-if (isset($_REQUEST['sku']) )
-{
-    $sku=$_REQUEST['sku'];
-    $condition=" and sku like '".$sku."' ";
-    $count_p="count( product_id)";
-}
-else
-{
-    $sku="";
-    $condition="";
-    $count_p="count( distinct product_id)";
+	$to_sql="  CURDATE() + INTERVAL 1 DAY ";
 }
 
+$name="";
+$where="";
+if (isset($_REQUEST['website_id']) )
+{ 
+
+    $name_sql="SELECT name from website  WHERE id=".$_REQUEST['website_id'];
+    $name=$db_resource->GetResultObj($name_sql);
+
+    $name=$name[0]->name;   
+    $where=" AND  cr.website_id =".$_REQUEST['website_id']." ";
+}
 
 
+$sql="SELECT date_executed  FROM crawl  WHERE date_executed  BETWEEN " .$from_sql. " AND  " .$to_sql." ORDER BY  date_executed DESC  LIMIT 30";
 
-$sql=
-        
-        "select
- product_id, date_executed
-from
-(select  
-".$count_p ." as product_id,
-date_format(crawl.date_executed, '%Y-%m-%d') as date_executed
-from
-crawl_results res
-
-inner join catalog_product_flat_1 prods on prods.entity_id = res.product_id
-inner join crawl ON crawl.id = res.crawl_id
-inner join
-website sites ON sites.id = res.website_id
-where
-violation_amount > 0.05
-and sites.excluded = 0
-and (date_format(crawl.date_executed, '%Y-%m-%d') between '" .$from. "'and '" .$to."')
- ". $condition. " 
-group by date_format(crawl.date_executed, '%Y-%m-%d')
-order by crawl.date_executed desc limit 30) as yy order by date_executed ";
-
-$result = mysql_query($sql);
-
-//echo $sql;
-
+$last_30_days = array_reverse($db_resource->GetResultObj($sql));
+ 
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
-while ($row = mysql_fetch_assoc($result)) {
-    $chart_row = strtotime($row ['date_executed']) * 1000;
+foreach ($last_30_days as $day) {
+    $chart_row = strtotime($day->date_executed) * 1000;
     array_push($chart_vendor_rows, $chart_row);
-    array_push($chart_violation_amount_rows, $row ['product_id']);
+
+    $products_count_sql="SELECT SQL_CALC_FOUND_ROWS cr.website_id FROM crawl_results cr INNER JOIN  website w ON w.id=cr.website_id AND w.excluded=0   WHERE  cr.date_created='".date("Y-m-d",strtotime($day->date_executed))."' AND cr.violation_amount > 0.05 ".$where." GROUP BY    cr.product_id  ORDER BY cr.date_created DESC LIMIT 1";
+    $db_resource->GetResultObj($products_count_sql);    
+    $total_violations_of_the_day_sql = " SELECT FOUND_ROWS() as total;";
+    $total_violations = $db_resource->GetResultObj($total_violations_of_the_day_sql);
+
+    $total_violations = $total_violations[0]->total;    
+    array_push($chart_violation_amount_rows, $total_violations);
 }
-
-
 $js_data_string_vendors = implode($chart_vendor_rows, ",");
 $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 ?>
@@ -77,7 +64,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 zoomType: 'xy'
             },
             title: {
-                text: 'Violation Count By SKU <?php echo $sku ?>',
+                text: 'Daily Product Violations  <?php echo ($name ? "By ".$name : "" ); ?>',
                 x: -20 //center
             },
             xAxis: {

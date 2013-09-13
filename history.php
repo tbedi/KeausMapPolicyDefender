@@ -1,81 +1,35 @@
 <?php
 //pagination
-$tableName = "crawl_results";
-$targetpage = "index.php";
+//$tableName = "crawl_results";
+//$targetpage = "index.php";
 
- $limit = 25;
+$limit = 15;
+$start = 0;
 
-$flagfrom = 0;
-$flagto = 0;
- $start = 0;
- $wherev="";
-  $wherep="";
-$additional_params;
-$searchfield;
 // Product
-$product_id = 0;
-$conHistoryExport;
+$product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);
+$website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);
+ 
+$_SESSION['limit'] = $limit;  //???
 
-/////////
-
-
-
-if (isset($_SESSION['listh']))
-unset($_SESSION['listh']);
-if (isset($_SESSION['selectallhistory']))
-unset($_SESSION['selectallhistory']);
-
-if (isset($_REQUEST['product_id'])) {
-    $product_id = $_REQUEST['product_id'];
-    $_SESSION['product_id'] = $product_id;
-}
-
-
-//url calender form
-
-        
-        $searchfield;
-        $urls = "?tab=violations-history&option=show_dates";
-        
-
-
-//vendor
-
-$website_id=0;
-
-if (isset($_REQUEST['website_id'])) {
-	$website_id = $_REQUEST['website_id'];
-         $_SESSION['website_id'] = $website_id;
-}
-
-
-
-            
-           if(isset($_GET['dealer']) ) 
-           {
-              $wherev = "  AND  website.name   = '" . mysql_real_escape_string(trim($_GET['dealer'])) . "'";
-           }
-           
-                               
-                if(isset($_GET['product']) ) 
-           {
-                 
-                $wherep = "  AND  sku  = '" .  $_GET['product'] . "'";
-           }
-
-
-$_SESSION['limit'] = $limit;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
     $limit = $_GET['limit'];
 }
+ 
 
- static $to;
-static $from;
-/* where */
-
-$where = "";
-
-
+/* Calendar*/
+//$datecp - From dashboard.php
+$to=date("Y-m-d 23:59:59",strtotime($datecp[0]->date_executed)); 
+$from=date("Y-m-d 00:00:00",strtotime($datecp[0]->date_executed));
+if ( isset($_REQUEST['to'])  ||  isset($_REQUEST['from'])) {
+	
+	if (isset($_REQUEST['to'])) 
+		$to=date("Y-m-d  23:59:59",strtotime($_REQUEST['to']));
+			
+	if (isset($_REQUEST['from']))
+		$from=date("Y-m-d 00:00:00",strtotime($_REQUEST['from'])); 	
+}
+/* Calendar*/
 /* sorting */
 if (isset($_GET['sort']) && isset($_GET['dir']) && isset($_GET['grid']) && $_GET['grid'] == "history") {
     $direction = $_GET['dir'];
@@ -104,96 +58,45 @@ if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-h
     $start = 0;
     $page = 1;
 }
+$limithcon = "  LIMIT $start, $limit ";
 /* Pagination */
 
-$limithcon = "  LIMIT $start, $limit ";
-
-
-$sql3 = "SELECT min(date_format(crawl.date_executed,'%Y-%m-%d')) as mindate from crawl";
- $violators_array3=$db_resource->GetResultObj($sql3);
-$mindate=$violators_array3[0]->mindate;
-/* calender dates */
-////////////////////////
-$sqldate="select date_format(crawl.date_executed,'%Y-%m-%d') as date_executed from crawl
-where id in(select  max(id) from crawl); "; 
-
-$violators_array_date=$db_resource->GetResultObj($sqldate);
-if (!isset($_REQUEST['option']) && !isset($_POST['to']) && !isset($_POST['from'])) {
- $to= $violators_array_date[0]->date_executed;
-        $from= $violators_array_date[0]->date_executed;
-	$_SESSION['t'] = $to;
-	$_SESSION['fr'] = $from;
-        $_SESSION['tc'] = date("Y-m-d");
-	$_SESSION['frc'] = $mindate;
-}
-
-elseif(isset($_POST["to"]) && ($_POST["from"])) 
-    {
-    $_SESSION['t'] = $_POST['to'];
-    $_SESSION['fr'] = $_POST['from'];
-    $to = $_SESSION['t'];
-    $from = $_SESSION['fr'];
-}
-
-
-if(isset($_SESSION['t']) && isset($_SESSION['fr']))
+/* Search Condition*/
+$search_condition="";
+if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
 {
-    $to = $_SESSION['t'];
-    $from = $_SESSION['fr'];
-}
-
-
-if (isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='sku' )
-{
-    $sku=$_REQUEST['value'];
-    $condition_sku=" and sku like '".$sku."' ";
-}
-else
-{
-    $condition_sku="";
-}
-
-if (  isset($_REQUEST['value']) and isset($_REQUEST['field']) and $_REQUEST['field']=='website_id' )
-{    
-    $field = strtolower($_GET['field']);
-    $value = strtolower($_GET['value']);
-    $condition_wname = "  AND  " . $field . "  LIKE '%" . mysql_real_escape_string(trim($value)) . "%'";
+	$searched_sku=(isset($_REQUEST['sku']) ? $_REQUEST['sku'] : "" );
+    $searched_dealer=(isset($_REQUEST['dealer']) ? $_REQUEST['dealer'] : "" );
     
+    if ($searched_sku)
+		$search_condition.=" AND sku = '".$searched_sku."' ";
+    if ($searched_dealer)
+    	$search_condition.=" AND website.name  LIKE '".$searched_dealer."%' ";    
+}
+/* Search Condition*/
+ /*Add selected ids */
 
-    if ($website_id) {
-    $website_id=mysql_real_escape_string($website_id); 
-    $condition_wname = "  AND  website_id  = " ." $website_id ". ""; 
-}
-    
-    
-}
+ 
 if ($website_id) {
     $website_id=mysql_real_escape_string($website_id); 
-    $condition_wname = "  AND  website_id  = " ." $website_id ". ""; 
+    $search_condition.= "  AND  website_id  = " ." $website_id ". ""; 
 }
-else
-{
-    $condition_wname="";
-}
-
-
+ 
+ 
 if ($product_id) {
     $product_id=mysql_real_escape_string($product_id); 
-    $condition_sku = "  AND  product_id  = " ." $product_id ". ""; 
+     $search_condition.= "  AND  product_id  = " ." $product_id ". ""; 
 }
-else
-{
-    $condition_sku="";
-}
+/*Add selected ids */
 
-
+ /* ?? *//*
 if (isset($_REQUEST['selectallhistory']))
 {
      $_SESSION['selectallhistory'] = $_REQUEST['selectallhistory'];
      //echo      $_SESSION['selectallRecent'];
 }
-
-
+/* ?? */
+/*
 if (isset($_REQUEST['listh']) ) 
 {
     $_SESSION['listh'] = $_REQUEST['listh'];
@@ -203,62 +106,29 @@ if (isset($_REQUEST['selectallproduct']))
      $_SESSION['selectallproduct'] = $_REQUEST['selectallproduct'];
      
 }
-
-
+/* ?? */
+/*
 if (isset($_REQUEST['listp']) ) 
 {
     $_SESSION['listp'] = $_REQUEST['listp'];
-}
+}*/
 
+ 
+                           
 
-if(isset($_GET['limit']))
-        {
-            $urls.="&limit=".$limit;
-        }
-        
-        
-        if (isset($_REQUEST['action']) and isset($_REQUEST['value'])) {
-            
-            $urls = "?tab=violations-history&option=show_dates&value=" . $_REQUEST['value'];
-        }
-        
-         if (isset($_REQUEST['sku']) ){
-                $urls.="&sku=".  $_REQUEST['sku']."&product_id=".$_REQUEST['product_id']; 
-                $limit = 15;
-        }
-        if (isset($_REQUEST['website_id']) ){
-                $urls.="&website_id=".  $_REQUEST['website_id'] ."&wname=".$_REQUEST['wname'];  
-                 $limit = 15;
-        }
-        
-        
-        
-        
-        
-
-    $sql = "SELECT SQL_CALC_FOUND_ROWS  
-    catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,
-    date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
-catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id,
-website.name as vendor, 
-crawl_results.vendor_price ,
-crawl_results.map_price ,
-crawl_results.violation_amount ,
-crawl_results.website_product_url
-from website
-inner join
-crawl_results
-on website.id = crawl_results.website_id
-inner join catalog_product_flat_1
-on catalog_product_flat_1.entity_id=crawl_results.product_id
-inner join crawl
-on crawl.id=crawl_results.crawl_id
-where (date_format(crawl.date_executed,'%Y-%m-%d') between '$from' and '$to' )  
- ".$condition_wname." ".$condition_sku."  and
-crawl_results.violation_amount>0.05   
-and website.excluded=0 $wherev ".$wherep."
-" . $order_by . "$limithcon " ;
-
+$sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
+			 	catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id, website.name as vendor,  crawl_results.vendor_price , crawl_results.map_price ,
+				crawl_results.violation_amount , crawl_results.website_product_url
+				FROM website
+				INNER JOIN crawl_results ON website.id = crawl_results.website_id
+				INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id=crawl_results.product_id
+				INNER JOIN crawl ON crawl.id=crawl_results.crawl_id
+				WHERE  crawl.date_executed  BETWEEN '".$from."'  AND  '".$to."'
+ 				".$search_condition."
+				AND	crawl_results.violation_amount>0.05   
+				AND website.excluded=0  
+				" . $order_by . "$limithcon " ;
+ 
 $violators_array = $db_resource->GetResultObj($sql);
 
 

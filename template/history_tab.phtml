@@ -3,14 +3,15 @@
         new JsDatePick({
             useMode: 2,
             target: "inputFieldto",
-            dateFormat: "%Y-%m-%d"
-
+            dateFormat: "%m/%d/%Y"
+       
         });
 
         new JsDatePick({
             useMode: 2,
             target: "inputFieldfrom",
-            dateFormat: "%Y-%m-%d"
+            dateFormat: "%m/%d/%Y"
+            
         });
     };
 </script>
@@ -29,25 +30,25 @@
 <div style=" width: 100%; padding-top: 50px;" >
     
     <div style="clear:  left; float: left; width:60%; "> 
-        <form action="<?php echo $urls ?>" method="post"> 
+        <?php // echo $urls ?> 
             <div class="divt2222">
                 <div style="padding-top:15px;"> From </div>
             </div>
             <div class="divt2222">
-                <input type="text" class="search2" onclick="<?php $flagfrom = 1; ?>" size="12" name="from" id="inputFieldfrom" value="<?php echo $from; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
+                <input type="text" class="search2" onclick="" size="12" name="from" id="inputFieldfrom" value="<?php echo date("m/d/Y",strtotime($from)); ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/> 
             </div>
             <div class="divt2222"> <div class="divtsp"></div> </div>
             <div class="divt2222">
                 <div style="padding-top:15px;"> To </div>
             </div>
             <div class="divt2222">
-                <input type="text" class="search2" onclick="<?php $flagto = 1; ?>" size="12" name="to" id="inputFieldto" value="<?php echo $to; ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
+                <input type="text" class="search2" onclick="" size="12" name="to" id="inputFieldto" value="<?php echo date("m/d/Y",strtotime($to)); ?> " style=" background: white url(images/cal2.png) right no-repeat; padding-right: 10px;"/>
             </div>
             <div class="divt2222">  <div class="divtsp"></div></div>
             <div class="divt2222">
-                <input type="submit" class="btn-search" name="submit" value="Search" />
+                <input type="button" onclick="search();" class="btn-search" name="submit" value="Search" />
             </div>
-        </form>
+        
         <div class="divt2222">
             <form name="showall" action ="index.php?tab=violations-history" method="post">
                 <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search" style="width: 120px;" onclick="show_all();" >Reset Search</button>
@@ -57,64 +58,43 @@
         </div>
        
         <div style="align: right; float: right ">
-            <a target="_blank" href="./export/export_history_csv.php" id="exporth"> <img src="./images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"  /></a>
-            <a target="_blank" href="./export/export_history_pdf.php" id="exporth"> <img src="./images/PDF.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888 "  /></a>
-            <a target="_blank" href="./export/export_history_xls.php" id="exporth"> <img src="./images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888"  /></a>
+            <a   href="javascript:void(0);" onclick="export2file('history','csv','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"  /></a>
+            <a   href="javascript:void(0);" onclick="export2file('history','pdf','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/pdf.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888 "  /></a>
+            <a   href="javascript:void(0);" onclick="export2file('history','xls','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888"  /></a>
         </div>
        <div class="results-per-page-block"  style="align: right; float: right ;padding-top: 10px; padding-right: 10px;">
            <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;">Show</div>
             </div>
-           <select name="recent-limit" class="results-per-page dropdown"  >
+           <select name="recent-limit" class="results-per-page dropdown limit-history-grid"  >
 
                 <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
                 <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
-                <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>
-                <option  <?php echo ($limit == 75) ? "selected" : ""; ?> value="75">75</option>
-                <option  <?php echo ($limit == 100) ? "selected" : ""; ?>  value="100">100</option>
-                <option <?php echo ($limit == 200) ? "selected" : ""; ?> value="200">200</option>
-                <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
-                <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
-
+                <option  <?php echo ($limit == 50) ? "selected" : ""; ?>  value="50">50</option>              
             </select>
             <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;"> Records</div>
             </div>
         </div>
-        <div>
-            
-
+        <div>           
         </div>
-
         <div class="divtsp"></div>
         <div class="divtsp"></div>
-
-
        <div class="cleaner" style="padding-top: 15px; ">
-
         </div>
-
-
-
-        <table class="GrayBlack"  align="left" style="width: 100%;">
-
-            
+        <table class="GrayBlack history-grid"  align="left" style="width: 100%;">            
    <tbody>
-
                 <tr > 
                     <td>
-
                         <div id="checkboxlisth">
-                            <input type="checkbox" id="selectallh" value="1"/>
+                            <input type="checkbox" id="selectallh"   onclick="select_all_checkboxes(this);" value="0"/>
                         </div>
                         <div id="selectallrechcontainer" style="padding-top: 5px;">
-                            <a id="selectallrech" href="#" class="selectallrech" >Select all</a>
+                            <a id="selectallrech" href="javascript:void(0);" onclick="select_all(this);"  class="selectallrech" >Select all</a>
+                             <input type="hidden" class="select_all_value" value="0" />
                         </div>
                     </td>
                     <td>
-
-
-
                         <a  onclick="sort_grid('sku', '<?php echo ($direction == "asc" ? "desc" : "asc") ?>', 'history');" href="javascript:void(0);">
                             SKU 
                         </a>
@@ -125,9 +105,9 @@
                             </a>
                         <?php } ?>
 
-                        <form name="productSearch" action="JavaScript:searchPro();" method="get">
-                            <input type="text" class="search" name="product" id="txtproduct" placeholder="Search SKU..." value="<?php if(isset($_GET['product'])){ echo $_GET['product'];} elseif(isset($_GET['sku'])){ echo $_GET['sku']; }?>" />
-                        </form>
+                        <!-- <form name="productSearch" action="JavaScript:searchPro();" method="get"> -->
+                            <input type="text" class="search search-sku" name="product" id="txtproduct" placeholder="Search SKU..." value="<?php if(isset($_GET['product'])){ echo $_GET['product'];} elseif(isset($_GET['sku'])){ echo $_GET['sku']; }?>" />
+                         <!--</form> -->
 
 
                     </td>	
@@ -142,9 +122,9 @@
                                 <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
-                        <form name="dealerSearch" action ="JavaScript:searchVen();" method="get">
-                            <input type="text" class="search" name="dealer" id="txtvendor" placeholder="Search Vendor..." value="<?php if(isset($_GET['dealer'])) echo $_GET['dealer']; elseif(isset($_GET['wname'])){ echo $_GET['wname']; }?>"/>
-                        </form>
+                      <!--   <form name="dealerSearch" action ="JavaScript:searchVen();" method="get"> -->
+                            <input type="text" class="search search-dealer" name="dealer" id="txtvendor" placeholder="Search Vendor..." value="<?php if(isset($_GET['dealer'])) echo $_GET['dealer']; elseif(isset($_GET['wname'])){ echo $_GET['wname']; }?>"/>
+                          <!--</form> -->
 
                     </td>	
                     <td>
@@ -209,21 +189,16 @@
 
 
                  
-                    $product_link = "?tab=violations-history&product_id=" . $violator->product_id . "&sku=" . $violator->sku;
+                    $product_link = "?tab=violations-history&product_id=" . $violator->product_id;
                     if(isset($_GET['option']) and $_GET['option']=="show_dates")
                           $product_link.="&option=show_dates";                
                     
 
 
                    
-                    $vendor_link = "?tab=violations-history&website_id=" . $violator->website_id . "&wname=" . $violator->vendor;
+                    $vendor_link = "?tab=violations-history&website_id=" . $violator->website_id;
                      if(isset($_GET['option']) and $_GET['option']=="show_dates")
                           $vendor_link.="&option=show_dates";  
-
-
-
-
-
 
                     $cell_id = "vio";
                     if ($violator->violation_amount >= 5 && $violator->violation_amount < 10)
@@ -280,7 +255,7 @@
                 </tr>
                 <tr><td>
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-    <?php include_once 'charts/a6.php'; ?>
+    <?php include_once 'charts/a5.php'; ?>
                         </div>
 
                     </td>
@@ -301,7 +276,7 @@
                 <tr><td>
 
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-    <?php include_once 'charts/a5.php'; ?>
+    <?php include_once 'charts/a6.php'; ?>
                         </div>
                     </td>
                 </tr>

@@ -10,12 +10,6 @@
             formName.newpassword.focus();
             return false;
         }
-        else
-        {
-            document.getElementById("newpassword_label").innerHTML = '';
-        }
-
-
         if (formName.cpassword.value == "")
         {
             document.getElementById("cpassword_label").innerHTML = '*Enter ConfirmPassword';
@@ -38,6 +32,55 @@
         {
             document.getElementById("cpassword_label").innerHTML = '';
         }
+        
+        re = /^\w+$/;
+    if(!re.test(formName.newpassword.value)) {
+      alert("Error: Username must contain only letters, numbers and underscores!");
+      form.username.focus();
+      return false;
+    }
+
+    if(formName.newpassword.value != "" && formName.newpassword.value == formName.newpassword.value) {
+      if(formName.newpassword.value < 6) {
+        alert("Error: Password must contain at least six characters!");
+        formName.newpassword.focus();
+        return false;
+      }
+      if(formName.newpassword.value == formName.username.value) {
+          document.getElementById("newpassword_label").innerHTML = '*Password must be different from Username!';
+//        alert("Error: Password must be different from Username!");
+        formName.newpassword.focus();
+        return false;
+      }
+      re = /[0-9]/;
+      if(!re.test(formName.newpassword.value)) {
+          document.getElementById("newpassword_label").innerHTML = '*password must contain at least one number (0-9)!';
+//        alert("Error: password must contain at least one number (0-9)!");
+       formName.newpassword.focus();
+        return false;
+      }
+      re = /[a-z]/;
+      if(!re.test(formName.newpassword.value)) {
+          document.getElementById("newpassword_label").innerHTML = '*password must contain at least one lowercase letter (a-z)!';
+//        alert("Error: password must contain at least one lowercase letter (a-z)!");
+        formName.newpassword.focus();
+        return false;
+      }
+      re = /[A-Z]/;
+      if(!re.test(formName.newpassword.value)) {
+          document.getElementById("newpassword_label").innerHTML = '*password must contain at least one uppercase letter (A-Z)!';
+//        alert("Error: password must contain at least one uppercase letter (A-Z)!");
+        formName.newpassword.focus();
+        return false;
+      }
+    }  
+        else
+        {
+            document.getElementById("newpassword_label").innerHTML = '';
+        }
+
+
+        
 
     }
 </script>

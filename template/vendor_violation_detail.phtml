@@ -1,22 +1,12 @@
 <div style="height: 100%;width: 100%;">
     <div style="clear:  left; float: left; width:43%;  padding-top:20px;"> 
-        <div class="top-paneltab"> Products Violated By <?php if (isset($_SESSION['vviolationTitle'])) echo $_SESSION['vviolationTitle']; ?> </div>
-
+        <div class="top-paneltab"> Products Violated By <?php   echo $dealer_name; ?> </div>
         <div class="cleaner1" >
-
         </div>
-
-
-        <?php if (isset($_GET['searchproduct'])) : ?>
-             <div class="divt22">
-                <button href="javascript:void(0);" class="btn-search"  onclick="show_all2();" >Reset Search</button>
-            </div>
-        <?php endif; ?>
-
         <div style="align: right; float: right">
-            <a target="_blank" href="./export/export_vendor2_csv.php" id="exportv"> <img src="./images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
-            <a target="_blank" href="./export/export_vendor2_pdf.php" id="exportv"> <img src="./images/PDF.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
-            <a target="_blank" href="./export/export_vendor2_xls.php" id="exportv"> <img src="./images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
+            <a  href="javascript:void(0);" onclick="export2file('vendor2','csv','dealer-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportv"> <img src="../images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
+            <a href="javascript:void(0);" onclick="export2file('vendor2','pdf','dealer-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportv"> <img src="../images/pdf.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
+            <a href="javascript:void(0);" onclick="export2file('vendor2','xls','dealer-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportv"> <img src="../images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
 
         </div>
 
@@ -24,7 +14,7 @@
             <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;"> Show </div>
             </div>
-            <select name="vendor2-limitv2" class="results-per-page2 dropdown"  >
+            <select name="vendor2-limitv2" class="results-per-page2 dropdown limit-dealer-grid"  >
 
                 <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
                 <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
@@ -49,7 +39,7 @@
         <div>
 
 
-            <table class="GrayBlack" align="left" style="width: 100%;">
+            <table class="GrayBlack dealer-grid" align="left" style="width: 100%;">
 
                 <tbody>
                     <tr > 

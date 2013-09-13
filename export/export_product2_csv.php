@@ -1,28 +1,27 @@
 <?php
 
-include_once './db_class.php';
+
+/*GLOBAL*/
+/*configuration*/
+setlocale(LC_MONETARY, 'en_US');
+include_once '../db.php';
+include_once '../db_login.php';
+
+/*Login check*/
+if (!isset($_SESSION['username']))
+	header('Location: login.php');
+
+/*configuration*/
+include_once '../db_class.php';
+$db_resource = new DB ();
 include_once '../toMoney.php';
-include_once './db.php';
-session_start();
+
+
 $sku="";
 $product_id="";
  $conProductExport="";
-if(isset($_SESSION['pviolationTitle']))
-{
-$sku=$_SESSION['pviolationTitle'];
-}
-
-
-
-if(isset($_POST['listp']))
- $_SESSION['listp'] = $_POST['listp'];
-if(isset($_POST['selectallproduct']))
- $_SESSION['selectallproduct'] = $_POST['selectallproduct'];
-
-if (isset($_SESSION['product_id'])) {
-    $product_id = $_SESSION['product_id'];
-}
-//echo $_SESSION['selectallproduct'];
+ 
+  
 //data collection
 $db_resource = new DB ();
 

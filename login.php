@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('America/New_York');
 include_once 'db_login.php';
+include_once 'db.php';
 include_once 'db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 if (isset($_GET['action']) && $_GET['action'] == 'logout')
@@ -72,9 +73,10 @@ if (isset($_POST['login']))
                 $_SESSION['curent_login'] = date('Y-m-d H:i:s');
                 $user_id = $_SESSION['us_id'];
                 $current_date = $_SESSION['curent_login'];
-                $sql1 = mysql_query("UPDATE admin_users SET last_login = '$current_date' WHERE user_id = '$user_id'");
+                $sql1 = mysql_query("UPDATE admin_users SET last_login = '$current_date' WHERE user_id = $user_id");
                 if(!$sql1)
                     {
+                    $_SESSION['errerr']='err';
                     echo 'error';
                     }
                 if ($_POST['rememberme'] == "on")
