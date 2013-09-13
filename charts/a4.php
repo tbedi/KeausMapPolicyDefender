@@ -1,4 +1,4 @@
- <?php
+<?php
 // collecting rows information
 $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
