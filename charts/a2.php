@@ -20,20 +20,20 @@ $sql = "SELECT  w.`name`,
     AND r.violation_amount>0.05
     and w.excluded = 0 
     GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT " . $limit;
-$result = mysql_query($sql);
+
+$row = $db_resource->GetResultObj($sql);
+//$result = mysql_query($sql);
 
 //getting sum
 $sum = 0;
-
 $items = array();
-
-while ($row = mysql_fetch_assoc($result)) {
-    $sum+=$row['violations'];
-    $item['name'] = preg_replace('/[^A-Za-z0-9. \-]/', '', $row['name']);
-    $item['violations'] = $row['violations'];
+$item = '';
+foreach ($row as $rows11) {
+    $sum+=$rows11->violations;
+    $item['name'] = preg_replace('/[^A-Za-z0-9. \-]/', '', $rows11->name);
+    $item['violations'] = $rows11->violations;
     array_push($items, $item);
 }
-
 
 //collecting rows information
 $chart_rows = array();

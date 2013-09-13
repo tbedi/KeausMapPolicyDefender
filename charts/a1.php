@@ -19,17 +19,14 @@ $sql = "SELECT  p.sku,
     WHERE r.crawl_id=" . $cmax  . "
         AND r.violation_amount>0.05  
         GROUP BY p.sku ORDER BY COUNT(p.sku) DESC LIMIT " . $limit;
-$result = mysql_query($sql);
-
-//getting sum
+$row = $db_resource->GetResultObj($sql);
 $sum = 0;
-
 $items = array();
-
-while ($row = mysql_fetch_assoc($result)) {
-    $sum+=$row['violations'];
-    $item['sku'] = $row['sku'];
-    $item['violations'] = $row['violations'];
+$item = '';
+foreach ($row as $rows11) {
+    $sum+=$rows11->violations;
+    $item['sku'] = preg_replace('/[^A-Za-z0-9. \-]/', '', $rows11->sku);
+    $item['violations'] = $rows11->violations;
     array_push($items, $item);
 }
 
