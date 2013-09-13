@@ -1,10 +1,12 @@
 
 <?php
 //getting last crawl
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-$result = mysql_query($sql);
-$last_crawl = mysql_fetch_assoc($result);
-
+$sql = "select id  from crawl  ORDER BY id DESC  LIMIT 1";
+$last_crawl = $db_resource->GetResultObj($sql);
+$cmax = '';
+foreach ($last_crawl as $date1) {
+    $cmax = $cmax . $date1->id;  //$cmax gives maxid of crawl
+}
 $limit = 10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
 $sql = "SELECT  w.`name`,
@@ -14,10 +16,10 @@ $sql = "SELECT  w.`name`,
     website w 
     ON
     r.website_id=w.id 
-    WHERE r.crawl_id=" . $last_crawl['id'] . "
-        AND r.violation_amount>0.05
-        and w.excluded = 0 
-        GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT " . $limit;
+    WHERE r.crawl_id=" . $cmax . "
+    AND r.violation_amount>0.05
+    and w.excluded = 0 
+    GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT " . $limit;
 $result = mysql_query($sql);
 
 //getting sum
@@ -28,11 +30,10 @@ $items = array();
 while ($row = mysql_fetch_assoc($result)) {
     $sum+=$row['violations'];
     $item['name'] = preg_replace('/[^A-Za-z0-9. \-]/', '', $row['name']);
-  //   $item['name'] = preg_replace("/[^a-zA-Z0-9. \-\s]/","", $row['name']);
-    
     $item['violations'] = $row['violations'];
     array_push($items, $item);
 }
+
 
 //collecting rows information
 $chart_rows = array();

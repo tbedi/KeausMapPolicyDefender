@@ -1,8 +1,11 @@
 <?php
 //getting last crawl
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-$result = mysql_query($sql);
-$last_crawl = mysql_fetch_assoc($result);
+$sql = "select id from crawl  ORDER BY id DESC  LIMIT 1";
+$last_crawl = $db_resource->GetResultObj($sql);
+$cmax = '';
+foreach ($last_crawl as $date1) {
+    $cmax = $cmax . $date1->id;  //$cmax gives maxid of crawl
+}
 
 $limit = 10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
@@ -13,7 +16,7 @@ $sql = "SELECT  p.sku,
     catalog_product_flat_1 p
     ON
     p.entity_id=r.product_id 
-    WHERE r.crawl_id=" . $last_crawl['id'] . "
+    WHERE r.crawl_id=" . $cmax  . "
         AND r.violation_amount>0.05  
         GROUP BY p.sku ORDER BY COUNT(p.sku) DESC LIMIT " . $limit;
 $result = mysql_query($sql);
