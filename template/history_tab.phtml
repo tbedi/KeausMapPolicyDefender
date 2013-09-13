@@ -1,4 +1,5 @@
 <script type="text/javascript">
+    //Calender dates pick up function
     window.onpageshow = function() {
         new JsDatePick({
             useMode: 2,
@@ -14,7 +15,9 @@
             
         });
     };
+    //Calender dates pick up function
 </script>
+<!--To show lagend part for violation amount color codes-->
 <div style=" align:center">
                      <div class="divt2222">
                             <img src="./images/red.png" value="red"/>  </div> <div class="divt2223">Violation amount > 10 </div> 
@@ -25,12 +28,14 @@
                         <div class="divt2222">
                             <img src="./images/blue.png" /></div> <div class="divt2223">Violation amount < 5 </div> 
 
-          
 </div>
+<!--To show lagend part for violation amount color codes-->
 <div style=" width: 100%; padding-top: 50px;" >
     
     <div style="clear:  left; float: left; width:60%; "> 
         <?php // echo $urls ?> 
+        
+<!--        Calender search-->
             <div class="divt2222">
                 <div style="padding-top:15px;"> From </div>
             </div>
@@ -48,7 +53,9 @@
             <div class="divt2222">
                 <input type="button" onclick="search();" class="btn-search" name="submit" value="Search" />
             </div>
+        <!--        Calender search-->
         
+<!--        Reset search-->
         <div class="divt2222">
             <form name="showall" action ="index.php?tab=violations-history" method="post">
                 <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search" style="width: 120px;" onclick="show_all();" >Reset Search</button>
@@ -56,12 +63,17 @@
               
             </form>
         </div>
+<!--        Reset search-->
        
+<!--Export div-->
         <div style="align: right; float: right ">
             <a   href="javascript:void(0);" onclick="export2file('history','csv','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/csv.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"  /></a>
             <a   href="javascript:void(0);" onclick="export2file('history','pdf','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/pdf.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888 "  /></a>
             <a   href="javascript:void(0);" onclick="export2file('history','xls','history-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','#inputFieldfrom','#inputFieldto');"  id="exporth"> <img src="../images/xls.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888"  /></a>
         </div>
+<!--Export div-->
+
+<!--Limit combo box-->
        <div class="results-per-page-block"  style="align: right; float: right ;padding-top: 10px; padding-right: 10px;">
            <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;">Show</div>
@@ -76,12 +88,15 @@
                 <div style="padding:5px; padding-top: 6px;"> Records</div>
             </div>
         </div>
+<!--Limit combo box-->
         <div>           
         </div>
         <div class="divtsp"></div>
         <div class="divtsp"></div>
        <div class="cleaner" style="padding-top: 15px; ">
         </div>
+        
+        
         <table class="GrayBlack history-grid"  align="left" style="width: 100%;">            
    <tbody>
                 <tr > 
@@ -185,7 +200,7 @@
          
 
                 <?php
-                foreach ($violators_array as $violator) {
+                foreach ($violators_array as $violator) { //set url links when select 
 
 
                  
@@ -205,6 +220,8 @@
                         $cell_id = "vioO";
                     else if ($violator->violation_amount >= 10)
                         $cell_id = "vioR";
+                    
+                    //set url links when select 
                     ?>
                     <tr>
                         <td>
@@ -243,19 +260,19 @@
 
        
         <?php
-        if (isset($_REQUEST['website_id'])) {
+        if (isset($_REQUEST['website_id'])) { 
             ?>
             <table>
                 <tr><td>
                         <div>
-    <?php include_once 'charts/a4.php'; ?>
+    <?php include_once 'charts/a4.php'; // display chart a4 ?>  
                         </div>
 
                     </td>
                 </tr>
                 <tr><td>
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-    <?php include_once 'charts/a5.php'; ?>
+    <?php include_once 'charts/a5.php'; // display chart a5 ?> 
                         </div>
 
                     </td>
@@ -268,7 +285,7 @@
             <table>
                 <tr><td>
                         <div>
-    <?php include_once 'charts/a3.php'; ?>
+    <?php include_once 'charts/a3.php'; // display chart a3 ?>
                         </div>
 
                     </td>
@@ -276,7 +293,7 @@
                 <tr><td>
 
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-    <?php include_once 'charts/a6.php'; ?>
+    <?php include_once 'charts/a6.php';  // display chart a6 ?>
                         </div>
                     </td>
                 </tr>
@@ -289,14 +306,14 @@
                 <tr><td>
 
                         <div style="clear:left; padding-top: 50px;padding-left: 6px; "> 
-    <?php include_once 'charts/a5.php'; ?>
+    <?php include_once 'charts/a5.php';  // display chart a5?>
                         </div>
 
                     </td>
                 </tr>
                 <tr><td>
                         <div style="float: left; padding-top:  50px; padding-left: 6px;"> 
-    <?php include_once 'charts/a6.php'; ?>
+    <?php include_once 'charts/a6.php'; // display chart a6 ?>
                         </div>
                     </td>
                 </tr>
