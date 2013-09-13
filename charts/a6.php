@@ -31,8 +31,10 @@ foreach ($last_30_days as $day) {
     array_push($chart_vendor_rows, $chart_row);
     $dealers_count_sql="SELECT SQL_CALC_FOUND_ROWS cr.website_id FROM crawl_results cr INNER JOIN  website w ON w.id=cr.website_id AND w.excluded=0   WHERE  cr.date_created='".date("Y-m-d",strtotime($day->date_executed))."' AND cr.violation_amount > 0.05 ".$where." GROUP BY    cr.website_id ORDER BY cr.date_created DESC LIMIT 1";
     $db_resource->GetResultObj($dealers_count_sql);
+
     $total_dealers_of_the_day_sql = " SELECT FOUND_ROWS() as total;";
     $total_dealers = $db_resource->GetResultObj($total_dealers_of_the_day_sql);
+
     $total_dealers = $total_dealers[0]->total;
     array_push($chart_violation_amount_rows, $total_dealers);
 }

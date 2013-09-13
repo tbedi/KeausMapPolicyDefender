@@ -1,4 +1,5 @@
 <?php 
+
 /*GLOBAL*/
 /*configuration*/
 require_once('tcpdf/tcpdf.php');
@@ -85,6 +86,7 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_re
 				AND	crawl_results.violation_amount>0.05
 				AND website.excluded=0
 				" . $order_by . "$limithcon " ;
+
 
 $violators_array = $db_resource->GetResultObj($sql);
 

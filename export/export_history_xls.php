@@ -1,4 +1,5 @@
 <?php
+
  /*GLOBAL*/
  /*configuration*/
  setlocale(LC_MONETARY, 'en_US');
@@ -84,6 +85,7 @@
 				AND website.excluded=0
 				" . $order_by . "$limithcon " ;
  
+
  $violators_array = $db_resource->GetResultObj($sql);
  
  /*XLS*/

@@ -1,4 +1,5 @@
 <?php
+
 /*GLOBAL*/
 /*configuration*/
 setlocale(LC_MONETARY, 'en_US');
@@ -13,6 +14,7 @@ if (!isset($_SESSION['username']))
 include_once '../db_class.php';
 $db_resource = new DB ();
 include_once '../toMoney.php';
+
 /*GLOBAL*/
 
 
