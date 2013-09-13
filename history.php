@@ -62,8 +62,7 @@ if (isset($_REQUEST['website_id'])) {
                  
                 $wherep = "  AND  sku  = '" .  $_GET['product'] . "'";
            }
-
-
+        
 $_SESSION['limit'] = $limit;
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
     $limit = $_GET['limit'];
@@ -303,6 +302,10 @@ include_once 'template/history_tab.phtml';
 ?>
 
 <?php
+
+
+
+
 
 
 if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
