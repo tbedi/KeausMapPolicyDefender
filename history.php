@@ -66,12 +66,25 @@ if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
 {
 	$searched_sku=(isset($_REQUEST['sku']) ? $_REQUEST['sku'] : "" );
     $searched_dealer=(isset($_REQUEST['dealer']) ? $_REQUEST['dealer'] : "" );
+   
     
     if ($searched_sku)
 		$search_condition.=" AND sku = '".$searched_sku."' ";
     if ($searched_dealer)
     	$search_condition.=" AND website.name  LIKE '".$searched_dealer."%' ";    
 }
+
+
+ //// GET PID
+// if(isset($_REQUEST['sku'])){
+//    $get_pid="SELECT entity_id as product_id from catalog_product_flat_1 WHERE sku = '".$_REQUEST['sku'] ."' ";
+//	            $pid=$db_resource->GetResultObj($get_pid);
+//	            $product_id=$pid[0]->product_id;
+//                    echo $get_pid;
+//                    echo $product_id;
+//                   
+// }    
+/////
 /* Search Condition*/
  /*Add selected ids */
 
@@ -128,7 +141,11 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { /
     $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
 }
 
-
+////GET PID
+//if (isset($_GET['sku']))
+//{
+//     $additional_params="&sku=".$_GET['sku']."&product_id=".$product_id;
+//}
 if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
     $additional_params.="&product_id=" . $_GET['product_id'];
 }

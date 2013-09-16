@@ -120,9 +120,9 @@
                             </a>
                         <?php } ?>
 
-                        <!-- <form name="productSearch" action="JavaScript:searchPro();" method="get"> -->
+                         <form name="productSearch" action="JavaScript:search();" method="get"> 
                             <input type="text" class="search search-sku" name="product" id="txtproduct" placeholder="Search SKU..." value="<?php if(isset($_GET['product'])){ echo $_GET['product'];} elseif(isset($_GET['sku'])){ echo $_GET['sku']; }?>" />
-                         <!--</form> -->
+                        </form> 
 
 
                     </td>	
@@ -207,7 +207,7 @@
                     $product_link = "?tab=violations-history&product_id=" . $violator->product_id;
                     if(isset($_GET['option']) and $_GET['option']=="show_dates")
                           $product_link.="&option=show_dates";                
-                    
+                     
 
 
                    
