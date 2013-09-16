@@ -6,6 +6,12 @@ $limitvcon="";
 $searchven="";
 //Declarations
 
+//search
+if (isset($_GET['searchproduct']))
+{
+   $searchven="  AND  sku  = '" .  $_GET['searchproduct'] . "'";
+}
+//search
 //pagination
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];
