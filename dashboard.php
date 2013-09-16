@@ -69,7 +69,7 @@ foreach ($dashh_array as $cur_dealer) {
 	array_push($newArray,$res);
 }
 /*top violations by dealer */
-/*Top Biolations by Sku*/
+/*Top violations by Sku*/
 $sqlc = "SELECT SQL_CALC_FOUND_ROWS catalog_product_flat_1.sku sku1, crawl_results.product_id, count(crawl_results.product_id) as currentcount
 		 FROM crawl_results
 		 INNER JOIN catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
@@ -197,7 +197,7 @@ $sqll = "SELECT website.name name, website.id
 $sql="SELECT website.name name, website.id
  FROM crawl_results r
  INNER JOIN website ON website.id=r.website_id		 		 
-WHERE r.crawl_id=47
+WHERE r.crawl_id= " . $last_crawl . "
 	 AND r.violation_amount>0.05
 	 AND website.excluded=0
 GROUP BY r.website_id";
@@ -205,7 +205,7 @@ GROUP BY r.website_id";
 $sqll = "SELECT website.name name, website.id 
  FROM crawl_results r
  INNER JOIN website ON website.id=r.website_id		 		
-WHERE r.crawl_id=46
+WHERE r.crawl_id=" . $previous_crawl_id . "
 	 AND r.violation_amount>0.05
 	 AND website.excluded=0
 GROUP BY r.website_id";
@@ -220,11 +220,10 @@ foreach ($dash6_array as $dash6) {
      $array[$dash6->id]=$dash6->name;
 }
 foreach ($dash7_array as $dash7) {
-     $array2[$dash6->id]=$dash7->name;
+     $array2[$dash7->id]=$dash7->name;
 }
 
-$resultstv = array_diff_key($array2, $array2);  
-$resultstrtv = array_diff_key($array, $array2);  
- 
+$resultstv = array_diff_key($array2, $array);  
+$resultstrtv = array_diff_key($array, $array2);
 include_once 'template/dashboard_tab.phtml';
 ?>
