@@ -137,9 +137,9 @@
                                 <img  style="float:right;"  src="images/arrow_<?php echo ( $order_field == "vendor" ? $direction : "asc" ); ?>_1.png" />
                             </a>
 <?php } ?>
-                      <!--   <form name="dealerSearch" action ="JavaScript:searchVen();" method="get"> -->
+                        <form name="dealerSearch" action ="JavaScript:search();" method="get"> 
                             <input type="text" class="search search-dealer" name="dealer" id="txtvendor" placeholder="Search Vendor..." value="<?php if(isset($_GET['dealer'])) echo $_GET['dealer']; elseif(isset($_GET['wname'])){ echo $_GET['wname']; }?>"/>
-                          <!--</form> -->
+                        </form> 
 
                     </td>	
                     <td>
