@@ -164,9 +164,10 @@ function exporttop() {
 		$(obj).parent().parent().find("input[type=hidden]").parent().children("a").html("Select All");
 	} 
 		
-   	 $(obj).parent().parent().parent().parent().parent().find("input[type=checkbox]").not('#'+$(obj).attr("id")).each(function() {  //up to GrayBlack   	   	  
-   	   	  if (checked) {
-   	   	   	$(this).removeProp("checked")
+   	 $(obj).parent().parent().parent().parent().parent().find("input[type=checkbox]").not('#'+$(obj).prop("id")).each(function() {  //up to GrayBlack   	   	  
+   	   	  
+         if (checked) {
+   	   	   	$(this).prop('checked', false);
    	   	  } else {
    	   	   	$(this).prop("checked", "checked");
    	   	  }
