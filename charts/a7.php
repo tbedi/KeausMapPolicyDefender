@@ -12,24 +12,22 @@ crawl ON crawl.id = crawl_results.crawl_id
 where
 crawl_results.violation_amount > 0.05
 and website.excluded = 0
-group by date_format(crawl.date_executed, '%Y-%m-%d')
-";
+group by date_format(crawl.date_executed, '%Y-%m-%d')";
+
 $dashchart_array = $db_resource->GetResultObj($sql4);
-//$result4 = mysql_query($sql4);
+
+// collecting rows information
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
 $chart_violation_amount2_rows = array();
+
 foreach ($dashchart_array as $dashch) {
-
-
-//while ($row = mysql_fetch_array($result4)) {
-
     $chart_row = strtotime($dashch->Date) * 1000;
     array_push($chart_vendor_rows, $chart_row);
     array_push($chart_violation_amount_rows, $dashch->skucount);
     array_push($chart_violation_amount2_rows, $dashch->dealercount);
 }
-//print_r($result1);
+
 $js_data_string_vendors = implode($chart_vendor_rows, ",");
 $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
@@ -38,14 +36,7 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
 <script>$(function() {
         $('#container').highcharts({
             colors: ['#058DC7', '#000000'],
-            chart: {
-//                 backgroundColor: {
-//                  linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
-//         stops: [
-//            [0, 'rgb(226, 226, 226)'],
-//            [1, 'rgb(167, 167, 167)']
-//         ]
-//      },           
+            chart: {           
                 type: 'areaspline'
             },
             title: {
@@ -101,9 +92,6 @@ $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
                             'Violation Count: ' + this.y;
                 }
             },
-//            credits: {
-//                enabled: false
-//            },
             plotOptions: {
                 areaspline: {
                     fillOpacity: 0.2
