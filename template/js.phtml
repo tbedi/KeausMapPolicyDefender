@@ -226,27 +226,17 @@ function exporttop() {
    /*New export function*/
        
  
- /// ????
-function searchPro(){
-var pro = document.getElementById("txtproduct").value;
- window.location ="index.php?tab=violations-history&product="+pro+"&"+ $.param(queryParameters);    
-}
-/// ????
-function searchVen(){
-var ven = document.getElementById("txtvendor").value;
- window.location ="index.php?tab=violations-history&dealer="+ven+"&"+ $.param(queryParameters);    
-}
-/// ????
+//Second grid search
 function searchProDetail(){
 var venDetail = document.getElementById("txtproductDetail").value;
  window.location ="index.php?tab=violations-history&"+ $.param(queryParameters)+"&searchvendor="+venDetail;
  }
  
-/// ???? 
+
  function searchVenDetail(){
 var proDetail = document.getElementById("txtvendorDetail").value;
  window.location ="index.php?tab=violations-history&"+ $.param(queryParameters)+"&searchproduct="+proDetail;
  }
-
+//Second grid search
 
 </script>

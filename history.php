@@ -149,9 +149,9 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { /
 if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
     $additional_params.="&product_id=" . $_GET['product_id'];
 }
-if (isset($_GET['action']) && $_GET['action']  && isset($_GET['product_id'])) { // search s
-    $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
-}
+//if (isset($_GET['action']) && $_GET['action']  && isset($_GET['product_id'])) { // search s
+//    $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
+//}
 /* For sorting using */
 
 

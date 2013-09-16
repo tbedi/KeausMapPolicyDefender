@@ -6,6 +6,15 @@ $searchpro="";
 //Declarations
 
 //pagination
+
+//search
+if (isset($_GET['searchvendor']))
+{
+   $searchpro="  AND  w.name   like '%". mysql_real_escape_string(trim($_GET["searchvendor"])) . "%' ";
+        
+}    
+//search
+
 $limit = 15;
 if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
 	$limit=$_GET['limit2'];
@@ -57,6 +66,7 @@ $sql = "SELECT  SQL_CALC_FOUND_ROWS distinct w.`name` as vendor ,date_format(c.d
     WHERE  r.violation_amount>0.05  " .$searchpro. " AND r.product_id='" . $product_id . "' and w.excluded=0  " . $where . " 
    " . $order_by . " $limitpcon "  ;
  
+
 $violators_array=$db_resource->GetResultObj($sql);
 
 //pagination

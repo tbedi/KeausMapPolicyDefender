@@ -2,6 +2,11 @@
     <div style="clear:  left; float: left; width:43%; padding-top:20px;"> 
         <div class="top-paneltab" style="padding-top:20px;"> Dealers Violated  <?php echo $sku; ?> </div>
         <div class="cleaner1" > </div>
+         <?php if (isset($_GET['searchvendor'])) :?>
+                        <div class="divt22">
+                <button href="javascript:void(0);" class="btn-search"   style="width: 120px;" onclick="show_all2();" >Reset Search</button>
+            </div>
+        <?php endif; ?>
         <!--Export div-->
          <div style="align: right; float: right">
             <a href="javascript:void(0);" onclick="export2file('product2','csv','product-sku-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportp"> <img src="../images/csv.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
