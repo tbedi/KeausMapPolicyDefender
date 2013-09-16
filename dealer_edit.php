@@ -1,13 +1,14 @@
-<?php include_once 'db_login.php';
+<?php
+include_once 'db_login.php';
 $title = "Kraus Price Defender | Dealer_edit.php";
 ?>
-<?php include_once 'template/head.phtml'; ?>
+    <?php include_once 'template/head.phtml'; ?>
 <body id="dealers_page" >
 <?php include_once 'template/header.phtml'; ?>
     <div id="wrapper" align="center" >  
         <div class="main-content" align="center" >
             <div style="margin:0px;   padding:0px" align="center"> 
-              <div class="top-panel">Edit Dealers</div>
+                <div class="top-panel">Edit Dealers</div>
                 <div id="tabscontent" align="center">
 
                     <div class="tabpage recent" id="tabpage_1">
@@ -18,11 +19,11 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                                 $sqld = "select * from website where name = '$name'"; //retrive data from database
                                 $row = $db_resource->GetResultObj($sqld);
                                 if (count($row) > 0) {
-                               $id = $row[0]->id;
-                                $name = $row[0]->name;
-                                $domain = $row[0]->domain;
-                                $date_created = $row[0]->date_created;
-                                $excluded = $row[0]->excluded;
+                                    $id = $row[0]->id;
+                                    $name = $row[0]->name;
+                                    $domain = $row[0]->domain;
+                                    $date_created = $row[0]->date_created;
+                                    $excluded = $row[0]->excluded;
                                 }
                                 ?> 
                                 <table align="center">
@@ -57,7 +58,7 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                                                 Excluded:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </td>
                                             <td>
-                                                <input type="checkbox" name="excluded" size="40" value="<?php echo $excluded; ?>" <?php if($excluded!= 0) echo "checked"; ?> style="padding:5px;"/>
+                                                <input type="checkbox" name="excluded" size="40" value="<?php echo $excluded; ?>" <?php if ($excluded != 0) echo "checked"; ?> style="padding:5px;"/>
                                             </td>
                                         </tr>
                                         <tr> 

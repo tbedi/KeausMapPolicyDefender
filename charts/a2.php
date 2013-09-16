@@ -22,7 +22,6 @@ $sql = "SELECT  w.`name`,
     GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT " . $limit;
 
 $row = $db_resource->GetResultObj($sql);
-//$result = mysql_query($sql);
 
 //getting sum
 $sum = 0;
