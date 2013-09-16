@@ -126,7 +126,7 @@ foreach ($dashc_array as $cur_product) {
 	array_push($viosku,$res);
 }
  
-/*Top Biolations by Sku*/
+/*Top violations by Sku*/
 //violations amount by sku query
 
 $sql3 = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id, crawl_results.violation_amount as violation_amount

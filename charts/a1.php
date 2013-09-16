@@ -20,7 +20,6 @@ $result = mysql_query($sql);
 
 //getting sum
 $sum = 0;
-
 $items = array();
 
 while ($row = mysql_fetch_assoc($result)) {
@@ -40,7 +39,6 @@ foreach ($items as $product) {
 }
 
 $js_data_string = implode($chart_rows, ",");
-//print_r($js_data_string);
 ?>
 <script type="text/javascript">
     $(function() {

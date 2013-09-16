@@ -1,7 +1,6 @@
 
 <?php
 //getting last crawl
-
 $sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
 $result = $db_resource->GetResultObj($sql);
 $last_crawl = $result[0]->id;
@@ -42,7 +41,6 @@ foreach ($items as $product) {
 }
 
 $js_data_string = implode($chart_rows, ",");
-//print_r($js_data_string);
 ?>
 <script type="text/javascript">
     $(function() {
