@@ -1,9 +1,7 @@
 <script type="text/javascript">
 
-
-
-    /* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
-    function check_for_search_params() {
+/* Function removes search params to prevent overlay on other tab. Using for limit,pagination*/
+function check_for_search_params() {
         if (queryParameters['tab'] != selected_tab) {
             delete  queryParameters['action'];
             delete queryParameters['field'];
@@ -11,11 +9,8 @@
         }
     }
 
-
-
-
-    /*product_violation_tab.phtml*/
-    function exporttop() {
+/*product_violation_tab.phtml*/
+function exporttop() {
         var mode = $("#exportp").val();
         queryParameters['tab'] = "violation-by-product";
         if (mode)
@@ -38,10 +33,10 @@
         queryParameters['tab'] = selected_tab;
 
 		if (date_from) {
-			 queryParameters['from'] = date_from;
+			 queryParameters['from'] = $.trim(date_from);
 		}
 		if (date_to) {
-			 queryParameters['to'] = date_to;
+			 queryParameters['to'] =  $.trim(date_to);
 		}
         
 		if (value_sku) {
@@ -63,10 +58,6 @@
         location.search = '?' + $.param(queryParameters);
     }
     /*Common search function*/
-
-
-
-
 
     /*Show all common method*/
     function show_all() {
@@ -96,9 +87,7 @@
         location.search = '?' + $.param(queryParameters);
  }
 
- 
-
-    /*Limits functions*/
+/*Limits functions*/
     $(document).ready(function() {
         $('.results-per-page').each(function() {
             $(this).change(function() {
@@ -160,74 +149,7 @@
     }
     /*Global sorting links*/
     /*product_violation_tab.phtml*/
-
-    /*product_violation_detail.phtml*/
-    function exporttop2() {
-        var mode = $("#exportp2").val();
-        var url_options = window.location.search.substring(1);
-
-        if (url_options.length)
-            url_options = '?' + url_options;
-
-
-        if (mode)
-            open("export/export_product2_" + mode + ".php" + url_options);
-    }
-    /*product_violation_detail.phtml*/
-
-
-    /*vendor_violation_tab*/
-    function exporttov() {
-        var mode = $("#exportv").val();
-        var url_options = window.location.search.substring(1);
-
-        if (url_options.length)
-            url_options = '?' + url_options;
-
-        if (mode)
-            open("export/export_vendor_" + mode + ".php" + url_options);
-    }
-    /*vendor_violation_tab*/
-
-    /*vendor_violation_detail*/
-    function exporttov2() {
-        var mode = $("#exportv2").val();
-        var url_options = window.location.search.substring(1);
-
-        if (url_options.length)
-            url_options = '?' + url_options;
-
-        if (mode)
-            open("export/export_vendor2_" + mode + ".php" + url_options);
-    }
-    /*vendor_violation_detail*/
-
-
-
-
-    /*history*/
-    function exporttoh()
-    {
-        var mode = $("#exporth").val();
-        var url_options = window.location.search.substring(1);
-
-        if (url_options.length)
-            url_options = '?' + url_options;
-
-        if (mode)
-            open("export/export_history_" + mode + ".php?" + $.param(queryParameters));
-       
-
-    }
-
-    function checkTextField(field) {
-        if (field.value == '') {
-            var $searchsku = 1;
-        }
-    }
-    /*history*/
-
-
+ 
     /* Select All Checkboxes common*/
     function select_all_checkboxes(obj){        
 
@@ -301,257 +223,25 @@
 	   open("export/export_"+tab+"_" + type + ".php?" + $.param(queryParameters));
    }
    /*New export function*/
-   	
-//checkbox history tab
-    function getValueUsingClassh() {
-        /* declare an checkbox array */
-        var chkArrayh = [];
-        var chkallh = [];
-        /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
-        $(".caseh:checked").each(function() {
-            chkArrayh.push($(this).val());
-        });
-
-        /* we join the array separated by the comma */
-        var selectedh;
-        selectedh = chkArrayh.join(',') + ",";
-        selectedh = selectedh.slice(0, -1);
-        if (selectedh.length > 1) {
-            // alert("You have selected " + selectedh);
-        } else {
-            // alert("Selected none");  
-            selectedh = 0;
-        }
-
-        //////////
-
-        /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-        $("#checkboxlisth input:checked").each(function() {
-            chkallh.push($(this).val());
-            // var selectedallh= chkallh;
-        });
-//         alert(selectedh);
-         $.post('./export/export_history_csv.php', 'listh=' + selectedh, function(response) {
-//                     alert(response);
-                 });
-                   $.post('./export/export_history_pdf.php', 'listh=' + selectedh, function(response) {
-//                     alert(response);
-                 });
-                   $.post('./export/export_history_xls.php', 'listh=' + selectedh, function(response) {
-//                     alert(response);
-                 });
-
-         
-
-
-
-    }
+       
  
-
-/////History end
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//check product details
-
-//check all product details
-    $(function() {
-
-        // add multiple select / deselect functionality
-        $("#selectallp").click(function() {
-            $('.casep').prop('checked', this.checked);
-        });
-
-        // if all checkbox are selected, check the selectall checkbox
-        // and viceversa
-        $(".casep").click(function() {
-
-            if ($(".casep").length == $(".casep:checked").length) {
-                $("#selectallp").prop("checked", "checked");
-            } else {
-                $("#selectallp").removeProp("checked");
-            }
-
-        });
-
-    });
-
- 
-    $(document).ready(function() {
-        $("#buttonClassp,#buttonClassp,#buttonClassp,#checkboxlistp,#casep,#exportp").click(function() {
-            getValueUsingClassp();
-        });
-    });
-//checkbox product details
-    function getValueUsingClassp() {
-        /* declare an checkbox array */
-        var chkArrayp = [];
-        var chkallp = [];
-        /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
-        $(".casep:checked").each(function() {
-            chkArrayp.push($(this).val());
-        });
-
-        /* we join the array separated by the comma */
-        var selectedp;
-        selectedp = chkArrayp.join(',') + ",";
-        selectedp = selectedp.slice(0, -1);
-        if (selectedp.length > 1) {
-            // alert("You have selected " + selectedh);
-        } else {
-            // alert("Selected none");  
-            selectedp = 0;
-        }
-
-        //////////
-
-        /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-        $("#checkboxlistp input:checked").each(function() {
-            chkallp.push($(this).val());
-        });
-
-//alert(selectedp);
-
-        $.post('./export/export_product2_csv.php', 'listp=' + selectedp, function(response) {
-//                     alert(response);
-                });
-                $.post('./export/export_product2_pdf.php', 'listp=' + selectedp, function(response) {
-//                    alert(response);
-                });
-                $.post('./export/export_product2_xls.php', 'listp=' + selectedp, function(response) {
-//                    alert(response);
-                });
-
-
-
-    }
-
-    $('.selectallrecP').click(function() {
-        window.location.href = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&selectallproduct=1';
-        delete queryParameters['selectallproduct'];
-        delete queryParameters['listp'];
-
-    });
-
-
-///////product details end
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//check vendor details
-
-//check all vendor details
-    $(function() {
-
-        // add multiple select / deselect functionality
-        $("#selectallv").click(function() {
-            $('.casev').prop('checked', this.checked);
-        });
-
-        // if all checkbox are selected, check the selectall checkbox
-        // and viceversa
-        $(".casev").click(function() {
-
-            if ($(".casev").length == $(".casev:checked").length) {
-                $("#selectallv").prop("checked", "checked");
-            } else {
-                $("#selectallv").removeProp("checked");
-            }
-
-        });
-
-    });
-
-
-
-
-
-    $(document).ready(function() {
-        $("#buttonClassv,#buttonClasshv,#buttonClasshv,#checkboxlistv,#casev,#exportv").click(function() {
-         //   getValueUsingClassv();
-        });
-    });
-//checkbox vendor details
-    function getValueUsingClassv() {
-        /* declare an checkbox array */
-        var chkArrayv = [];
-        var chkallv = [];
-        /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
-        $(".casev:checked").each(function() {
-            chkArrayv.push($(this).val());
-        });
-
-        /* we join the array separated by the comma */
-        var selectedv;
-        selectedv = chkArrayv.join(',') + ",";
-        selectedv = selectedv.slice(0, -1);
-        if (selectedv.length > 1) {
-            // alert("You have selected " + selectedh);
-        } else {
-            // alert("Selected none");  
-            selectedv = 0;
-        }
-
-        //////////
-
-        /* look for all checkboes that have a parent id called 'checkboxlist' attached to it and check if it was checked */
-        $("#checkboxlistv input:checked").each(function() {
-            chkallv.push($(this).val());
-        });
-
-
-
-
-                $.post('./export/export_vendor2_csv.php', 'listv=' + selectedv, function(response) {
-//                     alert(response);
-                });
-                $.post('./export/export_vendor2_pdf.php', 'listv=' + selectedv, function(response) {
-//                    alert(response);
-                });
-                $.post('./export/export_vendor2_xls.php', 'listv=' + selectedv, function(response) {
-//                    alert(response);
-                });
-
-
-    }
-
-    $('.selectallrecV').click(function() {
-        window.location.href = 'index.php?tab=violations-history&' + $.param(queryParameters) + '&selectallvendor=1';
-        delete queryParameters['selectallvendor'];
-        delete queryParameters['listv'];
-
-    });
-    delete queryParameters['selectallvendor'];
-    delete queryParameters['listv'];
-
-    delete queryParameters['selectallproduct'];
-    delete queryParameters['listp'];
-
-    delete queryParameters['selectallhistory'];
-    delete queryParameters['listh'];
-
-
-
-///// vendor details end
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+ /// ????
 function searchPro(){
 var pro = document.getElementById("txtproduct").value;
- window.location ="index.php?tab=violations-history&product="+pro+"&"+ $.param(queryParameters);
-    
-
+ window.location ="index.php?tab=violations-history&product="+pro+"&"+ $.param(queryParameters);    
 }
+/// ????
 function searchVen(){
 var ven = document.getElementById("txtvendor").value;
- window.location ="index.php?tab=violations-history&dealer="+ven+"&"+ $.param(queryParameters);
-    
-
+ window.location ="index.php?tab=violations-history&dealer="+ven+"&"+ $.param(queryParameters);    
 }
+/// ????
 function searchProDetail(){
 var venDetail = document.getElementById("txtproductDetail").value;
  window.location ="index.php?tab=violations-history&"+ $.param(queryParameters)+"&searchvendor="+venDetail;
  }
+ 
+/// ???? 
  function searchVenDetail(){
 var proDetail = document.getElementById("txtvendorDetail").value;
  window.location ="index.php?tab=violations-history&"+ $.param(queryParameters)+"&searchproduct="+proDetail;

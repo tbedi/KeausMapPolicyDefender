@@ -1,4 +1,4 @@
- <?php
+<?php
 // collecting rows information
 $chart_vendor_rows = array ();
 $chart_violation_amount_rows = array ();
@@ -6,6 +6,7 @@ $chart_violation_amount_rows = array ();
 $name="";
 if (isset($_REQUEST['website_id']) )
 {       
+
 	$name_sql="SELECT name from website  WHERE id=".$_REQUEST['website_id'];
 	$name=$db_resource->GetResultObj($name_sql);
 	$name=$name[0]->name;  

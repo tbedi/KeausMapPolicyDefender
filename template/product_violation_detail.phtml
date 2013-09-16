@@ -2,12 +2,13 @@
     <div style="clear:  left; float: left; width:43%; padding-top:20px;"> 
         <div class="top-paneltab" style="padding-top:20px;"> Dealers Violated  <?php echo $sku; ?> </div>
         <div class="cleaner1" > </div>
+        <!--Export div-->
          <div style="align: right; float: right">
-            <a href="javascript:void(0);" onclick="export2file('product2','csv','product-sku-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportp"> <img src="../images/CSV.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
+            <a href="javascript:void(0);" onclick="export2file('product2','csv','product-sku-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');" id="exportp"> <img src="../images/csv.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
             <a href="javascript:void(0);" onclick="export2file('product2','pdf','product-sku-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');"  id="exportp"> <img src="../images/pdf.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
-            <a href="javascript:void(0);" onclick="export2file('product2','xls','product-sku-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');"  id="exportp"> <img src="../images/XLS.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
+            <a href="javascript:void(0);" onclick="export2file('product2','xls','product-sku-grid', '<?php echo $order_field;?>','<?php echo $direction;?>','','');"  id="exportp"> <img src="../images/xls.png" style="height:40px; width: 40px; box-shadow: 4px 4px 5px #888888;"/></a>
         </div>
-
+<!--Export div-->
 
 
 
@@ -15,6 +16,8 @@
              <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;"> Show </div>
             </div>
+            
+            <!--Limit combo box-->
             <select name="product2-limitp2" class="results-per-page2 dropdown limit-product-sku-grid"  >                
                 <option <?php echo ($limit == 15) ? "selected" : ""; ?> value="15">15</option>
                 <option  <?php echo ($limit == 25) ? "selected" : ""; ?> value="25">25</option>
@@ -25,17 +28,14 @@
                 <option  <?php echo ($limit == 500) ? "selected" : ""; ?> value="500">500</option>
                 <option  <?php echo ($limit == 1000) ? "selected" : ""; ?>  value="1000">1000</option>
             </select>
+            <!--Limit combo box-->
              <div class="divt2222">
                 <div style="padding:5px; padding-top: 6px;"> Records</div>
             </div>
         </div>
-
-
         <!-- table part -->
         <div class="cleaner1" >
-
-        </div>
-                          
+        </div>                          
                         <table class="GrayBlack product-sku-grid" align="left" style="width: 100%;">
 
                             <tbody >
@@ -43,10 +43,11 @@
                                     <td>
 
                                         <div id="checkboxlistp">
-                                            <input type="checkbox" id="selectallp" value="1"/>
+                                            <input type="checkbox" id="selectallp"  onclick="select_all_checkboxes(this);" value="1"/>
                                         </div>
                                         <div id="selectallrecPcontainer" style="padding-top: 5px;">
-                                            <a id="selectallrecP" href="#" class="selectallrecP" >Select all</a>
+                                            <a id="selectallrecP" href="javascript:void(0);" onclick="select_all(this);" class="selectallrecP" >Select all</a>
+                                            <input type="hidden" value="0" class="select_all_value">
                                         </div>
 
                                     </td>
@@ -65,10 +66,11 @@
                                         <?php } 
                                         if (count($violators_array) > 3 * 15) : 
                                         ?>
-                                        
+                                        <!--   Search -->
                                         <form name="productSearchDetail" action="JavaScript:searchProDetail();" method="get">
                                             <input type="text" class="search" name="productDetail" id="txtproductDetail" placeholder="Search Vendor..." value="<?php if(isset($_GET['searchvendor'])) echo $_GET['searchvendor'];?>"/>
                                         </form>
+                                        <!--  Search -->
                                          <?php endif; ?>
                                         
                                     </td>
@@ -158,7 +160,7 @@
         </div>
         <div  align="left" >
 
-            <?php echo $pagination_html; ?>
+            <?php echo $pagination_html; //pagination  ?>
         </div> 
          
       

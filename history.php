@@ -7,13 +7,13 @@ $limit = 15;
 $start = 0;
 
 // Product
-$product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);
-$website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);
+$product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);//get product id
+$website_id=(isset($_REQUEST['website_id']) ? $_REQUEST['website_id'] : 0);// get website id
  
-$_SESSION['limit'] = $limit;  //???
+$_SESSION['limit'] = $limit;  //storing limit in session to work with pagination n all
 
 if (isset($_GET['limit']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history' ) {
-    $limit = $_GET['limit'];
+    $limit = $_GET['limit']; //get limit param
 }
  
 
@@ -88,33 +88,7 @@ if ($product_id) {
      $search_condition.= "  AND  product_id  = " ." $product_id ". ""; 
 }
 /*Add selected ids */
-
- /* ?? *//*
-if (isset($_REQUEST['selectallhistory']))
-{
-     $_SESSION['selectallhistory'] = $_REQUEST['selectallhistory'];
-     //echo      $_SESSION['selectallRecent'];
-}
-/* ?? */
-/*
-if (isset($_REQUEST['listh']) ) 
-{
-    $_SESSION['listh'] = $_REQUEST['listh'];
-}
-if (isset($_REQUEST['selectallproduct']))
-{
-     $_SESSION['selectallproduct'] = $_REQUEST['selectallproduct'];
-     
-}
-/* ?? */
-/*
-if (isset($_REQUEST['listp']) ) 
-{
-    $_SESSION['listp'] = $_REQUEST['listp'];
-}*/
-
- 
-                           
+                          
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 			 	catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id, website.name as vendor,  crawl_results.vendor_price , crawl_results.map_price ,
@@ -128,7 +102,6 @@ $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_re
 				AND	crawl_results.violation_amount>0.05   
 				AND website.excluded=0  
 				" . $order_by . "$limithcon " ;
- 
 $violators_array = $db_resource->GetResultObj($sql);
 
 
@@ -174,7 +147,7 @@ include_once 'template/history_tab.phtml';
 
 <?php
 
-
+//get details or second grid if product or vendor selected
 if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
     include_once 'pviolation.php';
 }
@@ -183,6 +156,6 @@ if ($product_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") 
 if ($website_id && isset($_GET['tab']) && $_GET['tab'] == "violations-history") {
     include_once 'vviolation.php';
 }
-
+//get details or second grid if product or vendor selected
 
 ?>

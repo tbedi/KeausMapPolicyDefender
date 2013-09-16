@@ -1,11 +1,8 @@
 <?php
 //getting last crawl
-$sql = "select id from crawl  ORDER BY id DESC  LIMIT 1";
-$last_crawl = $db_resource->GetResultObj($sql);
-$cmax = '';
-foreach ($last_crawl as $date1) {
-    $cmax = $cmax . $date1->id;  //$cmax gives maxid of crawl
-}
+$sql = "SELECT id, date_executed  FROM crawl  ORDER BY id DESC  LIMIT 1";
+$result = $db_resource->GetResultObj($sql);
+$last_crawl = $result[0]->id;
 
 $limit = 10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
@@ -16,17 +13,20 @@ $sql = "SELECT  p.sku,
     catalog_product_flat_1 p
     ON
     p.entity_id=r.product_id 
-    WHERE r.crawl_id=" . $cmax  . "
+    WHERE r.crawl_id=" . $last_crawl['id'] . "
         AND r.violation_amount>0.05  
         GROUP BY p.sku ORDER BY COUNT(p.sku) DESC LIMIT " . $limit;
-$row = $db_resource->GetResultObj($sql);
+$result = mysql_query($sql);
+
+//getting sum
 $sum = 0;
+
 $items = array();
-$item = '';
-foreach ($row as $rows11) {
-    $sum+=$rows11->violations;
-    $item['sku'] = preg_replace('/[^A-Za-z0-9. \-]/', '', $rows11->sku);
-    $item['violations'] = $rows11->violations;
+
+while ($row = mysql_fetch_assoc($result)) {
+    $sum+=$row['violations'];
+    $item['sku'] = $row['sku'];
+    $item['violations'] = $row['violations'];
     array_push($items, $item);
 }
 

@@ -1,53 +1,46 @@
 <?php 
-require_once('./tcpdf/tcpdf.php');
-include_once './db_class.php';
-include_once '../toMoney.php';
-include_once './db.php';
+/**GLOBAL*/
+/*configuration*/
+setlocale(LC_MONETARY, 'en_US');
+include_once '../db.php';
+include_once '../db_login.php';
+require_once('tcpdf/tcpdf.php');
+/*Login check*/
+if (!isset($_SESSION['username']))
+	header('Location: login.php');
 
-session_start();
-  $conProductExport="";
- $sku="";
-if(isset($_SESSION['pviolationTitle']))
-{
-$sku=$_SESSION['pviolationTitle'];
-}
-
-
-
-
-
-
-$product_id = $_REQUEST['product_id'];
-
-if(isset($_POST['listp']))
- $_SESSION['listp'] = $_POST['listp'];
-if(isset($_POST['selectallproduct']))
- $_SESSION['selectallproduct'] = $_POST['selectallproduct'];
-
-if (isset($_SESSION['product_id'])) {
-    $product_id = $_SESSION['product_id'];
-}
-//echo $_SESSION['selectallproduct'];
-//data collection
+/*configuration*/
+include_once '../db_class.php';
 $db_resource = new DB ();
+include_once '../toMoney.php';
+/*GLOBAL*/
+/*Prepare values for grid*/
+$product_id =(isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : 0);//get product id
+//Declarations
+$where = "";
+$limitpcon="";
+$searchpro="";
+//Declarations
 
+//pagination
+$limit = 15;
+if (isset($_GET['limit2'])  && isset($_GET['tab']) && $_GET['tab']=='violations-history' ) {
+	$limit=$_GET['limit2'];
+	$_GET['page2']=1;
+}
 
-if (isset( $_SESSION['listp']) and $_SESSION['listp']!=0 )
-{
-    $arrExportProduct=  $_SESSION['listp'];
-    
-    // print_r($arrExportRecent);
-    $conProductExport=" and r.id in (". $arrExportProduct. ")" ;
-    
+/*second grid pagination*/
+if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
+	$page = $_GET['page2']; //$page_param should have same value
+	$start = ($page - 1) * $limit;
+} else {
+	$start = 0;
+	$page = 1;
 }
- else {
-     $conProductExport="";
-}
-     if  (isset($_SESSION['selectallproduct']) and $_SESSION['selectallproduct']=='1')
-{
-    $limitpcon="";
-      $conProductExport="";
-}
+
+$limitpcon = "  LIMIT $start, $limit ";
+/*second grid pagination*/
+
 /* sorting */
 if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vproduct_2"  ) {
 	$direction =$_GET['dir'];
@@ -63,29 +56,42 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 	$_SESSION['sort_vproduct_2_dir'] = "desc";
 	$_SESSION['sort_vproduct_2_field'] = "violation_amount";
 }
- 
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
-
-
-$sql = "SELECT  distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
+/* Rows conditions*/
+if (isset($_REQUEST['row_ids'])) {
+	if  ($_REQUEST['row_ids']=="all")
+		$limitpcon="";
+	if  ($_REQUEST['row_ids']!="all" && $_REQUEST['row_ids']!="limit") {
+		$searchpro.=" AND r.id IN (".$_REQUEST['row_ids'].")";
+		$limitpcon="";
+	}
+}
+/*Rows conditions*/
+$sql = "SELECT  SQL_CALC_FOUND_ROWS distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
     r.violation_amount as violation_amount,r.id as id,
     w.id as website_id,
     r.vendor_price as vendor_price,
-    cast(r.map_price as decimal(10,2)) as map_price,
+    r.map_price ,
     r.website_product_url,
     p.sku as sku
     FROM crawl_results  r
     inner join crawl c on c.id=r.crawl_id
     INNER JOIN website w ON r.website_id=w.id
-    INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id  AND p.entity_id='" . $product_id . "'
-    where r.violation_amount>0.05  and w.excluded=0  " . $conProductExport . " 
-   " . $order_by   ;
- 
+    INNER JOIN catalog_product_flat_1 p ON p.entity_id=r.product_id
+    WHERE  r.violation_amount>0.05  " .$searchpro. " AND r.product_id='" . $product_id . "' and w.excluded=0  " . $where . "
+   " . $order_by . " $limitpcon "  ;
+
 $violators_array=$db_resource->GetResultObj($sql);
-//print_r($sql);
 
+/*CSV ONLY*/
+/*getting sku*/
+$name_sql="SELECT sku from catalog_product_flat_1 WHERE entity_id=".$_REQUEST['product_id'];
+$name=$db_resource->GetResultObj($name_sql);
+$GLOBALS['sku']=$name[0]->sku;   
+/*getting sku*/
 
+/*PDF*/
 
 
 class Bshree extends TCPDF {
@@ -102,11 +108,10 @@ public $html;
         // Title
           if (count($this->pages) === 1) { // Do this only on the first page
                $this->Image($image_file, 15, 4, 30, '', '', '', '', false, 300, '', false, false, 0, false, false, false);
-               
-                $sku = $_SESSION['pviolationTitle'];
+                            
                $html .= '
                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-                    Dealers Violated by '.$sku.'
+                    Violation History for '.$GLOBALS['sku'] .'
                 ';            
             }
 
@@ -206,8 +211,8 @@ table.border{background:#e0eaee;margin:1px auto;padding:4px;}
       <table class="border1"> 
     <tr>
    
-         <td style="width:250px">Dealers </td>    
-         <td style="width:85px">Dealers Price</td>    
+         <td style="width:250px">Dealer</td>    
+         <td style="width:85px">Dealer Price</td>    
          <td style="width:85px">Map Price</td>    
          <td style="width:85px">Violation Amount</td>   
          <td style="width:90px">Date</td>   
@@ -220,9 +225,9 @@ foreach ($violators_array as $violators_array ){
 	 
 	<tr>
             <td style="width:250px">{$violators_array->vendor}</td>
-            <td style="width:85px"> $ {$violators_array->vendor_price}</td>
-            <td style="width:85px"> $ {$violators_array->map_price}</td>
-            <td style="width:85px"> $ {$violators_array->violation_amount}</td>
+            <td style="width:85px">\${$violators_array->vendor_price}</td>
+            <td style="width:85px">\${$violators_array->map_price}</td>
+            <td style="width:85px">\${$violators_array->violation_amount}</td>
               <td style="width:90px">{$violators_array->date_executed}</td>
          
    </tr>
@@ -244,6 +249,6 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 ob_clean();
-$pdf->Output("Dealers_Violated_".$sku.'-'.date('Y-m-d'), 'I');
+$pdf->Output("Dealers_Violated_".$GLOBALS['sku'].'-'.date('Y-m-d'), 'I');
 
 
