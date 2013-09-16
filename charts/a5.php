@@ -74,7 +74,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                     rotation: -90,
                     align: 'right',
                     style: {
-                        fontSize: '13px',
+                        fontSize: '11px',
                         fontFamily: 'Arial'
                     },
                     formatter: function() {
@@ -86,7 +86,7 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
                 title: {
                     text: 'Violations',
                     style: {
-                        fontSize: '13px',
+                        fontSize: '11px',
                         fontFamily: 'Arial',
                         fontWeight: 'regular'
                     },
@@ -125,4 +125,4 @@ if (!$result) {
     echo mysql_error();
 }
 ?>
-<div id="chart-a5" style="min-width: 530px; height: 350px; margin: 0 auto"></div>
+<div id="chart-a5" style="min-width: 530px; height: 300px; margin: 0 auto"></div>

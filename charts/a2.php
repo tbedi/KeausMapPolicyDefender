@@ -9,7 +9,7 @@ $last_crawl = $result[0]->id;
 $limit = 10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
 $sql = "SELECT  w.`name`,
-    COUNT(w.`name`) as violations 
+    COUNT(w.`name`) as violations,w.id  as wid
     FROM crawl_results  r 
     INNER JOIN
     website w 
@@ -31,6 +31,7 @@ foreach ($row as $rows11) {
     $sum+=$rows11->violations;
     $item['name'] = preg_replace('/[^A-Za-z0-9. \-]/', '', $rows11->name);
     $item['violations'] = $rows11->violations;
+     $item['id'] = $rows11->wid;
     array_push($items, $item);
 }
 
@@ -40,6 +41,7 @@ $chart_rows = array();
 foreach ($items as $product) {
     $chart_row = "['" . $product['name'] . "'," . round(100 * $product['violations'] / $sum, 2) . "]";
     array_push($chart_rows, $chart_row);
+    $product['id'];
 }
 
 $js_data_string = implode($chart_rows, ",");
@@ -78,6 +80,7 @@ $js_data_string = implode($chart_rows, ",");
                     }
                 }
             },
+          
             series: [{
                     type: 'pie',
                     name: 'Price violation by Dealers',
@@ -85,7 +88,7 @@ $js_data_string = implode($chart_rows, ",");
                         events: {
                           click: function(e) {
                              this.slice();                                                   
-                             location.href = "/index.php?tab=violations-history";                        
+                             location.href = "/index.php?tab=violations-history" ;
                              e.preventDefault();
                           }
                        }

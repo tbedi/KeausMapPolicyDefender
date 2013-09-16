@@ -3,7 +3,7 @@
 //$tableName = "crawl_results";
 //$targetpage = "index.php";
 
-$limit = 15;
+$limit = 20;
 $start = 0;
 
 // Product
