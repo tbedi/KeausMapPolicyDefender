@@ -50,13 +50,12 @@ $order_by = "order by " . $order_field . " " . $direction . " ";
 
 /* Pagination */
 if (isset($_GET['page']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
-   // echo $_GET['page'];
-    $page = mysql_escape_string($_GET['page']);
+     $page = mysql_escape_string($_GET['page']);
     $start = ($page - 1) * $limit;
-   // echo $start;
-} else {
-    $start = 0;
-    $page = 1;
+  } 
+else{
+       $page = 1;
+       $start = 0;
 }
 $limithcon = "  LIMIT $start, $limit ";
 /* Pagination */
