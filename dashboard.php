@@ -1,6 +1,8 @@
 <?php
 /*For other pages*/
-$date = "select date_executed  FROM crawl  ORDER BY id DESC  LIMIT 0,2"; //query for fetching current and previous date
+$date = "select date_executed FROM crawl group by date_format(date_executed, '%Y-%m-%d') ORDER BY id DESC LIMIT 0,2";
+//$date = "select date_executed  FROM crawl  ORDER BY id DESC  LIMIT 0,2"; //query for fetching current and previous date
+
 $datecp = $db_resource->GetResultObj($date); // Used in history.php
 /*For other pages*/
 /*Getting last Crawl Id*/
@@ -28,7 +30,7 @@ $sql = " SELECT SQL_CALC_FOUND_ROWS website_id, website.name name, count(crawl_r
  
 $dashh_array = $db_resource->GetResultObj($sql); //current array
 
-$sql1 = " SELECT FOUND_ROWS() as total;";
+$sql1 = "SELECT FOUND_ROWS() as total";
 $current_total_violations_by_dealer = $db_resource->GetResultObj($sql1);
 $current_total_violations_by_dealer = $current_total_violations_by_dealer[0]->total;
 
@@ -49,9 +51,6 @@ $sqld = "SELECT  website_id, count(crawl_results.website_id) countprev
 		 GROUP BY website_id, website.name";
  
 $dashh1_array = $db_resource->GetResultObj($sqld); //previous array
-
-
-
 $newArray=array();
 foreach ($dashh_array as $cur_dealer) {
 	$res=array();
@@ -85,7 +84,7 @@ $sqlc = "SELECT SQL_CALC_FOUND_ROWS catalog_product_flat_1.sku sku1, crawl_resul
 $dashc_array = $db_resource->GetResultObj($sqlc);
 
 
-$sql1 = " SELECT FOUND_ROWS() as total;";
+$sql1 = "SELECT FOUND_ROWS() as total";
 $current_total_violations_by_product = $db_resource->GetResultObj($sql1);
 $current_total_violations_by_product = $current_total_violations_by_product[0]->total;
 
@@ -127,8 +126,8 @@ foreach ($dashc_array as $cur_product) {
 }
  
 /*Top violations by Sku*/
-//violations amount by sku query
 
+//violations amount by sku query
 $sql3 = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id, crawl_results.violation_amount as violation_amount
 		 FROM website
 		 INNER JOIN prices.crawl_results ON prices.website.id = prices.crawl_results.website_id
@@ -175,25 +174,8 @@ foreach ($dash3_array as $dash3) {
 $resultst = array_diff_key($array2, $array);
 $resultstrt=array_diff_key($array, $array2);
 /*New & Old violations*/
-/*New & Old Dealers*/ //Not finished
-/*$sql = "SELECT website.name name, website.id
-		FROM website
-		INNER JOIN crawl_results ON website.id = crawl_results.website_id
-		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
-			AND crawl_results.crawl_id = " . $last_crawl . "
-			AND website.excluded = 0
-			AND crawl_results.violation_amount > 0.05
-		GROUP BY crawl_results.website_id ";
 
-$sqll = "SELECT website.name name, website.id
-		FROM website
-		INNER JOIN crawl_results ON website.id = crawl_results.website_id
-		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
-			AND crawl_results.crawl_id = " . $previous_crawl_id . "
-			AND website.excluded = 0
-			AND crawl_results.violation_amount > 0.05
-		GROUP BY crawl_results.website_id";
-*/
+/*New & Old Dealers*/ 
 $sql="SELECT website.name name, website.id
  FROM crawl_results r
  INNER JOIN website ON website.id=r.website_id		 		 
