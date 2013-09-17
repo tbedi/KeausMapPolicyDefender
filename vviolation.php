@@ -12,12 +12,16 @@ if (isset($_GET['searchproduct']))
    $searchven="  AND  sku  = '" .  $_GET['searchproduct'] . "'";
 }
 //search
+
+
 //pagination
 if (isset($_GET['limit2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
 	$limit=$_GET['limit2'];
         $_GET['page2']=1;  
 } 
- 
+ //pagination 
+
+
 /*second grid pagination*/
 if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-history') {
     $page = $_GET['page2']; //$page_param should have same value
@@ -28,6 +32,7 @@ if (isset($_GET['page2']) && isset($_GET['tab']) && $_GET['tab'] == 'violations-
 }
 $limitvcon = "  LIMIT $start, $limit ";
 /*second grid pagination*/
+
 
 /* sorting */
 if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_GET['grid']=="vvendor_2"  ) {
@@ -46,6 +51,7 @@ if ( isset($_GET['sort']) && isset($_GET['dir']) &&  isset($_GET['grid']) && $_G
 } 
 $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 /* sorting */
+
 
 $sql = "select SQL_CALC_FOUND_ROWS distinct crawl_results.website_id,date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 website.name as wname,crawl_results.id as id,
@@ -71,6 +77,7 @@ and website_id = $website_id " . $where .  $searchven. "
  
 $violators_array=$db_resource->GetResultObj($sql);
     
+
 /*Pagination*/
 $sql1 = " SELECT FOUND_ROWS() as total;";
 $total_pages = $db_resource->GetResultObj($sql1);
@@ -80,6 +87,7 @@ $page_param = "page2"; //variable used for pagination
 $pagination_html=$pagination->GenerateHTML($page,$total_pages,$limit,$page_param);
 
 /*Pagination*/
+
 
 /*For sorting using*/
 $additional_params = ""; //addtiion params to pagination url;

@@ -1,7 +1,6 @@
 <?php
 //pagination
-//$tableName = "crawl_results";
-//$targetpage = "index.php";
+
 
 $limit = 20;
 $start = 0;
@@ -73,7 +72,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
     if ($searched_dealer)
     	$search_condition.=" AND website.name  LIKE '".$searched_dealer."%' ";    
 }
-
+/* Search Condition*/
 
  //// GET PID
 // if(isset($_REQUEST['sku'])){
@@ -137,7 +136,7 @@ if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pa
 if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for website
     $additional_params.="&website_id=" . $_GET['website_id'];
 }
-if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { // search w
+if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { // search vendor
     $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
 }
 
@@ -149,7 +148,7 @@ if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { /
 if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
     $additional_params.="&product_id=" . $_GET['product_id'];
 }
-//if (isset($_GET['action']) && $_GET['action']  && isset($_GET['product_id'])) { // search s
+//if (isset($_GET['action']) && $_GET['action']  && isset($_GET['product_id'])) { // search sku
 //    $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
 //}
 /* For sorting using */
