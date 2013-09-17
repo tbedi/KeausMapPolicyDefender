@@ -33,13 +33,13 @@ $dashh_array = $db_resource->GetResultObj($sql); //current array
 $sql1 = "SELECT FOUND_ROWS() as total";
 $current_total_violations_by_dealer = $db_resource->GetResultObj($sql1);
 $current_total_violations_by_dealer = $current_total_violations_by_dealer[0]->total;
-
+ 
 $current_website_ids=array();
 foreach ($dashh_array as $dealer){
 	$current_website_ids[]=$dealer->website_id;
 }
 $current_website_ids=implode($current_website_ids,",");
-
+ 
 $sqld = "SELECT  website_id, count(crawl_results.website_id) countprev
 		 FROM website
 		 INNER JOIN crawl_results ON website.id = crawl_results.website_id
@@ -51,7 +51,7 @@ $sqld = "SELECT  website_id, count(crawl_results.website_id) countprev
 		 GROUP BY website_id, website.name";
  
 $dashh1_array = $db_resource->GetResultObj($sqld); //previous array
-$newArray=array();
+$newArray=array(); 
 foreach ($dashh_array as $cur_dealer) {
 	$res=array();
 	$res['website_id']=$cur_dealer->website_id;
