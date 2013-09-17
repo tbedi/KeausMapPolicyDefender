@@ -88,13 +88,13 @@ if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
 /* Search Condition*/
  /*Add selected ids */
 
- 
+ // condition fot get selected website id
 if ($website_id) {
     $website_id=mysql_real_escape_string($website_id); 
     $search_condition.= "  AND  website_id  = " ." $website_id ". ""; 
 }
  
- 
+  // condition fot get selected product id
 if ($product_id) {
     $product_id=mysql_real_escape_string($product_id); 
      $search_condition.= "  AND  product_id  = " ." $product_id ". ""; 
