@@ -51,7 +51,7 @@
     background-image: linear-gradient (to bottom, #B5DA11, #A9D200);
     background-repeat: repeat-x;
     border-radius: 3px 3px 3px 3px;
-    hight:14px;
+    hight:15px;
     width: 90px;
     padding:4px;
     cursor: pointer;
@@ -138,6 +138,13 @@
 	padding-right: 3px;
 	padding-left: 3px;
 	float: left;
+          
+}
+.divt222211 {
+	padding-right: 3px;
+	padding-left: 3px;
+	float: left;
+        padding-top: 3px;
           
 }
 .divt2223 {
