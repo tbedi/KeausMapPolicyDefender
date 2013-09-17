@@ -1,4 +1,6 @@
 <?php
+
+//format money to $oo.oo format
 function toMoney($val,$symbol='$',$decimal=2)
 {
     $no =  $val; 
