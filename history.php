@@ -80,8 +80,8 @@ if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
 //    $get_pid="SELECT entity_id as product_id from catalog_product_flat_1 WHERE sku = '".$_REQUEST['sku'] ."' ";
 //	            $pid=$db_resource->GetResultObj($get_pid);
 //	            $product_id=$pid[0]->product_id;
-//                    echo $get_pid;
-//                    echo $product_id;
+//                       $product_id=$_POST['product_id']  ;            
+//                    echo $_POST['product_id'];
 //                   
 // }    
 /////
