@@ -62,24 +62,22 @@ if (isset($_GET['page'])) {
     $page = 1;
 }
 ?>
+
 <form action="dealers.php" method="POST">
-    <table class="table1" align="right" width="1510px">
+    <table class="table1" align="right" style="width: 100%;">
         <tr>
       <td width="20">
                 <div class="divt1">
-
-                    <input  class="recent_violation_search search" name="websearch" placeholder="Search here..." type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == 'search') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+                    <input  class="searchsize" name="websearch" placeholder="Search name..." type="text" size="40"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == 'search') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
                 </div>
-                <div class="divt22 search-btn-container">
-                    <input  class="btn-search" type="submit" value="Search">
+                <div class="divt222211">
+                    <input  class="btn-search" name="submit" type="button" value="Search">
                 </div>
-                <div class="divt22">
+                <div class="divt222211">
                     <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
                 </div>
             </td>
-            
             </form>
-
             <td width="10">
                <?php
                 echo "<form method=get action=$page_name> 
@@ -101,8 +99,9 @@ if (isset($_GET['page'])) {
         </tr>
     </table>
 
+
 <div class="cleaner1" ></div>
-<table class="GrayBlack" align="center">
+<table class="GrayBlack" align="center" style="width: 100%;">
     <tbody id="data">
         <tr>
             <td>Dealers Name<a href="/dealers.php?col=name&dir=<?php echo $desc; ?>"><?php
@@ -282,8 +281,6 @@ if ($page < $counter - 1) {
     $paginate.= "<span class='disabled'>next</span>";
 }
 $paginate.= "</div>";
-
-//echo $total_pages . ' Results';
 // pagination
 echo $paginate;
 ?>

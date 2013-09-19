@@ -14,6 +14,7 @@ crawl_results.violation_amount > 0.05
 and website.excluded = 0
 group by date_format(crawl.date_executed, '%Y-%m-%d')";
 
+
 $dashchart_array = $db_resource->GetResultObj($sql4);
 
 // collecting rows information

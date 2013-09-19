@@ -64,17 +64,17 @@ if (isset($_GET['page'])) {
                  
                ?>
 <form action="users.php" method="POST">
-<table class="table1" align="left">
+<table class="table1" align="left"  style="width: 100%;">
     <tr>
         <td width="20">
             <div class="divt1">
 
-               <input  class="recent_violation_search search" placeholder="Enter username ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
+               <input  class="searchsize" placeholder="Search username ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
 </div>
-            <div class="divt22 search-btn-container">
+            <div class="divt222211">
                 <input  class="btn-search" type="submit" value="Search">
             </div>
-             <div class="divt22">
+             <div class="divt222211">
                  <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
             </div>
         </td>
@@ -100,7 +100,7 @@ if (isset($_GET['page'])) {
 </tr>
 </table>
 <div class="cleaner1" ></div>
-<table class="GrayBlack" align="center">
+<table class="GrayBlack" align="center" style="width: 100%;">
     <tbody id="data">
         <tr>
             <td>Username<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php

@@ -56,7 +56,6 @@ if (!isset($_SESSION['username'])) {
                     <div class="tabpage dashboard" id="tabpage_1">
                         <?php include_once 'new_user.php'; ?>
                     </div>
-<!--                    <div id="tabscontent1" align="center">-->
                         <div class="tabpage recent" id="tabpage_2">
                             <?php include_once 'create_user.php';
                         } ?>

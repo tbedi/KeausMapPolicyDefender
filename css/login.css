@@ -132,17 +132,6 @@ label.error
     z-index: 22;
 }
 
-
-/*.log, .logs {
-   border: 1px solid;
-    margin: 10px 0px;
-    padding:8px;
-    background-repeat: no-repeat;
-    background-position: 10px center;-moz-border-radius:.5em;
-    width: 1040px;
-    -webkit-border-radius:.5em;
-    border-radius:.5em;
-}*/
 .log {
     border: 1px solid;
     margin: 10px 0px;
@@ -154,7 +143,6 @@ label.error
     width: 1040px;
     font-size:1.2em;
     font-weight: normal;
-/*    background-image: url(../images/error.png);*/
 }
 .logs {
     border: 1px solid;
@@ -167,7 +155,6 @@ label.error
     font-weight: normal;
     font-size:1.2em;
     font-weight: normal;
-/*    background-image:url(../images/tick.png);*/
 }
 
 
@@ -214,7 +201,6 @@ label.error
 .top-panel {  background: none repeat scroll 0 0 #ECF5DC;
               border-radius: 10px 10px 0 0;
               color: #A6CF00;
-/*              line-height: 1.8;*/
               padding: 8px;
               font-size: 27px;
               text-decoration: none;

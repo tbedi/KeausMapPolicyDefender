@@ -1,6 +1,6 @@
 <?php
 /*For other pages*/
-$date = "select date_executed FROM crawl group by date_format(date_executed, '%Y-%m-%d') ORDER BY id DESC LIMIT 0,2";
+$date = "select date_executed FROM crawl group by date_format(date_executed, '%Y-%m-%d') ORDER BY id DESC LIMIT 0,2"; //query for fetching current and previous date
 //$date = "select date_executed  FROM crawl  ORDER BY id DESC  LIMIT 0,2"; //query for fetching current and previous date
 
 $datecp = $db_resource->GetResultObj($date); // Used in history.php
@@ -27,6 +27,7 @@ $sql = " SELECT SQL_CALC_FOUND_ROWS website_id, website.name name, count(crawl_r
 		GROUP BY website_id, website.name
 		ORDER BY countcurrent DESC
 		LIMIT 10 ";
+
  
 $dashh_array = $db_resource->GetResultObj($sql); //current array
 
