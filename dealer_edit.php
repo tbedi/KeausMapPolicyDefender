@@ -15,7 +15,7 @@ $title = "Kraus Price Defender | Dealer_edit.php";
                         <div class="formlog1" >
                             <form id="test" action="update_dealers.php" method="POST"> 
                                 <?php
-                                $name = $_GET['name'];
+                                $name = $_GET['name']; // Get values from form
                                 $sqld = "select * from website where name = '$name'"; //retrive data from database
                                 $row = $db_resource->GetResultObj($sqld);
                                 if (count($row) > 0) {

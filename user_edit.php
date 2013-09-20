@@ -14,7 +14,7 @@ $title = "Kraus Price Defender | user_edit.php";
                         <div class="formlog1" >
                             <form id="test" action="update_user.php" method="POST"> 
                                 <?php
-                                $uid = $_GET['userid'];
+                                $uid = $_GET['userid']; // Get values from form
                                 $sql2 = "select * from admin_users where user_id = '$uid'";
                                 $row = $db_resource->GetResultObj($sql2);
 
