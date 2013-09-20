@@ -55,7 +55,7 @@
             </div>
         <!--        Calender search-->
         
-<!--        Reset search-->
+<!--        Reset search params-->
         <div class="divt222211">
             <form name="showall" action ="index.php?tab=violations-history" method="post">
                 <button type="submit" name="showall" value="true" href="javascript:void(0);" class="btn-search" style="width: 120px;" onclick="show_all();" >Reset Search</button>
@@ -63,7 +63,7 @@
               
             </form>
         </div>
-<!--        Reset search-->
+<!--        Reset search params-->
        
 <!--Export div-->
         <div style="align: right; float: right ">
@@ -252,7 +252,8 @@
         </div>
         <div  align="left" style="padding-bottom: 10px;" >
 
-<?php echo $pagination_html; ?>
+<?php echo $pagination_html; //calling pagination ?> 
+            
         </div> 
 
 
