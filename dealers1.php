@@ -64,14 +64,14 @@ if (isset($_GET['page'])) {
 ?>
 
 <form action="dealers.php" method="POST">
-    <table class="table1" align="right" style="width: 100%;">
+    <table class="table1" align="center" style="width: 50%;">
         <tr>
-      <td width="20">
+      <td width="10">
                 <div class="divt1">
                     <input  class="searchsize" name="websearch" placeholder="Search name..." type="text" size="40"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action'] == 'search') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
                 </div>
                 <div class="divt222211">
-                    <input  class="btn-search" name="submit" type="button" value="Search">
+                    <input  class="btn-search" name="submit" type="submit" value="Search">
                 </div>
                 <div class="divt222211">
                     <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
@@ -101,24 +101,10 @@ if (isset($_GET['page'])) {
 
 
 <div class="cleaner1" ></div>
-<table class="GrayBlack" align="center" style="width: 100%;">
+<table class="GrayBlack" align="center" style="width: 50%;">
     <tbody id="data">
         <tr>
             <td>Dealers Name<a href="/dealers.php?col=name&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
-                    }
-                    ?></a></td>
-            <td>Dealers Link<a href="/dealers.php?col=domain&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
-                    }
-                    ?></a></td>
-            <td>Data Created<a href="/dealers.php?col=date_created&dir=<?php echo $desc; ?>"><?php
                     if ($desc === 'desc')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
                     elseif ($desc === 'asc') {
@@ -132,6 +118,13 @@ if (isset($_GET['page'])) {
             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
         }
         ?></a></td>
+            <td>Data Created<a href="/dealers.php?col=date_created&dir=<?php echo $desc; ?>"><?php
+                    if ($desc === 'desc')
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+                    }
+                    ?></a></td>
             <td>Edit</td>
         </tr>
     <?php
@@ -143,7 +136,7 @@ if (isset($_GET['page'])) {
         $result = mysql_query($sql);
         if ($result && mysql_num_rows($result) <= 0) {
             ?><table class="GrayBlack" align="center">
-                <tr align="center"><td width="425"> No Records Found  </td> </tr></table><?php } ?>
+                <tr align="center"><td width="750"> No Records Found  </td> </tr></table><?php } ?>
         <?php
         if ($page == 0) {
             $page = 1;
@@ -157,15 +150,14 @@ if (isset($_GET['page'])) {
         $paginate = '';
 
         if ($lastpage > 1) {
-            while ($row = mysql_fetch_array($result)) {
+            while ($row = mysql_fetch_array($result)) { 
                 ?>
 
                 <tr>
-                    <td width="400"><?php echo $row['name']; ?></td> 
-                <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
-                    <td width="250"><?php echo $row['date_created']; ?></td>
-                    <td width="250"><?php echo $row['excluded']; ?></td>
-                    <td width="250"><a href="dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['excluded']; ?></td>
+                    <td><?php echo date('m-d-yy', strtotime($row['date_created'])); ?></td>
+                    <td><a href="dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
 
                 </tr>
                 <?php
@@ -200,11 +192,10 @@ LIMIT $start, $limit";
                 ?>
 
                 <tr>
-                    <td width="400"><?php echo $row['name']; ?></td> 
-                    <?php echo "<td width="."250".">" . "<a href =" . "http://www." . $row['domain'] . " target=" . "_blank" . ">" . $row['domain'] . "</a></td>"; ?> 
-                    <td width="300"><?php echo $row['date_created']; ?></td>
-                    <td width="250"><?php echo $row['excluded']; ?></td>
-                    <td width="250"><a href="dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
+                    <td ><?php echo $row['name']; ?></td> 
+                    <td ><?php echo $row['excluded']; ?></td>
+                    <td ><?php echo date('m-d-Y', strtotime($row['date_created'])); ?></td>
+                    <td ><a href="dealer_edit.php?name=<?php echo($row['name']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a> </td>
                 </tr>
             <?php
         }
@@ -213,8 +204,11 @@ LIMIT $start, $limit";
 ?>
 </tbody>
 </table>
+<table  align="center" >
+            <tr>
+            <td>
 <?php
-$paginate .= "<div class='paginate' align='left' >";
+$paginate .= "<div class='paginate' align='center' style="." padding-right:490px;".">";
 // Previous
 if ($page > 1) {
     $paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
@@ -284,6 +278,9 @@ $paginate.= "</div>";
 // pagination
 echo $paginate;
 ?>
+</td>
+            </tr>
 
+</table>
 <div class="cleaner1" ></div>
 
