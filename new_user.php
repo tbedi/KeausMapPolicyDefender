@@ -64,9 +64,9 @@ if (isset($_GET['page'])) {
                  
                ?>
 <form action="users.php" method="POST">
-<table class="table1" align="left"  style="width: 100%;">
+<table class="table1" align="center"  style="width: 50%;">
     <tr>
-        <td width="20">
+        <td width="10">
             <div class="divt1">
 
                <input  class="searchsize" placeholder="Search username ..." name="websearch" type="text" size="30"  maxlength="1000" value="<?php if (isset($_GET['action']) && $_GET['action']=="search" && isset($_GET['tab']) && $_GET['tab'] == 'recent') echo $_GET['value']; ?>"  id="textBoxSearch"    /> 
@@ -100,7 +100,7 @@ if (isset($_GET['page'])) {
 </tr>
 </table>
 <div class="cleaner1" ></div>
-<table class="GrayBlack" align="center" style="width: 100%;">
+<table class="GrayBlack" align="center" style="width: 50%;">
     <tbody id="data">
         <tr>
             <td>Username<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
@@ -162,11 +162,11 @@ if (isset($_GET['page'])) {
 //        $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
     <tr>                                     
-                <td width="290"><?php echo $row['username']; ?></td>
-                <td width="400"><?php echo $row['email']; ?></td>
-                <td width="250"><?php echo $row['name']; ?></td>
-                <td width="250"><?php echo $row['role']; ?></td>
-                <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
+                <td ><?php echo $row['username']; ?></td>
+                <td ><?php echo $row['email']; ?></td>
+                <td ><?php echo $row['name']; ?></td>
+                <td ><?php echo $row['role']; ?></td>
+                <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
              <?php     
@@ -197,23 +197,25 @@ if (isset($_GET['page'])) {
                      $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                     ?>
             <tr>                                     
-                <td width="290"><?php echo $row['username']; ?></td>
-                <td width="400"><?php echo $row['email']; ?></td>
-                <td width="250"><?php echo $row['name']; ?></td>
-                <td width="250"><?php echo $row['role']; ?></td>
-                <td width="250"><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
+                <td><?php echo $row['username']; ?></td>
+                <td ><?php echo $row['email']; ?></td>
+                <td ><?php echo $row['name']; ?></td>
+                <td ><?php echo $row['role']; ?></td>
+                <td ><a href="user_edit.php?userid=<?php echo($row['user_id']); ?>" title="Edit" > <img src="images/icon_edit.png" /> </a>
                     <a href="user_delete.php?userid=<?php echo($row['user_id']); ?>" title="Delete" onclick ="return confirm('Delete user?');" > <img src="images/icon_delete.png" /> </a> </td>
             </tr>
 	
  <?php }
         }
-                        }
+          }
         ?>
 </tbody>
 </table>
-    <?php
-	 
-		$paginate .= "<div class='paginate' align='left'>";
+<table  align="center" >
+            <tr>
+            <td>
+             <?php
+		$paginate .= "<div class='paginate' align='center' style="." padding-right:610px;".">";
 		// Previous
 		if ($page > 1){
 			$paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
@@ -293,5 +295,10 @@ if (isset($_GET['page'])) {
  // pagination
  echo $paginate;
 ?>
+            </td>
+            </tr>
+
+</table>
+   
 	
     
