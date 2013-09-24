@@ -77,7 +77,7 @@ if (isset($_GET['page'])) {
                     <button href="javascript:void(0);" class="btn-search"  onclick="show_all();" >Show all</button>
                 </div>
             </td>
-            </form>
+            
             <td width="10">
                <?php
                 echo "<form method=get action=$page_name> 
@@ -127,6 +127,7 @@ if (isset($_GET['page'])) {
                     ?></a></td>
             <td>Edit</td>
         </tr>
+
     <?php
     if (isset($_POST['websearch'])) {
         
@@ -152,7 +153,7 @@ if (isset($_GET['page'])) {
         if ($lastpage > 1) {
             while ($row = mysql_fetch_array($result)) { 
                 ?>
-
+   
                 <tr>
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['excluded']; ?></td>
@@ -208,7 +209,7 @@ LIMIT $start, $limit";
             <tr>
             <td>
 <?php
-$paginate .= "<div class='paginate' align='center' style="." padding-right:490px;".">";
+$paginate .= "<div class='paginate' align='center' style="." padding-right:465px;".">";
 // Previous
 if ($page > 1) {
     $paginate.= "<a href='$targetpage?page=$prev'>previous</a>";
@@ -282,5 +283,6 @@ echo $paginate;
             </tr>
 
 </table>
+</form>
 <div class="cleaner1" ></div>
 
