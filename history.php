@@ -74,16 +74,7 @@ if (isset($_REQUEST['action']) && $_REQUEST['action']=="search")
 }
 /* Search Condition*/
 
- //// GET PID
-// if(isset($_REQUEST['sku'])){
-//    $get_pid="SELECT entity_id as product_id from catalog_product_flat_1 WHERE sku = '".$_REQUEST['sku'] ."' ";
-//	            $pid=$db_resource->GetResultObj($get_pid);
-//	            $product_id=$pid[0]->product_id;
-//                       $product_id=$_POST['product_id']  ;            
-//                    echo $_POST['product_id'];
-//                   
-// }    
-/////
+
 /* Search Condition*/
  /*Add selected ids */
 
@@ -136,21 +127,13 @@ if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pa
 if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for website
     $additional_params.="&website_id=" . $_GET['website_id'];
 }
-//if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { // search vendor
-//    $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
-//}
 
-////GET PID
-//if (isset($_GET['sku']))
-//{
-//     $additional_params="&sku=".$_GET['sku']."&product_id=".$product_id;
-//}
+
+
 if (isset($_GET['product_id']) && $_GET['product_id']) { //adding support for product
     $additional_params.="&product_id=" . $_GET['product_id'];
 }
-//if (isset($_GET['action']) && $_GET['action']  && isset($_GET['product_id'])) { // search sku
-//    $additional_params.="&action=" . $_GET['action'] . "&field=sku&value=" . $_GET['value'];
-//}
+
 /* For sorting using */
 
 
