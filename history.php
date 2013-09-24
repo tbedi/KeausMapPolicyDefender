@@ -136,9 +136,9 @@ if (isset($_GET['second_grid_page']) && $_GET['second_grid_page']) { //adding pa
 if (isset($_GET['website_id']) && $_GET['website_id']) { //adding support for website
     $additional_params.="&website_id=" . $_GET['website_id'];
 }
-if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { // search vendor
-    $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
-}
+//if (isset($_GET['action']) && $_GET['action'] && isset($_GET['website_id'])) { // search vendor
+//    $additional_params.="&action=" . $_GET['action'] . "&field=website_id&value=" . $_GET['value'];
+//}
 
 ////GET PID
 //if (isset($_GET['sku']))
