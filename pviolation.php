@@ -54,7 +54,7 @@ $order_by = " ORDER BY " . $order_field . " " . $direction . " ";
 //chk
 $sql = "SELECT  SQL_CALC_FOUND_ROWS distinct w.`name` as vendor ,date_format(c.date_executed,'%m-%d-%Y') as date_executed,
     r.violation_amount as violation_amount,r.id as id,
-    w.id as website_id,
+    w.id as website_id,r.seller as seller,
     r.vendor_price as vendor_price,
     r.map_price ,
     r.website_product_url,
