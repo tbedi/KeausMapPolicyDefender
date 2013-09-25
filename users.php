@@ -1,4 +1,3 @@
-<?php include_once 'db.php'; ?>
 <?php
 include_once 'db_login.php';
 $title = "Kraus Price Defender | users.php";

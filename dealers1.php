@@ -1,4 +1,4 @@
-<?php
+ <?php
 include_once 'db_login.php';
 include_once 'db.php';
 $title = "Kraus Price Defender | dealers1.php";
@@ -98,33 +98,43 @@ if (isset($_GET['page'])) {
             </td>  
         </tr>
     </table>
-
-
 <div class="cleaner1" ></div>
 <table class="GrayBlack" align="center" style="width: 50%;">
     <tbody id="data">
         <tr>
-            <td>Dealers Name<a href="/dealers.php?col=name&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
-                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
+<!--            sorting coloumn code used in dealer.php-->
+            <td><a href="/dealers.php?col=name&dir=<?php echo $desc; ?>">Dealers Name<?php
+            if ($desc === 'desc' && $_SESSION['col'] == 'name')
+                         echo "<img  style=" . "float:right;" . " width=" . "22" . " visibility:hidden src=" . "images/arrow_desc_1.png" . " />";
+                    elseif ($desc === 'asc' && $_SESSION['col'] == 'name') {
+                        echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "../images/arrow_asc_1.png" . " />";
                     }
-                    ?></a></td>
-            <td>Excluded<a href="/dealers.php?col=excluded&dir=<?php echo $desc; ?>"><?php
-        if ($desc === 'desc')
-            echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-        elseif ($desc === 'asc') {
+                       elseif($_SESSION['col'] !== 'name'){
+                       echo "<img  style=visibility:hidden;" . " />";
+                       }
+                    ?></a></td> 
+            <td><a href="/dealers.php?col=excluded&dir=<?php echo $desc; ?>">Excluded<?php
+        if ($desc === 'desc' && $_SESSION['col'] == 'excluded')
+         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
+        elseif ($desc === 'asc' && $_SESSION['col'] == 'excluded') {
             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
         }
+        elseif($_SESSION['col'] !== 'excluded'){
+            echo "<img  style=visibility:hidden;" . " />";
+                       }
         ?></a></td>
-            <td>Data Created<a href="/dealers.php?col=date_created&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
+            <td><a href="/dealers.php?col=date_created&dir=<?php echo $desc; ?>">Data Created<?php
+          
+                    if ($desc === 'desc' && $_SESSION['col'] == 'date_created')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
+                    elseif ($desc === 'asc' && $_SESSION['col'] == 'date_created') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
+                    elseif($_SESSION['col'] !== 'date_created'){
+                       echo "<img  style=visibility:hidden;" . " />";
+                       }
                     ?></a></td>
+<!--            sorting coloumn code used in dealer.php-->
             <td>Edit</td>
         </tr>
 
