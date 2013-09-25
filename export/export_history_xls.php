@@ -11,7 +11,7 @@
  	header('Location: login.php');
  
  /*configuration*/
- include_once '../db_class.php';
+include_once '../classes/db_class.php';
  $db_resource = new DB ();
  include_once '../toMoney.php';
  /*GLOBAL*/

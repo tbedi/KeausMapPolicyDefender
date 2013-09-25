@@ -10,7 +10,7 @@ if (!isset($_SESSION['username']))
 	header('Location: login.php');
 
 /*configuration*/
-include_once '../db_class.php';
+include_once '../classes/db_class.php';
 $db_resource = new DB ();
 include_once '../toMoney.php';
 /*GLOBAL*/
@@ -101,7 +101,7 @@ public $html;
     //Page header
     public function Header() {
         // Logo
-        $image_file = 'Kraus-Logo-HQ.png';
+   $image_file = '../images/kraus-logo.png';
         
         // Set font
         $this->SetFont('helvetica', 'B', 15);
