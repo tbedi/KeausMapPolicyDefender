@@ -1,5 +1,5 @@
 <?php
-	include_once 'db_login.php';
+include_once 'db_login.php';
 include_once 'db.php';
 $title = "Kraus Price Defender | usernew.php";
 $tableName = "admin_users";
@@ -103,33 +103,45 @@ if (isset($_GET['page'])) {
 <table class="GrayBlack" align="center" style="width: 50%;">
     <tbody id="data">
         <tr>
-            <td>Username<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
+            <td><a href="/users.php?col=username&dir=<?php echo $desc; ?>">Username<?php
+                    if ($desc === 'desc' && $_SESSION['col'] == 'username')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
+                    elseif ($desc === 'asc' && $_SESSION['col'] == 'username') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
+                    elseif($_SESSION['col'] !== 'username'){
+                       echo "<img  style=visibility:hidden;" . " />";
+                       }
                     ?></a></td>
-            <td>Email<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
+            <td><a href="/users.php?col=email&dir=<?php echo $desc; ?>">Email<?php
+                    if ($desc === 'desc' && $_SESSION['col'] == 'email')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
+                    elseif ($desc === 'asc' && $_SESSION['col'] == 'email') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
+                    elseif($_SESSION['col'] !== 'email'){
+                       echo "<img  style=visibility:hidden;" . " />";
+                       }
                     ?></a></td>
-            <td>Name<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
+            <td><a href="/users.php?col=name&dir=<?php echo $desc; ?>">Name<?php
+                    if ($desc === 'desc' && $_SESSION['col'] == 'name')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
+                    elseif ($desc === 'asc' && $_SESSION['col'] == 'name') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
+                    elseif($_SESSION['col'] !== 'name'){
+                       echo "<img  style=visibility:hidden;" . " />";
+                       }
                     ?></a></td>
-            <td>Role<a href="/users.php?col=username&dir=<?php echo $desc; ?>"><?php
-                    if ($desc === 'desc')
+            <td><a href="/users.php?col=role&dir=<?php echo $desc; ?>">Role<?php
+                    if ($desc === 'desc' && $_SESSION['col'] == 'role')
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                    elseif ($desc === 'asc') {
+                    elseif ($desc === 'asc' && $_SESSION['col'] == 'role') {
                         echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                     }
+                    elseif($_SESSION['col'] !== 'role'){
+                       echo "<img  style=visibility:hidden;" . " />";
+                       }
                     ?></a></td>
             <td>Edit</td>
         </tr>
@@ -179,7 +191,7 @@ if (isset($_GET['page'])) {
                   
                         {
 // Get page data
-	$query1 = "SELECT * FROM $tableName LIMIT $start, $limit";
+	$query1 = "SELECT * FROM $tableName order by $column $desc LIMIT $start, $limit";
 	
 	// Initial page num setup
 	if ($page == 0){$page = 1;}
