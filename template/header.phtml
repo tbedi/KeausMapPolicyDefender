@@ -1,5 +1,5 @@
 <?php
- include_once 'db_class.php';
+ include_once './classes/db_class.php';
  $db_resource = new db();
 $em = (isset($_SESSION['email']) ? $_SESSION['email'] : "");
 $fetch = "select username,last_login  from admin_users where email='$em'"; // Retrieve data from database 

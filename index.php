@@ -10,7 +10,7 @@ if (!isset($_SESSION['username']))
 	header('Location: login.php');
 
 /*configuration*/
-include_once 'db_class.php'; 
+include_once './classes/db_class.php'; 
 include_once 'pagination_class.php';
 include_once './toMoney.php';
 
