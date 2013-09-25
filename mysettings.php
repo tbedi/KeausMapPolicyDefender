@@ -1,6 +1,6 @@
 <?php
 include_once 'db_login.php';
-include_once 'db_class.php'; //we included database class
+ include_once './classes/db_class.php'; //we included database class
 $db_resource = new DB (); // we created database resourse object which contains methods and connection
 $title = "Kraus Price Defender | User Settings";
 if (!isset($_SESSION['username'])) {

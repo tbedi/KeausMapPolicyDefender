@@ -1,6 +1,6 @@
 <?php
 $title = "Kraus Price Defender | mysettings1.php";
-include_once 'db_class.php';
+ include_once './classes/db_class.php';
 include('db.php');
 $db_resource = new DB ();
 $em = $_SESSION['email'];
