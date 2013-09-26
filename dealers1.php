@@ -215,9 +215,7 @@ LIMIT $start, $limit";
 ?>
 </tbody>
 </table>
-<table  align="center" >
-            <tr>
-            <td>
+
 <?php
 $paginate .= "<div class='paginate' align='center' style="." padding-right:465px;".">";
 // Previous
@@ -286,13 +284,9 @@ if ($page < $counter - 1) {
     $paginate.= "<span class='disabled'>next</span>";
 }
 $paginate.= "</div>";
-// pagination
-echo $paginate;
 ?>
-</td>
-            </tr>
 
-</table>
-</form>
+<div style="margin-left:58px; margin-right:90px; padding:6px; background-color:#FFF; border:#999 1pxsolid;"><?php echo $paginate; ?></div>
+
 <div class="cleaner1" ></div>
 

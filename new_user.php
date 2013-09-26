@@ -223,9 +223,7 @@ if (isset($_GET['page'])) {
         ?>
 </tbody>
 </table>
-<table  align="center" >
-            <tr>
-            <td>
+
              <?php
 		$paginate .= "<div class='paginate' align='center' style="." padding-right:610px;".">";
 		// Previous
@@ -303,14 +301,11 @@ if (isset($_GET['page'])) {
 			$paginate.= "<span class='disabled'>next</span>";
 			}
 			
-		$paginate.= "</div>";		
- // pagination
- echo $paginate;
-?>
-            </td>
-            </tr>
+		$paginate.= "</div>";	
+                ?>
+<!--  pagination-->
+<div style="margin-left:58px; margin-right:60px; padding:6px; background-color:#FFF; border:#999 1pxsolid;"><?php echo $paginate; ?></div>
 
-</table>
-   
+ 
 	
     
