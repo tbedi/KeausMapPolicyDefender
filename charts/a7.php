@@ -34,7 +34,8 @@ $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
 ?>
 
-<script>$(function() {
+<script type="text/javascript">
+    $(function() {
         $('#container').highcharts({
             colors: ['#058DC7', '#000000'],
             chart: {           
