@@ -78,10 +78,10 @@ if (isset($_GET['page'])) {
                 </div>
             </td>
             
-            <td width="10">
+            <td width="5">
                <?php
                 echo "<form method=get action=$page_name> 
-                <div class="."results-per-page"." style="."float:right;padding-top:10px;"." >
+                <div class="."results-per-page-block"." style="."float:right;padding-top:10px;"." >
                    <div class="."divt2222".">
                 <div style="."padding:5px; padding-top: 6px;"."> Show </div>
             </div> 
@@ -288,5 +288,4 @@ $paginate.= "</div>";
 
 <div style="margin-left:58px; margin-right:90px; padding:6px; background-color:#FFF; border:#999 1pxsolid;"><?php echo $paginate; ?></div>
 
-<div class="cleaner1" ></div>
 
