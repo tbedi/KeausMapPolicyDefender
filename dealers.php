@@ -1,4 +1,5 @@
-<?php include_once 'db_login.php';
+<?php 
+include_once 'db_login.php';
 $title = "Kraus Price Defender | Dealers.php";
 
 /*sorting coloumn*/

@@ -74,10 +74,6 @@
         {
             document.getElementById("newpassword_label").innerHTML = '';
         }
-
-
-        
-
     }
 </script>
 <div class="formlog1" >

@@ -164,7 +164,6 @@ echo "<form method=get action=$page_name>
                 if ($lastpage > 1) {
 
                     while ($row = mysql_fetch_array($result)) {
-//        $dt = DateTime::createFromFormat('Y-m-d',$row['last_login'] );
                         ?>
                     <tr>                                     
                         <td ><?php echo $row['username']; ?></td>
