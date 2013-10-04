@@ -147,8 +147,8 @@ echo "<form method=get action=$page_name>
                             $sql = "SELECT * from admin_users where name like '%" . "$var1" . "%' LIMIT $start, $limit";
                             $result = mysql_query($sql);
                             if ($result && mysql_num_rows($result) <= 0) {
-                                ?><table class="GrayBlack" align="center">
-                    <tr align="center"><td width="500"> No Records Found  </td> </tr></table><?php } ?>
+                                ?><table class="GrayBlack" align="center;" style="width: 50%;">
+                <tr align="center"><td width="750" height="30" > No Records Found  </td> </tr></table><?php } ?>
                 <?php
                 if ($page == 0) {
                     $page = 1;

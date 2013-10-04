@@ -5,7 +5,6 @@ $title = "Kraus Price Defender | dealers1.php";
 ////pagination
 $tableName = "website";
 $targetpage = "dealers.php";
-$limit = 10;
 $page_name="dealers.php"; 
 ////// starting of drop down to select number of records per page /////
 
@@ -18,28 +17,38 @@ exit;
 // Based on the value of limit we will assign selected value to the respective option//
 switch($limit)
 {
-case 40:
-$select40="selected";
-$select10="";
+case 50:
+$select50="selected";
+$select15="";
+$select20="";
 $select25="";
 break;
 
 case 25:
 $select25="selected";
-$select10="";
-$select40="";
+$select15="";
+$select50="";
+$select20="";
+break;
+
+case 20:
+$select20="selected";
+$select15="";
+$select50="";
+$select25="";
 break;
 
 default:
-$select10="selected";
+$select15="selected";
+$select20="";
+$select50="";
 $select25="";
-$select40="";
 break;
 }
 $eu = (0); 
 
 if(!$limit > 0 ){ // if limit value is not available then let us use a default value
-$limit = 10;    // No of records to be shown per page by default.
+$limit = 15;    // No of records to be shown per page by default.
 }                             
 $this1 = $eu + $limit; 
 $back = $eu - $limit; 
@@ -86,9 +95,10 @@ if (isset($_GET['page'])) {
                 <div style="."padding:5px; padding-top: 6px;"."> Show </div>
             </div> 
               <select name=limit class="."dropdown"." onchange="."form.submit()".">
-               <option value=10 $select10>10 </option>
+               <option value=15 $select15>15 </option>
+               <option value=20 $select20>20 </option>
                <option value=25 $select25>25 </option>
-               <option value=40 $select40>40 </option>
+               <option value=50 $select50>50 </option>
                </select>
                <div class="."divt2222>
                 <div style="."padding:5px; padding-top: 6px;> Records</div>
@@ -104,10 +114,12 @@ if (isset($_GET['page'])) {
 <table class="GrayBlack" align="center" style="width: 50%;">
     <tbody id="data">
             <tr>
-                <!--            sorting coloumn code used in dealer.php-->
+                <!-- sorting coloumn code used in dealer.php-->
                 <td><a href="/dealers.php?col=name&dir=<?php echo $desc; ?>">Dealers Name<?php
                 if ($desc === 'desc' && $_SESSION['col'] == 'name')
+                {
                     echo "<img  style=" . "float:right;" . " width=" . "22" . " visibility:hidden src=" . "images/arrow_desc_1.png" . " />";
+                }
                 elseif ($desc === 'asc' && $_SESSION['col'] == 'name') {
                     echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "../images/arrow_asc_1.png" . " />";
                 } elseif ($_SESSION['col'] !== 'name') {
@@ -116,8 +128,10 @@ if (isset($_GET['page'])) {
                 ?></a></td> 
                 <td><a href="/dealers.php?col=excluded&dir=<?php echo $desc; ?>">Excluded<?php
                         if ($desc === 'desc' && $_SESSION['col'] == 'excluded')
+                        {          
                             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                        elseif ($desc === 'asc' && $_SESSION['col'] == 'excluded') {
+                        }
+                        elseif ($desc === 'asc' && $_SESSION['col'] == 'excluded') {   
                             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
                         } elseif ($_SESSION['col'] !== 'excluded') {
                             echo "<img  style=visibility:hidden;" . " />";
@@ -125,11 +139,13 @@ if (isset($_GET['page'])) {
                         ?></a></td>
                 <td><a href="/dealers.php?col=date_created&dir=<?php echo $desc; ?>">Data Created<?php
                         if ($desc === 'desc' && $_SESSION['col'] == 'date_created')
+                        {
                             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_desc_1.png" . " />";
-                        elseif ($desc === 'asc' && $_SESSION['col'] == 'date_created') {
+                        }
+                        elseif ($desc === 'asc' && $_SESSION['col'] == 'date_created') {      
                             echo "<img  style=" . "float:right;" . " width=" . "22" . " src=" . "images/arrow_asc_1.png" . " />";
-                        } elseif ($_SESSION['col'] !== 'date_created') {
-                            echo "<img  style=visibility:hidden;" . " />";
+                        } elseif ($_SESSION['col'] !== 'date_created') {                    
+                           echo "<img  style=visibility:hidden;" . " />";
                         }
                         ?></a></td>
                 <!--            sorting coloumn code used in dealer.php-->
@@ -143,8 +159,8 @@ if (isset($_GET['page'])) {
 
         $result = mysql_query($sql);
         if ($result && mysql_num_rows($result) <= 0) {
-            ?><table class="GrayBlack" align="center">
-                <tr align="center"><td width="750"> No Records Found  </td> </tr></table><?php } ?>
+            ?><table class="GrayBlack" align="center;" style="width: 50%;">
+                <tr align="center"><td width="750" height="30" > No Records Found  </td> </tr></table><?php } ?>
         <?php
         if ($page == 0) {
             $page = 1;
@@ -172,6 +188,7 @@ if (isset($_GET['page'])) {
             }
         }
     } elseif (!isset($_POST['websearch'])) {
+  
         $query1 = "SELECT
 website.name,
 website.domain,
@@ -181,6 +198,7 @@ from
 website
 order by $column $desc
 LIMIT $start, $limit";
+
         $result = mysql_query($query1);
 
         // Initial page num setup
@@ -226,7 +244,7 @@ if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
         if ($counter == $page) {
             $paginate.= "<span class='current'>$counter</span>";
         } else {
-            $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
+            $paginate.= "<a href='$targetpage?page=$counter&limit=$limit'>$counter</a>";
         }
     }
 } elseif ($lastpage > 5 + ($stages * 2)) { // Enough pages to hide a few?
@@ -236,17 +254,17 @@ if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
             if ($counter == $page) {
                 $paginate.= "<span class='current'>$counter</span>";
             } else {
-                $paginate.= "<a href='$targetpage?page=$counter'>$counter</a>";
+                $paginate.= "<a href='$targetpage?page=$counter&limit=$limit'>$counter</a>";
             }
         }
         $paginate.= "...";
-        $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
-        $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
+        $paginate.= "<a href='$targetpage?page=$LastPagem1&limit=$limit'>$LastPagem1</a>";
+        $paginate.= "<a href='$targetpage?page=$lastpage&limit=$limit'>$lastpage</a>";
     }
     // Middle hide some front and some back
     elseif ($lastpage - ($stages * 2) > $page && $page > ($stages * 2)) {
-        $paginate.= "<a href='$targetpage?page=1'>1</a>";
-        $paginate.= "<a href='$targetpage?page=2'>2</a>";
+        $paginate.= "<a href='$targetpage?page=1&limit=$limit'>1</a>";
+        $paginate.= "<a href='$targetpage?page=2&limit=$limit'>2</a>";
         $paginate.= "...";
         for ($counter = $page - $stages; $counter <= $page + $stages; $counter++) {
             if ($counter == $page) {
@@ -256,13 +274,13 @@ if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
             }
         }
         $paginate.= "...";
-        $paginate.= "<a href='$targetpage?page=$LastPagem1'>$LastPagem1</a>";
-        $paginate.= "<a href='$targetpage?page=$lastpage'>$lastpage</a>";
+        $paginate.= "<a href='$targetpage?page=$LastPagem1&limit=$limit'>$LastPagem1</a>";
+        $paginate.= "<a href='$targetpage?page=$lastpage&limit=$limit'>$lastpage</a>";
     }
     // End only hide early pages
     else {
-        $paginate.= "<a href='$targetpage?page=1'>1</a>";
-        $paginate.= "<a href='$targetpage?page=2'>2</a>";
+        $paginate.= "<a href='$targetpage?page=1&limit=$limit'>1</a>";
+        $paginate.= "<a href='$targetpage?page=2&limit=$limit'>2</a>";
         $paginate.= "...";
         for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++) {
             if ($counter == $page) {
@@ -275,7 +293,7 @@ if ($lastpage < 7 + ($stages * 2)) { // Not enough pages to breaking it up
 }
 // Next
 if ($page < $counter - 1) {
-    $paginate.= "<a href='$targetpage?page=$next'>next</a>";
+    $paginate.= "<a href='$targetpage?page=$next&limit=$limit'>next</a>";
 } else {
     $paginate.= "<span class='disabled'>next</span>";
 }

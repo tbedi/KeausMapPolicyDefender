@@ -22,6 +22,7 @@ $title = "Kraus Price Defender | user_edit.php";
                                     $us = $row[0]->username;
                                     $email = $row[0]->email;
                                     $name = $row[0]->name;
+                                    $role = $row[0]->role;
                                     $user_id = $row[0]->user_id;
                                 }
                                 ?>
@@ -85,19 +86,13 @@ $title = "Kraus Price Defender | user_edit.php";
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td align="left">
-                                                    Role:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                </td>
-                                                <td align="left">
-                                                    <select name="role" class="input">
-                                                        <option value="Admin" >Admin</option>
-                                                        <option value="Executive">Executive</option>
-                                                        <option value="Customer Service">Customer Service</option>
-                                                        <option value="Operations">Operations</option>
-                                                    </select>
-                                                </td>
-
-                                            </tr>
+                                            <td align="left">
+                                                Role:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                            <td>
+                                                <input type="text" class="input"  name="role" value="<?php echo $role; ?>" size="40"  style="padding:5px;"/>
+                                            </td>
+                                        </tr>
 
                                         <input type="hidden" name="user_id" value=" <?php echo $user_id; ?> " style="padding:5px;"/>      
                                         <tr><td>&nbsp;</td>
