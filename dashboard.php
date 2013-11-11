@@ -1,18 +1,25 @@
 <?php
 
 /* For other pages */
-$date = "select date_executed FROM crawl group by date_format(date_executed, '%Y-%m-%d') ORDER BY id DESC LIMIT 0,2"; //query for fetching current and previous date
+$date = "select date_executed FROM crawl group by date_executed ORDER BY id DESC LIMIT 0,2"; //query for fetching current and previous date
 $datecp = $db_resource->GetResultObj($date); // Used in history.php
 /* For other pages */
-
+ 
 /* Getting last Crawl Id */
-$sql = "select id FROM crawl  ORDER BY id DESC  LIMIT 1"; //query used to fetch max id
+$date_last_crawl=date("Y-m-d 00:00:00",strtotime($datecp[0]->date_executed));
+ 
+$sql = "select id FROM crawl    WHERE date_executed >= '".$date_last_crawl."' ORDER BY id DESC"; //query used to fetch max id
+ 
 $last_crawl = $db_resource->GetResultObj($sql);
-$last_crawl = $last_crawl[0]->id;
+$last_crawl_ids=array();
+foreach ($last_crawl as $crawl_id) {
+	array_push($last_crawl_ids,$crawl_id->id);
+}
+$last_crawl = implode(",",$last_crawl_ids);
 /* Getting last Crawl Id */
 
 /* Getting Previous Crawil Id */
-$sqlcwl = "SELECT id FROM crawl ORDER BY id DESC LIMIT 1,1"; //query used to fetch max-1 id
+$sqlcwl = "SELECT id FROM crawl WHERE date_executed <'".$date_last_crawl."'ORDER BY id DESC LIMIT 1,1"; //query used to fetch max-1 id
 $last_crawl1 = $db_resource->GetResultObj($sqlcwl);
 $previous_crawl_id = $last_crawl1[0]->id;
 /* Getting Previous Crawil Id */
@@ -22,7 +29,7 @@ $sql = " SELECT SQL_CALC_FOUND_ROWS website_id, website.name name, count(crawl_r
 		FROM website
 		INNER JOIN crawl_results ON website.id = crawl_results.website_id
 		INNER JOIN crawl ON crawl.id=crawl_results.crawl_id 
-			AND crawl_results.crawl_id = " . $last_crawl . "  
+			AND crawl_results.crawl_id IN ( " . $last_crawl . ")  
 			AND crawl_results.violation_amount>0.05
 			AND website.excluded=0 
 		GROUP BY website_id, website.name
@@ -46,7 +53,7 @@ $sqld = "SELECT  website_id, count(crawl_results.website_id) countprev
 		 FROM website
 		 INNER JOIN crawl_results ON website.id = crawl_results.website_id
 		 INNER JOIN crawl ON crawl.id=crawl_results.crawl_id
-			AND crawl_results.crawl_id = " . $previous_crawl_id . "
+			AND crawl_results.crawl_id  IN (" . $previous_crawl_id . ")
 			AND crawl_results.violation_amount>0.05
 			AND website.excluded=0
 			AND website_id IN (" . $current_website_ids . ")
@@ -76,7 +83,7 @@ $sqlc = "SELECT SQL_CALC_FOUND_ROWS catalog_product_flat_1.sku sku1, crawl_resul
 		 FROM crawl_results
 		 INNER JOIN catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
 		 INNER JOIN crawl ON crawl.id = crawl_results.crawl_id 
-			AND crawl_results.crawl_id = " . $last_crawl . "
+			AND crawl_results.crawl_id IN ( " . $last_crawl . ")
 		 INNER JOIN website ON website.id=crawl_results.website_id
 		WHERE crawl_results.violation_amount > 0.05			
 			AND website.excluded=0
@@ -101,7 +108,7 @@ $sqlp = "SELECT crawl_results.product_id, count(crawl_results.product_id) as pre
 		 FROM crawl_results
 		 INNER JOIN catalog_product_flat_1 ON crawl_results.product_id = catalog_product_flat_1.entity_id
 		 INNER JOIN crawl ON crawl.id = crawl_results.crawl_id 
-			AND crawl_results.crawl_id = " . $previous_crawl_id . "
+			AND crawl_results.crawl_id IN ( " . $previous_crawl_id . " )
 		 INNER JOIN website ON website.id=crawl_results.website_id				
 		WHERE crawl_results.violation_amount > 0.05
 		    AND crawl_results.violation_amount>0.05
@@ -136,7 +143,7 @@ $sql3 = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id, cr
 		 INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id=crawl_results.product_id
 		 INNER JOIN crawl ON crawl.id=crawl_results.crawl_id WHERE crawl_results.violation_amount>0.05
 			AND website.excluded=0
-			AND crawl.id = " . $last_crawl . " ORDER BY violation_amount desc
+			AND crawl.id  IN ( " . $last_crawl . ") ORDER BY violation_amount desc
 		LIMIT 10";
 $dash1_array = $db_resource->GetResultObj($sql3);
 /* violations amount by sku query */
@@ -146,7 +153,7 @@ $sql = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id
 		FROM crawl_results
 		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
 		INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-			AND crawl_results.crawl_id = " . $last_crawl . " 
+			AND crawl_results.crawl_id IN ( " . $last_crawl . " ) 
 			AND crawl_results.violation_amount > 0.05
 		INNER JOIN website ON website.id=crawl_results.website_id	
 		    AND website.excluded=0					
@@ -156,7 +163,7 @@ $sqll = "SELECT catalog_product_flat_1.sku, catalog_product_flat_1.entity_id
 		FROM crawl_results
 		INNER JOIN crawl ON crawl.id = crawl_results.crawl_id
 		INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id = crawl_results.product_id
-			AND crawl_results.crawl_id = " . $previous_crawl_id . "
+			AND crawl_results.crawl_id IN ( " . $previous_crawl_id . " )
 			AND crawl_results.violation_amount > 0.05
 		INNER JOIN website ON website.id=crawl_results.website_id	
 			AND website.excluded=0				
@@ -182,7 +189,7 @@ $resultstrt = array_diff_key($array, $array2);
 $sql = "SELECT website.name name, website.id
  FROM crawl_results r
  INNER JOIN website ON website.id=r.website_id		 		 
-WHERE r.crawl_id= " . $last_crawl . "
+WHERE r.crawl_id IN ( " . $last_crawl . " )
 	 AND r.violation_amount>0.05
 	 AND website.excluded=0
 GROUP BY r.website_id";
@@ -190,7 +197,7 @@ GROUP BY r.website_id";
 $sqll = "SELECT website.name name, website.id 
  FROM crawl_results r
  INNER JOIN website ON website.id=r.website_id		 		
-WHERE r.crawl_id=" . $previous_crawl_id . "
+WHERE r.crawl_id IN (" . $previous_crawl_id . " )
 	 AND r.violation_amount>0.05
 	 AND website.excluded=0
 GROUP BY r.website_id";

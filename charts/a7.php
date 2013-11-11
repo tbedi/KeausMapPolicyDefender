@@ -12,11 +12,12 @@ crawl ON crawl.id = crawl_results.crawl_id
 where
 crawl_results.violation_amount > 0.05
 and website.excluded = 0
-group by date_format(crawl.date_executed, '%Y-%m-%d')";
+		AND crawl.date_executed >   DATE_SUB(NOW(), INTERVAL 2 MONTH)
+group by date_format(crawl.date_executed, '%Y-%m-%d')  ";
 
 
 $dashchart_array = $db_resource->GetResultObj($sql4);
-
+ 
 // collecting rows information
 $chart_vendor_rows = array();
 $chart_violation_amount_rows = array();
@@ -28,7 +29,7 @@ foreach ($dashchart_array as $dashch) {
     array_push($chart_violation_amount_rows, $dashch->skucount);
     array_push($chart_violation_amount2_rows, $dashch->dealercount);
 }
-
+ 
 $js_data_string_vendors = implode($chart_vendor_rows, ",");
 $js_data_string_amounts = implode($chart_violation_amount_rows, ",");
 $js_data2_string_amounts = implode($chart_violation_amount2_rows, ",");
