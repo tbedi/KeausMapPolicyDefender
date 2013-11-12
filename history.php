@@ -94,7 +94,7 @@ if ($product_id) {
 
 $sql = "SELECT SQL_CALC_FOUND_ROWS   catalog_product_flat_1.sku as sku, crawl_results.website_id,crawl_results.id,  date_format(crawl.date_executed,'%m-%d-%Y') as date_executed,
 			 	catalog_product_flat_1.name as pname,catalog_product_flat_1.entity_id as product_id, website.name as vendor,  crawl_results.vendor_price , crawl_results.map_price ,
-				crawl_results.violation_amount , crawl_results.website_product_url, crawl_results.seller as seller
+				crawl_results.violation_amount , crawl_results.website_product_url,crawl_results.image_url, crawl_results.seller as seller
 				FROM website
 				INNER JOIN crawl_results ON website.id = crawl_results.website_id
 				INNER JOIN catalog_product_flat_1 ON catalog_product_flat_1.entity_id=crawl_results.product_id

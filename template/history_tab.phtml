@@ -193,6 +193,9 @@
                     <td> <a>Link</a>
 
                     </td>
+                    <td> <a>Saved Preview</a>
+
+                    </td>
                 </tr>
            
 
@@ -238,6 +241,7 @@
                         <td id="<?php echo $cell_id; ?>"><?php echo toMoney($violator->violation_amount); ?></td>
                         <td><?php echo $violator->date_executed; ?></td>
                         <td><a href="<?php echo $violator->website_product_url; ?>" target="_blank">View</a></td>
+                         <td><a href="<?php echo $violator->image_url; ?>" target="_blank">View</a></td>
                     </tr>				
 <?php } ?>
 
