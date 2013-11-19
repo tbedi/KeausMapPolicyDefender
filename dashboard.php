@@ -19,9 +19,15 @@ $last_crawl = implode(",",$last_crawl_ids);
 /* Getting last Crawl Id */
 
 /* Getting Previous Crawil Id */
-$sqlcwl = "SELECT id FROM crawl WHERE date_executed <'".$date_last_crawl."'ORDER BY id DESC LIMIT 1,1"; //query used to fetch max-1 id
+$date_last_crawl_prev=date("Y-m-d 00:00:00",strtotime($datecp[1]->date_executed));
+$sqlcwl = "SELECT id FROM crawl WHERE date_executed >='".$date_last_crawl_prev."' AND date_executed < '".$date_last_crawl."' ORDER BY id DESC "; //query used to fetch max-1 id
+ 
 $last_crawl1 = $db_resource->GetResultObj($sqlcwl);
-$previous_crawl_id = $last_crawl1[0]->id;
+$prev_crawl_ids=array();
+foreach ($last_crawl1 as $crawl_id) {
+	array_push($prev_crawl_ids,$crawl_id->id);
+}
+$previous_crawl_id = implode(",",$prev_crawl_ids);
 /* Getting Previous Crawil Id */
 
 /* top violations by dealer */
