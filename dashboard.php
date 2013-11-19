@@ -1,7 +1,7 @@
 <?php
 
 /* For other pages */
-$date = "select date_executed FROM crawl group by date_executed ORDER BY id DESC LIMIT 0,2"; //query for fetching current and previous date
+$date = "select date_executed FROM crawl group by DATE(date_executed) ORDER BY id DESC LIMIT 0,2"; //query for fetching current and previous date
 $datecp = $db_resource->GetResultObj($date); // Used in history.php
 /* For other pages */
  
