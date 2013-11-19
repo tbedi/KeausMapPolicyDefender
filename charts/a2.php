@@ -1,9 +1,9 @@
 
 <?php
 //getting last crawl
-$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
-$result = $db_resource->GetResultObj($sql);
-$last_crawl = $result[0]->id;
+//$sql = "select id, date_executed  from crawl  ORDER BY id DESC  LIMIT 1";
+//$result = $db_resource->GetResultObj($sql);
+//$last_crawl = $result[0]->id;
  
 $limit = 10; // x in the Top x Products  
 //Getting Top x Price violations by Product from last Crawl process
@@ -14,7 +14,7 @@ $sql = "SELECT  w.`name`,
     website w 
     ON
     r.website_id=w.id 
-    WHERE r.crawl_id=" . $last_crawl . "
+    WHERE r.crawl_id IN (" . $last_crawl . ")
     AND r.violation_amount>0.05
     and w.excluded = 0 
     GROUP BY w.`name` ORDER BY COUNT(w.`name`) DESC LIMIT " . $limit;
